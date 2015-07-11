@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["parse_xml","Parse into a type which implements `ParseResult`."],["parse_xml_to","Parse and send results to a `TreeSink`."],["tokenize_xml_to","Tokenize and send results to a `XTokenSink`."]],"mod":[["tokenizer",""],["tree_builder",""]],"trait":[["ParseResult","Results which can be extracted from a `TreeSink`."]]});
