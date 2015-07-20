@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/time-0.1.30/src/sys.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/time-0.1.31/src/sys.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>sys.rs.html -- source</title>
@@ -34,7 +34,7 @@
             <div class="search-container">
                 <input class="search-input" name="search"
                        autocomplete="off"
-                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
                        type="search">
             </div>
         </form>
@@ -792,7 +792,7 @@
         <span class='kw'>impl</span> <span class='ident'>Sub</span> <span class='kw'>for</span> <span class='ident'>SteadyTime</span> {
             <span class='kw'>type</span> <span class='ident'>Output</span> <span class='op'>=</span> <span class='ident'>Duration</span>;
             <span class='kw'>fn</span> <span class='ident'>sub</span>(<span class='self'>self</span>, <span class='ident'>other</span>: <span class='ident'>SteadyTime</span>) <span class='op'>-&gt;</span> <span class='ident'>Duration</span> {
-                <span class='ident'>Duration</span>::<span class='ident'>nanoseconds</span>((<span class='self'>self</span>.<span class='ident'>t</span> <span class='op'>-</span> <span class='ident'>other</span>.<span class='ident'>t</span>) <span class='kw'>as</span> <span class='ident'>i64</span>)
+                <span class='ident'>Duration</span>::<span class='ident'>nanoseconds</span>(<span class='self'>self</span>.<span class='ident'>t</span> <span class='kw'>as</span> <span class='ident'>i64</span> <span class='op'>-</span> <span class='ident'>other</span>.<span class='ident'>t</span> <span class='kw'>as</span> <span class='ident'>i64</span>)
             }
         }
         <span class='kw'>impl</span> <span class='ident'>Sub</span><span class='op'>&lt;</span><span class='ident'>Duration</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>SteadyTime</span> {
@@ -1251,7 +1251,7 @@
 
     <div id="help" class="hidden">
         <div class="shortcuts">
-            <h1>Keyboard shortcuts</h1>
+            <h1>Keyboard Shortcuts</h1>
             <dl>
                 <dt>?</dt>
                 <dd>Show this help dialog</dd>
@@ -1266,7 +1266,7 @@
             </dl>
         </div>
         <div class="infos">
-            <h1>Search tricks</h1>
+            <h1>Search Tricks</h1>
             <p>
                 Prefix searches with a type followed by a colon (e.g.
                 <code>fn:</code>) to restrict the search to a given type.
