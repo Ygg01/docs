@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/string_cache_shared-0.1.3/lib.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/string_cache_shared-0.1.4/lib.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>lib.rs.html -- source</title>
@@ -167,6 +167,43 @@
 <span id="125">125</span>
 <span id="126">126</span>
 <span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2014 The Servo Project Developers. See the COPYRIGHT</span>
 <span class='comment'>// file at the top-level directory of this distribution.</span>
@@ -181,18 +218,24 @@
 <span class='doccomment'>//! the macros crate and the run-time library, in order to guarantee</span>
 <span class='doccomment'>//! consistency.</span>
 
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>raw</span>, <span class='ident'>slice_bytes</span>, <span class='ident'>core_intrinsics</span>)]</span>
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>deny</span>(<span class='ident'>warnings</span>)]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>test</span>, <span class='ident'>deny</span>(<span class='ident'>warnings</span>))]</span>
 
-<span class='kw'>use</span> <span class='ident'>std</span>::{<span class='ident'>mem</span>, <span class='ident'>raw</span>, <span class='ident'>intrinsics</span>};
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>slice</span>::<span class='ident'>bytes</span>;
+<span class='attribute'>#[<span class='ident'>macro_use</span>]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>debug_unreachable</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>phf</span>;
+
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ptr</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>slice</span>;
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>UnpackedAtom</span>::{<span class='ident'>Dynamic</span>, <span class='ident'>Inline</span>, <span class='ident'>Static</span>};
 
+<span class='macro'>include</span><span class='macro'>!</span>(<span class='macro'>concat</span><span class='macro'>!</span>(<span class='macro'>env</span><span class='macro'>!</span>(<span class='string'>&quot;OUT_DIR&quot;</span>), <span class='string'>&quot;/static_atom_set.rs&quot;</span>));
+
 <span class='comment'>// FIXME(rust-lang/rust#18153): generate these from an enum</span>
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>DYNAMIC_TAG</span>: <span class='ident'>u8</span> <span class='op'>=</span> <span class='number'>0u8</span>;
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>INLINE_TAG</span>: <span class='ident'>u8</span> <span class='op'>=</span> <span class='number'>1u8</span>;  <span class='comment'>// len in upper nybble</span>
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>STATIC_TAG</span>: <span class='ident'>u8</span> <span class='op'>=</span> <span class='number'>2u8</span>;
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>DYNAMIC_TAG</span>: <span class='ident'>u8</span> <span class='op'>=</span> <span class='number'>0b_00</span>;
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>INLINE_TAG</span>: <span class='ident'>u8</span> <span class='op'>=</span> <span class='number'>0b_01</span>;  <span class='comment'>// len in upper nybble</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>STATIC_TAG</span>: <span class='ident'>u8</span> <span class='op'>=</span> <span class='number'>0b_10</span>;
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>TAG_MASK</span>: <span class='ident'>u64</span> <span class='op'>=</span> <span class='number'>0b_11</span>;
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ENTRY_ALIGNMENT</span>: <span class='ident'>usize</span> <span class='op'>=</span> <span class='number'>4</span>;  <span class='comment'>// Multiples have TAG_MASK bits unset, available for tagging.</span>
 
 <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>MAX_INLINE_LEN</span>: <span class='ident'>usize</span> <span class='op'>=</span> <span class='number'>7</span>;
 
@@ -212,11 +255,26 @@
 
 <span class='kw'>const</span> <span class='ident'>STATIC_SHIFT_BITS</span>: <span class='ident'>usize</span> <span class='op'>=</span> <span class='number'>32</span>;
 
+<span class='kw'>pub</span> <span class='kw'>static</span> <span class='ident'>ALL_NS</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> [(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>, <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>)] <span class='op'>=</span> <span class='kw-2'>&amp;</span>[
+    (<span class='string'>&quot;&quot;</span>, <span class='string'>&quot;&quot;</span>),
+    (<span class='string'>&quot;html&quot;</span>, <span class='string'>&quot;http://www.w3.org/1999/xhtml&quot;</span>),
+    (<span class='string'>&quot;xml&quot;</span>, <span class='string'>&quot;http://www.w3.org/XML/1998/namespace&quot;</span>),
+    (<span class='string'>&quot;xmlns&quot;</span>, <span class='string'>&quot;http://www.w3.org/2000/xmlns/&quot;</span>),
+    (<span class='string'>&quot;xlink&quot;</span>, <span class='string'>&quot;http://www.w3.org/1999/xlink&quot;</span>),
+    (<span class='string'>&quot;svg&quot;</span>, <span class='string'>&quot;http://www.w3.org/2000/svg&quot;</span>),
+    (<span class='string'>&quot;mathml&quot;</span>, <span class='string'>&quot;http://www.w3.org/1998/Math/MathML&quot;</span>),
+];
+
+<span class='kw'>struct</span> <span class='ident'>RawSlice</span> {
+    <span class='ident'>data</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>,
+    <span class='ident'>len</span>: <span class='ident'>usize</span>,
+}
+
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>target_endian</span> <span class='op'>=</span> <span class='string'>&quot;little&quot;</span>)]</span>  <span class='comment'>// Not implemented yet for big-endian</span>
 <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
-<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>inline_atom_slice</span>(<span class='ident'>x</span>: <span class='kw-2'>&amp;</span><span class='ident'>u64</span>) <span class='op'>-&gt;</span> <span class='ident'>raw</span>::<span class='ident'>Slice</span><span class='op'>&lt;</span><span class='ident'>u8</span><span class='op'>&gt;</span> {
+<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>inline_atom_slice</span>(<span class='ident'>x</span>: <span class='kw-2'>&amp;</span><span class='ident'>u64</span>) <span class='op'>-&gt;</span> <span class='ident'>RawSlice</span> {
     <span class='kw'>let</span> <span class='ident'>x</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u64</span> <span class='op'>=</span> <span class='ident'>x</span>;
-    <span class='ident'>raw</span>::<span class='ident'>Slice</span> {
+    <span class='ident'>RawSlice</span> {
         <span class='ident'>data</span>: (<span class='ident'>x</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>).<span class='ident'>offset</span>(<span class='number'>1</span>),
         <span class='ident'>len</span>: <span class='number'>7</span>,
     }
@@ -233,15 +291,17 @@
             <span class='ident'>Static</span>(<span class='ident'>n</span>) <span class='op'>=&gt;</span> <span class='ident'>pack_static</span>(<span class='ident'>n</span>),
             <span class='ident'>Dynamic</span>(<span class='ident'>p</span>) <span class='op'>=&gt;</span> {
                 <span class='kw'>let</span> <span class='ident'>n</span> <span class='op'>=</span> <span class='ident'>p</span> <span class='kw'>as</span> <span class='ident'>u64</span>;
-                <span class='macro'>debug_assert</span><span class='macro'>!</span>(<span class='number'>0</span> <span class='op'>==</span> <span class='ident'>n</span> <span class='kw-2'>&amp;</span> <span class='number'>0xf</span>);
+                <span class='macro'>debug_assert</span><span class='macro'>!</span>(<span class='number'>0</span> <span class='op'>==</span> <span class='ident'>n</span> <span class='kw-2'>&amp;</span> <span class='ident'>TAG_MASK</span>);
                 <span class='ident'>n</span>
             }
             <span class='ident'>Inline</span>(<span class='ident'>len</span>, <span class='ident'>buf</span>) <span class='op'>=&gt;</span> {
                 <span class='macro'>debug_assert</span><span class='macro'>!</span>((<span class='ident'>len</span> <span class='kw'>as</span> <span class='ident'>usize</span>) <span class='op'>&lt;=</span> <span class='ident'>MAX_INLINE_LEN</span>);
                 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>data</span>: <span class='ident'>u64</span> <span class='op'>=</span> (<span class='ident'>INLINE_TAG</span> <span class='kw'>as</span> <span class='ident'>u64</span>) <span class='op'>|</span> ((<span class='ident'>len</span> <span class='kw'>as</span> <span class='ident'>u64</span>) <span class='op'>&lt;&lt;</span> <span class='number'>4</span>);
                 {
-                    <span class='kw'>let</span> <span class='ident'>dest</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='ident'>u8</span>] <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>inline_atom_slice</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>data</span>));
-                    <span class='ident'>bytes</span>::<span class='ident'>copy_memory</span>(<span class='kw-2'>&amp;</span><span class='ident'>buf</span>[..], <span class='ident'>dest</span>);
+                    <span class='kw'>let</span> <span class='ident'>raw_slice</span> <span class='op'>=</span> <span class='ident'>inline_atom_slice</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>data</span>);
+                    <span class='kw'>let</span> <span class='ident'>dest</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='ident'>u8</span>] <span class='op'>=</span> <span class='ident'>slice</span>::<span class='ident'>from_raw_parts_mut</span>(
+                        <span class='ident'>raw_slice</span>.<span class='ident'>data</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>u8</span>, <span class='ident'>raw_slice</span>.<span class='ident'>len</span>);
+                    <span class='ident'>copy_memory</span>(<span class='kw-2'>&amp;</span><span class='ident'>buf</span>[..], <span class='ident'>dest</span>);
                 }
                 <span class='ident'>data</span>
             }
@@ -252,21 +312,19 @@
     <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_packed</span>(<span class='ident'>data</span>: <span class='ident'>u64</span>) <span class='op'>-&gt;</span> <span class='ident'>UnpackedAtom</span> {
         <span class='macro'>debug_assert</span><span class='macro'>!</span>(<span class='ident'>DYNAMIC_TAG</span> <span class='op'>==</span> <span class='number'>0</span>); <span class='comment'>// Dynamic is untagged</span>
 
-        <span class='kw'>match</span> (<span class='ident'>data</span> <span class='kw-2'>&amp;</span> <span class='number'>0xf</span>) <span class='kw'>as</span> <span class='ident'>u8</span> {
+        <span class='kw'>match</span> (<span class='ident'>data</span> <span class='kw-2'>&amp;</span> <span class='ident'>TAG_MASK</span>) <span class='kw'>as</span> <span class='ident'>u8</span> {
             <span class='ident'>DYNAMIC_TAG</span> <span class='op'>=&gt;</span> <span class='ident'>Dynamic</span>(<span class='ident'>data</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> ()),
             <span class='ident'>STATIC_TAG</span> <span class='op'>=&gt;</span> <span class='ident'>Static</span>((<span class='ident'>data</span> <span class='op'>&gt;&gt;</span> <span class='ident'>STATIC_SHIFT_BITS</span>) <span class='kw'>as</span> <span class='ident'>u32</span>),
             <span class='ident'>INLINE_TAG</span> <span class='op'>=&gt;</span> {
                 <span class='kw'>let</span> <span class='ident'>len</span> <span class='op'>=</span> ((<span class='ident'>data</span> <span class='kw-2'>&amp;</span> <span class='number'>0xf0</span>) <span class='op'>&gt;&gt;</span> <span class='number'>4</span>) <span class='kw'>as</span> <span class='ident'>usize</span>;
                 <span class='macro'>debug_assert</span><span class='macro'>!</span>(<span class='ident'>len</span> <span class='op'>&lt;=</span> <span class='ident'>MAX_INLINE_LEN</span>);
                 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>buf</span>: [<span class='ident'>u8</span>; <span class='number'>7</span>] <span class='op'>=</span> [<span class='number'>0</span>; <span class='number'>7</span>];
-                <span class='kw'>let</span> <span class='ident'>src</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>] <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>inline_atom_slice</span>(<span class='kw-2'>&amp;</span><span class='ident'>data</span>));
-                <span class='ident'>bytes</span>::<span class='ident'>copy_memory</span>(<span class='ident'>src</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>buf</span>[..]);
+                <span class='kw'>let</span> <span class='ident'>raw_slice</span> <span class='op'>=</span> <span class='ident'>inline_atom_slice</span>(<span class='kw-2'>&amp;</span><span class='ident'>data</span>);
+                <span class='kw'>let</span> <span class='ident'>src</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>] <span class='op'>=</span> <span class='ident'>slice</span>::<span class='ident'>from_raw_parts</span>(<span class='ident'>raw_slice</span>.<span class='ident'>data</span>, <span class='ident'>raw_slice</span>.<span class='ident'>len</span>);
+                <span class='ident'>copy_memory</span>(<span class='ident'>src</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>buf</span>[..]);
                 <span class='ident'>Inline</span>(<span class='ident'>len</span> <span class='kw'>as</span> <span class='ident'>u8</span>, <span class='ident'>buf</span>)
             },
-
-            <span class='comment'>// intrinsics::unreachable() in release builds?</span>
-            <span class='comment'>// See rust-lang/rust#18152.</span>
-            _ <span class='op'>=&gt;</span> <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;impossible&quot;</span>),
+            _ <span class='op'>=&gt;</span> <span class='macro'>debug_unreachable</span><span class='macro'>!</span>(),
         }
     }
 }
@@ -274,7 +332,7 @@
 <span class='doccomment'>/// Used for a fast path in Clone and Drop.</span>
 <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_packed_dynamic</span>(<span class='ident'>data</span>: <span class='ident'>u64</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='op'>*</span><span class='kw-2'>mut</span> ()<span class='op'>&gt;</span> {
-    <span class='kw'>if</span> (<span class='ident'>DYNAMIC_TAG</span> <span class='kw'>as</span> <span class='ident'>u64</span>) <span class='op'>==</span> (<span class='ident'>data</span> <span class='kw-2'>&amp;</span> <span class='number'>0xf</span>) {
+    <span class='kw'>if</span> (<span class='ident'>DYNAMIC_TAG</span> <span class='kw'>as</span> <span class='ident'>u64</span>) <span class='op'>==</span> (<span class='ident'>data</span> <span class='kw-2'>&amp;</span> <span class='ident'>TAG_MASK</span>) {
         <span class='prelude-val'>Some</span>(<span class='ident'>data</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> ())
     } <span class='kw'>else</span> {
         <span class='prelude-val'>None</span>
@@ -289,10 +347,26 @@
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>inline_orig_bytes</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='ident'>data</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>u64</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> [<span class='ident'>u8</span>] {
     <span class='kw'>match</span> <span class='ident'>UnpackedAtom</span>::<span class='ident'>from_packed</span>(<span class='op'>*</span><span class='ident'>data</span>) {
         <span class='ident'>Inline</span>(<span class='ident'>len</span>, _) <span class='op'>=&gt;</span> {
-            <span class='kw'>let</span> <span class='ident'>src</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>] <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='ident'>inline_atom_slice</span>(<span class='ident'>data</span>));
+            <span class='kw'>let</span> <span class='ident'>raw_slice</span> <span class='op'>=</span> <span class='ident'>inline_atom_slice</span>(<span class='kw-2'>&amp;</span><span class='ident'>data</span>);
+            <span class='kw'>let</span> <span class='ident'>src</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>] <span class='op'>=</span> <span class='ident'>slice</span>::<span class='ident'>from_raw_parts</span>(<span class='ident'>raw_slice</span>.<span class='ident'>data</span>, <span class='ident'>raw_slice</span>.<span class='ident'>len</span>);
             <span class='kw-2'>&amp;</span><span class='ident'>src</span>[..(<span class='ident'>len</span> <span class='kw'>as</span> <span class='ident'>usize</span>)]
         }
-        _ <span class='op'>=&gt;</span> <span class='ident'>intrinsics</span>::<span class='ident'>unreachable</span>(),
+        _ <span class='op'>=&gt;</span> <span class='macro'>debug_unreachable</span><span class='macro'>!</span>(),
+    }
+}
+
+
+<span class='doccomment'>/// Copy of std::slice::bytes::copy_memory, which is unstable.</span>
+<span class='attribute'>#[<span class='ident'>inline</span>]</span>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>copy_memory</span>(<span class='ident'>src</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>], <span class='ident'>dst</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='ident'>u8</span>]) {
+    <span class='kw'>let</span> <span class='ident'>len_src</span> <span class='op'>=</span> <span class='ident'>src</span>.<span class='ident'>len</span>();
+    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>dst</span>.<span class='ident'>len</span>() <span class='op'>&gt;=</span> <span class='ident'>len_src</span>);
+    <span class='comment'>// `dst` is unaliasable, so we know statically it doesn&#39;t overlap</span>
+    <span class='comment'>// with `src`.</span>
+    <span class='kw'>unsafe</span> {
+        <span class='ident'>ptr</span>::<span class='ident'>copy_nonoverlapping</span>(<span class='ident'>src</span>.<span class='ident'>as_ptr</span>(),
+                                 <span class='ident'>dst</span>.<span class='ident'>as_mut_ptr</span>(),
+                                 <span class='ident'>len_src</span>);
     }
 }
 </pre>

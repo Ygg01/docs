@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/string_cache_plugin-0.1.4/src/lib.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/string_cache_plugin-0.1.5/src/lib.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>lib.rs.html -- source</title>
@@ -78,7 +78,6 @@
 <span id="36">36</span>
 <span id="37">37</span>
 <span id="38">38</span>
-<span id="39">39</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2014 The Servo Project Developers. See the</span>
 <span class='comment'>// COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -94,7 +93,7 @@
 
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>plugin_registrar</span>, <span class='ident'>quote</span>, <span class='ident'>box_syntax</span>)]</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>rustc_private</span>, <span class='ident'>slice_patterns</span>)]</span>
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>deny</span>(<span class='ident'>warnings</span>)]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>test</span>, <span class='ident'>deny</span>(<span class='ident'>warnings</span>))]</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>allow</span>(<span class='ident'>unused_imports</span>)]</span>  <span class='comment'>// for quotes</span>
 
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>syntax</span>;
@@ -115,7 +114,6 @@
 <span class='comment'>// NB: This needs to be public or we get a linker error.</span>
 <span class='attribute'>#[<span class='ident'>plugin_registrar</span>]</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>plugin_registrar</span>(<span class='ident'>reg</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Registry</span>) {
-    <span class='ident'>reg</span>.<span class='ident'>register_macro</span>(<span class='string'>&quot;static_atom_set&quot;</span>, <span class='ident'>atom</span>::<span class='ident'>expand_static_atom_set</span>);
     <span class='ident'>reg</span>.<span class='ident'>register_macro</span>(<span class='string'>&quot;atom&quot;</span>, <span class='ident'>atom</span>::<span class='ident'>expand_atom</span>);
     <span class='ident'>reg</span>.<span class='ident'>register_macro</span>(<span class='string'>&quot;ns&quot;</span>, <span class='ident'>atom</span>::<span class='ident'>expand_ns</span>);
 }
