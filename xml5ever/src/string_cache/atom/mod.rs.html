@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/string_cache-0.1.8/src/atom/mod.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/string_cache-0.1.9/src/atom/mod.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>mod.rs.html -- source</title>
@@ -719,7 +719,7 @@
 
 <span class='comment'>// NOTE: Deriving Eq here implies that a given string must always</span>
 <span class='comment'>// be interned the same way.</span>
-<span class='attribute'>#[<span class='ident'>cfg_attr</span>(<span class='ident'>unstable</span>, <span class='ident'>unsafe_no_drop_flag</span>)]</span>  <span class='comment'>// See tests::atom_drop_is_idempotent</span>
+<span class='attribute'>#[<span class='ident'>cfg_attr</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;unstable&quot;</span>, <span class='ident'>unsafe_no_drop_flag</span>)]</span>  <span class='comment'>// See tests::atom_drop_is_idempotent</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Eq</span>, <span class='ident'>Hash</span>, <span class='ident'>PartialEq</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Atom</span> {
     <span class='doccomment'>/// This field is public so that the `atom!()` macro can use it.</span>
@@ -1056,7 +1056,7 @@
     <span class='kw'>fn</span> <span class='ident'>assert_sizes</span>() {
         <span class='comment'>// Guard against accidental changes to the sizes of things.</span>
         <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='kw'>if</span> <span class='macro'>cfg</span><span class='macro'>!</span>(<span class='ident'>unstable</span>) { <span class='number'>8</span> } <span class='kw'>else</span> { <span class='number'>16</span> }, <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>super</span>::<span class='ident'>Atom</span><span class='op'>&gt;</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='kw'>if</span> <span class='macro'>cfg</span><span class='macro'>!</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;unstable&quot;</span>) { <span class='number'>8</span> } <span class='kw'>else</span> { <span class='number'>16</span> }, <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>super</span>::<span class='ident'>Atom</span><span class='op'>&gt;</span>());
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='number'>48</span>, <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>super</span>::<span class='ident'>StringCacheEntry</span><span class='op'>&gt;</span>());
     }
 
