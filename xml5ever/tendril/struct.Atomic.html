@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `format_tendril!` macro in crate `tendril`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, format_tendril!">
+    <meta name="description" content="API documentation for the Rust `Atomic` struct in crate `tendril`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Atomic">
 
-    <title>tendril::format_tendril! - Rust</title>
+    <title>tendril::Atomic - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../main.css">
 
@@ -26,7 +26,7 @@
 
     <section class="sidebar">
         
-        <p class='location'><a href='index.html'>tendril</a></p><script>window.sidebarCurrent = {name: 'format_tendril!', ty: 'macro', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'><a href='index.html'>tendril</a></p><script>window.sidebarCurrent = {name: 'Atomic', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </section>
 
     <nav class="sub">
@@ -40,19 +40,22 @@
         </form>
     </nav>
 
-    <section id='main' class="content macro">
-<h1 class='fqn'><span class='in-band'><a href='index.html'>tendril</a>::<wbr><a class='macro' href=''>format_tendril!</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>tendril</a>::<wbr><a class='struct' href=''>Atomic</a></span><span class='out-of-band'><span id='render-detail'>
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-7739' class='srclink' href='../src/tendril/tendril.rs.html#1461-1463' title='goto source code'>[src]</a></span></h1>
-<pre class='rust macro'>
-<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>format_tendril</span> {
-    ($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg</span>:<span class='ident'>tt</span>)<span class='op'>*</span>) <span class='op'>=&gt;</span> (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>StrTendril</span>::<span class='ident'>format</span>(<span class='macro'>format_args</span><span class='macro'>!</span>($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg</span>)<span class='op'>*</span>)))
-}</pre>
-<div class='docblock'><p>Create a <code>StrTendril</code> through string formatting.</p>
+        </span><a id='src-3100' class='srclink' href='../src/tendril/tendril.rs.html#110' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Atomic(_);</pre><div class='docblock'><p>A marker of an atomic (and hence concurrent) tendril.</p>
 
-<p>Works just like the standard <code>format!</code> macro.</p>
+<p>This is used as the second, optional type parameter of a <code>Tendril</code>; <code>Tendril&lt;F, Atomic&gt;</code> thus
+implements both <code>Send</code> and <code>Sync</code>.</p>
+
+<p>This is akin to using <code>Arc</code> for reference counting.</p>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../tendril/trait.Atomicity.html' title='tendril::Atomicity'>Atomicity</a> for <a class='struct' href='../tendril/struct.Atomic.html' title='tendril::Atomic'>Atomic</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='../tendril/trait.Atomicity.html#method.new' class='fnname'>new</a>() -&gt; Self</code></h4>
+<h4 id='method.increment' class='method'><code>fn <a href='../tendril/trait.Atomicity.html#method.increment' class='fnname'>increment</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></h4>
+<h4 id='method.decrement' class='method'><code>fn <a href='../tendril/trait.Atomicity.html#method.decrement' class='fnname'>decrement</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></h4>
+<h4 id='method.fence_acquire' class='method'><code>fn <a href='../tendril/trait.Atomicity.html#method.fence_acquire' class='fnname'>fence_acquire</a>()</code></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
 

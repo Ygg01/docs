@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `format_tendril!` macro in crate `tendril`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, format_tendril!">
+    <meta name="description" content="API documentation for the Rust `Atomicity` trait in crate `tendril`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Atomicity">
 
-    <title>tendril::format_tendril! - Rust</title>
+    <title>tendril::Atomicity - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../main.css">
 
@@ -26,7 +26,7 @@
 
     <section class="sidebar">
         
-        <p class='location'><a href='index.html'>tendril</a></p><script>window.sidebarCurrent = {name: 'format_tendril!', ty: 'macro', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'><a href='index.html'>tendril</a></p><script>window.sidebarCurrent = {name: 'Atomicity', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </section>
 
     <nav class="sub">
@@ -40,20 +40,33 @@
         </form>
     </nav>
 
-    <section id='main' class="content macro">
-<h1 class='fqn'><span class='in-band'><a href='index.html'>tendril</a>::<wbr><a class='macro' href=''>format_tendril!</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='index.html'>tendril</a>::<wbr><a class='trait' href=''>Atomicity</a></span><span class='out-of-band'><span id='render-detail'>
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-7739' class='srclink' href='../src/tendril/tendril.rs.html#1461-1463' title='goto source code'>[src]</a></span></h1>
-<pre class='rust macro'>
-<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>format_tendril</span> {
-    ($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg</span>:<span class='ident'>tt</span>)<span class='op'>*</span>) <span class='op'>=&gt;</span> (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>StrTendril</span>::<span class='ident'>format</span>(<span class='macro'>format_args</span><span class='macro'>!</span>($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg</span>)<span class='op'>*</span>)))
-}</pre>
-<div class='docblock'><p>Create a <code>StrTendril</code> through string formatting.</p>
+        </span><a id='src-3014' class='srclink' href='../src/tendril/tendril.rs.html#57-69' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub unsafe trait Atomicity: 'static { }</pre><div class='docblock'><p>The multithreadedness of a tendril.</p>
 
-<p>Works just like the standard <code>format!</code> macro.</p>
-</div></section>
+<p>Exactly two types implement this trait:</p>
+
+<ul>
+<li><p><code>Atomic</code>: use this in your tendril and you will have a <code>Send + Sync</code> tendril which works
+across threads; this is akin to <code>Arc</code>.</p></li>
+<li><p><code>NonAtomic</code>: use this in your tendril and you will have a tendril which is neither
+<code>Send</code> nor <code>Sync</code> but should be a tad faster; this is akin to <code>Rc</code>.</p></li>
+</ul>
+
+<p>The layout of this trait is also mandated to be that of a <code>usize</code>,
+for it is used for reference counting.</p>
+</div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><code>impl <a class='trait' href='../tendril/trait.Atomicity.html' title='tendril::Atomicity'>Atomicity</a> for <a class='struct' href='../tendril/struct.NonAtomic.html' title='tendril::NonAtomic'>NonAtomic</a></code></li>
+<li><code>impl <a class='trait' href='../tendril/trait.Atomicity.html' title='tendril::Atomicity'>Atomicity</a> for <a class='struct' href='../tendril/struct.Atomic.html' title='tendril::Atomic'>Atomic</a></code></li>
+</ul><script type="text/javascript" async
+                              src="../implementors/tendril/trait.Atomicity.js">
+                      </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
