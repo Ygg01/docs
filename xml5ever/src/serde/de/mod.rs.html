@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/serde-0.4.3/src/de/mod.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/serde-0.5.0/src/de/mod.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>mod.rs.html -- source</title>
@@ -668,6 +668,58 @@
 <span id="626">626</span>
 <span id="627">627</span>
 <span id="628">628</span>
+<span id="629">629</span>
+<span id="630">630</span>
+<span id="631">631</span>
+<span id="632">632</span>
+<span id="633">633</span>
+<span id="634">634</span>
+<span id="635">635</span>
+<span id="636">636</span>
+<span id="637">637</span>
+<span id="638">638</span>
+<span id="639">639</span>
+<span id="640">640</span>
+<span id="641">641</span>
+<span id="642">642</span>
+<span id="643">643</span>
+<span id="644">644</span>
+<span id="645">645</span>
+<span id="646">646</span>
+<span id="647">647</span>
+<span id="648">648</span>
+<span id="649">649</span>
+<span id="650">650</span>
+<span id="651">651</span>
+<span id="652">652</span>
+<span id="653">653</span>
+<span id="654">654</span>
+<span id="655">655</span>
+<span id="656">656</span>
+<span id="657">657</span>
+<span id="658">658</span>
+<span id="659">659</span>
+<span id="660">660</span>
+<span id="661">661</span>
+<span id="662">662</span>
+<span id="663">663</span>
+<span id="664">664</span>
+<span id="665">665</span>
+<span id="666">666</span>
+<span id="667">667</span>
+<span id="668">668</span>
+<span id="669">669</span>
+<span id="670">670</span>
+<span id="671">671</span>
+<span id="672">672</span>
+<span id="673">673</span>
+<span id="674">674</span>
+<span id="675">675</span>
+<span id="676">676</span>
+<span id="677">677</span>
+<span id="678">678</span>
+<span id="679">679</span>
+<span id="680">680</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Generic deserialization framework.</span>
 
@@ -677,13 +729,13 @@
 <span class='comment'>///////////////////////////////////////////////////////////////////////////////</span>
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>Error</span> {
-    <span class='kw'>fn</span> <span class='ident'>syntax_error</span>() <span class='op'>-&gt;</span> <span class='kw'>Self</span>;
+    <span class='kw'>fn</span> <span class='ident'>syntax</span>(<span class='ident'>msg</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span>;
 
-    <span class='kw'>fn</span> <span class='ident'>end_of_stream_error</span>() <span class='op'>-&gt;</span> <span class='kw'>Self</span>;
+    <span class='kw'>fn</span> <span class='ident'>end_of_stream</span>() <span class='op'>-&gt;</span> <span class='kw'>Self</span>;
 
-    <span class='kw'>fn</span> <span class='ident'>unknown_field_error</span>(<span class='ident'>field</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span>;
+    <span class='kw'>fn</span> <span class='ident'>unknown_field</span>(<span class='ident'>field</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span>;
 
-    <span class='kw'>fn</span> <span class='ident'>missing_field_error</span>(<span class='ident'>field</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span>;
+    <span class='kw'>fn</span> <span class='ident'>missing_field</span>(<span class='ident'>field</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span>;
 }
 
 <span class='comment'>///////////////////////////////////////////////////////////////////////////////</span>
@@ -879,28 +931,47 @@
         <span class='self'>self</span>.<span class='ident'>visit</span>(<span class='ident'>visitor</span>)
     }
 
-    <span class='doccomment'>/// This method hints that the `Deserialize` type is expecting a named unit. This allows</span>
-    <span class='doccomment'>/// deserializers to a named unit that aren&#39;t tagged as a named unit.</span>
+    <span class='doccomment'>/// This method hints that the `Deserialize` type is expecting a unit struct. This allows</span>
+    <span class='doccomment'>/// deserializers to a unit struct that aren&#39;t tagged as a unit struct.</span>
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
-    <span class='kw'>fn</span> <span class='ident'>visit_named_unit</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_name</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
+    <span class='kw'>fn</span> <span class='ident'>visit_unit_struct</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>,
+                            <span class='ident'>_name</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>,
+                            <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>,
     {
-        <span class='self'>self</span>.<span class='ident'>visit</span>(<span class='ident'>visitor</span>)
+        <span class='self'>self</span>.<span class='ident'>visit_unit</span>(<span class='ident'>visitor</span>)
     }
 
-    <span class='doccomment'>/// This method hints that the `Deserialize` type is expecting a named sequence.</span>
-    <span class='doccomment'>/// This allows deserializers to parse sequences that aren&#39;t tagged as sequences.</span>
+    <span class='doccomment'>/// This method hints that the `Deserialize` type is expecting a newtype struct. This allows</span>
+    <span class='doccomment'>/// deserializers to a newtype struct that aren&#39;t tagged as a newtype struct.</span>
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
-    <span class='kw'>fn</span> <span class='ident'>visit_named_seq</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_name</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
+    <span class='kw'>fn</span> <span class='ident'>visit_newtype_struct</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>,
+                               <span class='ident'>name</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>,
+                               <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>,
     {
-        <span class='self'>self</span>.<span class='ident'>visit_seq</span>(<span class='ident'>visitor</span>)
+        <span class='self'>self</span>.<span class='ident'>visit_tuple_struct</span>(<span class='ident'>name</span>, <span class='number'>1</span>, <span class='ident'>visitor</span>)
     }
 
-    <span class='doccomment'>/// This method hints that the `Deserialize` type is expecting a named map.  This allows</span>
+    <span class='doccomment'>/// This method hints that the `Deserialize` type is expecting a tuple struct. This allows</span>
+    <span class='doccomment'>/// deserializers to parse sequences that aren&#39;t tagged as sequences.</span>
+    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>visit_tuple_struct</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>,
+                             <span class='ident'>_name</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>,
+                             <span class='ident'>len</span>: <span class='ident'>usize</span>,
+                             <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
+        <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>,
+    {
+        <span class='self'>self</span>.<span class='ident'>visit_tuple</span>(<span class='ident'>len</span>, <span class='ident'>visitor</span>)
+    }
+
+    <span class='doccomment'>/// This method hints that the `Deserialize` type is expecting a struct. This allows</span>
     <span class='doccomment'>/// deserializers to parse sequences that aren&#39;t tagged as maps.</span>
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
-    <span class='kw'>fn</span> <span class='ident'>visit_named_map</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_name</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
+    <span class='kw'>fn</span> <span class='ident'>visit_struct</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>,
+                       <span class='ident'>_name</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>,
+                       <span class='ident'>_fields</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> [<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>],
+                       <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>,
     {
         <span class='self'>self</span>.<span class='ident'>visit_map</span>(<span class='ident'>visitor</span>)
@@ -909,20 +980,23 @@
     <span class='doccomment'>/// This method hints that the `Deserialize` type is expecting a tuple value. This allows</span>
     <span class='doccomment'>/// deserializers that provide a custom tuple serialization to properly deserialize the type.</span>
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
-    <span class='kw'>fn</span> <span class='ident'>visit_tuple</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
+    <span class='kw'>fn</span> <span class='ident'>visit_tuple</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_len</span>: <span class='ident'>usize</span>, <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>,
     {
-        <span class='self'>self</span>.<span class='ident'>visit</span>(<span class='ident'>visitor</span>)
+        <span class='self'>self</span>.<span class='ident'>visit_seq</span>(<span class='ident'>visitor</span>)
     }
 
     <span class='doccomment'>/// This method hints that the `Deserialize` type is expecting an enum value. This allows</span>
     <span class='doccomment'>/// deserializers that provide a custom enumeration serialization to properly deserialize the</span>
     <span class='doccomment'>/// type.</span>
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
-    <span class='kw'>fn</span> <span class='ident'>visit_enum</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_enum</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>_visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
+    <span class='kw'>fn</span> <span class='ident'>visit_enum</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>,
+                     <span class='ident'>_enum</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>,
+                     <span class='ident'>_variants</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> [<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>],
+                     <span class='ident'>_visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>EnumVisitor</span>,
     {
-        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax_error</span>())
+        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax</span>(<span class='string'>&quot;expected an enum&quot;</span>))
     }
 
     <span class='doccomment'>/// This method hints that the `Deserialize` type is expecting a `Vec&lt;u8&gt;`. This allows</span>
@@ -932,7 +1006,7 @@
     <span class='kw'>fn</span> <span class='ident'>visit_bytes</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>,
     {
-        <span class='self'>self</span>.<span class='ident'>visit</span>(<span class='ident'>visitor</span>)
+        <span class='self'>self</span>.<span class='ident'>visit_seq</span>(<span class='ident'>visitor</span>)
     }
 
     <span class='doccomment'>/// Specify a format string for the deserializer.</span>
@@ -953,7 +1027,7 @@
     <span class='kw'>fn</span> <span class='ident'>visit_bool</span><span class='op'>&lt;</span><span class='ident'>E</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_v</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Self</span>::<span class='ident'>Value</span>, <span class='ident'>E</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>E</span>: <span class='ident'>Error</span>,
     {
-        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax_error</span>())
+        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax</span>(<span class='string'>&quot;expected a bool&quot;</span>))
     }
 
     <span class='kw'>fn</span> <span class='ident'>visit_isize</span><span class='op'>&lt;</span><span class='ident'>E</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>v</span>: <span class='ident'>isize</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Self</span>::<span class='ident'>Value</span>, <span class='ident'>E</span><span class='op'>&gt;</span>
@@ -983,7 +1057,7 @@
     <span class='kw'>fn</span> <span class='ident'>visit_i64</span><span class='op'>&lt;</span><span class='ident'>E</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_v</span>: <span class='ident'>i64</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Self</span>::<span class='ident'>Value</span>, <span class='ident'>E</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>E</span>: <span class='ident'>Error</span>,
     {
-        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax_error</span>())
+        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax</span>(<span class='string'>&quot;expected a i64&quot;</span>))
     }
 
     <span class='kw'>fn</span> <span class='ident'>visit_usize</span><span class='op'>&lt;</span><span class='ident'>E</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>v</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Self</span>::<span class='ident'>Value</span>, <span class='ident'>E</span><span class='op'>&gt;</span>
@@ -1013,7 +1087,7 @@
     <span class='kw'>fn</span> <span class='ident'>visit_u64</span><span class='op'>&lt;</span><span class='ident'>E</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_v</span>: <span class='ident'>u64</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Self</span>::<span class='ident'>Value</span>, <span class='ident'>E</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>E</span>: <span class='ident'>Error</span>,
     {
-        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax_error</span>())
+        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax</span>(<span class='string'>&quot;expected a u64&quot;</span>))
     }
 
     <span class='kw'>fn</span> <span class='ident'>visit_f32</span><span class='op'>&lt;</span><span class='ident'>E</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>v</span>: <span class='ident'>f32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Self</span>::<span class='ident'>Value</span>, <span class='ident'>E</span><span class='op'>&gt;</span>
@@ -1025,7 +1099,7 @@
     <span class='kw'>fn</span> <span class='ident'>visit_f64</span><span class='op'>&lt;</span><span class='ident'>E</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_v</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Self</span>::<span class='ident'>Value</span>, <span class='ident'>E</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>E</span>: <span class='ident'>Error</span>,
     {
-        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax_error</span>())
+        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax</span>(<span class='string'>&quot;expected a f64&quot;</span>))
     }
 
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
@@ -1040,7 +1114,7 @@
     <span class='kw'>fn</span> <span class='ident'>visit_str</span><span class='op'>&lt;</span><span class='ident'>E</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_v</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Self</span>::<span class='ident'>Value</span>, <span class='ident'>E</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>E</span>: <span class='ident'>Error</span>,
     {
-        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax_error</span>())
+        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax</span>(<span class='string'>&quot;expected a str&quot;</span>))
     }
 
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
@@ -1053,11 +1127,11 @@
     <span class='kw'>fn</span> <span class='ident'>visit_unit</span><span class='op'>&lt;</span><span class='ident'>E</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Self</span>::<span class='ident'>Value</span>, <span class='ident'>E</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>E</span>: <span class='ident'>Error</span>,
     {
-        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax_error</span>())
+        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax</span>(<span class='string'>&quot;expected a unit&quot;</span>))
     }
 
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
-    <span class='kw'>fn</span> <span class='ident'>visit_named_unit</span><span class='op'>&lt;</span><span class='ident'>E</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_name</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Self</span>::<span class='ident'>Value</span>, <span class='ident'>E</span><span class='op'>&gt;</span>
+    <span class='kw'>fn</span> <span class='ident'>visit_unit_struct</span><span class='op'>&lt;</span><span class='ident'>E</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_name</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Self</span>::<span class='ident'>Value</span>, <span class='ident'>E</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>E</span>: <span class='ident'>Error</span>,
     {
         <span class='self'>self</span>.<span class='ident'>visit_unit</span>()
@@ -1066,31 +1140,37 @@
     <span class='kw'>fn</span> <span class='ident'>visit_none</span><span class='op'>&lt;</span><span class='ident'>E</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Self</span>::<span class='ident'>Value</span>, <span class='ident'>E</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>E</span>: <span class='ident'>Error</span>,
     {
-        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax_error</span>())
+        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax</span>(<span class='string'>&quot;expected an Option::None&quot;</span>))
     }
 
     <span class='kw'>fn</span> <span class='ident'>visit_some</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_deserializer</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>D</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Self</span>::<span class='ident'>Value</span>, <span class='ident'>D</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>D</span>: <span class='ident'>Deserializer</span>,
     {
-        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax_error</span>())
+        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax</span>(<span class='string'>&quot;expected an Option::Some&quot;</span>))
+    }
+
+    <span class='kw'>fn</span> <span class='ident'>visit_newtype_struct</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_deserializer</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>D</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Self</span>::<span class='ident'>Value</span>, <span class='ident'>D</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
+        <span class='kw'>where</span> <span class='ident'>D</span>: <span class='ident'>Deserializer</span>,
+    {
+        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax</span>(<span class='string'>&quot;expected a newtype struct&quot;</span>))
     }
 
     <span class='kw'>fn</span> <span class='ident'>visit_seq</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Self</span>::<span class='ident'>Value</span>, <span class='ident'>V</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>SeqVisitor</span>,
     {
-        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax_error</span>())
+        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax</span>(<span class='string'>&quot;expected a sequence&quot;</span>))
     }
 
     <span class='kw'>fn</span> <span class='ident'>visit_map</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Self</span>::<span class='ident'>Value</span>, <span class='ident'>V</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>MapVisitor</span>,
     {
-        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax_error</span>())
+        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax</span>(<span class='string'>&quot;expected a map&quot;</span>))
     }
 
     <span class='kw'>fn</span> <span class='ident'>visit_bytes</span><span class='op'>&lt;</span><span class='ident'>E</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_v</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>]) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Self</span>::<span class='ident'>Value</span>, <span class='ident'>E</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>E</span>: <span class='ident'>Error</span>,
     {
-        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax_error</span>())
+        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax</span>(<span class='string'>&quot;expected a &amp;[u8]&quot;</span>))
     }
 
     <span class='kw'>fn</span> <span class='ident'>visit_byte_buf</span><span class='op'>&lt;</span><span class='ident'>E</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>v</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>u8</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Self</span>::<span class='ident'>Value</span>, <span class='ident'>E</span><span class='op'>&gt;</span>
@@ -1172,7 +1252,7 @@
     <span class='kw'>fn</span> <span class='ident'>missing_field</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>field</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Deserialize</span>,
     {
-        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>missing_field_error</span>(<span class='ident'>field</span>))
+        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>missing_field</span>(<span class='ident'>field</span>))
     }
 }
 
@@ -1236,21 +1316,35 @@
 
     <span class='doccomment'>/// `visit_unit` is called when deserializing a variant with no values.</span>
     <span class='kw'>fn</span> <span class='ident'>visit_unit</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span> {
-        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax_error</span>())
+        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax</span>(<span class='string'>&quot;expected a univ variant&quot;</span>))
     }
 
-    <span class='doccomment'>/// `visit_seq` is called when deserializing a tuple-like variant.</span>
-    <span class='kw'>fn</span> <span class='ident'>visit_seq</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
-        <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>
+    <span class='doccomment'>/// `visit_newtype` is called when deserializing a variant with a single value. By default this</span>
+    <span class='doccomment'>/// uses the `visit_tuple` method to deserialize the value.</span>
+    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>visit_newtype</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>T</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
+        <span class='kw'>where</span> <span class='ident'>T</span>: <span class='ident'>Deserialize</span>,
     {
-        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax_error</span>())
+        <span class='kw'>let</span> (<span class='ident'>value</span>,) <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>visit_tuple</span>(<span class='number'>1</span>, <span class='ident'>impls</span>::<span class='ident'>TupleVisitor1</span>::<span class='ident'>new</span>()));
+        <span class='prelude-val'>Ok</span>(<span class='ident'>value</span>)
     }
 
-    <span class='doccomment'>/// `visit_map` is called when deserializing a struct-like variant.</span>
-    <span class='kw'>fn</span> <span class='ident'>visit_map</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
+    <span class='doccomment'>/// `visit_tuple` is called when deserializing a tuple-like variant.</span>
+    <span class='kw'>fn</span> <span class='ident'>visit_tuple</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>,
+                      <span class='ident'>_len</span>: <span class='ident'>usize</span>,
+                      <span class='ident'>_visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>
     {
-        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax_error</span>())
+        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax</span>(<span class='string'>&quot;expected a tuple variant&quot;</span>))
+    }
+
+    <span class='doccomment'>/// `visit_struct` is called when deserializing a struct-like variant.</span>
+    <span class='kw'>fn</span> <span class='ident'>visit_struct</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>,
+                       <span class='ident'>_fields</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> [<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>],
+                       <span class='ident'>_visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
+        <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>
+    {
+        <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>syntax</span>(<span class='string'>&quot;expected a struct variant&quot;</span>))
     }
 }
 
@@ -1267,16 +1361,26 @@
         (<span class='op'>*</span><span class='op'>*</span><span class='self'>self</span>).<span class='ident'>visit_unit</span>()
     }
 
-    <span class='kw'>fn</span> <span class='ident'>visit_seq</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>T</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
-        <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>,
+    <span class='kw'>fn</span> <span class='ident'>visit_newtype</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>D</span>, <span class='ident'>T</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
+        <span class='kw'>where</span> <span class='ident'>D</span>: <span class='ident'>Deserialize</span>,
     {
-        (<span class='op'>*</span><span class='op'>*</span><span class='self'>self</span>).<span class='ident'>visit_seq</span>(<span class='ident'>visitor</span>)
+        (<span class='op'>*</span><span class='op'>*</span><span class='self'>self</span>).<span class='ident'>visit_newtype</span>()
     }
 
-    <span class='kw'>fn</span> <span class='ident'>visit_map</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>T</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
+    <span class='kw'>fn</span> <span class='ident'>visit_tuple</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>,
+                      <span class='ident'>len</span>: <span class='ident'>usize</span>,
+                      <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>T</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>,
     {
-        (<span class='op'>*</span><span class='op'>*</span><span class='self'>self</span>).<span class='ident'>visit_map</span>(<span class='ident'>visitor</span>)
+        (<span class='op'>*</span><span class='op'>*</span><span class='self'>self</span>).<span class='ident'>visit_tuple</span>(<span class='ident'>len</span>, <span class='ident'>visitor</span>)
+    }
+
+    <span class='kw'>fn</span> <span class='ident'>visit_struct</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>,
+                    <span class='ident'>fields</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> [<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>],
+                    <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>T</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
+        <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>,
+    {
+        (<span class='op'>*</span><span class='op'>*</span><span class='self'>self</span>).<span class='ident'>visit_struct</span>(<span class='ident'>fields</span>, <span class='ident'>visitor</span>)
     }
 }
 

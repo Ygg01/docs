@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/serde-0.4.3/src/lib.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/serde-0.5.0/src/lib.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>lib.rs.html -- source</title>
@@ -65,7 +65,6 @@
 <span id="23">23</span>
 <span id="24">24</span>
 <span id="25">25</span>
-<span id="26">26</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Serde Serialization Framework</span>
 <span class='doccomment'>//!</span>
@@ -74,7 +73,7 @@
 <span class='doccomment'>//! handshake protocol between serializers and serializees can be completely optimized away,</span>
 <span class='doccomment'>//! leaving serde to perform roughly the same speed as a hand written serializer for a specific</span>
 <span class='doccomment'>//! type.</span>
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>doc</span>(<span class='ident'>html_root_url</span><span class='op'>=</span><span class='string'>&quot;http://erickt.github.io/rust-serde&quot;</span>)]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>doc</span>(<span class='ident'>html_root_url</span><span class='op'>=</span><span class='string'>&quot;https://serde-rs.github.io/serde/serde&quot;</span>)]</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;nightly&quot;</span>, <span class='ident'>feature</span>(<span class='ident'>collections</span>, <span class='ident'>core</span>, <span class='ident'>enumset</span>, <span class='ident'>nonzero</span>, <span class='ident'>step_trait</span>, <span class='ident'>vecmap</span>, <span class='ident'>zero_one</span>))]</span>
 
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>num</span>;
@@ -91,7 +90,6 @@
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>bytes</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>de</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>iter</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>json</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>ser</span>;
 </pre>
 </section>

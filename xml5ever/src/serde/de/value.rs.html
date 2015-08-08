@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/serde-0.4.3/src/de/value.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/serde-0.5.0/src/de/value.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>value.rs.html -- source</title>
@@ -505,6 +505,12 @@
 <span id="463">463</span>
 <span id="464">464</span>
 <span id="465">465</span>
+<span id="466">466</span>
+<span id="467">467</span>
+<span id="468">468</span>
+<span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::{
     <span class='ident'>BTreeMap</span>,
@@ -532,10 +538,10 @@
 }
 
 <span class='kw'>impl</span> <span class='ident'>de</span>::<span class='ident'>Error</span> <span class='kw'>for</span> <span class='ident'>Error</span> {
-    <span class='kw'>fn</span> <span class='ident'>syntax_error</span>() <span class='op'>-&gt;</span> <span class='kw'>Self</span> { <span class='ident'>Error</span>::<span class='ident'>SyntaxError</span> }
-    <span class='kw'>fn</span> <span class='ident'>end_of_stream_error</span>() <span class='op'>-&gt;</span> <span class='kw'>Self</span> { <span class='ident'>Error</span>::<span class='ident'>EndOfStreamError</span> }
-    <span class='kw'>fn</span> <span class='ident'>unknown_field_error</span>(<span class='ident'>field</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> { <span class='ident'>Error</span>::<span class='ident'>UnknownFieldError</span>(<span class='ident'>field</span>.<span class='ident'>to_string</span>()) }
-    <span class='kw'>fn</span> <span class='ident'>missing_field_error</span>(<span class='ident'>field</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> { <span class='ident'>Error</span>::<span class='ident'>MissingFieldError</span>(<span class='ident'>field</span>) }
+    <span class='kw'>fn</span> <span class='ident'>syntax</span>(_: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> { <span class='ident'>Error</span>::<span class='ident'>SyntaxError</span> }
+    <span class='kw'>fn</span> <span class='ident'>end_of_stream</span>() <span class='op'>-&gt;</span> <span class='kw'>Self</span> { <span class='ident'>Error</span>::<span class='ident'>EndOfStreamError</span> }
+    <span class='kw'>fn</span> <span class='ident'>unknown_field</span>(<span class='ident'>field</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> { <span class='ident'>Error</span>::<span class='ident'>UnknownFieldError</span>(<span class='ident'>String</span>::<span class='ident'>from</span>(<span class='ident'>field</span>)) }
+    <span class='kw'>fn</span> <span class='ident'>missing_field</span>(<span class='ident'>field</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> { <span class='ident'>Error</span>::<span class='ident'>MissingFieldError</span>(<span class='ident'>field</span>) }
 }
 
 <span class='comment'>///////////////////////////////////////////////////////////////////////////////</span>
@@ -597,7 +603,7 @@
             {
                 <span class='kw'>match</span> <span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>take</span>() {
                     <span class='prelude-val'>Some</span>(<span class='ident'>v</span>) <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>method</span>(<span class='ident'>v</span>),
-                    <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Err</span>(<span class='ident'>de</span>::<span class='ident'>Error</span>::<span class='ident'>end_of_stream_error</span>()),
+                    <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Err</span>(<span class='ident'>de</span>::<span class='ident'>Error</span>::<span class='ident'>end_of_stream</span>()),
                 }
             }
         }
@@ -640,11 +646,14 @@
     {
         <span class='kw'>match</span> <span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>take</span>() {
             <span class='prelude-val'>Some</span>(<span class='ident'>v</span>) <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='ident'>visit_str</span>(<span class='ident'>v</span>),
-            <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Err</span>(<span class='ident'>de</span>::<span class='ident'>Error</span>::<span class='ident'>end_of_stream_error</span>()),
+            <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Err</span>(<span class='ident'>de</span>::<span class='ident'>Error</span>::<span class='ident'>end_of_stream</span>()),
         }
     }
 
-    <span class='kw'>fn</span> <span class='ident'>visit_enum</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_name</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='kw-2'>mut</span> <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Error</span><span class='op'>&gt;</span>
+    <span class='kw'>fn</span> <span class='ident'>visit_enum</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>,
+                     <span class='ident'>_name</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>,
+                     <span class='ident'>_variants</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> [<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>],
+                     <span class='kw-2'>mut</span> <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>de</span>::<span class='ident'>EnumVisitor</span>,
     {
         <span class='ident'>visitor</span>.<span class='ident'>visit</span>(<span class='self'>self</span>)
@@ -686,11 +695,14 @@
     {
         <span class='kw'>match</span> <span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>take</span>() {
             <span class='prelude-val'>Some</span>(<span class='ident'>string</span>) <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='ident'>visit_string</span>(<span class='ident'>string</span>),
-            <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Err</span>(<span class='ident'>de</span>::<span class='ident'>Error</span>::<span class='ident'>end_of_stream_error</span>()),
+            <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Err</span>(<span class='ident'>de</span>::<span class='ident'>Error</span>::<span class='ident'>end_of_stream</span>()),
         }
     }
 
-    <span class='kw'>fn</span> <span class='ident'>visit_enum</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_name</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='kw-2'>mut</span> <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Error</span><span class='op'>&gt;</span>
+    <span class='kw'>fn</span> <span class='ident'>visit_enum</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>,
+                     <span class='ident'>_name</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>,
+                     <span class='ident'>_variants</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> [<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>],
+                     <span class='kw-2'>mut</span> <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>de</span>::<span class='ident'>EnumVisitor</span>,
     {
         <span class='ident'>visitor</span>.<span class='ident'>visit</span>(<span class='self'>self</span>)
@@ -763,7 +775,7 @@
         <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>len</span> <span class='op'>==</span> <span class='number'>0</span> {
             <span class='prelude-val'>Ok</span>(())
         } <span class='kw'>else</span> {
-            <span class='prelude-val'>Err</span>(<span class='ident'>de</span>::<span class='ident'>Error</span>::<span class='ident'>end_of_stream_error</span>())
+            <span class='prelude-val'>Err</span>(<span class='ident'>de</span>::<span class='ident'>Error</span>::<span class='ident'>end_of_stream</span>())
         }
     }
 
@@ -876,7 +888,7 @@
                 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>de</span> <span class='op'>=</span> <span class='ident'>value</span>.<span class='ident'>into_deserializer</span>();
                 <span class='ident'>de</span>::<span class='ident'>Deserialize</span>::<span class='ident'>deserialize</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>de</span>)
             }
-            <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Err</span>(<span class='ident'>de</span>::<span class='ident'>Error</span>::<span class='ident'>syntax_error</span>())
+            <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Err</span>(<span class='ident'>de</span>::<span class='ident'>Error</span>::<span class='ident'>syntax</span>(<span class='string'>&quot;expected a map value&quot;</span>))
         }
     }
 
@@ -884,7 +896,7 @@
         <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>len</span> <span class='op'>==</span> <span class='number'>0</span> {
             <span class='prelude-val'>Ok</span>(())
         } <span class='kw'>else</span> {
-            <span class='prelude-val'>Err</span>(<span class='ident'>de</span>::<span class='ident'>Error</span>::<span class='ident'>end_of_stream_error</span>())
+            <span class='prelude-val'>Err</span>(<span class='ident'>de</span>::<span class='ident'>Error</span>::<span class='ident'>end_of_stream</span>())
         }
     }
 
@@ -940,7 +952,7 @@
     {
         <span class='kw'>match</span> <span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>take</span>() {
             <span class='prelude-val'>Some</span>(<span class='ident'>bytes</span>) <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='ident'>visit_bytes</span>(<span class='ident'>bytes</span>),
-            <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Err</span>(<span class='ident'>de</span>::<span class='ident'>Error</span>::<span class='ident'>end_of_stream_error</span>()),
+            <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Err</span>(<span class='ident'>de</span>::<span class='ident'>Error</span>::<span class='ident'>end_of_stream</span>()),
         }
     }
 }
@@ -967,7 +979,7 @@
     {
         <span class='kw'>match</span> <span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>take</span>() {
             <span class='prelude-val'>Some</span>(<span class='ident'>bytes</span>) <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='ident'>visit_byte_buf</span>(<span class='ident'>bytes</span>),
-            <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Err</span>(<span class='ident'>de</span>::<span class='ident'>Error</span>::<span class='ident'>end_of_stream_error</span>()),
+            <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Err</span>(<span class='ident'>de</span>::<span class='ident'>Error</span>::<span class='ident'>end_of_stream</span>()),
         }
     }
 }

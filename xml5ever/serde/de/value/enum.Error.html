@@ -45,17 +45,17 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-29401' class='srclink' href='../../../src/serde/de/value.rs.html#19-24' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-29626' class='srclink' href='../../../src/serde/de/value.rs.html#19-24' title='goto source code'>[src]</a></span></h1>
 <pre class='rust enum'>pub enum Error {
     SyntaxError,
     EndOfStreamError,
     UnknownFieldError(<a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>),
     MissingFieldError(&amp;'static <a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>),
 }</pre><h2 class='variants'>Variants</h2>
-<table><tr><td id='variant.SyntaxError'><code>SyntaxError</code></td><td></td></tr><tr><td id='variant.EndOfStreamError'><code>EndOfStreamError</code></td><td></td></tr><tr><td id='variant.UnknownFieldError'><code>UnknownFieldError</code></td><td></td></tr><tr><td id='variant.MissingFieldError'><code>MissingFieldError</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../../../serde/de/trait.Error.html' title='serde::de::Error'>Error</a> for <a class='enum' href='../../../serde/de/value/enum.Error.html' title='serde::de::value::Error'>Error</a></code></h3><div class='impl-items'><h4 id='method.syntax_error' class='method'><code>fn <a href='../../../serde/de/trait.Error.html#method.syntax_error' class='fnname'>syntax_error</a>() -&gt; Self</code></h4>
-<h4 id='method.end_of_stream_error' class='method'><code>fn <a href='../../../serde/de/trait.Error.html#method.end_of_stream_error' class='fnname'>end_of_stream_error</a>() -&gt; Self</code></h4>
-<h4 id='method.unknown_field_error' class='method'><code>fn <a href='../../../serde/de/trait.Error.html#method.unknown_field_error' class='fnname'>unknown_field_error</a>(field: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; Self</code></h4>
-<h4 id='method.missing_field_error' class='method'><code>fn <a href='../../../serde/de/trait.Error.html#method.missing_field_error' class='fnname'>missing_field_error</a>(field: &amp;'static <a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; Self</code></h4>
+<table><tr><td id='variant.SyntaxError'><code>SyntaxError</code></td><td></td></tr><tr><td id='variant.EndOfStreamError'><code>EndOfStreamError</code></td><td></td></tr><tr><td id='variant.UnknownFieldError'><code>UnknownFieldError</code></td><td></td></tr><tr><td id='variant.MissingFieldError'><code>MissingFieldError</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../../../serde/de/trait.Error.html' title='serde::de::Error'>Error</a> for <a class='enum' href='../../../serde/de/value/enum.Error.html' title='serde::de::value::Error'>Error</a></code></h3><div class='impl-items'><h4 id='method.syntax' class='method'><code>fn <a href='../../../serde/de/trait.Error.html#method.syntax' class='fnname'>syntax</a>(_: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; Self</code></h4>
+<h4 id='method.end_of_stream' class='method'><code>fn <a href='../../../serde/de/trait.Error.html#method.end_of_stream' class='fnname'>end_of_stream</a>() -&gt; Self</code></h4>
+<h4 id='method.unknown_field' class='method'><code>fn <a href='../../../serde/de/trait.Error.html#method.unknown_field' class='fnname'>unknown_field</a>(field: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; Self</code></h4>
+<h4 id='method.missing_field' class='method'><code>fn <a href='../../../serde/de/trait.Error.html#method.missing_field' class='fnname'>missing_field</a>(field: &amp;'static <a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; Self</code></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
 
