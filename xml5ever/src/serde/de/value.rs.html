@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/serde-0.5.0/src/de/value.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/serde-0.5.1/src/de/value.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>value.rs.html -- source</title>
@@ -775,7 +775,7 @@
         <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>len</span> <span class='op'>==</span> <span class='number'>0</span> {
             <span class='prelude-val'>Ok</span>(())
         } <span class='kw'>else</span> {
-            <span class='prelude-val'>Err</span>(<span class='ident'>de</span>::<span class='ident'>Error</span>::<span class='ident'>end_of_stream</span>())
+            <span class='prelude-val'>Err</span>(<span class='ident'>de</span>::<span class='ident'>Error</span>::<span class='ident'>length_mismatch</span>(<span class='self'>self</span>.<span class='ident'>len</span>))
         }
     }
 
@@ -896,7 +896,7 @@
         <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>len</span> <span class='op'>==</span> <span class='number'>0</span> {
             <span class='prelude-val'>Ok</span>(())
         } <span class='kw'>else</span> {
-            <span class='prelude-val'>Err</span>(<span class='ident'>de</span>::<span class='ident'>Error</span>::<span class='ident'>end_of_stream</span>())
+            <span class='prelude-val'>Err</span>(<span class='ident'>de</span>::<span class='ident'>Error</span>::<span class='ident'>length_mismatch</span>(<span class='self'>self</span>.<span class='ident'>len</span>))
         }
     }
 
