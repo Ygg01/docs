@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/tendril-0.1.4/src/fmt.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/tendril-0.1.5/src/fmt.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>fmt.rs.html -- source</title>
@@ -705,7 +705,7 @@
 
 <span class='doccomment'>/// Indicates a format which corresponds to a Rust slice type,</span>
 <span class='doccomment'>/// representing exactly the same invariants.</span>
-<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>trait</span> <span class='ident'>SliceFormat</span>: <span class='ident'>Format</span> {
+<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>trait</span> <span class='ident'>SliceFormat</span>: <span class='ident'>Format</span> <span class='op'>+</span> <span class='ident'>Sized</span> {
     <span class='kw'>type</span> <span class='ident'>Slice</span>: ?<span class='ident'>Sized</span> <span class='op'>+</span> <span class='ident'>Slice</span><span class='op'>&lt;</span><span class='ident'>Format</span> <span class='op'>=</span> <span class='kw'>Self</span><span class='op'>&gt;</span>;
 }
 
