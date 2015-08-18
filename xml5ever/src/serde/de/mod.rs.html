@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/serde-0.5.1/src/de/mod.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/serde-0.5.2/src/de/mod.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>mod.rs.html -- source</title>
@@ -882,7 +882,7 @@
     <span class='kw'>fn</span> <span class='ident'>visit_usize</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>,
     {
-        <span class='self'>self</span>.<span class='ident'>visit</span>(<span class='ident'>visitor</span>)
+        <span class='self'>self</span>.<span class='ident'>visit_u64</span>(<span class='ident'>visitor</span>)
     }
 
     <span class='doccomment'>/// This method hints that the `Deserialize` type is expecting an `u8` value.</span>
@@ -890,7 +890,7 @@
     <span class='kw'>fn</span> <span class='ident'>visit_u8</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>,
     {
-        <span class='self'>self</span>.<span class='ident'>visit</span>(<span class='ident'>visitor</span>)
+        <span class='self'>self</span>.<span class='ident'>visit_u64</span>(<span class='ident'>visitor</span>)
     }
 
     <span class='doccomment'>/// This method hints that the `Deserialize` type is expecting an `u16` value.</span>
@@ -898,7 +898,7 @@
     <span class='kw'>fn</span> <span class='ident'>visit_u16</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>,
     {
-        <span class='self'>self</span>.<span class='ident'>visit</span>(<span class='ident'>visitor</span>)
+        <span class='self'>self</span>.<span class='ident'>visit_u64</span>(<span class='ident'>visitor</span>)
     }
 
     <span class='doccomment'>/// This method hints that the `Deserialize` type is expecting an `u32` value.</span>
@@ -906,7 +906,7 @@
     <span class='kw'>fn</span> <span class='ident'>visit_u32</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>,
     {
-        <span class='self'>self</span>.<span class='ident'>visit</span>(<span class='ident'>visitor</span>)
+        <span class='self'>self</span>.<span class='ident'>visit_u64</span>(<span class='ident'>visitor</span>)
     }
 
     <span class='doccomment'>/// This method hints that the `Deserialize` type is expecting an `u64` value.</span>
@@ -922,7 +922,7 @@
     <span class='kw'>fn</span> <span class='ident'>visit_isize</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>,
     {
-        <span class='self'>self</span>.<span class='ident'>visit</span>(<span class='ident'>visitor</span>)
+        <span class='self'>self</span>.<span class='ident'>visit_i64</span>(<span class='ident'>visitor</span>)
     }
 
     <span class='doccomment'>/// This method hints that the `Deserialize` type is expecting an `i8` value.</span>
@@ -930,7 +930,7 @@
     <span class='kw'>fn</span> <span class='ident'>visit_i8</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>,
     {
-        <span class='self'>self</span>.<span class='ident'>visit</span>(<span class='ident'>visitor</span>)
+        <span class='self'>self</span>.<span class='ident'>visit_i64</span>(<span class='ident'>visitor</span>)
     }
 
     <span class='doccomment'>/// This method hints that the `Deserialize` type is expecting an `i16` value.</span>
@@ -938,7 +938,7 @@
     <span class='kw'>fn</span> <span class='ident'>visit_i16</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>,
     {
-        <span class='self'>self</span>.<span class='ident'>visit</span>(<span class='ident'>visitor</span>)
+        <span class='self'>self</span>.<span class='ident'>visit_i64</span>(<span class='ident'>visitor</span>)
     }
 
     <span class='doccomment'>/// This method hints that the `Deserialize` type is expecting an `i32` value.</span>
@@ -946,7 +946,7 @@
     <span class='kw'>fn</span> <span class='ident'>visit_i32</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>,
     {
-        <span class='self'>self</span>.<span class='ident'>visit</span>(<span class='ident'>visitor</span>)
+        <span class='self'>self</span>.<span class='ident'>visit_i64</span>(<span class='ident'>visitor</span>)
     }
 
     <span class='doccomment'>/// This method hints that the `Deserialize` type is expecting an `i64` value.</span>
@@ -962,7 +962,7 @@
     <span class='kw'>fn</span> <span class='ident'>visit_f32</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='ident'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>,
     {
-        <span class='self'>self</span>.<span class='ident'>visit</span>(<span class='ident'>visitor</span>)
+        <span class='self'>self</span>.<span class='ident'>visit_f64</span>(<span class='ident'>visitor</span>)
     }
 
     <span class='doccomment'>/// This method hints that the `Deserialize` type is expecting a `f64` value.</span>
