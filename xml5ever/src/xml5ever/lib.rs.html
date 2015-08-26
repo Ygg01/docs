@@ -140,14 +140,22 @@
 <span id="98"> 98</span>
 <span id="99"> 99</span>
 <span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
 </pre><pre class='rust '>
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>plugin</span>)]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_name</span><span class='op'>=</span><span class='string'>&quot;xml5ever&quot;</span>]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_type</span><span class='op'>=</span><span class='string'>&quot;dylib&quot;</span>]</span>
 
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>plugin</span>(<span class='ident'>string_cache_plugin</span>)]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;unstable&quot;</span>, <span class='ident'>feature</span>(<span class='ident'>plugin</span>, <span class='ident'>rc_weak</span>))]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;unstable&quot;</span>, <span class='ident'>plugin</span>(<span class='ident'>string_cache_plugin</span>))]</span>
 
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>log</span>;
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>mac</span>;
-<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>string_cache</span>;
+<span class='attribute'>#[<span class='ident'>macro_use</span>]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>string_cache</span>;
+
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>rc</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>tendril</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>time</span>;
 
@@ -163,7 +171,7 @@
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span> <span class='kw'>mod</span> <span class='ident'>util</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>tokenizer</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>tree_builder</span>;
-
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>rcdom</span>;
 
 <span class='kw'>use</span> <span class='ident'>tokenizer</span>::{<span class='ident'>XmlTokenizerOpts</span>, <span class='ident'>XmlTokenizer</span>, <span class='ident'>XTokenSink</span>};
 <span class='kw'>use</span> <span class='ident'>tree_builder</span>::{<span class='ident'>TreeSink</span>, <span class='ident'>XmlTreeBuilder</span>};
