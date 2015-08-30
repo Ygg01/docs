@@ -46,7 +46,7 @@
                 [<span class='inner'>&#x2212;</span>]
             </a>
         </span><a id='src-5749' class='srclink' href='../src/string_cache_shared/lib.rs.html#140-149' title='goto source code'>[src]</a></span></h1>
-<pre class='rust fn'>pub unsafe fn inline_orig_bytes&lt;'a&gt;(data: &amp;'a <a href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a [</a><a href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></pre><div class='docblock'><p>For as_slice on inline atoms, we need a pointer into the original
+<pre class='rust fn'>pub unsafe fn inline_orig_bytes&lt;'a&gt;(data: &amp;'a <a href='http://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a [</a><a href='http://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a href='http://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></pre><div class='docblock'><p>For as_slice on inline atoms, we need a pointer into the original
 string contents.</p>
 
 <p>It&#39;s undefined behavior to call this on a non-inline atom!!</p>
@@ -85,8 +85,8 @@ string contents.</p>
                 <p>
                     Accepted types are: <code>fn</code>, <code>mod</code>,
                     <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>type</code>, <code>macro</code>,
-                    and <code>const</code>.
+                    <code>trait</code>, <code>typedef</code> (or
+                    <code>tdef</code>).
                 </p>
 
                 <p>
