@@ -47,15 +47,15 @@
             </a>
         </span><a id='src-5295' class='srclink' href='../src/string_cache_shared/lib.rs.html#38-47' title='goto source code'>[src]</a></span></h1>
 <pre class='rust enum'>pub enum UnpackedAtom {
-    Dynamic(<a href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a></a>),
-    Inline(<a href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[<a href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>; 7]</a>),
-    Static(<a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>),
+    Dynamic(<a href='http://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*mut <a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a></a>),
+    Inline(<a href='http://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.array.html'>[<a href='http://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>; 7]</a>),
+    Static(<a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>),
 }</pre><h2 class='variants'>Variants</h2>
 <table><tr><td id='variant.Dynamic'><code>Dynamic</code></td><td><div class='docblock'><p>Pointer to a dynamic table entry.  Must be 16-byte aligned!</p>
 </div></td></tr><tr><td id='variant.Inline'><code>Inline</code></td><td><div class='docblock'><p>Length + bytes of string.</p>
 </div></td></tr><tr><td id='variant.Static'><code>Static</code></td><td><div class='docblock'><p>Index in static interning table.</p>
-</div></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='enum' href='../string_cache_shared/enum.UnpackedAtom.html' title='string_cache_shared::UnpackedAtom'>UnpackedAtom</a></code></h3><div class='impl-items'><h4 id='method.pack' class='method'><code>unsafe fn <a href='#method.pack' class='fnname'>pack</a>(self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a></code></h4>
-<h4 id='method.from_packed' class='method'><code>unsafe fn <a href='#method.from_packed' class='fnname'>from_packed</a>(data: <a href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='enum' href='../string_cache_shared/enum.UnpackedAtom.html' title='string_cache_shared::UnpackedAtom'>UnpackedAtom</a></code></h4>
+</div></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='enum' href='../string_cache_shared/enum.UnpackedAtom.html' title='string_cache_shared::UnpackedAtom'>UnpackedAtom</a></code></h3><div class='impl-items'><h4 id='method.pack' class='method'><code>unsafe fn <a href='#method.pack' class='fnname'>pack</a>(self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a></code></h4>
+<h4 id='method.from_packed' class='method'><code>unsafe fn <a href='#method.from_packed' class='fnname'>from_packed</a>(data: <a href='http://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='enum' href='../string_cache_shared/enum.UnpackedAtom.html' title='string_cache_shared::UnpackedAtom'>UnpackedAtom</a></code></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
 
@@ -91,8 +91,8 @@
                 <p>
                     Accepted types are: <code>fn</code>, <code>mod</code>,
                     <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>type</code>, <code>macro</code>,
-                    and <code>const</code>.
+                    <code>trait</code>, <code>typedef</code> (or
+                    <code>tdef</code>).
                 </p>
 
                 <p>
