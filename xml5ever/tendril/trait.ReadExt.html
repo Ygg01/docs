@@ -24,10 +24,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='index.html'>tendril</a></p><script>window.sidebarCurrent = {name: 'ReadExt', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -46,13 +46,13 @@
                 [<span class='inner'>&#x2212;</span>]
             </a>
         </span><a id='src-6894' class='srclink' href='../src/tendril/tendril.rs.html#1257-1260' title='goto source code'>[src]</a></span></h1>
-<pre class='rust trait'>pub trait ReadExt: <a class='trait' href='http://doc.rust-lang.org/nightly/std/io/trait.Read.html' title='std::io::Read'>Read</a> {
-    fn <a href='#tymethod.read_to_tendril' class='fnname'>read_to_tendril</a>&lt;A&gt;(&amp;mut self, buf: &amp;mut <a class='struct' href='../tendril/struct.Tendril.html' title='tendril::Tendril'>Tendril</a>&lt;<a class='struct' href='../tendril/fmt/struct.Bytes.html' title='tendril::fmt::Bytes'>Bytes</a>, A&gt;) -&gt; <a class='type' href='http://doc.rust-lang.org/nightly/std/io/error/type.Result.html' title='std::io::error::Result'>Result</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>&gt; <span class='where'>where A: <a class='trait' href='../tendril/trait.Atomicity.html' title='tendril::Atomicity'>Atomicity</a></span>;
+<pre class='rust trait'>pub trait ReadExt: <a class='trait' href='https://doc.rust-lang.org/nightly/std/io/trait.Read.html' title='std::io::Read'>Read</a> {
+    fn <a href='#tymethod.read_to_tendril' class='fnname'>read_to_tendril</a>&lt;A&gt;(&amp;mut self, buf: &amp;mut <a class='struct' href='../tendril/struct.Tendril.html' title='tendril::Tendril'>Tendril</a>&lt;<a class='struct' href='../tendril/fmt/struct.Bytes.html' title='tendril::fmt::Bytes'>Bytes</a>, A&gt;) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/std/io/error/type.Result.html' title='std::io::error::Result'>Result</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>&gt; <span class='where'>where A: <a class='trait' href='../tendril/trait.Atomicity.html' title='tendril::Atomicity'>Atomicity</a></span>;
 }</pre><div class='docblock'><p>Extension trait for <code>io::Read</code>.</p>
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.read_to_tendril' class='method stab '><code>fn <a href='#tymethod.read_to_tendril' class='fnname'>read_to_tendril</a>&lt;A&gt;(&amp;mut self, buf: &amp;mut <a class='struct' href='../tendril/struct.Tendril.html' title='tendril::Tendril'>Tendril</a>&lt;<a class='struct' href='../tendril/fmt/struct.Bytes.html' title='tendril::fmt::Bytes'>Bytes</a>, A&gt;) -&gt; <a class='type' href='http://doc.rust-lang.org/nightly/std/io/error/type.Result.html' title='std::io::error::Result'>Result</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>&gt; <span class='where'>where A: <a class='trait' href='../tendril/trait.Atomicity.html' title='tendril::Atomicity'>Atomicity</a></span></code></h3></div>
+        <h3 id='tymethod.read_to_tendril' class='method stab '><code>fn <a href='#tymethod.read_to_tendril' class='fnname'>read_to_tendril</a>&lt;A&gt;(&amp;mut self, buf: &amp;mut <a class='struct' href='../tendril/struct.Tendril.html' title='tendril::Tendril'>Tendril</a>&lt;<a class='struct' href='../tendril/fmt/struct.Bytes.html' title='tendril::fmt::Bytes'>Bytes</a>, A&gt;) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/std/io/error/type.Result.html' title='std::io::error::Result'>Result</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>&gt; <span class='where'>where A: <a class='trait' href='../tendril/trait.Atomicity.html' title='tendril::Atomicity'>Atomicity</a></span></code></h3></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
     </ul><script type="text/javascript" async
@@ -62,10 +62,12 @@
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -82,7 +84,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -92,8 +94,8 @@
                 <p>
                     Accepted types are: <code>fn</code>, <code>mod</code>,
                     <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>typedef</code> (or
-                    <code>tdef</code>).
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
                 </p>
 
                 <p>
@@ -102,7 +104,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
