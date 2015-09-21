@@ -24,10 +24,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='../index.html'>serde</a></p><script>window.sidebarCurrent = {name: 'ser', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -45,7 +45,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-33862' class='srclink' href='../../src/serde/ser/mod.rs.html#1-291' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-33828' class='srclink' href='../../src/serde/ser/mod.rs.html#1-354' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Generic serialization framework.</p>
 </div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
@@ -53,7 +53,8 @@
                         <td><a class='mod' href='impls/index.html'
                                title='serde::ser::impls'>impls</a></td>
                         <td class='docblock short'>
-                             
+                             <p>Implementations for all of Rust&#39;s builtin types.</p>
+
                         </td>
                     </tr>
                 </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
@@ -62,7 +63,8 @@
                         <td><a class='trait' href='trait.MapVisitor.html'
                                title='serde::ser::MapVisitor'>MapVisitor</a></td>
                         <td class='docblock short'>
-                             
+                             <p>A trait that is used by a <code>Serializer</code> to iterate through a map.</p>
+
                         </td>
                     </tr>
                 
@@ -70,7 +72,8 @@
                         <td><a class='trait' href='trait.SeqVisitor.html'
                                title='serde::ser::SeqVisitor'>SeqVisitor</a></td>
                         <td class='docblock short'>
-                             
+                             <p>A trait that is used by a <code>Serialize</code> to iterate through a sequence.</p>
+
                         </td>
                     </tr>
                 
@@ -78,7 +81,8 @@
                         <td><a class='trait' href='trait.Serialize.html'
                                title='serde::ser::Serialize'>Serialize</a></td>
                         <td class='docblock short'>
-                             
+                             <p>A trait that describes a type that can be serialized by a <code>Serializer</code>.</p>
+
                         </td>
                     </tr>
                 
@@ -86,7 +90,8 @@
                         <td><a class='trait' href='trait.Serializer.html'
                                title='serde::ser::Serializer'>Serializer</a></td>
                         <td class='docblock short'>
-                             
+                             <p>A trait that describes a type that can serialize a stream of values into the underlying format.</p>
+
                         </td>
                     </tr>
                 </table></section>
@@ -94,10 +99,12 @@
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -114,7 +121,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -124,8 +131,8 @@
                 <p>
                     Accepted types are: <code>fn</code>, <code>mod</code>,
                     <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>typedef</code> (or
-                    <code>tdef</code>).
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
                 </p>
 
                 <p>
@@ -134,7 +141,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 

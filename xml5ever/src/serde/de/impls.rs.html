@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/serde-0.5.3/src/de/impls.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/serde-0.6.0/src/de/impls.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>impls.rs.html -- source</title>
@@ -24,10 +24,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -923,7 +923,23 @@
 <span id="881">881</span>
 <span id="882">882</span>
 <span id="883">883</span>
+<span id="884">884</span>
+<span id="885">885</span>
+<span id="886">886</span>
+<span id="887">887</span>
+<span id="888">888</span>
+<span id="889">889</span>
+<span id="890">890</span>
+<span id="891">891</span>
+<span id="892">892</span>
+<span id="893">893</span>
+<span id="894">894</span>
+<span id="895">895</span>
+<span id="896">896</span>
+<span id="897">897</span>
 </pre><pre class='rust '>
+<span class='doccomment'>//! This module contains `Deserialize` and `Visitor` implementations.</span>
+
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>borrow</span>::<span class='ident'>Cow</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::{
     <span class='ident'>BinaryHeap</span>,
@@ -965,6 +981,7 @@
 
 <span class='comment'>///////////////////////////////////////////////////////////////////////////////</span>
 
+<span class='doccomment'>/// A visitor that produces a `()`.</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>UnitVisitor</span>;
 
 <span class='kw'>impl</span> <span class='ident'>Visitor</span> <span class='kw'>for</span> <span class='ident'>UnitVisitor</span> {
@@ -993,6 +1010,7 @@
 
 <span class='comment'>///////////////////////////////////////////////////////////////////////////////</span>
 
+<span class='doccomment'>/// A visitor that produces a `bool`.</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>BoolVisitor</span>;
 
 <span class='kw'>impl</span> <span class='ident'>Visitor</span> <span class='kw'>for</span> <span class='ident'>BoolVisitor</span> {
@@ -1039,11 +1057,13 @@
     }
 }
 
+<span class='doccomment'>/// A visitor that produces a primitive type.</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PrimitiveVisitor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
     <span class='ident'>marker</span>: <span class='ident'>PhantomData</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>,
 }
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> <span class='ident'>PrimitiveVisitor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
+    <span class='doccomment'>/// Construct a new `PrimitiveVisitor`.</span>
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>() <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
         <span class='ident'>PrimitiveVisitor</span> {
@@ -1226,7 +1246,7 @@
 
 <span class='comment'>///////////////////////////////////////////////////////////////////////////////</span>
 
-<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>set_impl</span> {
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>seq_impl</span> {
     (
         <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>ty</span>:<span class='ident'>ty</span>,
         <span class='op'>&lt;</span> $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>constraints</span>:<span class='ident'>ident</span>),<span class='op'>*</span> <span class='op'>&gt;</span>,
@@ -1236,11 +1256,13 @@
         <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>with_capacity</span>:<span class='ident'>expr</span>,
         <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>insert</span>:<span class='ident'>expr</span>
     ) <span class='op'>=&gt;</span> {
+        <span class='doccomment'>/// A visitor that produces a sequence.</span>
         <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>visitor_name</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
             <span class='ident'>marker</span>: <span class='ident'>PhantomData</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>,
         }
 
         <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>visitor_name</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
+            <span class='doccomment'>/// Construct a new sequence visitor.</span>
             <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>() <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
                 <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>visitor_name</span> {
                     <span class='ident'>marker</span>: <span class='ident'>PhantomData</span>,
@@ -1288,7 +1310,7 @@
     }
 }
 
-<span class='macro'>set_impl</span><span class='macro'>!</span>(
+<span class='macro'>seq_impl</span><span class='macro'>!</span>(
     <span class='ident'>BinaryHeap</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>,
     <span class='op'>&lt;</span><span class='ident'>Deserialize</span>, <span class='ident'>Ord</span><span class='op'>&gt;</span>,
     <span class='ident'>BinaryHeapVisitor</span>,
@@ -1297,7 +1319,7 @@
     <span class='ident'>BinaryHeap</span>::<span class='ident'>with_capacity</span>(<span class='ident'>visitor</span>.<span class='ident'>size_hint</span>().<span class='number'>0</span>),
     <span class='ident'>BinaryHeap</span>::<span class='ident'>push</span>);
 
-<span class='macro'>set_impl</span><span class='macro'>!</span>(
+<span class='macro'>seq_impl</span><span class='macro'>!</span>(
     <span class='ident'>BTreeSet</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>,
     <span class='op'>&lt;</span><span class='ident'>Deserialize</span>, <span class='ident'>Eq</span>, <span class='ident'>Ord</span><span class='op'>&gt;</span>,
     <span class='ident'>BTreeSetVisitor</span>,
@@ -1307,7 +1329,7 @@
     <span class='ident'>BTreeSet</span>::<span class='ident'>insert</span>);
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;nightly&quot;</span>)]</span>
-<span class='macro'>set_impl</span><span class='macro'>!</span>(
+<span class='macro'>seq_impl</span><span class='macro'>!</span>(
     <span class='ident'>EnumSet</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>,
     <span class='op'>&lt;</span><span class='ident'>Deserialize</span>, <span class='ident'>CLike</span><span class='op'>&gt;</span>,
     <span class='ident'>EnumSetVisitor</span>,
@@ -1316,7 +1338,7 @@
     <span class='ident'>EnumSet</span>::<span class='ident'>new</span>(),
     <span class='ident'>EnumSet</span>::<span class='ident'>insert</span>);
 
-<span class='macro'>set_impl</span><span class='macro'>!</span>(
+<span class='macro'>seq_impl</span><span class='macro'>!</span>(
     <span class='ident'>LinkedList</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>,
     <span class='op'>&lt;</span><span class='ident'>Deserialize</span><span class='op'>&gt;</span>,
     <span class='ident'>LinkedListVisitor</span>,
@@ -1325,7 +1347,7 @@
     <span class='ident'>LinkedList</span>::<span class='ident'>new</span>(),
     <span class='ident'>LinkedList</span>::<span class='ident'>push_back</span>);
 
-<span class='macro'>set_impl</span><span class='macro'>!</span>(
+<span class='macro'>seq_impl</span><span class='macro'>!</span>(
     <span class='ident'>HashSet</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>,
     <span class='op'>&lt;</span><span class='ident'>Deserialize</span>, <span class='ident'>Eq</span>, <span class='ident'>Hash</span><span class='op'>&gt;</span>,
     <span class='ident'>HashSetVisitor</span>,
@@ -1334,7 +1356,7 @@
     <span class='ident'>HashSet</span>::<span class='ident'>with_capacity</span>(<span class='ident'>visitor</span>.<span class='ident'>size_hint</span>().<span class='number'>0</span>),
     <span class='ident'>HashSet</span>::<span class='ident'>insert</span>);
 
-<span class='macro'>set_impl</span><span class='macro'>!</span>(
+<span class='macro'>seq_impl</span><span class='macro'>!</span>(
     <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>,
     <span class='op'>&lt;</span><span class='ident'>Deserialize</span><span class='op'>&gt;</span>,
     <span class='ident'>VecVisitor</span>,
@@ -1343,7 +1365,7 @@
     <span class='ident'>Vec</span>::<span class='ident'>with_capacity</span>(<span class='ident'>visitor</span>.<span class='ident'>size_hint</span>().<span class='number'>0</span>),
     <span class='ident'>Vec</span>::<span class='ident'>push</span>);
 
-<span class='macro'>set_impl</span><span class='macro'>!</span>(
+<span class='macro'>seq_impl</span><span class='macro'>!</span>(
     <span class='ident'>VecDeque</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>,
     <span class='op'>&lt;</span><span class='ident'>Deserialize</span><span class='op'>&gt;</span>,
     <span class='ident'>VecDequeVisitor</span>,
@@ -1359,6 +1381,7 @@
 }
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> <span class='ident'>ArrayVisitor0</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
+    <span class='doccomment'>/// Construct a `ArrayVisitor0&lt;T&gt;`.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>() <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
         <span class='ident'>ArrayVisitor0</span> {
             <span class='ident'>marker</span>: <span class='ident'>PhantomData</span>,
@@ -1403,6 +1426,7 @@
             }
 
             <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>visitor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
+                <span class='doccomment'>/// Construct a `ArrayVisitor*&lt;T&gt;`.</span>
                 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>() <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
                     <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>visitor</span> {
                         <span class='ident'>marker</span>: <span class='ident'>PhantomData</span>
@@ -1492,6 +1516,7 @@
     () <span class='op'>=&gt;</span> {};
     ($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>len</span>:<span class='ident'>expr</span> <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>visitor</span>:<span class='ident'>ident</span> <span class='op'>=&gt;</span> ($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>name</span>:<span class='ident'>ident</span>),<span class='op'>+</span>),)<span class='op'>+</span>) <span class='op'>=&gt;</span> {
         $(
+            <span class='doccomment'>/// Construct a tuple visitor.</span>
             <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>visitor</span><span class='op'>&lt;</span>$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>name</span>,)<span class='op'>+</span><span class='op'>&gt;</span> {
                 <span class='ident'>marker</span>: <span class='ident'>PhantomData</span><span class='op'>&lt;</span>($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>name</span>,)<span class='op'>+</span>)<span class='op'>&gt;</span>,
             }
@@ -1499,6 +1524,7 @@
             <span class='kw'>impl</span><span class='op'>&lt;</span>
                 $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>name</span>: <span class='ident'>Deserialize</span>,)<span class='op'>+</span>
             <span class='op'>&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>visitor</span><span class='op'>&lt;</span>$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>name</span>,)<span class='op'>+</span><span class='op'>&gt;</span> {
+                <span class='doccomment'>/// Construct a `TupleVisitor*&lt;T&gt;`.</span>
                 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>() <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
                     <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>visitor</span> { <span class='ident'>marker</span>: <span class='ident'>PhantomData</span> }
                 }
@@ -1569,11 +1595,13 @@
         <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>with_capacity</span>:<span class='ident'>expr</span>,
         <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>insert</span>:<span class='ident'>expr</span>
     ) <span class='op'>=&gt;</span> {
+        <span class='doccomment'>/// A visitor that produces a map.</span>
         <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>visitor_name</span><span class='op'>&lt;</span><span class='ident'>K</span>, <span class='ident'>V</span><span class='op'>&gt;</span> {
             <span class='ident'>marker</span>: <span class='ident'>PhantomData</span><span class='op'>&lt;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>ty</span><span class='op'>&gt;</span>,
         }
 
         <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>K</span>, <span class='ident'>V</span><span class='op'>&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>visitor_name</span><span class='op'>&lt;</span><span class='ident'>K</span>, <span class='ident'>V</span><span class='op'>&gt;</span> {
+            <span class='doccomment'>/// Construct a `MapVisitor*&lt;T&gt;`.</span>
             <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>() <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
                 <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>visitor_name</span> {
                     <span class='ident'>marker</span>: <span class='ident'>PhantomData</span>,
@@ -1813,10 +1841,12 @@
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -1833,7 +1863,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -1843,8 +1873,8 @@
                 <p>
                     Accepted types are: <code>fn</code>, <code>mod</code>,
                     <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>typedef</code> (or
-                    <code>tdef</code>).
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
                 </p>
 
                 <p>
@@ -1853,7 +1883,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 

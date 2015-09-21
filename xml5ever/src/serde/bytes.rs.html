@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/serde-0.5.3/src/bytes.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-0a35038f75765ae4/serde-0.6.0/src/bytes.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>bytes.rs.html -- source</title>
@@ -24,10 +24,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -253,6 +253,9 @@
 <span id="211">211</span>
 <span id="212">212</span>
 <span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Helper module to enable serializing bytes more efficiently</span>
 
@@ -316,19 +319,21 @@
 
 <span class='comment'>///////////////////////////////////////////////////////////////////////////////</span>
 
-<span class='doccomment'>/// `ByteBuf` wraps a `Vec&lt;u8&gt;` in order to hook into serialize and from deserialize a byte array.</span>
+<span class='doccomment'>/// `ByteBuf` wraps a `Vec&lt;u8&gt;` and serializes as a byte array.</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Eq</span>, <span class='ident'>Hash</span>, <span class='ident'>PartialEq</span>, <span class='ident'>PartialOrd</span>, <span class='ident'>Ord</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ByteBuf</span> {
     <span class='ident'>bytes</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>u8</span><span class='op'>&gt;</span>,
 }
 
 <span class='kw'>impl</span> <span class='ident'>ByteBuf</span> {
+    <span class='doccomment'>/// Construct a new, empty `ByteBuf`.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>() <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
         <span class='ident'>ByteBuf</span> {
             <span class='ident'>bytes</span>: <span class='ident'>Vec</span>::<span class='ident'>new</span>(),
         }
     }
 
+    <span class='doccomment'>/// Construct a new, empty `ByteBuf` with the specified capacity.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>with_capacity</span>(<span class='ident'>cap</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
         <span class='ident'>ByteBuf</span> {
             <span class='ident'>bytes</span>: <span class='ident'>Vec</span>::<span class='ident'>with_capacity</span>(<span class='ident'>cap</span>)
@@ -398,6 +403,7 @@
     }
 }
 
+<span class='doccomment'>/// This type implements the `serde::de::Visitor` trait for a `ByteBuf`.</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ByteBufVisitor</span>;
 
 <span class='kw'>impl</span> <span class='ident'>de</span>::<span class='ident'>Visitor</span> <span class='kw'>for</span> <span class='ident'>ByteBufVisitor</span> {
@@ -473,10 +479,12 @@
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -493,7 +501,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -503,8 +511,8 @@
                 <p>
                     Accepted types are: <code>fn</code>, <code>mod</code>,
                     <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>typedef</code> (or
-                    <code>tdef</code>).
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
                 </p>
 
                 <p>
@@ -513,7 +521,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
