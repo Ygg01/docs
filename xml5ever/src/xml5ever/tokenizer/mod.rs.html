@@ -24,10 +24,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -1736,7 +1736,7 @@
             <span class='comment'>//§ cdata-bracket-state</span>
             <span class='ident'>XmlState</span>::<span class='ident'>CdataBracket</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> {  <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
                     <span class='string'>&#39;]&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>CdataEnd</span>),
-                    <span class='ident'>cl</span>  <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit</span> <span class='string'>&#39;]&#39;</span>; <span class='ident'>emit</span> <span class='ident'>cl</span>),
+                    <span class='ident'>cl</span>  <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit</span> <span class='string'>&#39;]&#39;</span>; <span class='ident'>emit</span> <span class='ident'>cl</span>; <span class='ident'>to</span> <span class='ident'>Cdata</span>),
                 }
             },
             <span class='comment'>//§ cdata-end-state</span>
@@ -2025,10 +2025,12 @@
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -2045,7 +2047,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -2055,8 +2057,8 @@
                 <p>
                     Accepted types are: <code>fn</code>, <code>mod</code>,
                     <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>typedef</code> (or
-                    <code>tdef</code>).
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
                 </p>
 
                 <p>
@@ -2065,7 +2067,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
