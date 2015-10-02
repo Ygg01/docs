@@ -54,7 +54,8 @@
     }
 
     function browserSupportsHistoryApi() {
-        return window.history && typeof window.history.pushState === "function";
+        return document.location.protocol != "file:" &&
+          window.history && typeof window.history.pushState === "function";
     }
 
     function highlightSourceLines(ev) {
@@ -385,6 +386,9 @@
                 if ((aaa.item.ty === TY_PRIMITIVE) && (bbb.item.ty !== TY_PRIMITIVE)) {
                     return -1;
                 }
+                if ((bbb.item.ty === TY_PRIMITIVE) && (aaa.item.ty !== TY_PRIMITIVE)) {
+                    return 1;
+                }
 
                 // sort by description (no description goes later)
                 a = (aaa.item.desc === '');
@@ -571,6 +575,10 @@
                         displayPath = item.path + '::';
                         href = rootPath + item.path.replace(/::/g, '/') +
                                '/index.html';
+                    } else if (type === "primitive") {
+                        displayPath = "";
+                        href = rootPath + item.path.replace(/::/g, '/') +
+                               '/' + type + '.' + name + '.html';
                     } else if (item.parent !== undefined) {
                         var myparent = item.parent;
                         var anchor = '#' + type + '.' + name;
