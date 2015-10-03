@@ -45,10 +45,11 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-1802' class='srclink' href='../src/xml5ever/lib.rs.html#90-104' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-16786' class='srclink' href='../src/xml5ever/lib.rs.html#90-104' title='goto source code'>[src]</a></span></h1>
 <pre class='rust fn'>pub fn tokenize_xml_to&lt;Sink: <a class='trait' href='../xml5ever/tokenizer/trait.XTokenSink.html' title='xml5ever::tokenizer::XTokenSink'>XTokenSink</a>, It: <a class='trait' href='https://doc.rust-lang.org/nightly/core/iter/trait.IntoIterator.html' title='core::iter::IntoIterator'>IntoIterator</a>&lt;Item=<a class='type' href='../tendril/tendril/type.StrTendril.html' title='tendril::tendril::StrTendril'>StrTendril</a>&gt;&gt;(sink: Sink, input: It, opts: <a class='struct' href='../xml5ever/tokenizer/struct.XmlTokenizerOpts.html' title='xml5ever::tokenizer::XmlTokenizerOpts'>XmlTokenizerOpts</a>) -&gt; Sink</pre><div class='docblock'><p>Tokenize and send results to a <code>XTokenSink</code>.</p>
 
-<h2 id='example' class='section-header'><a href='#example'>Example</a></h2><pre class='rust rust-example-rendered'>
+<h2 id="example" class='section-header'><a
+                           href="#example">Example</a></h2><pre class='rust rust-example-rendered'>
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>sink</span> <span class='op'>=</span> <span class='ident'>MySink</span>;
 <span class='ident'>tokenize_xml_to</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>sink</span>, <span class='ident'>one_input</span>(<span class='ident'>my_str</span>), <span class='ident'>Default</span>::<span class='ident'>default</span>());</pre>
 </div></section>
