@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["AttrValueKind",""],["QuoteKind",""],["XmlState",""]]});
+initSidebarItems({"enum":[["AttrValueKind",""],["DoctypeKind",""],["XmlState",""]]});

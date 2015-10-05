@@ -24,10 +24,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -85,14 +85,26 @@
 <span id="43">43</span>
 <span id="44">44</span>
 <span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
 </pre><pre class='rust '>
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>AttrValueKind</span>::<span class='op'>*</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>XmlState</span>::<span class='op'>*</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>DoctypeKind</span>::<span class='op'>*</span>;
 
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>, <span class='ident'>PartialOrd</span>, <span class='ident'>Ord</span>, <span class='ident'>Copy</span>, <span class='ident'>Clone</span>, <span class='ident'>Hash</span>, <span class='ident'>Debug</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>QuoteKind</span> {
-    <span class='ident'>SingleQuotes</span>,
-    <span class='ident'>DoubleQuotes</span>,
+<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>DoctypeKind</span> {
+    <span class='ident'>Public</span>,
+    <span class='ident'>System</span>,
 }
 
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>, <span class='ident'>PartialOrd</span>, <span class='ident'>Ord</span>, <span class='ident'>Copy</span>, <span class='ident'>Clone</span>, <span class='ident'>Hash</span>, <span class='ident'>Debug</span>)]</span>
@@ -114,7 +126,6 @@
     <span class='ident'>Cdata</span>,
     <span class='ident'>CdataBracket</span>,
     <span class='ident'>CdataEnd</span>,
-    <span class='ident'>XDoctype</span>,
     <span class='ident'>XTagName</span>,
     <span class='ident'>XTagEmpty</span>,
     <span class='ident'>TagAttrNameBefore</span>,
@@ -122,6 +133,17 @@
     <span class='ident'>TagAttrNameAfter</span>,
     <span class='ident'>TagAttrValueBefore</span>,
     <span class='ident'>TagAttrValue</span>(<span class='ident'>AttrValueKind</span>),
+    <span class='ident'>XDoctype</span>,
+    <span class='ident'>BeforeDoctypeName</span>,
+    <span class='ident'>DoctypeName</span>,
+    <span class='ident'>AfterDoctypeName</span>,
+    <span class='ident'>AfterDoctypeKeyword</span>(<span class='ident'>DoctypeKind</span>),
+    <span class='ident'>BeforeDoctypeIdentifier</span>(<span class='ident'>DoctypeKind</span>),
+    <span class='ident'>DoctypeIdentifierDoubleQuoted</span>(<span class='ident'>DoctypeKind</span>),
+    <span class='ident'>DoctypeIdentifierSingleQuoted</span>(<span class='ident'>DoctypeKind</span>),
+    <span class='ident'>AfterDoctypeIdentifier</span>(<span class='ident'>DoctypeKind</span>),
+    <span class='ident'>BetweenDoctypePublicAndSystemIdentifiers</span>,
+    <span class='ident'>BogusDoctype</span>,
     <span class='ident'>BogusXComment</span>,
 }
 
@@ -137,10 +159,12 @@
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -157,7 +181,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -167,8 +191,8 @@
                 <p>
                     Accepted types are: <code>fn</code>, <code>mod</code>,
                     <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>typedef</code> (or
-                    <code>tdef</code>).
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
                 </p>
 
                 <p>
@@ -177,7 +201,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
