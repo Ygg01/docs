@@ -24,10 +24,10 @@
 
     
 
-    <nav class="sidebar">
+    <section class="sidebar">
         
         <p class='location'><a href='../index.html'>xml5ever</a>::<wbr><a href='index.html'>tree_builder</a></p><script>window.sidebarCurrent = {name: 'XmlTreeBuilder', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </nav>
+    </section>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -45,10 +45,10 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-1578' class='srclink' href='../../src/xml5ever/tree_builder/mod.rs.html#15-33' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-15427' class='srclink' href='../../src/xml5ever/tree_builder/mod.rs.html#15-33' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct XmlTreeBuilder&lt;Handle, Sink&gt; {
     // some fields omitted
-}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;Handle, Sink&gt; <a class='struct' href='../../xml5ever/tree_builder/struct.XmlTreeBuilder.html' title='xml5ever::tree_builder::XmlTreeBuilder'>XmlTreeBuilder</a>&lt;Handle, Sink&gt; <span class='where'>where Handle: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a>, Sink: <a class='trait' href='../../xml5ever/tree_builder/interface/trait.TreeSink.html' title='xml5ever::tree_builder::interface::TreeSink'>TreeSink</a>&lt;Handle=Handle&gt;</span></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(sink: Sink) -&gt; <a class='struct' href='../../xml5ever/tree_builder/struct.XmlTreeBuilder.html' title='xml5ever::tree_builder::XmlTreeBuilder'>XmlTreeBuilder</a>&lt;Handle, Sink&gt;</code></h4>
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;Handle, Sink&gt; <a class='struct' href='../../xml5ever/tree_builder/struct.XmlTreeBuilder.html' title='xml5ever::tree_builder::XmlTreeBuilder'>XmlTreeBuilder</a>&lt;Handle, Sink&gt; <span class='where'>where Handle: <a class='trait' href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a>, Sink: <a class='trait' href='../../xml5ever/tree_builder/interface/trait.TreeSink.html' title='xml5ever::tree_builder::interface::TreeSink'>TreeSink</a>&lt;Handle=Handle&gt;</span></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(sink: Sink) -&gt; <a class='struct' href='../../xml5ever/tree_builder/struct.XmlTreeBuilder.html' title='xml5ever::tree_builder::XmlTreeBuilder'>XmlTreeBuilder</a>&lt;Handle, Sink&gt;</code></h4>
 <div class='docblock'><p>Create a new tree builder which sends tree modifications to a particular <code>TreeSink</code>.</p>
 
 <p>The tree builder is also a <code>TokenSink</code>.</p>
@@ -58,19 +58,17 @@
 <h4 id='method.trace_handles' class='method'><code>fn <a href='#method.trace_handles' class='fnname'>trace_handles</a>(&amp;self, tracer: &amp;<a class='trait' href='../../xml5ever/tree_builder/interface/trait.Tracer.html' title='xml5ever::tree_builder::interface::Tracer'>Tracer</a>&lt;Handle=Handle&gt;)</code></h4>
 <div class='docblock'><p>Call the <code>Tracer</code>&#39;s <code>trace_handle</code> method on every <code>Handle</code> in the tree builder&#39;s
 internal state.  This is intended to support garbage-collected DOMs.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl&lt;Handle, Sink&gt; <a class='trait' href='../../xml5ever/tokenizer/trait.XTokenSink.html' title='xml5ever::tokenizer::XTokenSink'>XTokenSink</a> for <a class='struct' href='../../xml5ever/tree_builder/struct.XmlTreeBuilder.html' title='xml5ever::tree_builder::XmlTreeBuilder'>XmlTreeBuilder</a>&lt;Handle, Sink&gt; <span class='where'>where Handle: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a>, Sink: <a class='trait' href='../../xml5ever/tree_builder/interface/trait.TreeSink.html' title='xml5ever::tree_builder::interface::TreeSink'>TreeSink</a>&lt;Handle=Handle&gt;</span></code></h3><div class='impl-items'><h4 id='method.process_token' class='method'><code>fn <a href='../../xml5ever/tokenizer/trait.XTokenSink.html#method.process_token' class='fnname'>process_token</a>(&amp;mut self, token: <a class='enum' href='../../xml5ever/tokenizer/enum.XToken.html' title='xml5ever::tokenizer::XToken'>XToken</a>)</code></h4>
-<h4 id='method.query_state_change' class='method'><code>fn <a href='../../xml5ever/tokenizer/trait.XTokenSink.html#method.query_state_change' class='fnname'>query_state_change</a>(&amp;mut self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../xml5ever/tokenizer/states/enum.XmlState.html' title='xml5ever::tokenizer::states::XmlState'>XmlState</a>&gt;</code></h4>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl&lt;Handle, Sink&gt; <a class='trait' href='../../xml5ever/tokenizer/trait.XTokenSink.html' title='xml5ever::tokenizer::XTokenSink'>XTokenSink</a> for <a class='struct' href='../../xml5ever/tree_builder/struct.XmlTreeBuilder.html' title='xml5ever::tree_builder::XmlTreeBuilder'>XmlTreeBuilder</a>&lt;Handle, Sink&gt; <span class='where'>where Handle: <a class='trait' href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a>, Sink: <a class='trait' href='../../xml5ever/tree_builder/interface/trait.TreeSink.html' title='xml5ever::tree_builder::interface::TreeSink'>TreeSink</a>&lt;Handle=Handle&gt;</span></code></h3><div class='impl-items'><h4 id='method.process_token' class='method'><code>fn <a href='../../xml5ever/tokenizer/trait.XTokenSink.html#method.process_token' class='fnname'>process_token</a>(&amp;mut self, token: <a class='enum' href='../../xml5ever/tokenizer/enum.XToken.html' title='xml5ever::tokenizer::XToken'>XToken</a>)</code></h4>
+<h4 id='method.query_state_change' class='method'><code>fn <a href='../../xml5ever/tokenizer/trait.XTokenSink.html#method.query_state_change' class='fnname'>query_state_change</a>(&amp;mut self) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../xml5ever/tokenizer/states/enum.XmlState.html' title='xml5ever::tokenizer::states::XmlState'>XmlState</a>&gt;</code></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
 
-    <aside id="help" class="hidden">
+    <div id="help" class="hidden">
         <div>
-            <h1 class="hidden">Help</h1>
-
             <div class="shortcuts">
-                <h2>Keyboard Shortcuts</h2>
+                <h1>Keyboard Shortcuts</h1>
 
                 <dl>
                     <dt>?</dt>
@@ -87,7 +85,7 @@ internal state.  This is intended to support garbage-collected DOMs.</p>
             </div>
 
             <div class="infos">
-                <h2>Search Tricks</h2>
+                <h1>Search Tricks</h1>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -97,8 +95,8 @@ internal state.  This is intended to support garbage-collected DOMs.</p>
                 <p>
                     Accepted types are: <code>fn</code>, <code>mod</code>,
                     <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>type</code>, <code>macro</code>,
-                    and <code>const</code>.
+                    <code>trait</code>, <code>typedef</code> (or
+                    <code>tdef</code>).
                 </p>
 
                 <p>
@@ -107,7 +105,7 @@ internal state.  This is intended to support garbage-collected DOMs.</p>
                 </p>
             </div>
         </div>
-    </aside>
+    </div>
 
     
 

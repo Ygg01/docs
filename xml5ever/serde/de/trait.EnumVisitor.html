@@ -24,10 +24,10 @@
 
     
 
-    <nav class="sidebar">
+    <section class="sidebar">
         
         <p class='location'><a href='../index.html'>serde</a>::<wbr><a href='index.html'>de</a></p><script>window.sidebarCurrent = {name: 'EnumVisitor', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </nav>
+    </section>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -45,10 +45,10 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-5844' class='srclink' href='../../src/serde/de/mod.rs.html#736-743' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-33396' class='srclink' href='../../src/serde/de/mod.rs.html#736-743' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait EnumVisitor {
     type Value;
-    fn <a href='#tymethod.visit' class='fnname'>visit</a>&lt;V&gt;(&amp;mut self, visitor: V) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;Self::<a class='trait' href='../../serde/de/trait.EnumVisitor.html' title='serde::de::EnumVisitor'>Value</a>, V::Error&gt; <span class='where'>where V: <a class='trait' href='../../serde/de/trait.VariantVisitor.html' title='serde::de::VariantVisitor'>VariantVisitor</a></span>;
+    fn <a href='#tymethod.visit' class='fnname'>visit</a>&lt;V&gt;(&amp;mut self, visitor: V) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;Self::<a class='trait' href='../../serde/de/trait.EnumVisitor.html' title='serde::de::EnumVisitor'>Value</a>, V::Error&gt; <span class='where'>where V: <a class='trait' href='../../serde/de/trait.VariantVisitor.html' title='serde::de::VariantVisitor'>VariantVisitor</a></span>;
 }</pre><div class='docblock'><p><code>EnumVisitor</code> is a visitor that is created by the <code>Deserialize</code> and passed to the
 <code>Deserializer</code> in order to deserialize enums.</p>
 </div>
@@ -58,7 +58,7 @@
 </div></div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.visit' class='method stab '><code>fn <a href='#tymethod.visit' class='fnname'>visit</a>&lt;V&gt;(&amp;mut self, visitor: V) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;Self::<a class='trait' href='../../serde/de/trait.EnumVisitor.html' title='serde::de::EnumVisitor'>Value</a>, V::Error&gt; <span class='where'>where V: <a class='trait' href='../../serde/de/trait.VariantVisitor.html' title='serde::de::VariantVisitor'>VariantVisitor</a></span></code></h3><div class='docblock'><p>Visit the specific variant with the <code>VariantVisitor</code>.</p>
+        <h3 id='tymethod.visit' class='method stab '><code>fn <a href='#tymethod.visit' class='fnname'>visit</a>&lt;V&gt;(&amp;mut self, visitor: V) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;Self::<a class='trait' href='../../serde/de/trait.EnumVisitor.html' title='serde::de::EnumVisitor'>Value</a>, V::Error&gt; <span class='where'>where V: <a class='trait' href='../../serde/de/trait.VariantVisitor.html' title='serde::de::VariantVisitor'>VariantVisitor</a></span></code></h3><div class='docblock'><p>Visit the specific variant with the <code>VariantVisitor</code>.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
@@ -69,12 +69,10 @@
 
     <section class="footer"></section>
 
-    <aside id="help" class="hidden">
+    <div id="help" class="hidden">
         <div>
-            <h1 class="hidden">Help</h1>
-
             <div class="shortcuts">
-                <h2>Keyboard Shortcuts</h2>
+                <h1>Keyboard Shortcuts</h1>
 
                 <dl>
                     <dt>?</dt>
@@ -91,7 +89,7 @@
             </div>
 
             <div class="infos">
-                <h2>Search Tricks</h2>
+                <h1>Search Tricks</h1>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -101,8 +99,8 @@
                 <p>
                     Accepted types are: <code>fn</code>, <code>mod</code>,
                     <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>type</code>, <code>macro</code>,
-                    and <code>const</code>.
+                    <code>trait</code>, <code>typedef</code> (or
+                    <code>tdef</code>).
                 </p>
 
                 <p>
@@ -111,7 +109,7 @@
                 </p>
             </div>
         </div>
-    </aside>
+    </div>
 
     
 
