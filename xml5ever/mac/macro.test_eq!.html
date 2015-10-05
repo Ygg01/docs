@@ -24,10 +24,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='index.html'>mac</a></p><script>window.sidebarCurrent = {name: 'test_eq!', ty: 'macro', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -58,8 +58,7 @@
 <div class='docblock'><p>Generate a test function <code>$name</code> which asserts that <code>$left</code> and <code>$right</code>
 are equal.</p>
 
-<h1 id="example" class='section-header'><a
-                           href="#example">Example</a></h1><pre class='rust rust-example-rendered'>
+<h1 id='example' class='section-header'><a href='#example'>Example</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>mod</span> <span class='ident'>test</span> {
     <span class='macro'>test_eq</span><span class='macro'>!</span>(<span class='ident'>two_and_two_is_four</span>, <span class='number'>2</span> <span class='op'>+</span> <span class='number'>2</span>, <span class='number'>4</span>);
 }</pre>
@@ -68,10 +67,12 @@ are equal.</p>
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -88,7 +89,7 @@ are equal.</p>
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -98,8 +99,8 @@ are equal.</p>
                 <p>
                     Accepted types are: <code>fn</code>, <code>mod</code>,
                     <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>typedef</code> (or
-                    <code>tdef</code>).
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
                 </p>
 
                 <p>
@@ -108,7 +109,7 @@ are equal.</p>
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
