@@ -24,10 +24,10 @@
 
     
 
-    <nav class="sidebar">
+    <section class="sidebar">
         
         <p class='location'><a href='../index.html'>xml5ever</a>::<wbr><a href='index.html'>rcdom</a></p><script>window.sidebarCurrent = {name: 'RcDom', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </nav>
+    </section>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -48,7 +48,7 @@
         </span><a id='src-19315' class='srclink' href='../../src/xml5ever/rcdom.rs.html#109-115' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct RcDom {
     pub document: <a class='struct' href='../../xml5ever/rcdom/struct.Handle.html' title='xml5ever::rcdom::Handle'>Handle</a>,
-    pub errors: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='enum' href='https://doc.rust-lang.org/nightly/collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'static, <a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;&gt;,
+    pub errors: <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='enum' href='http://doc.rust-lang.org/nightly/collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'static, <a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;&gt;,
 }</pre><div class='docblock'><p>The DOM itself; the result of parsing.</p>
 </div><h2 class='fields'>Fields</h2>
 <table><tr class='stab '>
@@ -56,15 +56,15 @@
 </div></td></tr><tr class='stab '>
                                   <td id='structfield.errors'><code>errors</code></td><td><div class='docblock'><p>Errors that occurred during parsing.</p>
 </div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../../xml5ever/tree_builder/interface/trait.TreeSink.html' title='xml5ever::tree_builder::interface::TreeSink'>TreeSink</a> for <a class='struct' href='../../xml5ever/rcdom/struct.RcDom.html' title='xml5ever::rcdom::RcDom'>RcDom</a></code></h3><div class='impl-items'><h4 id='assoc_type.Handle' class='type'><code>type Handle = <a class='struct' href='../../xml5ever/rcdom/struct.Handle.html' title='xml5ever::rcdom::Handle'>Handle</a></code></h4>
-<h4 id='method.parse_error' class='method'><code>fn <a href='../../xml5ever/tree_builder/interface/trait.TreeSink.html#method.parse_error' class='fnname'>parse_error</a>(&amp;mut self, msg: <a class='enum' href='https://doc.rust-lang.org/nightly/collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'static, <a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;)</code></h4>
+<h4 id='method.parse_error' class='method'><code>fn <a href='../../xml5ever/tree_builder/interface/trait.TreeSink.html#method.parse_error' class='fnname'>parse_error</a>(&amp;mut self, msg: <a class='enum' href='http://doc.rust-lang.org/nightly/collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'static, <a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;)</code></h4>
 <h4 id='method.get_document' class='method'><code>fn <a href='../../xml5ever/tree_builder/interface/trait.TreeSink.html#method.get_document' class='fnname'>get_document</a>(&amp;mut self) -&gt; <a class='struct' href='../../xml5ever/rcdom/struct.Handle.html' title='xml5ever::rcdom::Handle'>Handle</a></code></h4>
 <h4 id='method.elem_name' class='method'><code>fn <a href='../../xml5ever/tree_builder/interface/trait.TreeSink.html#method.elem_name' class='fnname'>elem_name</a>(&amp;self, target: &amp;<a class='struct' href='../../xml5ever/rcdom/struct.Handle.html' title='xml5ever::rcdom::Handle'>Handle</a>) -&gt; <a class='struct' href='../../string_cache/namespace/struct.QualName.html' title='string_cache::namespace::QualName'>QualName</a></code></h4>
-<h4 id='method.create_element' class='method'><code>fn <a href='../../xml5ever/tree_builder/interface/trait.TreeSink.html#method.create_element' class='fnname'>create_element</a>(&amp;mut self, name: <a class='struct' href='../../string_cache/namespace/struct.QualName.html' title='string_cache::namespace::QualName'>QualName</a>, attrs: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../xml5ever/tokenizer/struct.Attribute.html' title='xml5ever::tokenizer::Attribute'>Attribute</a>&gt;) -&gt; <a class='struct' href='../../xml5ever/rcdom/struct.Handle.html' title='xml5ever::rcdom::Handle'>Handle</a></code></h4>
+<h4 id='method.create_element' class='method'><code>fn <a href='../../xml5ever/tree_builder/interface/trait.TreeSink.html#method.create_element' class='fnname'>create_element</a>(&amp;mut self, name: <a class='struct' href='../../string_cache/namespace/struct.QualName.html' title='string_cache::namespace::QualName'>QualName</a>, attrs: <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../xml5ever/tokenizer/struct.Attribute.html' title='xml5ever::tokenizer::Attribute'>Attribute</a>&gt;) -&gt; <a class='struct' href='../../xml5ever/rcdom/struct.Handle.html' title='xml5ever::rcdom::Handle'>Handle</a></code></h4>
 <h4 id='method.create_comment' class='method'><code>fn <a href='../../xml5ever/tree_builder/interface/trait.TreeSink.html#method.create_comment' class='fnname'>create_comment</a>(&amp;mut self, text: <a class='type' href='../../tendril/tendril/type.StrTendril.html' title='tendril::tendril::StrTendril'>StrTendril</a>) -&gt; <a class='struct' href='../../xml5ever/rcdom/struct.Handle.html' title='xml5ever::rcdom::Handle'>Handle</a></code></h4>
 <h4 id='method.create_pi' class='method'><code>fn <a href='../../xml5ever/tree_builder/interface/trait.TreeSink.html#method.create_pi' class='fnname'>create_pi</a>(&amp;mut self, target: <a class='type' href='../../tendril/tendril/type.StrTendril.html' title='tendril::tendril::StrTendril'>StrTendril</a>, data: <a class='type' href='../../tendril/tendril/type.StrTendril.html' title='tendril::tendril::StrTendril'>StrTendril</a>) -&gt; <a class='struct' href='../../xml5ever/rcdom/struct.Handle.html' title='xml5ever::rcdom::Handle'>Handle</a></code></h4>
 <h4 id='method.append' class='method'><code>fn <a href='../../xml5ever/tree_builder/interface/trait.TreeSink.html#method.append' class='fnname'>append</a>(&amp;mut self, parent: <a class='struct' href='../../xml5ever/rcdom/struct.Handle.html' title='xml5ever::rcdom::Handle'>Handle</a>, child: <a class='enum' href='../../xml5ever/tree_builder/interface/enum.NodeOrText.html' title='xml5ever::tree_builder::interface::NodeOrText'>NodeOrText</a>&lt;<a class='struct' href='../../xml5ever/rcdom/struct.Handle.html' title='xml5ever::rcdom::Handle'>Handle</a>&gt;)</code></h4>
 <h4 id='method.append_doctype_to_document' class='method'><code>fn <a href='../../xml5ever/tree_builder/interface/trait.TreeSink.html#method.append_doctype_to_document' class='fnname'>append_doctype_to_document</a>(&amp;mut self, name: <a class='type' href='../../tendril/tendril/type.StrTendril.html' title='tendril::tendril::StrTendril'>StrTendril</a>, public_id: <a class='type' href='../../tendril/tendril/type.StrTendril.html' title='tendril::tendril::StrTendril'>StrTendril</a>, system_id: <a class='type' href='../../tendril/tendril/type.StrTendril.html' title='tendril::tendril::StrTendril'>StrTendril</a>)</code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a> for <a class='struct' href='../../xml5ever/rcdom/struct.RcDom.html' title='xml5ever::rcdom::RcDom'>RcDom</a></code></h3><div class='impl-items'><h4 id='method.default' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#method.default' class='fnname'>default</a>() -&gt; <a class='struct' href='../../xml5ever/rcdom/struct.RcDom.html' title='xml5ever::rcdom::RcDom'>RcDom</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a> for <a class='struct' href='../../xml5ever/rcdom/struct.RcDom.html' title='xml5ever::rcdom::RcDom'>RcDom</a></code></h3><div class='impl-items'><h4 id='method.default' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/default/trait.Default.html#method.default' class='fnname'>default</a>() -&gt; <a class='struct' href='../../xml5ever/rcdom/struct.RcDom.html' title='xml5ever::rcdom::RcDom'>RcDom</a></code></h4>
 </div><h3 class='impl'><code>impl <a class='trait' href='../../xml5ever/trait.ParseResult.html' title='xml5ever::ParseResult'>ParseResult</a> for <a class='struct' href='../../xml5ever/rcdom/struct.RcDom.html' title='xml5ever::rcdom::RcDom'>RcDom</a></code></h3><div class='impl-items'><h4 id='assoc_type.Sink' class='type'><code>type Sink = <a class='struct' href='../../xml5ever/rcdom/struct.RcDom.html' title='xml5ever::rcdom::RcDom'>RcDom</a></code></h4>
 <h4 id='method.get_result' class='method'><code>fn <a href='../../xml5ever/trait.ParseResult.html#method.get_result' class='fnname'>get_result</a>(sink: <a class='struct' href='../../xml5ever/rcdom/struct.RcDom.html' title='xml5ever::rcdom::RcDom'>RcDom</a>) -&gt; <a class='struct' href='../../xml5ever/rcdom/struct.RcDom.html' title='xml5ever::rcdom::RcDom'>RcDom</a></code></h4>
 </div></section>
@@ -72,12 +72,10 @@
 
     <section class="footer"></section>
 
-    <aside id="help" class="hidden">
+    <div id="help" class="hidden">
         <div>
-            <h1 class="hidden">Help</h1>
-
             <div class="shortcuts">
-                <h2>Keyboard Shortcuts</h2>
+                <h1>Keyboard Shortcuts</h1>
 
                 <dl>
                     <dt>?</dt>
@@ -94,7 +92,7 @@
             </div>
 
             <div class="infos">
-                <h2>Search Tricks</h2>
+                <h1>Search Tricks</h1>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -104,8 +102,8 @@
                 <p>
                     Accepted types are: <code>fn</code>, <code>mod</code>,
                     <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>type</code>, <code>macro</code>,
-                    and <code>const</code>.
+                    <code>trait</code>, <code>typedef</code> (or
+                    <code>tdef</code>).
                 </p>
 
                 <p>
@@ -114,7 +112,7 @@
                 </p>
             </div>
         </div>
-    </aside>
+    </div>
 
     
 
