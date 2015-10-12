@@ -24,10 +24,10 @@
 
     
 
-    <nav class="sidebar">
+    <section class="sidebar">
         
         <p class='location'><a href='index.html'>xml5ever</a></p><script>window.sidebarCurrent = {name: 'parse_xml', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </nav>
+    </section>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -46,7 +46,7 @@
                 [<span class='inner'>&#x2212;</span>]
             </a>
         </span><a id='src-19642' class='srclink' href='../src/xml5ever/lib.rs.html#65-71' title='goto source code'>[src]</a></span></h1>
-<pre class='rust fn'>pub fn parse_xml&lt;Output, It&gt;(input: It, opts: <a class='struct' href='../xml5ever/tokenizer/struct.XmlTokenizerOpts.html' title='xml5ever::tokenizer::XmlTokenizerOpts'>XmlTokenizerOpts</a>) -&gt; Output <span class='where'>where Output: <a class='trait' href='../xml5ever/trait.ParseResult.html' title='xml5ever::ParseResult'>ParseResult</a>, It: <a class='trait' href='https://doc.rust-lang.org/nightly/core/iter/trait.IntoIterator.html' title='core::iter::IntoIterator'>IntoIterator</a>&lt;Item=<a class='type' href='../tendril/tendril/type.StrTendril.html' title='tendril::tendril::StrTendril'>StrTendril</a>&gt;</span></pre><div class='docblock'><p>Parse into a type which implements <code>ParseResult</code>.</p>
+<pre class='rust fn'>pub fn parse_xml&lt;Output, It&gt;(input: It, opts: <a class='struct' href='../xml5ever/tokenizer/struct.XmlTokenizerOpts.html' title='xml5ever::tokenizer::XmlTokenizerOpts'>XmlTokenizerOpts</a>) -&gt; Output <span class='where'>where Output: <a class='trait' href='../xml5ever/trait.ParseResult.html' title='xml5ever::ParseResult'>ParseResult</a>, It: <a class='trait' href='http://doc.rust-lang.org/nightly/core/iter/trait.IntoIterator.html' title='core::iter::IntoIterator'>IntoIterator</a>&lt;Item=<a class='type' href='../tendril/tendril/type.StrTendril.html' title='tendril::tendril::StrTendril'>StrTendril</a>&gt;</span></pre><div class='docblock'><p>Parse into a type which implements <code>ParseResult</code>.</p>
 
 <h2 id="example" class='section-header'><a
                            href="#example">Example</a></h2><pre class='rust rust-example-rendered'>
@@ -56,12 +56,10 @@
 
     <section class="footer"></section>
 
-    <aside id="help" class="hidden">
+    <div id="help" class="hidden">
         <div>
-            <h1 class="hidden">Help</h1>
-
             <div class="shortcuts">
-                <h2>Keyboard Shortcuts</h2>
+                <h1>Keyboard Shortcuts</h1>
 
                 <dl>
                     <dt>?</dt>
@@ -78,7 +76,7 @@
             </div>
 
             <div class="infos">
-                <h2>Search Tricks</h2>
+                <h1>Search Tricks</h1>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -88,8 +86,8 @@
                 <p>
                     Accepted types are: <code>fn</code>, <code>mod</code>,
                     <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>type</code>, <code>macro</code>,
-                    and <code>const</code>.
+                    <code>trait</code>, <code>typedef</code> (or
+                    <code>tdef</code>).
                 </p>
 
                 <p>
@@ -98,7 +96,7 @@
                 </p>
             </div>
         </div>
-    </aside>
+    </div>
 
     
 
