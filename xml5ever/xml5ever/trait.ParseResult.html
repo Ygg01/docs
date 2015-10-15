@@ -24,10 +24,10 @@
 
     
 
-    <nav class="sidebar">
+    <section class="sidebar">
         
         <p class='location'><a href='index.html'>xml5ever</a></p><script>window.sidebarCurrent = {name: 'ParseResult', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </nav>
+    </section>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -45,9 +45,9 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-1979' class='srclink' href='../src/xml5ever/lib.rs.html#77-80' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-19672' class='srclink' href='../src/xml5ever/lib.rs.html#77-80' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait ParseResult {
-    type Sink: <a class='trait' href='../xml5ever/tree_builder/interface/trait.TreeSink.html' title='xml5ever::tree_builder::interface::TreeSink'>TreeSink</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a>;
+    type Sink: <a class='trait' href='../xml5ever/tree_builder/interface/trait.TreeSink.html' title='xml5ever::tree_builder::interface::TreeSink'>TreeSink</a> + <a class='trait' href='http://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a>;
     fn <a href='#tymethod.get_result' class='fnname'>get_result</a>(sink: Self::<a class='trait' href='../xml5ever/trait.ParseResult.html' title='xml5ever::ParseResult'>Sink</a>) -&gt; Self;
 }</pre><div class='docblock'><p>Results which can be extracted from a <code>TreeSink</code>.</p>
 
@@ -56,7 +56,7 @@ can be returned by <code>parse()</code>.</p>
 </div>
             <h2 id='associated-types'>Associated Types</h2>
             <div class='methods'>
-        <h3 id='associatedtype.Sink' class='method stab '><code>type Sink: <a class='trait' href='../xml5ever/tree_builder/interface/trait.TreeSink.html' title='xml5ever::tree_builder::interface::TreeSink'>TreeSink</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a></code></h3></div>
+        <h3 id='associatedtype.Sink' class='method stab '><code>type Sink: <a class='trait' href='../xml5ever/tree_builder/interface/trait.TreeSink.html' title='xml5ever::tree_builder::interface::TreeSink'>TreeSink</a> + <a class='trait' href='http://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a></code></h3></div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
         <h3 id='tymethod.get_result' class='method stab '><code>fn <a href='#tymethod.get_result' class='fnname'>get_result</a>(sink: Self::<a class='trait' href='../xml5ever/trait.ParseResult.html' title='xml5ever::ParseResult'>Sink</a>) -&gt; Self</code></h3></div>
@@ -70,12 +70,10 @@ can be returned by <code>parse()</code>.</p>
 
     <section class="footer"></section>
 
-    <aside id="help" class="hidden">
+    <div id="help" class="hidden">
         <div>
-            <h1 class="hidden">Help</h1>
-
             <div class="shortcuts">
-                <h2>Keyboard Shortcuts</h2>
+                <h1>Keyboard Shortcuts</h1>
 
                 <dl>
                     <dt>?</dt>
@@ -92,7 +90,7 @@ can be returned by <code>parse()</code>.</p>
             </div>
 
             <div class="infos">
-                <h2>Search Tricks</h2>
+                <h1>Search Tricks</h1>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -102,8 +100,8 @@ can be returned by <code>parse()</code>.</p>
                 <p>
                     Accepted types are: <code>fn</code>, <code>mod</code>,
                     <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>type</code>, <code>macro</code>,
-                    and <code>const</code>.
+                    <code>trait</code>, <code>typedef</code> (or
+                    <code>tdef</code>).
                 </p>
 
                 <p>
@@ -112,7 +110,7 @@ can be returned by <code>parse()</code>.</p>
                 </p>
             </div>
         </div>
-    </aside>
+    </div>
 
     
 
