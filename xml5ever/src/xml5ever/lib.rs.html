@@ -144,6 +144,7 @@
 <span id="102">102</span>
 <span id="103">103</span>
 <span id="104">104</span>
+<span id="105">105</span>
 </pre><pre class='rust '>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_name</span><span class='op'>=</span><span class='string'>&quot;xml5ever&quot;</span>]</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_type</span><span class='op'>=</span><span class='string'>&quot;dylib&quot;</span>]</span>
@@ -156,6 +157,7 @@
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>string_cache</span>;
 
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>rc</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>phf</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>tendril</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>time</span>;
 
@@ -173,7 +175,7 @@
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>tree_builder</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>rcdom</span>;
 
-<span class='kw'>use</span> <span class='ident'>tokenizer</span>::{<span class='ident'>XmlTokenizerOpts</span>, <span class='ident'>XmlTokenizer</span>, <span class='ident'>XTokenSink</span>};
+<span class='kw'>use</span> <span class='ident'>tokenizer</span>::{<span class='ident'>XmlTokenizerOpts</span>, <span class='ident'>XmlTokenizer</span>, <span class='ident'>TokenSink</span>};
 <span class='kw'>use</span> <span class='ident'>tree_builder</span>::{<span class='ident'>TreeSink</span>, <span class='ident'>XmlTreeBuilder</span>};
 
 <span class='doccomment'>/// Parse and send results to a `TreeSink`.</span>
@@ -235,7 +237,7 @@
 <span class='doccomment'>/// tokenize_xml_to(&amp;mut sink, one_input(my_str), Default::default());</span>
 <span class='doccomment'>/// ```</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>tokenize_xml_to</span><span class='op'>&lt;</span>
-        <span class='ident'>Sink</span>: <span class='ident'>XTokenSink</span>,
+        <span class='ident'>Sink</span>: <span class='ident'>TokenSink</span>,
         <span class='ident'>It</span>: <span class='ident'>IntoIterator</span><span class='op'>&lt;</span><span class='ident'>Item</span><span class='op'>=</span><span class='ident'>tendril</span>::<span class='ident'>StrTendril</span><span class='op'>&gt;</span>
     <span class='op'>&gt;</span>(
         <span class='ident'>sink</span>: <span class='ident'>Sink</span>,

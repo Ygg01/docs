@@ -1181,7 +1181,6 @@
 <span id="1139">1139</span>
 <span id="1140">1140</span>
 <span id="1141">1141</span>
-<span id="1142">1142</span>
 </pre><pre class='rust '>
 <span class='kw'>mod</span> <span class='ident'>buffer_queue</span>;
 <span class='kw'>mod</span> <span class='ident'>char_ref</span>;
@@ -1189,11 +1188,11 @@
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>states</span>;
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>interface</span>::{<span class='ident'>Attribute</span>, <span class='ident'>Doctype</span>};
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>interface</span>::{<span class='ident'>StartXTag</span>, <span class='ident'>EndXTag</span>, <span class='ident'>EmptyXTag</span>, <span class='ident'>ShortXTag</span>};
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>interface</span>::{<span class='ident'>DoctypeXToken</span>, <span class='ident'>XTagToken</span>, <span class='ident'>PIToken</span>, <span class='ident'>CommentXToken</span>};
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>interface</span>::{<span class='ident'>CharacterXTokens</span>, <span class='ident'>EOFXToken</span>, <span class='ident'>NullCharacterXToken</span>};
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>interface</span>::{<span class='ident'>XTokenSink</span>, <span class='ident'>XParseError</span>, <span class='ident'>XTagKind</span>, <span class='ident'>XToken</span>, <span class='ident'>XTag</span>};
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>interface</span>::<span class='ident'>XPi</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>interface</span>::{<span class='ident'>StartTag</span>, <span class='ident'>EndTag</span>, <span class='ident'>EmptyTag</span>, <span class='ident'>ShortTag</span>};
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>interface</span>::{<span class='ident'>DoctypeToken</span>, <span class='ident'>TagToken</span>, <span class='ident'>PIToken</span>, <span class='ident'>CommentToken</span>};
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>interface</span>::{<span class='ident'>CharacterTokens</span>, <span class='ident'>EOFToken</span>, <span class='ident'>NullCharacterToken</span>};
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>interface</span>::{<span class='ident'>TokenSink</span>, <span class='ident'>ParseError</span>, <span class='ident'>TagKind</span>, <span class='ident'>Token</span>, <span class='ident'>Tag</span>};
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>interface</span>::<span class='ident'>Pi</span>;
 
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>borrow</span>::<span class='ident'>Cow</span>::{<span class='self'>self</span>, <span class='ident'>Borrowed</span>};
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ascii</span>::<span class='ident'>AsciiExt</span>;
@@ -1203,9 +1202,9 @@
 <span class='kw'>use</span> <span class='ident'>tendril</span>::<span class='ident'>StrTendril</span>;
 
 <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>buffer_queue</span>::{<span class='ident'>BufferQueue</span>, <span class='ident'>SetResult</span>, <span class='ident'>FromSet</span>, <span class='ident'>NotFromSet</span>};
-<span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>char_ref</span>::{<span class='ident'>XCharRefTokenizer</span>, <span class='ident'>XRef</span>};
+<span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>char_ref</span>::{<span class='ident'>CharRefTokenizer</span>, <span class='ident'>CharRef</span>};
 <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>states</span>::{<span class='ident'>Unquoted</span>, <span class='ident'>SingleQuoted</span>, <span class='ident'>DoubleQuoted</span>};
-<span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>states</span>::{<span class='ident'>XData</span>, <span class='ident'>XTagState</span>, <span class='ident'>XmlState</span>};
+<span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>states</span>::{<span class='ident'>Data</span>, <span class='ident'>TagState</span>, <span class='ident'>XmlState</span>};
 <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>states</span>::{<span class='ident'>DoctypeKind</span>, <span class='ident'>Public</span>, <span class='ident'>System</span>};
 <span class='kw'>use</span> <span class='ident'>util</span>::<span class='ident'>smallcharset</span>::<span class='ident'>SmallCharSet</span>;
 
@@ -1275,7 +1274,7 @@
 
     <span class='doccomment'>/// Tokenizer for character references, if we&#39;re tokenizing</span>
     <span class='doccomment'>/// one at the moment.</span>
-    <span class='ident'>char_ref_tokenizer</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>XCharRefTokenizer</span><span class='op'>&gt;&gt;</span>,
+    <span class='ident'>char_ref_tokenizer</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>CharRefTokenizer</span><span class='op'>&gt;&gt;</span>,
 
     <span class='doccomment'>/// Current input character.  Just consumed, may reconsume.</span>
     <span class='ident'>current_char</span>: <span class='ident'>char</span>,
@@ -1292,7 +1291,7 @@
     <span class='ident'>discard_bom</span>: <span class='ident'>bool</span>,
 
     <span class='doccomment'>/// Current tag kind.</span>
-    <span class='ident'>current_tag_kind</span>: <span class='ident'>XTagKind</span>,
+    <span class='ident'>current_tag_kind</span>: <span class='ident'>TagKind</span>,
 
     <span class='doccomment'>/// Current tag name.</span>
     <span class='ident'>current_tag_name</span>: <span class='ident'>StrTendril</span>,
@@ -1324,14 +1323,14 @@
     <span class='ident'>time_in_sink</span>: <span class='ident'>u64</span>,
 }
 
-<span class='kw'>impl</span> <span class='op'>&lt;</span><span class='ident'>Sink</span>:<span class='ident'>XTokenSink</span><span class='op'>&gt;</span> <span class='ident'>XmlTokenizer</span><span class='op'>&lt;</span><span class='ident'>Sink</span><span class='op'>&gt;</span> {
+<span class='kw'>impl</span> <span class='op'>&lt;</span><span class='ident'>Sink</span>:<span class='ident'>TokenSink</span><span class='op'>&gt;</span> <span class='ident'>XmlTokenizer</span><span class='op'>&lt;</span><span class='ident'>Sink</span><span class='op'>&gt;</span> {
     <span class='doccomment'>/// Create a new tokenizer which feeds tokens to a particular `TokenSink`.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>sink</span>: <span class='ident'>Sink</span>, <span class='ident'>opts</span>: <span class='ident'>XmlTokenizerOpts</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlTokenizer</span><span class='op'>&lt;</span><span class='ident'>Sink</span><span class='op'>&gt;</span> {
         <span class='kw'>if</span> <span class='ident'>opts</span>.<span class='ident'>profile</span> <span class='op'>&amp;&amp;</span> <span class='macro'>cfg</span><span class='macro'>!</span>(<span class='ident'>for_c</span>) {
             <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;Can&#39;t profile tokenizer when built as a C library&quot;</span>);
         }
 
-        <span class='kw'>let</span> <span class='ident'>state</span> <span class='op'>=</span> <span class='op'>*</span><span class='ident'>opts</span>.<span class='ident'>initial_state</span>.<span class='ident'>as_ref</span>().<span class='ident'>unwrap_or</span>(<span class='kw-2'>&amp;</span><span class='ident'>states</span>::<span class='ident'>XData</span>);
+        <span class='kw'>let</span> <span class='ident'>state</span> <span class='op'>=</span> <span class='op'>*</span><span class='ident'>opts</span>.<span class='ident'>initial_state</span>.<span class='ident'>as_ref</span>().<span class='ident'>unwrap_or</span>(<span class='kw-2'>&amp;</span><span class='ident'>states</span>::<span class='ident'>Data</span>);
         <span class='kw'>let</span> <span class='ident'>discard_bom</span> <span class='op'>=</span> <span class='ident'>opts</span>.<span class='ident'>discard_bom</span>;
         <span class='ident'>XmlTokenizer</span> {
             <span class='ident'>opts</span>: <span class='ident'>opts</span>,
@@ -1344,7 +1343,7 @@
             <span class='ident'>reconsume</span>: <span class='boolval'>false</span>,
             <span class='ident'>ignore_lf</span>: <span class='boolval'>false</span>,
             <span class='ident'>discard_bom</span>: <span class='ident'>discard_bom</span>,
-            <span class='ident'>current_tag_kind</span>: <span class='ident'>StartXTag</span>,
+            <span class='ident'>current_tag_kind</span>: <span class='ident'>StartTag</span>,
             <span class='ident'>current_tag_name</span>: <span class='ident'>StrTendril</span>::<span class='ident'>new</span>(),
             <span class='ident'>current_tag_attrs</span>: <span class='macro'>vec</span><span class='macro'>!</span>(),
             <span class='ident'>current_attr_name</span>: <span class='ident'>StrTendril</span>::<span class='ident'>new</span>(),
@@ -1383,7 +1382,7 @@
         <span class='self'>self</span>.<span class='ident'>run</span>();
     }
 
-    <span class='kw'>fn</span> <span class='ident'>process_token</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>token</span>: <span class='ident'>XToken</span>) {
+    <span class='kw'>fn</span> <span class='ident'>process_token</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>token</span>: <span class='ident'>Token</span>) {
         <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>opts</span>.<span class='ident'>profile</span> {
             <span class='kw'>let</span> (_, <span class='ident'>dt</span>) <span class='op'>=</span> <span class='macro'>time</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>process_token</span>(<span class='ident'>token</span>));
             <span class='self'>self</span>.<span class='ident'>time_in_sink</span> <span class='op'>+=</span> <span class='ident'>dt</span>;
@@ -1410,6 +1409,16 @@
         <span class='comment'>// Normalize \x00 into \uFFFD</span>
         <span class='kw'>if</span> <span class='ident'>c</span> <span class='op'>==</span> <span class='string'>&#39;\x00&#39;</span> {
             <span class='ident'>c</span> <span class='op'>=</span> <span class='string'>&#39;\u{FFFD}&#39;</span>
+        }
+
+        <span class='comment'>// Exclude forbidden Unicode characters</span>
+        <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>opts</span>.<span class='ident'>exact_errors</span> <span class='op'>&amp;&amp;</span> <span class='kw'>match</span> <span class='ident'>c</span> <span class='kw'>as</span> <span class='ident'>u32</span> {
+            <span class='number'>0x01</span>...<span class='number'>0x08</span> <span class='op'>|</span> <span class='number'>0x0B</span> <span class='op'>|</span> <span class='number'>0x0E</span>...<span class='number'>0x1F</span> <span class='op'>|</span> <span class='number'>0x7F</span>...<span class='number'>0x9F</span> <span class='op'>|</span> <span class='number'>0xFDD0</span>...<span class='number'>0xFDEF</span> <span class='op'>=&gt;</span> <span class='boolval'>true</span>,
+            <span class='ident'>n</span> <span class='kw'>if</span> (<span class='ident'>n</span> <span class='kw-2'>&amp;</span> <span class='number'>0xFFFE</span>) <span class='op'>==</span> <span class='number'>0xFFFE</span> <span class='op'>=&gt;</span> <span class='boolval'>true</span>,
+            _ <span class='op'>=&gt;</span> <span class='boolval'>false</span>,
+        } {
+            <span class='kw'>let</span> <span class='ident'>msg</span> <span class='op'>=</span> <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;Bad character {}&quot;</span>, <span class='ident'>c</span>);
+            <span class='self'>self</span>.<span class='ident'>emit_error</span>(<span class='ident'>Cow</span>::<span class='ident'>Owned</span>(<span class='ident'>msg</span>));
         }
 
         <span class='macro'>debug</span><span class='macro'>!</span>(<span class='string'>&quot;got character {}&quot;</span>, <span class='ident'>c</span>);
@@ -1510,7 +1519,7 @@
         <span class='self'>self</span>.<span class='ident'>current_tag_attrs</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>();
     }
 
-    <span class='kw'>fn</span> <span class='ident'>create_tag</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>kind</span>: <span class='ident'>XTagKind</span>, <span class='ident'>c</span>: <span class='ident'>char</span>) {
+    <span class='kw'>fn</span> <span class='ident'>create_tag</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>kind</span>: <span class='ident'>TagKind</span>, <span class='ident'>c</span>: <span class='ident'>char</span>) {
         <span class='self'>self</span>.<span class='ident'>discard_tag</span>();
         <span class='self'>self</span>.<span class='ident'>current_tag_name</span>.<span class='ident'>push_char</span>(<span class='ident'>c</span>);
         <span class='self'>self</span>.<span class='ident'>current_tag_kind</span> <span class='op'>=</span> <span class='ident'>kind</span>;
@@ -1525,29 +1534,29 @@
     }
 
     <span class='kw'>fn</span> <span class='ident'>emit_char</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>c</span>: <span class='ident'>char</span>) {
-        <span class='self'>self</span>.<span class='ident'>process_token</span>(<span class='ident'>CharacterXTokens</span>(<span class='ident'>StrTendril</span>::<span class='ident'>from_char</span>(<span class='kw'>match</span> <span class='ident'>c</span> {
+        <span class='self'>self</span>.<span class='ident'>process_token</span>(<span class='ident'>CharacterTokens</span>(<span class='ident'>StrTendril</span>::<span class='ident'>from_char</span>(<span class='kw'>match</span> <span class='ident'>c</span> {
             <span class='string'>&#39;\0&#39;</span> <span class='op'>=&gt;</span> <span class='string'>&#39;\u{FFFD}&#39;</span>,
             <span class='ident'>c</span> <span class='op'>=&gt;</span> <span class='ident'>c</span>,
         })));
     }
 
     <span class='kw'>fn</span> <span class='ident'>emit_short_tag</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='self'>self</span>.<span class='ident'>current_tag_kind</span> <span class='op'>=</span> <span class='ident'>ShortXTag</span>;
+        <span class='self'>self</span>.<span class='ident'>current_tag_kind</span> <span class='op'>=</span> <span class='ident'>ShortTag</span>;
         <span class='self'>self</span>.<span class='ident'>current_tag_name</span> <span class='op'>=</span> <span class='ident'>StrTendril</span>::<span class='ident'>new</span>();
         <span class='self'>self</span>.<span class='ident'>emit_current_tag</span>();
     }
 
     <span class='kw'>fn</span> <span class='ident'>emit_empty_tag</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='self'>self</span>.<span class='ident'>current_tag_kind</span> <span class='op'>=</span> <span class='ident'>EmptyXTag</span>;
+        <span class='self'>self</span>.<span class='ident'>current_tag_kind</span> <span class='op'>=</span> <span class='ident'>EmptyTag</span>;
         <span class='self'>self</span>.<span class='ident'>emit_current_tag</span>();
     }
 
     <span class='kw'>fn</span> <span class='ident'>set_empty_tag</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='self'>self</span>.<span class='ident'>current_tag_kind</span> <span class='op'>=</span> <span class='ident'>EmptyXTag</span>;
+        <span class='self'>self</span>.<span class='ident'>current_tag_kind</span> <span class='op'>=</span> <span class='ident'>EmptyTag</span>;
     }
 
     <span class='kw'>fn</span> <span class='ident'>emit_start_tag</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='self'>self</span>.<span class='ident'>current_tag_kind</span> <span class='op'>=</span> <span class='ident'>StartXTag</span>;
+        <span class='self'>self</span>.<span class='ident'>current_tag_kind</span> <span class='op'>=</span> <span class='ident'>StartTag</span>;
         <span class='self'>self</span>.<span class='ident'>emit_current_tag</span>();
     }
 
@@ -1558,27 +1567,27 @@
         <span class='kw'>let</span> <span class='ident'>name</span> <span class='op'>=</span> <span class='ident'>Atom</span>::<span class='ident'>from_slice</span>(<span class='kw-2'>&amp;</span><span class='ident'>name</span>);
 
         <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>current_tag_kind</span> {
-            <span class='ident'>StartXTag</span> <span class='op'>|</span> <span class='ident'>EmptyXTag</span> <span class='op'>=&gt;</span> {},
-            <span class='ident'>EndXTag</span> <span class='op'>=&gt;</span> {
+            <span class='ident'>StartTag</span> <span class='op'>|</span> <span class='ident'>EmptyTag</span> <span class='op'>=&gt;</span> {},
+            <span class='ident'>EndTag</span> <span class='op'>=&gt;</span> {
                 <span class='kw'>if</span> <span class='op'>!</span><span class='self'>self</span>.<span class='ident'>current_tag_attrs</span>.<span class='ident'>is_empty</span>() {
                     <span class='self'>self</span>.<span class='ident'>emit_error</span>(<span class='ident'>Borrowed</span>(<span class='string'>&quot;Attributes on an end tag&quot;</span>));
                 }
             },
-            <span class='ident'>ShortXTag</span> <span class='op'>=&gt;</span> {
+            <span class='ident'>ShortTag</span> <span class='op'>=&gt;</span> {
                 <span class='kw'>if</span> <span class='op'>!</span><span class='self'>self</span>.<span class='ident'>current_tag_attrs</span>.<span class='ident'>is_empty</span>() {
                     <span class='self'>self</span>.<span class='ident'>emit_error</span>(<span class='ident'>Borrowed</span>(<span class='string'>&quot;Attributes on a short tag&quot;</span>));
                 }
             },
         }
 
-        <span class='kw'>let</span> <span class='ident'>token</span> <span class='op'>=</span> <span class='ident'>XTagToken</span>(<span class='ident'>XTag</span> { <span class='ident'>kind</span>: <span class='self'>self</span>.<span class='ident'>current_tag_kind</span>,
+        <span class='kw'>let</span> <span class='ident'>token</span> <span class='op'>=</span> <span class='ident'>TagToken</span>(<span class='ident'>Tag</span> { <span class='ident'>kind</span>: <span class='self'>self</span>.<span class='ident'>current_tag_kind</span>,
             <span class='ident'>name</span>: <span class='ident'>name</span>,
             <span class='ident'>attrs</span>: <span class='ident'>replace</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>current_tag_attrs</span>, <span class='macro'>vec</span><span class='macro'>!</span>()),
         });
         <span class='self'>self</span>.<span class='ident'>process_token</span>(<span class='ident'>token</span>);
 
 
-        <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>current_tag_kind</span> <span class='op'>==</span> <span class='ident'>StartXTag</span> {
+        <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>current_tag_kind</span> <span class='op'>==</span> <span class='ident'>StartTag</span> {
             <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>query_state_change</span>() {
                 <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> (),
                 <span class='prelude-val'>Some</span>(<span class='ident'>s</span>) <span class='op'>=&gt;</span> <span class='self'>self</span>.<span class='ident'>state</span> <span class='op'>=</span> <span class='ident'>s</span>,
@@ -1588,41 +1597,41 @@
 
     <span class='comment'>// The string must not contain &#39;\0&#39;!</span>
     <span class='kw'>fn</span> <span class='ident'>emit_chars</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>b</span>: <span class='ident'>StrTendril</span>) {
-        <span class='self'>self</span>.<span class='ident'>process_token</span>(<span class='ident'>CharacterXTokens</span>(<span class='ident'>b</span>));
+        <span class='self'>self</span>.<span class='ident'>process_token</span>(<span class='ident'>CharacterTokens</span>(<span class='ident'>b</span>));
     }
 
     <span class='comment'>// Emits the current Processing Instruction</span>
     <span class='kw'>fn</span> <span class='ident'>emit_pi</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>let</span> <span class='ident'>token</span> <span class='op'>=</span> <span class='ident'>PIToken</span>(<span class='ident'>XPi</span> {
+        <span class='kw'>let</span> <span class='ident'>token</span> <span class='op'>=</span> <span class='ident'>PIToken</span>(<span class='ident'>Pi</span> {
             <span class='ident'>target</span>: <span class='ident'>replace</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>current_pi_target</span>, <span class='ident'>StrTendril</span>::<span class='ident'>new</span>()),
             <span class='ident'>data</span>: <span class='ident'>replace</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>current_pi_data</span>, <span class='ident'>StrTendril</span>::<span class='ident'>new</span>()),
         });
         <span class='self'>self</span>.<span class='ident'>process_token</span>(<span class='ident'>token</span>);
     }
 
-    <span class='kw'>fn</span> <span class='ident'>consume_char_ref</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
+    <span class='kw'>fn</span> <span class='ident'>consume_char_ref</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>addnl_allowed</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>char</span><span class='op'>&gt;</span>) {
         <span class='comment'>// NB: The char ref tokenizer assumes we have an additional allowed</span>
         <span class='comment'>// character iff we&#39;re tokenizing in an attribute value.</span>
-        <span class='self'>self</span>.<span class='ident'>char_ref_tokenizer</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>XCharRefTokenizer</span>::<span class='ident'>new</span>()));
+        <span class='self'>self</span>.<span class='ident'>char_ref_tokenizer</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>CharRefTokenizer</span>::<span class='ident'>new</span>(<span class='ident'>addnl_allowed</span>)));
     }
 
     <span class='kw'>fn</span> <span class='ident'>emit_eof</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='self'>self</span>.<span class='ident'>process_token</span>(<span class='ident'>EOFXToken</span>);
+        <span class='self'>self</span>.<span class='ident'>process_token</span>(<span class='ident'>EOFToken</span>);
     }
 
     <span class='kw'>fn</span> <span class='ident'>emit_error</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>error</span>: <span class='ident'>Cow</span><span class='op'>&lt;</span><span class='lifetime'>&#39;static</span>, <span class='ident'>str</span><span class='op'>&gt;</span>) {
-        <span class='self'>self</span>.<span class='ident'>process_token</span>(<span class='ident'>XParseError</span>(<span class='ident'>error</span>));
+        <span class='self'>self</span>.<span class='ident'>process_token</span>(<span class='ident'>ParseError</span>(<span class='ident'>error</span>));
     }
 
 
     <span class='kw'>fn</span> <span class='ident'>emit_current_comment</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
         <span class='kw'>let</span> <span class='ident'>comment</span> <span class='op'>=</span> <span class='ident'>replace</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>current_comment</span>, <span class='ident'>StrTendril</span>::<span class='ident'>new</span>());
-        <span class='self'>self</span>.<span class='ident'>process_token</span>(<span class='ident'>CommentXToken</span>(<span class='ident'>comment</span>));
+        <span class='self'>self</span>.<span class='ident'>process_token</span>(<span class='ident'>CommentToken</span>(<span class='ident'>comment</span>));
     }
 
     <span class='kw'>fn</span> <span class='ident'>emit_current_doctype</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
         <span class='kw'>let</span> <span class='ident'>doctype</span> <span class='op'>=</span> <span class='ident'>replace</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>current_doctype</span>, <span class='ident'>Doctype</span>::<span class='ident'>new</span>());
-        <span class='self'>self</span>.<span class='ident'>process_token</span>(<span class='ident'>DoctypeXToken</span>(<span class='ident'>doctype</span>));
+        <span class='self'>self</span>.<span class='ident'>process_token</span>(<span class='ident'>DoctypeToken</span>(<span class='ident'>doctype</span>));
     }
 
     <span class='kw'>fn</span> <span class='ident'>doctype_id</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>kind</span>: <span class='ident'>DoctypeKind</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>StrTendril</span><span class='op'>&gt;</span> {
@@ -1722,7 +1731,6 @@
 
     ( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>me</span>:<span class='ident'>ident</span> : <span class='ident'>consume_char_ref</span>             ) <span class='op'>=&gt;</span> ({ <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>me</span>.<span class='ident'>consume_char_ref</span>(<span class='prelude-val'>None</span>); <span class='kw'>return</span> <span class='boolval'>true</span>;         });
     ( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>me</span>:<span class='ident'>ident</span> : <span class='ident'>consume_char_ref</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>addnl</span>:<span class='ident'>expr</span> ) <span class='op'>=&gt;</span> ({ <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>me</span>.<span class='ident'>consume_char_ref</span>(<span class='prelude-val'>Some</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>addnl</span>)); <span class='kw'>return</span> <span class='boolval'>true</span>; });
-    ( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>me</span>:<span class='ident'>ident</span> : <span class='ident'>consume_xchar_ref</span>            ) <span class='op'>=&gt;</span> ({ <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>me</span>.<span class='ident'>consume_char_ref</span>(); <span class='kw'>return</span> <span class='boolval'>true</span>;             });
 
     <span class='comment'>// We have a default next state after emitting a tag, but the sink can override.</span>
     ( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>me</span>:<span class='ident'>ident</span> : <span class='ident'>emit_tag</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>s</span>:<span class='ident'>ident</span> ) <span class='op'>=&gt;</span> ({
@@ -1791,7 +1799,7 @@
 ));
 
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>Sink</span>: <span class='ident'>XTokenSink</span><span class='op'>&gt;</span> <span class='ident'>XmlTokenizer</span><span class='op'>&lt;</span><span class='ident'>Sink</span><span class='op'>&gt;</span> {
+<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>Sink</span>: <span class='ident'>TokenSink</span><span class='op'>&gt;</span> <span class='ident'>XmlTokenizer</span><span class='op'>&lt;</span><span class='ident'>Sink</span><span class='op'>&gt;</span> {
 
     <span class='comment'>// Run the state machine for a while.</span>
     <span class='comment'>// Return true if we should be immediately re-invoked</span>
@@ -1804,44 +1812,44 @@
         <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;processing in state {:?}&quot;</span>, <span class='self'>self</span>.<span class='ident'>state</span>);
         <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>state</span> {
             <span class='comment'>//§ data-state</span>
-            <span class='ident'>XmlState</span>::<span class='ident'>XData</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> {
+            <span class='ident'>XmlState</span>::<span class='ident'>Data</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> {
                 <span class='kw'>match</span> <span class='macro'>pop_except_from</span><span class='macro'>!</span>(<span class='self'>self</span>, <span class='macro'>small_char_set</span><span class='macro'>!</span>(<span class='string'>&#39;\r&#39;</span> <span class='string'>&#39;&amp;&#39;</span> <span class='string'>&#39;&lt;&#39;</span>)) {
-                    <span class='ident'>FromSet</span>(<span class='string'>&#39;&amp;&#39;</span>)  <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>consume_xchar_ref</span>),
-                    <span class='ident'>FromSet</span>(<span class='string'>&#39;&lt;&#39;</span>)  <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>XTagState</span>),
+                    <span class='ident'>FromSet</span>(<span class='string'>&#39;&amp;&#39;</span>)  <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>consume_char_ref</span>),
+                    <span class='ident'>FromSet</span>(<span class='string'>&#39;&lt;&#39;</span>)  <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>TagState</span>),
                     <span class='ident'>FromSet</span>(<span class='ident'>c</span>)    <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit</span> <span class='ident'>c</span>),
                     <span class='ident'>NotFromSet</span>(<span class='ident'>b</span>) <span class='op'>=&gt;</span> <span class='self'>self</span>.<span class='ident'>emit_chars</span>(<span class='ident'>b</span>),
                 }
             },
             <span class='comment'>//§ tag-state</span>
-            <span class='ident'>XmlState</span>::<span class='ident'>XTagState</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
+            <span class='ident'>XmlState</span>::<span class='ident'>TagState</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
                 <span class='string'>&#39;!&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>MarkupDecl</span>),
-                <span class='string'>&#39;/&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>EndXTagState</span>),
+                <span class='string'>&#39;/&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>EndTagState</span>),
                 <span class='string'>&#39;?&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>Pi</span>),
                 <span class='string'>&#39;\t&#39;</span><span class='op'>|</span> <span class='string'>&#39;\n&#39;</span> <span class='op'>|</span> <span class='string'>&#39; &#39;</span><span class='op'>|</span>
-                <span class='string'>&#39;:&#39;</span> <span class='op'>|</span> <span class='string'>&#39;&lt;&#39;</span> <span class='op'>|</span> <span class='string'>&#39;&gt;&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>emit</span> <span class='string'>&#39;&lt;&#39;</span>; <span class='ident'>reconsume</span> <span class='ident'>XData</span>),
-                <span class='ident'>cl</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>create_tag</span> <span class='ident'>StartXTag</span> <span class='ident'>cl</span>; <span class='ident'>to</span> <span class='ident'>XTagName</span>),
+                <span class='string'>&#39;:&#39;</span> <span class='op'>|</span> <span class='string'>&#39;&lt;&#39;</span> <span class='op'>|</span> <span class='string'>&#39;&gt;&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>emit</span> <span class='string'>&#39;&lt;&#39;</span>; <span class='ident'>reconsume</span> <span class='ident'>Data</span>),
+                <span class='ident'>cl</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>create_tag</span> <span class='ident'>StartTag</span> <span class='ident'>cl</span>; <span class='ident'>to</span> <span class='ident'>TagName</span>),
                 }
             },
             <span class='comment'>//§ end-tag-state</span>
-            <span class='ident'>XmlState</span>::<span class='ident'>EndXTagState</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
-                <span class='string'>&#39;&gt;&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>:  <span class='ident'>emit_short_tag</span> <span class='ident'>XData</span>),
+            <span class='ident'>XmlState</span>::<span class='ident'>EndTagState</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
+                <span class='string'>&#39;&gt;&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>:  <span class='ident'>emit_short_tag</span> <span class='ident'>Data</span>),
                 <span class='string'>&#39;\t&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\n&#39;</span> <span class='op'>|</span> <span class='string'>&#39; &#39;</span><span class='op'>|</span>
-                <span class='string'>&#39;&lt;&#39;</span> <span class='op'>|</span> <span class='string'>&#39;:&#39;</span>  <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>emit</span> <span class='string'>&#39;&lt;&#39;</span>; <span class='ident'>emit</span> <span class='string'>&#39;/&#39;</span>; <span class='ident'>reconsume</span> <span class='ident'>XData</span>),
-                <span class='ident'>cl</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>create_tag</span> <span class='ident'>EndXTag</span> <span class='ident'>cl</span>; <span class='ident'>to</span> <span class='ident'>EndXTagName</span>)
+                <span class='string'>&#39;&lt;&#39;</span> <span class='op'>|</span> <span class='string'>&#39;:&#39;</span>  <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>emit</span> <span class='string'>&#39;&lt;&#39;</span>; <span class='ident'>emit</span> <span class='string'>&#39;/&#39;</span>; <span class='ident'>reconsume</span> <span class='ident'>Data</span>),
+                <span class='ident'>cl</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>create_tag</span> <span class='ident'>EndTag</span> <span class='ident'>cl</span>; <span class='ident'>to</span> <span class='ident'>EndTagName</span>)
                 }
             },
             <span class='comment'>//§ end-tag-name-state</span>
-            <span class='ident'>XmlState</span>::<span class='ident'>EndXTagName</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
+            <span class='ident'>XmlState</span>::<span class='ident'>EndTagName</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
                 <span class='string'>&#39;\t&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\n&#39;</span>
-                <span class='op'>|</span> <span class='string'>&#39; &#39;</span>   <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>EndXTagNameAfter</span>),
-                <span class='string'>&#39;/&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>to</span> <span class='ident'>EndXTagNameAfter</span>),
-                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_tag</span> <span class='ident'>XData</span>),
+                <span class='op'>|</span> <span class='string'>&#39; &#39;</span>   <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>EndTagNameAfter</span>),
+                <span class='string'>&#39;/&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>to</span> <span class='ident'>EndTagNameAfter</span>),
+                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_tag</span> <span class='ident'>Data</span>),
                 <span class='ident'>cl</span>      <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>push_tag</span> <span class='ident'>cl</span>),
                 }
             },
             <span class='comment'>//§ end-tag-name-after-state</span>
-            <span class='ident'>XmlState</span>::<span class='ident'>EndXTagNameAfter</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> {<span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
-                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_tag</span> <span class='ident'>XData</span>),
+            <span class='ident'>XmlState</span>::<span class='ident'>EndTagNameAfter</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> {<span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
+                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_tag</span> <span class='ident'>Data</span>),
                 <span class='string'>&#39;\t&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\n&#39;</span>
                 <span class='op'>|</span> <span class='string'>&#39; &#39;</span>   <span class='op'>=&gt;</span> (),
                 _       <span class='op'>=&gt;</span> <span class='self'>self</span>.<span class='ident'>emit_error</span>(<span class='ident'>Borrowed</span>(<span class='string'>&quot;Unexpected element in tag name&quot;</span>)),
@@ -1850,7 +1858,7 @@
             <span class='comment'>//§ pi-state</span>
             <span class='ident'>XmlState</span>::<span class='ident'>Pi</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
                 <span class='string'>&#39;\t&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\n&#39;</span>
-                <span class='op'>|</span> <span class='string'>&#39; &#39;</span>  <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>reconsume</span> <span class='ident'>BogusXComment</span>),
+                <span class='op'>|</span> <span class='string'>&#39; &#39;</span>  <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>reconsume</span> <span class='ident'>BogusComment</span>),
                 <span class='ident'>cl</span>     <span class='op'>=&gt;</span>  <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>create_pi</span> <span class='ident'>cl</span>; <span class='ident'>to</span> <span class='ident'>PiTarget</span>),
                 }
             },
@@ -1876,7 +1884,7 @@
             },
             <span class='comment'>//§ pi-after-state</span>
             <span class='ident'>XmlState</span>::<span class='ident'>PiAfter</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
-                <span class='string'>&#39;&gt;&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_pi</span> <span class='ident'>XData</span>),
+                <span class='string'>&#39;&gt;&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_pi</span> <span class='ident'>Data</span>),
                 <span class='string'>&#39;?&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>PiAfter</span>),
                 <span class='ident'>cl</span>  <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>push_pi_data</span> <span class='ident'>cl</span>),
                 }
@@ -1884,34 +1892,34 @@
             <span class='comment'>//§ markup-declaration-state</span>
             <span class='ident'>XmlState</span>::<span class='ident'>MarkupDecl</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> {
                 <span class='kw'>if</span> <span class='macro'>eat</span><span class='macro'>!</span>(<span class='self'>self</span>, <span class='string'>&quot;--&quot;</span>) {
-                    <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>clear_comment</span>; <span class='ident'>to</span> <span class='ident'>XComment</span>);
+                    <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>clear_comment</span>; <span class='ident'>to</span> <span class='ident'>Comment</span>);
                 } <span class='kw'>else</span> <span class='kw'>if</span> <span class='macro'>eat</span><span class='macro'>!</span>(<span class='self'>self</span>, <span class='string'>&quot;[CDATA[&quot;</span>) {
                     <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>Cdata</span>);
                 } <span class='kw'>else</span> <span class='kw'>if</span> <span class='macro'>eat</span><span class='macro'>!</span>(<span class='self'>self</span>, <span class='string'>&quot;DOCTYPE&quot;</span>) {
-                    <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>XDoctype</span>);
+                    <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>Doctype</span>);
                 } <span class='kw'>else</span> {
                     <span class='comment'>// FIXME: &#39;error&#39; gives wrong message</span>
-                    <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>to</span> <span class='ident'>BogusXComment</span>);
+                    <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>to</span> <span class='ident'>BogusComment</span>);
                 }
             },
             <span class='comment'>//§ comment-state</span>
-            <span class='ident'>XmlState</span>::<span class='ident'>XComment</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
-                <span class='string'>&#39;-&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>XCommentDash</span>),
-                <span class='string'>&#39;&gt;&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>emit_comment</span>; <span class='ident'>to</span> <span class='ident'>XData</span>),
-                <span class='ident'>c</span>   <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>push_comment</span> <span class='ident'>c</span>; <span class='ident'>to</span> <span class='ident'>XComment</span>),
+            <span class='ident'>XmlState</span>::<span class='ident'>Comment</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
+                <span class='string'>&#39;-&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>CommentDash</span>),
+                <span class='string'>&#39;&gt;&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>emit_comment</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
+                <span class='ident'>c</span>   <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>push_comment</span> <span class='ident'>c</span>; <span class='ident'>to</span> <span class='ident'>Comment</span>),
                 }
             },
             <span class='comment'>//§ comment-dash-state</span>
-            <span class='ident'>XmlState</span>::<span class='ident'>XCommentDash</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
-                <span class='string'>&#39;-&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>XCommentEnd</span>),
+            <span class='ident'>XmlState</span>::<span class='ident'>CommentDash</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
+                <span class='string'>&#39;-&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>CommentEnd</span>),
                 <span class='ident'>c</span>   <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>push_comment</span> <span class='ident'>c</span>),
                 }
             },
             <span class='comment'>//§ comment-end-state</span>
-            <span class='ident'>XmlState</span>::<span class='ident'>XCommentEnd</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
-                <span class='string'>&#39;&gt;&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_comment</span>; <span class='ident'>to</span> <span class='ident'>XData</span>),
+            <span class='ident'>XmlState</span>::<span class='ident'>CommentEnd</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
+                <span class='string'>&#39;&gt;&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_comment</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
                 <span class='string'>&#39;-&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>push_comment</span> <span class='string'>&#39;-&#39;</span>),
-                <span class='ident'>c</span>   <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>append_comment</span> <span class='string'>&quot;--&quot;</span>; <span class='ident'>push_comment</span> <span class='ident'>c</span>; <span class='ident'>to</span> <span class='ident'>XComment</span>),
+                <span class='ident'>c</span>   <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>append_comment</span> <span class='string'>&quot;--&quot;</span>; <span class='ident'>push_comment</span> <span class='ident'>c</span>; <span class='ident'>to</span> <span class='ident'>Comment</span>),
                 }
             },
             <span class='comment'>//§ cdata-state</span>
@@ -1928,23 +1936,23 @@
             },
             <span class='comment'>//§ cdata-end-state</span>
             <span class='ident'>XmlState</span>::<span class='ident'>CdataEnd</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> {  <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
-                <span class='string'>&#39;&gt;&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>XData</span>),
+                <span class='string'>&#39;&gt;&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>Data</span>),
                 <span class='string'>&#39;]&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit</span> <span class='string'>&#39;]&#39;</span>),
                 <span class='ident'>cl</span>  <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit</span> <span class='string'>&#39;]&#39;</span>; <span class='ident'>emit</span> <span class='string'>&#39;]&#39;</span>; <span class='ident'>emit</span> <span class='ident'>cl</span>; <span class='ident'>to</span> <span class='ident'>Cdata</span>),
                 }
             },
             <span class='comment'>//§ tag-name-state</span>
-            <span class='ident'>XmlState</span>::<span class='ident'>XTagName</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
+            <span class='ident'>XmlState</span>::<span class='ident'>TagName</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
                 <span class='string'>&#39;\t&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\n&#39;</span>
                 <span class='op'>|</span> <span class='string'>&#39; &#39;</span>   <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>TagAttrNameBefore</span>),
-                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_tag</span> <span class='ident'>XData</span>),
-                <span class='string'>&#39;/&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>set_empty_tag</span>; <span class='ident'>to</span> <span class='ident'>XTagEmpty</span>),
+                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_tag</span> <span class='ident'>Data</span>),
+                <span class='string'>&#39;/&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>set_empty_tag</span>; <span class='ident'>to</span> <span class='ident'>TagEmpty</span>),
                 <span class='ident'>cl</span>      <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>push_tag</span> <span class='ident'>cl</span>),
                 }
             },
             <span class='comment'>//§ empty-tag-state</span>
-            <span class='ident'>XmlState</span>::<span class='ident'>XTagEmpty</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
-                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_empty_tag</span> <span class='ident'>XData</span>),
+            <span class='ident'>XmlState</span>::<span class='ident'>TagEmpty</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
+                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_empty_tag</span> <span class='ident'>Data</span>),
                 _       <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>reconsume</span> <span class='ident'>TagAttrValueBefore</span>),
                 }
             },
@@ -1952,8 +1960,8 @@
             <span class='ident'>XmlState</span>::<span class='ident'>TagAttrNameBefore</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
                 <span class='string'>&#39;\t&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\n&#39;</span>
                 <span class='op'>|</span> <span class='string'>&#39; &#39;</span>   <span class='op'>=&gt;</span> (),
-                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_tag</span> <span class='ident'>XData</span>),
-                <span class='string'>&#39;/&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>set_empty_tag</span>; <span class='ident'>to</span> <span class='ident'>XTagEmpty</span>),
+                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_tag</span> <span class='ident'>Data</span>),
+                <span class='string'>&#39;/&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>set_empty_tag</span>; <span class='ident'>to</span> <span class='ident'>TagEmpty</span>),
                 <span class='string'>&#39;:&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span> ),
                 <span class='ident'>cl</span>      <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>create_attr</span> <span class='ident'>cl</span>; <span class='ident'>to</span> <span class='ident'>TagAttrName</span>),
                 }
@@ -1961,10 +1969,10 @@
             <span class='comment'>//§ tag-attribute-name-state</span>
             <span class='ident'>XmlState</span>::<span class='ident'>TagAttrName</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
                 <span class='string'>&#39;=&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>TagAttrValueBefore</span>),
-                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_tag</span> <span class='ident'>XData</span>),
+                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_tag</span> <span class='ident'>Data</span>),
                 <span class='string'>&#39;\t&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\n&#39;</span>
                 <span class='op'>|</span> <span class='string'>&#39; &#39;</span>   <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>TagAttrNameAfter</span>),
-                <span class='string'>&#39;/&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>set_empty_tag</span>; <span class='ident'>to</span> <span class='ident'>XTagEmpty</span>),
+                <span class='string'>&#39;/&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>set_empty_tag</span>; <span class='ident'>to</span> <span class='ident'>TagEmpty</span>),
                 <span class='ident'>cl</span>      <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>push_name</span> <span class='ident'>cl</span>),
                 }
             },
@@ -1973,8 +1981,8 @@
                 <span class='string'>&#39;\t&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\n&#39;</span>
                 <span class='op'>|</span> <span class='string'>&#39; &#39;</span>   <span class='op'>=&gt;</span> (),
                 <span class='string'>&#39;=&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>TagAttrValueBefore</span>),
-                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_tag</span> <span class='ident'>XData</span>),
-                <span class='string'>&#39;/&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>set_empty_tag</span>; <span class='ident'>to</span> <span class='ident'>XTagEmpty</span>),
+                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_tag</span> <span class='ident'>Data</span>),
+                <span class='string'>&#39;/&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>set_empty_tag</span>; <span class='ident'>to</span> <span class='ident'>TagEmpty</span>),
                 <span class='ident'>cl</span>      <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>create_attr</span> <span class='ident'>cl</span>; <span class='ident'>to</span> <span class='ident'>TagAttrName</span>),
                 }
             },
@@ -1985,7 +1993,7 @@
                 <span class='string'>&#39;&quot;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>TagAttrValue</span>(<span class='ident'>DoubleQuoted</span>)),
                 <span class='string'>&#39;\&#39;&#39;</span>    <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>TagAttrValue</span>(<span class='ident'>SingleQuoted</span>)),
                 <span class='string'>&#39;&amp;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>reconsume</span> <span class='ident'>TagAttrValue</span>(<span class='ident'>Unquoted</span>)),
-                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_tag</span> <span class='ident'>XData</span>),
+                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_tag</span> <span class='ident'>Data</span>),
                 <span class='ident'>cl</span>      <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>push_value</span> <span class='ident'>cl</span>; <span class='ident'>to</span> <span class='ident'>TagAttrValue</span>(<span class='ident'>Unquoted</span>)),
                 }
             },
@@ -1993,7 +2001,7 @@
             <span class='ident'>XmlState</span>::<span class='ident'>TagAttrValue</span>(<span class='ident'>DoubleQuoted</span>) <span class='op'>=&gt;</span> <span class='kw'>loop</span> {
                 <span class='kw'>match</span> <span class='macro'>pop_except_from</span><span class='macro'>!</span>(<span class='self'>self</span>, <span class='macro'>small_char_set</span><span class='macro'>!</span>(<span class='string'>&#39;\n&#39;</span> <span class='string'>&#39;&quot;&#39;</span> <span class='string'>&#39;&amp;&#39;</span>)) {
                     <span class='ident'>FromSet</span>(<span class='string'>&#39;&quot;&#39;</span>)        <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>TagAttrNameBefore</span>),
-                    <span class='ident'>FromSet</span>(<span class='string'>&#39;&amp;&#39;</span>)        <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>consume_xchar_ref</span> ),
+                    <span class='ident'>FromSet</span>(<span class='string'>&#39;&amp;&#39;</span>)        <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>consume_char_ref</span> <span class='string'>&#39;&quot;&#39;</span> ),
                     <span class='ident'>FromSet</span>(<span class='ident'>c</span>)          <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>push_value</span> <span class='ident'>c</span>),
                     <span class='ident'>NotFromSet</span>(<span class='kw-2'>ref</span> <span class='ident'>b</span>)   <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>append_value</span> <span class='ident'>b</span>),
                 }
@@ -2002,7 +2010,7 @@
             <span class='ident'>XmlState</span>::<span class='ident'>TagAttrValue</span>(<span class='ident'>SingleQuoted</span>) <span class='op'>=&gt;</span> <span class='kw'>loop</span> {
                 <span class='kw'>match</span> <span class='macro'>pop_except_from</span><span class='macro'>!</span>(<span class='self'>self</span>, <span class='macro'>small_char_set</span><span class='macro'>!</span>(<span class='string'>&#39;\n&#39;</span> <span class='string'>&#39;\&#39;&#39;</span> <span class='string'>&#39;&amp;&#39;</span>)) {
                     <span class='ident'>FromSet</span>(<span class='string'>&#39;\&#39;&#39;</span>)       <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>TagAttrNameBefore</span>),
-                    <span class='ident'>FromSet</span>(<span class='string'>&#39;&amp;&#39;</span>)        <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>consume_xchar_ref</span> ),
+                    <span class='ident'>FromSet</span>(<span class='string'>&#39;&amp;&#39;</span>)        <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>consume_char_ref</span> <span class='string'>&#39;\&#39;&#39;</span>),
                     <span class='ident'>FromSet</span>(<span class='ident'>c</span>)          <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>push_value</span> <span class='ident'>c</span>),
                     <span class='ident'>NotFromSet</span>(<span class='kw-2'>ref</span> <span class='ident'>b</span>)   <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>append_value</span> <span class='ident'>b</span>),
                 }
@@ -2012,20 +2020,20 @@
                 <span class='kw'>match</span> <span class='macro'>pop_except_from</span><span class='macro'>!</span>(<span class='self'>self</span>, <span class='macro'>small_char_set</span><span class='macro'>!</span>(<span class='string'>&#39;\n&#39;</span> <span class='string'>&#39;\t&#39;</span> <span class='string'>&#39; &#39;</span> <span class='string'>&#39;&amp;&#39;</span> <span class='string'>&#39;&gt;&#39;</span>)) {
                     <span class='ident'>FromSet</span>(<span class='string'>&#39;\t&#39;</span>) <span class='op'>|</span> <span class='ident'>FromSet</span>(<span class='string'>&#39;\n&#39;</span>) <span class='op'>|</span> <span class='ident'>FromSet</span>(<span class='string'>&#39; &#39;</span>)
                      <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>TagAttrNameBefore</span>),
-                    <span class='ident'>FromSet</span>(<span class='string'>&#39;&amp;&#39;</span>)        <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>consume_xchar_ref</span> ),
-                    <span class='ident'>FromSet</span>(<span class='string'>&#39;&gt;&#39;</span>)        <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_tag</span> <span class='ident'>XData</span>),
+                    <span class='ident'>FromSet</span>(<span class='string'>&#39;&amp;&#39;</span>)        <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>consume_char_ref</span> ),
+                    <span class='ident'>FromSet</span>(<span class='string'>&#39;&gt;&#39;</span>)        <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_tag</span> <span class='ident'>Data</span>),
                     <span class='ident'>FromSet</span>(<span class='ident'>c</span>)          <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>push_value</span> <span class='ident'>c</span>),
                     <span class='ident'>NotFromSet</span>(<span class='kw-2'>ref</span> <span class='ident'>b</span>)   <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>append_value</span> <span class='ident'>b</span>),
                 }
             },
             <span class='comment'>//§ bogus-comment-state</span>
-            <span class='ident'>XmlState</span>::<span class='ident'>BogusXComment</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
-                <span class='string'>&#39;&gt;&#39;</span>  <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_comment</span>; <span class='ident'>to</span> <span class='ident'>XData</span>),
+            <span class='ident'>XmlState</span>::<span class='ident'>BogusComment</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
+                <span class='string'>&#39;&gt;&#39;</span>  <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_comment</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
                 <span class='ident'>c</span>    <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>push_comment</span> <span class='ident'>c</span>),
                 }
             },
             <span class='comment'>//§ doctype-state</span>
-            <span class='ident'>XmlState</span>::<span class='ident'>XDoctype</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
+            <span class='ident'>XmlState</span>::<span class='ident'>Doctype</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
                 <span class='string'>&#39;\t&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\n&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\x0C&#39;</span>
                 <span class='op'>|</span> <span class='string'>&#39; &#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>BeforeDoctypeName</span>),
                 _     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>reconsume</span> <span class='ident'>BeforeDoctypeName</span>),
@@ -2035,7 +2043,7 @@
             <span class='ident'>XmlState</span>::<span class='ident'>BeforeDoctypeName</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
                 <span class='string'>&#39;\t&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\n&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\x0C&#39;</span>
                 <span class='op'>|</span> <span class='string'>&#39; &#39;</span> <span class='op'>=&gt;</span> (),
-                <span class='string'>&#39;&gt;&#39;</span>  <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>XData</span>),
+                <span class='string'>&#39;&gt;&#39;</span>  <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
                 <span class='ident'>c</span>    <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>create_doctype</span>; <span class='ident'>push_doctype_name</span> (<span class='ident'>c</span>.<span class='ident'>to_ascii_lowercase</span>());
                                   <span class='ident'>to</span> <span class='ident'>DoctypeName</span>),
                 }
@@ -2044,7 +2052,7 @@
             <span class='ident'>XmlState</span>::<span class='ident'>DoctypeName</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
                 <span class='string'>&#39;\t&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\n&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\x0C&#39;</span>
                 <span class='op'>|</span> <span class='string'>&#39; &#39;</span>   <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>AfterDoctypeName</span>),
-                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>XData</span>),
+                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
                 <span class='ident'>c</span>       <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>push_doctype_name</span> (<span class='ident'>c</span>.<span class='ident'>to_ascii_lowercase</span>());
                                   <span class='ident'>to</span> <span class='ident'>DoctypeName</span>),
                 }
@@ -2058,7 +2066,7 @@
                 } <span class='kw'>else</span> {
                     <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
                         <span class='string'>&#39;\t&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\n&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\x0C&#39;</span> <span class='op'>|</span> <span class='string'>&#39; &#39;</span> <span class='op'>=&gt;</span> (),
-                        <span class='string'>&#39;&gt;&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>XData</span>),
+                        <span class='string'>&#39;&gt;&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
                         _   <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>to</span> <span class='ident'>BogusDoctype</span>),
                     }
                 }
@@ -2069,7 +2077,7 @@
                 <span class='op'>|</span> <span class='string'>&#39; &#39;</span>   <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>BeforeDoctypeIdentifier</span> <span class='ident'>Public</span>),
                 <span class='string'>&#39;&quot;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>clear_doctype_id</span> <span class='ident'>Public</span>; <span class='ident'>to</span> <span class='ident'>DoctypeIdentifierDoubleQuoted</span> <span class='ident'>Public</span>),
                 <span class='string'>&#39;\&#39;&#39;</span>    <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>clear_doctype_id</span> <span class='ident'>Public</span>; <span class='ident'>to</span> <span class='ident'>DoctypeIdentifierSingleQuoted</span> <span class='ident'>Public</span>),
-                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>XData</span>),
+                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
                 _       <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>to</span> <span class='ident'>BogusDoctype</span>),
                 }
             },
@@ -2079,7 +2087,7 @@
                 <span class='op'>|</span> <span class='string'>&#39; &#39;</span>   <span class='op'>=&gt;</span> (),
                 <span class='string'>&#39;&quot;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>clear_doctype_id</span> <span class='ident'>System</span>; <span class='ident'>to</span> <span class='ident'>DoctypeIdentifierDoubleQuoted</span> <span class='ident'>System</span>),
                 <span class='string'>&#39;\&#39;&#39;</span>    <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>clear_doctype_id</span> <span class='ident'>System</span>; <span class='ident'>to</span> <span class='ident'>DoctypeIdentifierSingleQuoted</span> <span class='ident'>System</span>),
-                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>XData</span>),
+                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
                 _       <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>to</span> <span class='ident'>BogusDoctype</span>),
                 }
             },
@@ -2089,21 +2097,21 @@
                 <span class='op'>|</span> <span class='string'>&#39; &#39;</span>   <span class='op'>=&gt;</span> (),
                 <span class='string'>&#39;&quot;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>clear_doctype_id</span> <span class='ident'>kind</span>; <span class='ident'>to</span> <span class='ident'>DoctypeIdentifierDoubleQuoted</span> <span class='ident'>kind</span>),
                 <span class='string'>&#39;\&#39;&#39;</span>    <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>clear_doctype_id</span> <span class='ident'>kind</span>; <span class='ident'>to</span> <span class='ident'>DoctypeIdentifierSingleQuoted</span> <span class='ident'>kind</span>),
-                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>XData</span>),
+                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
                 _       <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>to</span> <span class='ident'>BogusDoctype</span>),
                 }
             },
             <span class='comment'>//§ doctype_public_identifier_double_quoted_state doctype_system_identifier_double_quoted_state</span>
             <span class='ident'>XmlState</span>::<span class='ident'>DoctypeIdentifierDoubleQuoted</span>(<span class='ident'>kind</span>) <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
                 <span class='string'>&#39;&quot;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>AfterDoctypeKeyword</span> <span class='ident'>kind</span>),
-                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>XData</span>),
+                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
                 <span class='ident'>c</span>       <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>push_doctype_id</span> <span class='ident'>kind</span> <span class='ident'>c</span>),
                 }
             },
             <span class='comment'>//§ doctype_public_identifier_single_quoted_state doctype_system_identifier_single_quoted_state</span>
             <span class='ident'>XmlState</span>::<span class='ident'>DoctypeIdentifierSingleQuoted</span>(<span class='ident'>kind</span>) <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
                 <span class='string'>&#39;\&#39;&#39;</span>    <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>AfterDoctypeIdentifier</span> <span class='ident'>kind</span>),
-                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>XData</span>),
+                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
                 <span class='ident'>c</span>       <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>push_doctype_id</span> <span class='ident'>kind</span> <span class='ident'>c</span>),
                 }
             },
@@ -2113,7 +2121,7 @@
                 <span class='op'>|</span> <span class='string'>&#39; &#39;</span>   <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>BetweenDoctypePublicAndSystemIdentifiers</span>),
                 <span class='string'>&#39;\&#39;&#39;</span>    <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>clear_doctype_id</span> <span class='ident'>System</span>; <span class='ident'>to</span> <span class='ident'>DoctypeIdentifierSingleQuoted</span>(<span class='ident'>System</span>)),
                 <span class='string'>&#39;&quot;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>clear_doctype_id</span> <span class='ident'>System</span>; <span class='ident'>to</span> <span class='ident'>DoctypeIdentifierDoubleQuoted</span>(<span class='ident'>System</span>)),
-                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>XData</span>),
+                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
                 _       <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>to</span> <span class='ident'>BogusDoctype</span>),
                 }
             },
@@ -2121,7 +2129,7 @@
             <span class='ident'>XmlState</span>::<span class='ident'>AfterDoctypeIdentifier</span>(<span class='ident'>System</span>) <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
                 <span class='string'>&#39;\t&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\n&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\x0C&#39;</span>
                 <span class='op'>|</span> <span class='string'>&#39; &#39;</span>   <span class='op'>=&gt;</span> (),
-                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>XData</span>),
+                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
                 _       <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>to</span> <span class='ident'>BogusDoctype</span>),
                 }
             },
@@ -2129,7 +2137,7 @@
             <span class='ident'>XmlState</span>::<span class='ident'>BetweenDoctypePublicAndSystemIdentifiers</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
                 <span class='string'>&#39;\t&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\n&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\x0C&#39;</span>
                 <span class='op'>|</span> <span class='string'>&#39; &#39;</span>   <span class='op'>=&gt;</span> (),
-                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>XData</span>),
+                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
                 <span class='string'>&#39;\&#39;&#39;</span>    <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>DoctypeIdentifierSingleQuoted</span>(<span class='ident'>System</span>)),
                 <span class='string'>&#39;&quot;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>DoctypeIdentifierDoubleQuoted</span>(<span class='ident'>System</span>)),
                 _       <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>to</span> <span class='ident'>BogusDoctype</span>),
@@ -2137,7 +2145,7 @@
             },
             <span class='comment'>//§ bogus_doctype_state</span>
             <span class='ident'>XmlState</span>::<span class='ident'>BogusDoctype</span> <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
-                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>XData</span>),
+                <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
                 _       <span class='op'>=&gt;</span> (),
                 }
             }
@@ -2196,79 +2204,69 @@
     <span class='kw'>fn</span> <span class='ident'>eof_step</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
         <span class='macro'>debug</span><span class='macro'>!</span>(<span class='string'>&quot;processing EOF in state {:?}&quot;</span>, <span class='self'>self</span>.<span class='ident'>state</span>);
         <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>state</span> {
-            <span class='ident'>XmlState</span>::<span class='ident'>XData</span>
+            <span class='ident'>XmlState</span>::<span class='ident'>Data</span>
                 <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>eof</span>),
-            <span class='ident'>XmlState</span>::<span class='ident'>XTagState</span>
-                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error_eof</span>; <span class='ident'>emit</span> <span class='string'>&#39;&lt;&#39;</span>; <span class='ident'>to</span> <span class='ident'>XData</span>),
-            <span class='ident'>XmlState</span>::<span class='ident'>EndXTagState</span>
-                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error_eof</span>; <span class='ident'>emit</span> <span class='string'>&#39;&lt;&#39;</span>; <span class='ident'>emit</span> <span class='string'>&#39;/&#39;</span>; <span class='ident'>to</span> <span class='ident'>XData</span>),
-            <span class='ident'>XmlState</span>::<span class='ident'>XTagEmpty</span>
+            <span class='ident'>XmlState</span>::<span class='ident'>TagState</span>
+                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error_eof</span>; <span class='ident'>emit</span> <span class='string'>&#39;&lt;&#39;</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
+            <span class='ident'>XmlState</span>::<span class='ident'>EndTagState</span>
+                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error_eof</span>; <span class='ident'>emit</span> <span class='string'>&#39;&lt;&#39;</span>; <span class='ident'>emit</span> <span class='string'>&#39;/&#39;</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
+            <span class='ident'>XmlState</span>::<span class='ident'>TagEmpty</span>
                 <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error_eof</span>; <span class='ident'>to</span> <span class='ident'>TagAttrNameBefore</span>),
             <span class='ident'>XmlState</span>::<span class='ident'>Cdata</span>
             <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>CdataBracket</span> <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>CdataEnd</span>
-                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error_eof</span>; <span class='ident'>to</span> <span class='ident'>XData</span>),
+                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error_eof</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
             <span class='ident'>XmlState</span>::<span class='ident'>Pi</span>
-                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error_eof</span>; <span class='ident'>to</span> <span class='ident'>BogusXComment</span>),
+                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error_eof</span>; <span class='ident'>to</span> <span class='ident'>BogusComment</span>),
             <span class='ident'>XmlState</span>::<span class='ident'>PiTargetAfter</span> <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>PiAfter</span>
                 <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>reconsume</span> <span class='ident'>PiData</span>),
             <span class='ident'>XmlState</span>::<span class='ident'>MarkupDecl</span>
-                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error_eof</span>; <span class='ident'>to</span> <span class='ident'>BogusXComment</span>),
-            <span class='ident'>XmlState</span>::<span class='ident'>XComment</span> <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>XCommentDash</span>
-            <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>XCommentEnd</span>
-                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error_eof</span>; <span class='ident'>emit_comment</span>;<span class='ident'>to</span> <span class='ident'>XData</span>),
-            <span class='ident'>XmlState</span>::<span class='ident'>XTagName</span> <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>TagAttrNameBefore</span>
-            <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>EndXTagName</span> <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>TagAttrNameAfter</span>
-            <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>EndXTagNameAfter</span> <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>TagAttrValueBefore</span>
+                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error_eof</span>; <span class='ident'>to</span> <span class='ident'>BogusComment</span>),
+            <span class='ident'>XmlState</span>::<span class='ident'>Comment</span> <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>CommentDash</span>
+            <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>CommentEnd</span>
+                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error_eof</span>; <span class='ident'>emit_comment</span>;<span class='ident'>to</span> <span class='ident'>Data</span>),
+            <span class='ident'>XmlState</span>::<span class='ident'>TagName</span> <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>TagAttrNameBefore</span>
+            <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>EndTagName</span> <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>TagAttrNameAfter</span>
+            <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>EndTagNameAfter</span> <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>TagAttrValueBefore</span>
             <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>TagAttrValue</span>(_)
-                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error_eof</span>; <span class='ident'>emit_tag</span> <span class='ident'>XData</span>),
+                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error_eof</span>; <span class='ident'>emit_tag</span> <span class='ident'>Data</span>),
             <span class='ident'>XmlState</span>::<span class='ident'>PiData</span> <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>PiTarget</span>
-                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error_eof</span>; <span class='ident'>emit_pi</span> <span class='ident'>XData</span>),
+                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error_eof</span>; <span class='ident'>emit_pi</span> <span class='ident'>Data</span>),
             <span class='ident'>XmlState</span>::<span class='ident'>TagAttrName</span>
-                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error_eof</span>; <span class='ident'>emit_start_tag</span> <span class='ident'>XData</span>),
+                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error_eof</span>; <span class='ident'>emit_start_tag</span> <span class='ident'>Data</span>),
             <span class='ident'>XmlState</span>::<span class='ident'>BeforeDoctypeName</span>
-            <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>XDoctype</span> <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>DoctypeName</span>
+            <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>Doctype</span> <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>DoctypeName</span>
             <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>AfterDoctypeName</span> <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>AfterDoctypeKeyword</span>(_)
             <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>BeforeDoctypeIdentifier</span>(_) <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>AfterDoctypeIdentifier</span>(_)
             <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>DoctypeIdentifierSingleQuoted</span>(_) <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>DoctypeIdentifierDoubleQuoted</span>(_)
             <span class='op'>|</span> <span class='ident'>XmlState</span>::<span class='ident'>BetweenDoctypePublicAndSystemIdentifiers</span>
-                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error_eof</span>; <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>XData</span>),
+                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error_eof</span>; <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
             <span class='ident'>XmlState</span>::<span class='ident'>BogusDoctype</span>
-                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>XData</span>),
-            <span class='ident'>XmlState</span>::<span class='ident'>BogusXComment</span>
-                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_comment</span>; <span class='ident'>to</span> <span class='ident'>XData</span>),
+                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
+            <span class='ident'>XmlState</span>::<span class='ident'>BogusComment</span>
+                <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit_comment</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
         }
     }
 
 
-    <span class='kw'>fn</span> <span class='ident'>process_char_ref</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>char_ref</span>: <span class='ident'>XRef</span>) {
-        <span class='kw'>match</span> <span class='ident'>char_ref</span> {
-            <span class='ident'>XRef</span>::<span class='ident'>CharXData</span>(<span class='ident'>cdata</span>) <span class='op'>=&gt;</span> {
-                <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>state</span> {
-                    <span class='ident'>states</span>::<span class='ident'>XData</span>
-                        <span class='op'>=&gt;</span> <span class='self'>self</span>.<span class='ident'>emit_chars</span>(<span class='ident'>cdata</span>),
+    <span class='kw'>fn</span> <span class='ident'>process_char_ref</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>char_ref</span>: <span class='ident'>CharRef</span>) {
+        <span class='kw'>let</span> <span class='ident'>CharRef</span> { <span class='kw-2'>mut</span> <span class='ident'>chars</span>, <span class='kw-2'>mut</span> <span class='ident'>num_chars</span> } <span class='op'>=</span> <span class='ident'>char_ref</span>;
 
-                    <span class='ident'>states</span>::<span class='ident'>TagAttrValue</span>(_)
-                        <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>append_value</span> <span class='kw-2'>&amp;</span><span class='ident'>cdata</span>),
+        <span class='kw'>if</span> <span class='ident'>num_chars</span> <span class='op'>==</span> <span class='number'>0</span> {
+            <span class='ident'>chars</span>[<span class='number'>0</span>] <span class='op'>=</span> <span class='string'>&#39;&amp;&#39;</span>;
+            <span class='ident'>num_chars</span> <span class='op'>=</span> <span class='number'>1</span>;
+        }
 
-                    _ <span class='op'>=&gt;</span> <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;state {:?} should not be reachable in process_char_ref&quot;</span>, <span class='self'>self</span>.<span class='ident'>state</span>),
-                }
+        <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='number'>0</span> .. <span class='ident'>num_chars</span> {
+            <span class='kw'>let</span> <span class='ident'>c</span> <span class='op'>=</span> <span class='ident'>chars</span>[<span class='ident'>i</span> <span class='kw'>as</span> <span class='ident'>usize</span>];
+            <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>state</span> {
+                <span class='ident'>states</span>::<span class='ident'>Data</span> <span class='op'>|</span> <span class='ident'>states</span>::<span class='ident'>Cdata</span>
+                    <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>emit</span> <span class='ident'>c</span>),
 
-            },
-            <span class='ident'>XRef</span>::<span class='ident'>NamedXRef</span>(<span class='ident'>xref</span>) <span class='op'>=&gt;</span> {
-                <span class='kw'>if</span> <span class='op'>!</span><span class='self'>self</span>.<span class='ident'>opts</span>.<span class='ident'>safe_mod</span> {
-                    <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>state</span> {
-                        <span class='ident'>states</span>::<span class='ident'>XData</span>
-                            <span class='op'>=&gt;</span> <span class='self'>self</span>.<span class='ident'>emit_chars</span>(<span class='ident'>xref</span>), <span class='comment'>// TODO entity replacement</span>
+                <span class='ident'>states</span>::<span class='ident'>TagAttrValue</span>(_)
+                    <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>push_value</span> <span class='ident'>c</span>),
 
-                        <span class='ident'>states</span>::<span class='ident'>TagAttrValue</span>(_)
-                            <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>append_value</span> <span class='kw-2'>&amp;</span><span class='ident'>xref</span>), <span class='comment'>// TODO entity replacement</span>
-
-                        _ <span class='op'>=&gt;</span> <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;state {:?} should not be eligible for entity expansion&quot;</span>,
-                                        <span class='self'>self</span>.<span class='ident'>state</span>),
-                    }
-                }
-            },
-            <span class='ident'>XRef</span>::<span class='ident'>NoReturn</span> <span class='op'>=&gt;</span> {},
+                _ <span class='op'>=&gt;</span> <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;state {:?} should not be reachable in process_char_ref&quot;</span>, <span class='self'>self</span>.<span class='ident'>state</span>),
+            }
         }
     }
 

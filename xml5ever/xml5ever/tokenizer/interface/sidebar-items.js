@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["XTagKind",""],["XToken",""]],"struct":[["Attribute","A tag attribute."],["Doctype","A `DOCTYPE` token."],["XPi",""],["XTag","XML 5 Tag Token"]],"trait":[["XTokenSink","Types which can receive tokens from the tokenizer."]]});
+initSidebarItems({"enum":[["TagKind",""],["Token",""]],"struct":[["Attribute","A tag attribute."],["Doctype","A `DOCTYPE` token."],["Pi",""],["Tag","XML 5 Tag Token"]],"trait":[["TokenSink","Types which can receive tokens from the tokenizer."]]});

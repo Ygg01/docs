@@ -45,33 +45,33 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-654' class='srclink' href='../../../src/xml5ever/tokenizer/states.rs.html#12-49' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-60615' class='srclink' href='../../../src/xml5ever/tokenizer/states.rs.html#12-49' title='goto source code'>[src]</a></span></h1>
 <pre class='rust enum'>pub enum XmlState {
-    XData,
-    XTagState,
-    EndXTagState,
-    EndXTagName,
-    EndXTagNameAfter,
+    Data,
+    TagState,
+    EndTagState,
+    EndTagName,
+    EndTagNameAfter,
     Pi,
     PiTarget,
     PiTargetAfter,
     PiData,
     PiAfter,
     MarkupDecl,
-    XComment,
-    XCommentDash,
-    XCommentEnd,
+    Comment,
+    CommentDash,
+    CommentEnd,
     Cdata,
     CdataBracket,
     CdataEnd,
-    XTagName,
-    XTagEmpty,
+    TagName,
+    TagEmpty,
     TagAttrNameBefore,
     TagAttrName,
     TagAttrNameAfter,
     TagAttrValueBefore,
     TagAttrValue(<a class='enum' href='../../../xml5ever/tokenizer/states/enum.AttrValueKind.html' title='xml5ever::tokenizer::states::AttrValueKind'>AttrValueKind</a>),
-    XDoctype,
+    Doctype,
     BeforeDoctypeName,
     DoctypeName,
     AfterDoctypeName,
@@ -82,9 +82,9 @@
     AfterDoctypeIdentifier(<a class='enum' href='../../../xml5ever/tokenizer/states/enum.DoctypeKind.html' title='xml5ever::tokenizer::states::DoctypeKind'>DoctypeKind</a>),
     BetweenDoctypePublicAndSystemIdentifiers,
     BogusDoctype,
-    BogusXComment,
+    BogusComment,
 }</pre><h2 class='variants'>Variants</h2>
-<table><tr><td id='variant.XData'><code>XData</code></td><td></td></tr><tr><td id='variant.XTagState'><code>XTagState</code></td><td></td></tr><tr><td id='variant.EndXTagState'><code>EndXTagState</code></td><td></td></tr><tr><td id='variant.EndXTagName'><code>EndXTagName</code></td><td></td></tr><tr><td id='variant.EndXTagNameAfter'><code>EndXTagNameAfter</code></td><td></td></tr><tr><td id='variant.Pi'><code>Pi</code></td><td></td></tr><tr><td id='variant.PiTarget'><code>PiTarget</code></td><td></td></tr><tr><td id='variant.PiTargetAfter'><code>PiTargetAfter</code></td><td></td></tr><tr><td id='variant.PiData'><code>PiData</code></td><td></td></tr><tr><td id='variant.PiAfter'><code>PiAfter</code></td><td></td></tr><tr><td id='variant.MarkupDecl'><code>MarkupDecl</code></td><td></td></tr><tr><td id='variant.XComment'><code>XComment</code></td><td></td></tr><tr><td id='variant.XCommentDash'><code>XCommentDash</code></td><td></td></tr><tr><td id='variant.XCommentEnd'><code>XCommentEnd</code></td><td></td></tr><tr><td id='variant.Cdata'><code>Cdata</code></td><td></td></tr><tr><td id='variant.CdataBracket'><code>CdataBracket</code></td><td></td></tr><tr><td id='variant.CdataEnd'><code>CdataEnd</code></td><td></td></tr><tr><td id='variant.XTagName'><code>XTagName</code></td><td></td></tr><tr><td id='variant.XTagEmpty'><code>XTagEmpty</code></td><td></td></tr><tr><td id='variant.TagAttrNameBefore'><code>TagAttrNameBefore</code></td><td></td></tr><tr><td id='variant.TagAttrName'><code>TagAttrName</code></td><td></td></tr><tr><td id='variant.TagAttrNameAfter'><code>TagAttrNameAfter</code></td><td></td></tr><tr><td id='variant.TagAttrValueBefore'><code>TagAttrValueBefore</code></td><td></td></tr><tr><td id='variant.TagAttrValue'><code>TagAttrValue</code></td><td></td></tr><tr><td id='variant.XDoctype'><code>XDoctype</code></td><td></td></tr><tr><td id='variant.BeforeDoctypeName'><code>BeforeDoctypeName</code></td><td></td></tr><tr><td id='variant.DoctypeName'><code>DoctypeName</code></td><td></td></tr><tr><td id='variant.AfterDoctypeName'><code>AfterDoctypeName</code></td><td></td></tr><tr><td id='variant.AfterDoctypeKeyword'><code>AfterDoctypeKeyword</code></td><td></td></tr><tr><td id='variant.BeforeDoctypeIdentifier'><code>BeforeDoctypeIdentifier</code></td><td></td></tr><tr><td id='variant.DoctypeIdentifierDoubleQuoted'><code>DoctypeIdentifierDoubleQuoted</code></td><td></td></tr><tr><td id='variant.DoctypeIdentifierSingleQuoted'><code>DoctypeIdentifierSingleQuoted</code></td><td></td></tr><tr><td id='variant.AfterDoctypeIdentifier'><code>AfterDoctypeIdentifier</code></td><td></td></tr><tr><td id='variant.BetweenDoctypePublicAndSystemIdentifiers'><code>BetweenDoctypePublicAndSystemIdentifiers</code></td><td></td></tr><tr><td id='variant.BogusDoctype'><code>BogusDoctype</code></td><td></td></tr><tr><td id='variant.BogusXComment'><code>BogusXComment</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='enum' href='../../../xml5ever/tokenizer/states/enum.XmlState.html' title='xml5ever::tokenizer::states::XmlState'>XmlState</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+<table><tr><td id='variant.Data'><code>Data</code></td><td></td></tr><tr><td id='variant.TagState'><code>TagState</code></td><td></td></tr><tr><td id='variant.EndTagState'><code>EndTagState</code></td><td></td></tr><tr><td id='variant.EndTagName'><code>EndTagName</code></td><td></td></tr><tr><td id='variant.EndTagNameAfter'><code>EndTagNameAfter</code></td><td></td></tr><tr><td id='variant.Pi'><code>Pi</code></td><td></td></tr><tr><td id='variant.PiTarget'><code>PiTarget</code></td><td></td></tr><tr><td id='variant.PiTargetAfter'><code>PiTargetAfter</code></td><td></td></tr><tr><td id='variant.PiData'><code>PiData</code></td><td></td></tr><tr><td id='variant.PiAfter'><code>PiAfter</code></td><td></td></tr><tr><td id='variant.MarkupDecl'><code>MarkupDecl</code></td><td></td></tr><tr><td id='variant.Comment'><code>Comment</code></td><td></td></tr><tr><td id='variant.CommentDash'><code>CommentDash</code></td><td></td></tr><tr><td id='variant.CommentEnd'><code>CommentEnd</code></td><td></td></tr><tr><td id='variant.Cdata'><code>Cdata</code></td><td></td></tr><tr><td id='variant.CdataBracket'><code>CdataBracket</code></td><td></td></tr><tr><td id='variant.CdataEnd'><code>CdataEnd</code></td><td></td></tr><tr><td id='variant.TagName'><code>TagName</code></td><td></td></tr><tr><td id='variant.TagEmpty'><code>TagEmpty</code></td><td></td></tr><tr><td id='variant.TagAttrNameBefore'><code>TagAttrNameBefore</code></td><td></td></tr><tr><td id='variant.TagAttrName'><code>TagAttrName</code></td><td></td></tr><tr><td id='variant.TagAttrNameAfter'><code>TagAttrNameAfter</code></td><td></td></tr><tr><td id='variant.TagAttrValueBefore'><code>TagAttrValueBefore</code></td><td></td></tr><tr><td id='variant.TagAttrValue'><code>TagAttrValue</code></td><td></td></tr><tr><td id='variant.Doctype'><code>Doctype</code></td><td></td></tr><tr><td id='variant.BeforeDoctypeName'><code>BeforeDoctypeName</code></td><td></td></tr><tr><td id='variant.DoctypeName'><code>DoctypeName</code></td><td></td></tr><tr><td id='variant.AfterDoctypeName'><code>AfterDoctypeName</code></td><td></td></tr><tr><td id='variant.AfterDoctypeKeyword'><code>AfterDoctypeKeyword</code></td><td></td></tr><tr><td id='variant.BeforeDoctypeIdentifier'><code>BeforeDoctypeIdentifier</code></td><td></td></tr><tr><td id='variant.DoctypeIdentifierDoubleQuoted'><code>DoctypeIdentifierDoubleQuoted</code></td><td></td></tr><tr><td id='variant.DoctypeIdentifierSingleQuoted'><code>DoctypeIdentifierSingleQuoted</code></td><td></td></tr><tr><td id='variant.AfterDoctypeIdentifier'><code>AfterDoctypeIdentifier</code></td><td></td></tr><tr><td id='variant.BetweenDoctypePublicAndSystemIdentifiers'><code>BetweenDoctypePublicAndSystemIdentifiers</code></td><td></td></tr><tr><td id='variant.BogusDoctype'><code>BogusDoctype</code></td><td></td></tr><tr><td id='variant.BogusComment'><code>BogusComment</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='enum' href='../../../xml5ever/tokenizer/states/enum.XmlState.html' title='xml5ever::tokenizer::states::XmlState'>XmlState</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
 </div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html' title='core::hash::Hash'>Hash</a> for <a class='enum' href='../../../xml5ever/tokenizer/states/enum.XmlState.html' title='xml5ever::tokenizer::states::XmlState'>XmlState</a></code></h3><div class='impl-items'><h4 id='method.hash' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html#method.hash' class='fnname'>hash</a>&lt;__H: <a class='trait' href='https://doc.rust-lang.org/nightly/core/hash/trait.Hasher.html' title='core::hash::Hasher'>Hasher</a>&gt;(&amp;self, __arg_0: &amp;mut __H)</code></h4>
 <h4 id='method.hash_slice' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html#method.hash_slice' class='fnname'>hash_slice</a>&lt;H&gt;(data: <a href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[Self]</a>, state: &amp;mut H) <span class='where'>where H: <a class='trait' href='https://doc.rust-lang.org/nightly/core/hash/trait.Hasher.html' title='core::hash::Hasher'>Hasher</a></span></code></h4>
 </div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../../../xml5ever/tokenizer/states/enum.XmlState.html' title='xml5ever::tokenizer::states::XmlState'>XmlState</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../../../xml5ever/tokenizer/states/enum.XmlState.html' title='xml5ever::tokenizer::states::XmlState'>XmlState</a></code></h4>
