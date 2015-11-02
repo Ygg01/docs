@@ -1,5 +1,5 @@
 (function() {var implementors = {};
-implementors['tendril'] = [];implementors['string_cache'] = [];implementors['string_cache'] = [];
+implementors['string_cache'] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);
