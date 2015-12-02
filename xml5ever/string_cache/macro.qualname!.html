@@ -45,11 +45,21 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-425' class='srclink' href='../src/string_cache/lib.rs.html#32-45' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-423' class='srclink' href='../src/string_cache/lib.rs.html#32-45' title='goto source code'>[src]</a></span></h1>
 <pre class='rust macro'>
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>qualname</span> {
-    (<span class='string'>&quot;&quot;</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>local</span>:<span class='ident'>tt</span>) <span class='op'>=&gt;</span> { ... };
-    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>ns</span>:<span class='ident'>tt</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>local</span>:<span class='ident'>tt</span>) <span class='op'>=&gt;</span> { ... };
+    (<span class='string'>&quot;&quot;</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>local</span>:<span class='ident'>tt</span>) <span class='op'>=&gt;</span> {
+        <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>namespace</span>::<span class='ident'>QualName</span> {
+            <span class='ident'>ns</span>: <span class='macro'>ns</span><span class='macro'>!</span>(),
+            <span class='ident'>local</span>: <span class='macro'>atom</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>local</span>),
+        }
+    };
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>ns</span>:<span class='ident'>tt</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>local</span>:<span class='ident'>tt</span>) <span class='op'>=&gt;</span> {
+        <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>namespace</span>::<span class='ident'>QualName</span> {
+            <span class='ident'>ns</span>: <span class='macro'>ns</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>ns</span>),
+            <span class='ident'>local</span>: <span class='macro'>atom</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>local</span>),
+        }
+    }
 }</pre>
 </section>
     <section id='search' class="content hidden"></section>
@@ -110,6 +120,6 @@
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script defer src="../search-index.js"></script>
+    <script async src="../search-index.js"></script>
 </body>
 </html>
