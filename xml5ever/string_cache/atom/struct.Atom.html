@@ -46,14 +46,17 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-81' class='srclink' href='../../src/string_cache/atom/mod.rs.html#137-141' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-82' class='srclink' href='../../src/string_cache/atom/mod.rs.html#138-142' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Atom {
     pub data: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
 }</pre><h2 class='fields'>Fields</h2>
 <table><tr class='stab '>
                                   <td id='structfield.data'><code>data</code></td><td><div class='docblock'><p>This field is public so that the <code>atom!()</code> macro can use it.
 You should not otherwise access this field.</p>
-</div></td></tr></table><h2 id='deref-methods'>Methods from <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html' title='core::ops::Deref'>Deref</a>&lt;Target=<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;</h2><div class='impl-items'><h4 id='method.len' class='method'><code>fn <a href='#method.len' class='fnname'>len</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></h4>
+</div></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../string_cache/atom/struct.Atom.html' title='string_cache::atom::Atom'>Atom</a></code></h3><div class='impl-items'><h4 id='method.to_ascii_uppercase' class='method'><code>fn <a href='#method.to_ascii_uppercase' class='fnname'>to_ascii_uppercase</a>(&amp;self) -&gt; <a class='struct' href='../../string_cache/atom/struct.Atom.html' title='string_cache::atom::Atom'>Atom</a></code></h4>
+<h4 id='method.to_ascii_lowercase' class='method'><code>fn <a href='#method.to_ascii_lowercase' class='fnname'>to_ascii_lowercase</a>(&amp;self) -&gt; <a class='struct' href='../../string_cache/atom/struct.Atom.html' title='string_cache::atom::Atom'>Atom</a></code></h4>
+<h4 id='method.eq_ignore_ascii_case' class='method'><code>fn <a href='#method.eq_ignore_ascii_case' class='fnname'>eq_ignore_ascii_case</a>(&amp;self, other: &amp;Self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h2 id='deref-methods'>Methods from <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html' title='core::ops::Deref'>Deref</a>&lt;Target=<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;</h2><div class='impl-items'><h4 id='method.len' class='method'><code>fn <a href='#method.len' class='fnname'>len</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></h4>
 <div class='docblock'><p>Returns the length of <code>self</code>.</p>
 
 <p>This length is in bytes, not <a href="primitive.char.html"><code>char</code></a>s or graphemes. In other words,
@@ -139,7 +142,7 @@ satisifed:</p>
 
 <ul>
 <li><code>begin</code> must come before <code>end</code>.</li>
-<li><code>begin</code> and <code>end</code> must be byte positions within the string slice.</li>
+<li><code>begin</code> and <code>end</code> must be bye positions within the string slice.</li>
 <li><code>begin</code> and <code>end</code> must lie on UTF-8 sequence boundaries.</li>
 </ul>
 
@@ -173,7 +176,7 @@ satisifed:</p>
 
 <ul>
 <li><code>begin</code> must come before <code>end</code>.</li>
-<li><code>begin</code> and <code>end</code> must be byte positions within the string slice.</li>
+<li><code>begin</code> and <code>end</code> must be bye positions within the string slice.</li>
 <li><code>begin</code> and <code>end</code> must lie on UTF-8 sequence boundaries.</li>
 </ul>
 </div><h4 id='method.char_range_at' class='method'><code>fn <a href='#method.char_range_at' class='fnname'>char_range_at</a>(&amp;self, start: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/core/str/struct.CharRange.html' title='core::str::CharRange'>CharRange</a></code></h4>
