@@ -9,6 +9,7 @@
 
     <title>xml5ever::rcdom::Handle - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -45,7 +46,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-1941' class='srclink' href='../../src/xml5ever/rcdom.rs.html#77' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-2023' class='srclink' href='../../src/xml5ever/rcdom.rs.html#77' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Handle(_);</pre><div class='docblock'><p>Reference to a DOM node.</p>
 </div><h2 id='deref-methods'>Methods from <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html' title='core::ops::Deref'>Deref</a>&lt;Target=<a class='struct' href='../../rc/stable_rc/struct.Rc.html' title='rc::stable_rc::Rc'>Rc</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/core/cell/struct.RefCell.html' title='core::cell::RefCell'>RefCell</a>&lt;<a class='struct' href='../../xml5ever/rcdom/struct.Node.html' title='xml5ever::rcdom::Node'>Node</a>&gt;&gt;&gt;</h2><div class='impl-items'></div><div class='impl-items'><h4 id='method.downgrade' class='method'><code>fn <a href='#method.downgrade' class='fnname'>downgrade</a>(&amp;self) -&gt; <a class='struct' href='../../rc/stable_rc/struct.Weak.html' title='rc::stable_rc::Weak'>Weak</a>&lt;T&gt;</code></h4>
 <div class='docblock'><p>Downgrades the <code>Rc&lt;T&gt;</code> to a <code>Weak&lt;T&gt;</code> reference.</p>
@@ -62,7 +63,7 @@
 <p>This is also referred to as a copy-on-write operation because the inner
 data is cloned if the reference count is greater than one.</p>
 
-<h1 id='examples' class='section-header'><a href='#examples'>Examples</a></h1><pre class='rust rust-example-rendered'>
+<h1 id='examples-1' class='section-header'><a href='#examples-1'>Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>rc</span>::<span class='ident'>Rc</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>five</span> <span class='op'>=</span> <span class='ident'>Rc</span>::<span class='ident'>new</span>(<span class='number'>5</span>);
@@ -131,6 +132,6 @@ data is cloned if the reference count is greater than one.</p>
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script async src="../../search-index.js"></script>
+    <script defer src="../../search-index.js"></script>
 </body>
 </html>
