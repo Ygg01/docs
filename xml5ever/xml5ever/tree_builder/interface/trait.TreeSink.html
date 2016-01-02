@@ -9,6 +9,7 @@
 
     <title>xml5ever::tree_builder::interface::TreeSink - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
 
     
@@ -45,10 +46,10 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-1920' class='srclink' href='../../../src/xml5ever/tree_builder/interface.rs.html#40-79' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-1997' class='srclink' href='../../../src/xml5ever/tree_builder/interface.rs.html#40-79' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait TreeSink {
     type Handle: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a>;
-    fn <a href='#tymethod.parse_error' class='fnname'>parse_error</a>(&amp;mut self, msg: <a class='enum' href='https://doc.rust-lang.org/nightly/collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'static, <a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;);
+    fn <a href='#tymethod.parse_error' class='fnname'>parse_error</a>(&amp;mut self, msg: <a class='enum' href='https://doc.rust-lang.org/nightly/collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'static, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;);
     fn <a href='#tymethod.get_document' class='fnname'>get_document</a>(&amp;mut self) -&gt; Self::<a class='trait' href='../../../xml5ever/tree_builder/interface/trait.TreeSink.html' title='xml5ever::tree_builder::interface::TreeSink'>Handle</a>;
     fn <a href='#tymethod.elem_name' class='fnname'>elem_name</a>(&amp;self, target: &amp;Self::<a class='trait' href='../../../xml5ever/tree_builder/interface/trait.TreeSink.html' title='xml5ever::tree_builder::interface::TreeSink'>Handle</a>) -&gt; <a class='struct' href='../../../xml5ever/tokenizer/struct.QName.html' title='xml5ever::tokenizer::QName'>QName</a>;
     fn <a href='#tymethod.create_element' class='fnname'>create_element</a>(&amp;mut self, name: <a class='struct' href='../../../xml5ever/tokenizer/struct.QName.html' title='xml5ever::tokenizer::QName'>QName</a>, attrs: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../../xml5ever/tokenizer/struct.Attribute.html' title='xml5ever::tokenizer::Attribute'>Attribute</a>&gt;) -&gt; Self::<a class='trait' href='../../../xml5ever/tree_builder/interface/trait.TreeSink.html' title='xml5ever::tree_builder::interface::TreeSink'>Handle</a>;
@@ -66,7 +67,7 @@ the same node.</p>
 </div></div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.parse_error' class='method stab '><code>fn <a href='#tymethod.parse_error' class='fnname'>parse_error</a>(&amp;mut self, msg: <a class='enum' href='https://doc.rust-lang.org/nightly/collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'static, <a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;)</code></h3><div class='docblock'><p>Signal a parse error.</p>
+        <h3 id='tymethod.parse_error' class='method stab '><code>fn <a href='#tymethod.parse_error' class='fnname'>parse_error</a>(&amp;mut self, msg: <a class='enum' href='https://doc.rust-lang.org/nightly/collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'static, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;)</code></h3><div class='docblock'><p>Signal a parse error.</p>
 </div><h3 id='tymethod.get_document' class='method stab '><code>fn <a href='#tymethod.get_document' class='fnname'>get_document</a>(&amp;mut self) -&gt; Self::<a class='trait' href='../../../xml5ever/tree_builder/interface/trait.TreeSink.html' title='xml5ever::tree_builder::interface::TreeSink'>Handle</a></code></h3><div class='docblock'><p>Get a handle to the <code>Document</code> node.</p>
 </div><h3 id='tymethod.elem_name' class='method stab '><code>fn <a href='#tymethod.elem_name' class='fnname'>elem_name</a>(&amp;self, target: &amp;Self::<a class='trait' href='../../../xml5ever/tree_builder/interface/trait.TreeSink.html' title='xml5ever::tree_builder::interface::TreeSink'>Handle</a>) -&gt; <a class='struct' href='../../../xml5ever/tokenizer/struct.QName.html' title='xml5ever::tokenizer::QName'>QName</a></code></h3><div class='docblock'><p>What is the name of this element?</p>
 
@@ -146,6 +147,6 @@ instead.</p>
     <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
     
-    <script async src="../../../search-index.js"></script>
+    <script defer src="../../../search-index.js"></script>
 </body>
 </html>
