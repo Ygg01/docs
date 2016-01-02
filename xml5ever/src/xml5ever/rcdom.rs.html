@@ -9,7 +9,6 @@
 
     <title>rcdom.rs.html -- source</title>
 
-    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -227,7 +226,6 @@
 <span id="184">184</span>
 <span id="185">185</span>
 <span id="186">186</span>
-<span id="187">187</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2014 The html5ever Project Developers. See the</span>
 <span class='comment'>// COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -249,12 +247,11 @@
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>borrow</span>::<span class='ident'>Cow</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ops</span>::{<span class='ident'>Deref</span>, <span class='ident'>DerefMut</span>};
 
-<span class='kw'>use</span> <span class='ident'>string_cache</span>::<span class='ident'>QualName</span>;
 <span class='kw'>use</span> <span class='ident'>tendril</span>::<span class='ident'>StrTendril</span>;
 <span class='kw'>use</span> <span class='ident'>rc</span>::{<span class='ident'>Rc</span>, <span class='ident'>Weak</span>};
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>NodeEnum</span>::{<span class='ident'>Document</span>, <span class='ident'>Doctype</span>, <span class='ident'>Text</span>, <span class='ident'>Comment</span>, <span class='ident'>Element</span>, <span class='ident'>PI</span>};
-<span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>tokenizer</span>::<span class='ident'>Attribute</span>;
+<span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>tokenizer</span>::{<span class='ident'>Attribute</span>, <span class='ident'>QName</span>};
 <span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>tree_builder</span>::{<span class='ident'>TreeSink</span>, <span class='ident'>NodeOrText</span>};
 <span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>ParseResult</span>;
 
@@ -274,7 +271,7 @@
     <span class='ident'>Comment</span>(<span class='ident'>StrTendril</span>),
 
     <span class='doccomment'>/// An element with attributes.</span>
-    <span class='ident'>Element</span>(<span class='ident'>QualName</span>, <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Attribute</span><span class='op'>&gt;</span>),
+    <span class='ident'>Element</span>(<span class='ident'>QName</span>, <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Attribute</span><span class='op'>&gt;</span>),
 
     <span class='doccomment'>/// A Processing instruction.</span>
     <span class='ident'>PI</span>(<span class='ident'>StrTendril</span>, <span class='ident'>StrTendril</span>),
@@ -356,7 +353,7 @@
         <span class='self'>self</span>.<span class='ident'>document</span>.<span class='ident'>clone</span>()
     }
 
-    <span class='kw'>fn</span> <span class='ident'>elem_name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>target</span>: <span class='kw-2'>&amp;</span><span class='ident'>Handle</span>) <span class='op'>-&gt;</span> <span class='ident'>QualName</span> {
+    <span class='kw'>fn</span> <span class='ident'>elem_name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>target</span>: <span class='kw-2'>&amp;</span><span class='ident'>Handle</span>) <span class='op'>-&gt;</span> <span class='ident'>QName</span> {
         <span class='comment'>// FIXME: rust-lang/rust#22252</span>
         <span class='kw'>return</span> <span class='kw'>match</span> <span class='ident'>target</span>.<span class='ident'>borrow</span>().<span class='ident'>node</span> {
             <span class='ident'>Element</span>(<span class='kw-2'>ref</span> <span class='ident'>name</span>, _) <span class='op'>=&gt;</span> <span class='ident'>name</span>.<span class='ident'>clone</span>(),
@@ -364,7 +361,7 @@
         };
     }
 
-    <span class='kw'>fn</span> <span class='ident'>create_element</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>name</span>: <span class='ident'>QualName</span>, <span class='ident'>attrs</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Attribute</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>Handle</span> {
+    <span class='kw'>fn</span> <span class='ident'>create_element</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>name</span>: <span class='ident'>QName</span>, <span class='ident'>attrs</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Attribute</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>Handle</span> {
         <span class='ident'>new_node</span>(<span class='ident'>Element</span>(<span class='ident'>name</span>, <span class='ident'>attrs</span>))
     }
 
@@ -476,6 +473,6 @@
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script defer src="../../search-index.js"></script>
+    <script async src="../../search-index.js"></script>
 </body>
 </html>

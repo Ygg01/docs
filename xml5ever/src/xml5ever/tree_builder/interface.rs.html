@@ -9,7 +9,6 @@
 
     <title>interface.rs.html -- source</title>
 
-    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
 
     
@@ -129,7 +128,6 @@
 <span id="86">86</span>
 <span id="87">87</span>
 <span id="88">88</span>
-<span id="89">89</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2014 The html5ever Project Developers. See the</span>
 <span class='comment'>// COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -143,11 +141,10 @@
 <span class='doccomment'>//! The interface for consumers of the tree builder (and thus the</span>
 <span class='doccomment'>//! parser overall).</span>
 
-<span class='kw'>use</span> <span class='ident'>tokenizer</span>::<span class='ident'>Attribute</span>;
+<span class='kw'>use</span> <span class='ident'>tokenizer</span>::{<span class='ident'>Attribute</span>, <span class='ident'>QName</span>};
 
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>borrow</span>::<span class='ident'>Cow</span>;
 
-<span class='kw'>use</span> <span class='ident'>string_cache</span>::<span class='ident'>QualName</span>;
 <span class='kw'>use</span> <span class='ident'>tendril</span>::<span class='ident'>StrTendril</span>;
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>NodeOrText</span>::{<span class='ident'>AppendNode</span>, <span class='ident'>AppendText</span>};
@@ -187,10 +184,10 @@
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// Should never be called on a non-element node;</span>
     <span class='doccomment'>/// feel free to `panic!`.</span>
-    <span class='kw'>fn</span> <span class='ident'>elem_name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>target</span>: <span class='kw-2'>&amp;</span><span class='ident'>Self</span>::<span class='ident'>Handle</span>) <span class='op'>-&gt;</span> <span class='ident'>QualName</span>;
+    <span class='kw'>fn</span> <span class='ident'>elem_name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>target</span>: <span class='kw-2'>&amp;</span><span class='ident'>Self</span>::<span class='ident'>Handle</span>) <span class='op'>-&gt;</span> <span class='ident'>QName</span>;
 
     <span class='doccomment'>/// Create an element.</span>
-    <span class='kw'>fn</span> <span class='ident'>create_element</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>name</span>: <span class='ident'>QualName</span>, <span class='ident'>attrs</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Attribute</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>Self</span>::<span class='ident'>Handle</span>;
+    <span class='kw'>fn</span> <span class='ident'>create_element</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>name</span>: <span class='ident'>QName</span>, <span class='ident'>attrs</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Attribute</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>Self</span>::<span class='ident'>Handle</span>;
 
     <span class='doccomment'>/// Create a comment node.</span>
     <span class='kw'>fn</span> <span class='ident'>create_comment</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>text</span>: <span class='ident'>StrTendril</span>) <span class='op'>-&gt;</span> <span class='ident'>Self</span>::<span class='ident'>Handle</span>;
@@ -280,6 +277,6 @@
     <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
     
-    <script defer src="../../../search-index.js"></script>
+    <script async src="../../../search-index.js"></script>
 </body>
 </html>
