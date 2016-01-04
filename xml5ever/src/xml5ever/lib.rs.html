@@ -9,7 +9,6 @@
 
     <title>lib.rs.html -- source</title>
 
-    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -143,6 +142,13 @@
 <span id="100">100</span>
 <span id="101">101</span>
 <span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
 </pre><pre class='rust '>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_name</span><span class='op'>=</span><span class='string'>&quot;xml5ever&quot;</span>]</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_type</span><span class='op'>=</span><span class='string'>&quot;dylib&quot;</span>]</span>
@@ -170,8 +176,15 @@
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>tree_builder</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>rcdom</span>;
 
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>option</span>;
+
 <span class='kw'>use</span> <span class='ident'>tokenizer</span>::{<span class='ident'>XmlTokenizerOpts</span>, <span class='ident'>XmlTokenizer</span>, <span class='ident'>TokenSink</span>};
 <span class='kw'>use</span> <span class='ident'>tree_builder</span>::{<span class='ident'>TreeSink</span>, <span class='ident'>XmlTreeBuilder</span>};
+
+<span class='doccomment'>/// Convenience function to turn a single value into an iterator.</span>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>one_input</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>(<span class='ident'>x</span>: <span class='ident'>T</span>) <span class='op'>-&gt;</span> <span class='ident'>option</span>::<span class='ident'>IntoIter</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
+    <span class='prelude-val'>Some</span>(<span class='ident'>x</span>).<span class='ident'>into_iter</span>()
+}
 
 <span class='doccomment'>/// Parse and send results to a `TreeSink`.</span>
 <span class='doccomment'>///</span>
@@ -181,7 +194,7 @@
 <span class='doccomment'>/// let mut sink = MySink;</span>
 <span class='doccomment'>/// parse_xml_to(&amp;mut sink, one_input(my_str), Default::default());</span>
 <span class='doccomment'>/// ```</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>parse_xml_to</span><span class='op'>&lt;</span>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>parse_to</span><span class='op'>&lt;</span>
         <span class='ident'>Sink</span>:<span class='ident'>TreeSink</span>,
         <span class='ident'>It</span>: <span class='ident'>IntoIterator</span><span class='op'>&lt;</span><span class='ident'>Item</span><span class='op'>=</span><span class='ident'>tendril</span>::<span class='ident'>StrTendril</span><span class='op'>&gt;</span>
     <span class='op'>&gt;</span>(
@@ -206,11 +219,11 @@
 <span class='doccomment'>/// ```ignore</span>
 <span class='doccomment'>/// let dom: RcDom = parse_xml(one_input(my_str), Default::default());</span>
 <span class='doccomment'>/// ```</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>parse_xml</span><span class='op'>&lt;</span><span class='ident'>Output</span>, <span class='ident'>It</span><span class='op'>&gt;</span>(<span class='ident'>input</span>: <span class='ident'>It</span>, <span class='ident'>opts</span>: <span class='ident'>XmlTokenizerOpts</span>) <span class='op'>-&gt;</span> <span class='ident'>Output</span>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>parse</span><span class='op'>&lt;</span><span class='ident'>Output</span>, <span class='ident'>It</span><span class='op'>&gt;</span>(<span class='ident'>input</span>: <span class='ident'>It</span>, <span class='ident'>opts</span>: <span class='ident'>XmlTokenizerOpts</span>) <span class='op'>-&gt;</span> <span class='ident'>Output</span>
     <span class='kw'>where</span> <span class='ident'>Output</span>: <span class='ident'>ParseResult</span>,
           <span class='ident'>It</span>: <span class='ident'>IntoIterator</span><span class='op'>&lt;</span><span class='ident'>Item</span><span class='op'>=</span><span class='ident'>tendril</span>::<span class='ident'>StrTendril</span><span class='op'>&gt;</span>,
 {
-    <span class='kw'>let</span> <span class='ident'>sink</span> <span class='op'>=</span> <span class='ident'>parse_xml_to</span>(<span class='ident'>Default</span>::<span class='ident'>default</span>(), <span class='ident'>input</span>, <span class='ident'>opts</span>);
+    <span class='kw'>let</span> <span class='ident'>sink</span> <span class='op'>=</span> <span class='ident'>parse_to</span>(<span class='ident'>Default</span>::<span class='ident'>default</span>(), <span class='ident'>input</span>, <span class='ident'>opts</span>);
     <span class='ident'>ParseResult</span>::<span class='ident'>get_result</span>(<span class='ident'>sink</span>)
 }
 
@@ -231,7 +244,7 @@
 <span class='doccomment'>/// let mut sink = MySink;</span>
 <span class='doccomment'>/// tokenize_xml_to(&amp;mut sink, one_input(my_str), Default::default());</span>
 <span class='doccomment'>/// ```</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>tokenize_xml_to</span><span class='op'>&lt;</span>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>tokenize_to</span><span class='op'>&lt;</span>
         <span class='ident'>Sink</span>: <span class='ident'>TokenSink</span>,
         <span class='ident'>It</span>: <span class='ident'>IntoIterator</span><span class='op'>&lt;</span><span class='ident'>Item</span><span class='op'>=</span><span class='ident'>tendril</span>::<span class='ident'>StrTendril</span><span class='op'>&gt;</span>
     <span class='op'>&gt;</span>(
@@ -306,6 +319,6 @@
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script defer src="../../search-index.js"></script>
+    <script async src="../../search-index.js"></script>
 </body>
 </html>

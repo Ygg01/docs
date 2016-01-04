@@ -9,7 +9,6 @@
 
     <title>mod.rs.html -- source</title>
 
-    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
 
     
@@ -402,9 +401,6 @@
 <span id="359">359</span>
 <span id="360">360</span>
 <span id="361">361</span>
-<span id="362">362</span>
-<span id="363">363</span>
-<span id="364">364</span>
 </pre><pre class='rust '>
 <span class='kw'>mod</span> <span class='ident'>actions</span>;
 <span class='kw'>mod</span> <span class='ident'>rules</span>;
@@ -750,10 +746,7 @@
                 <span class='kw'>return</span>;
             }
 
-            <span class='ident'>tokenizer</span>::<span class='ident'>DoctypeToken</span>(_) <span class='op'>=&gt;</span> {
-                <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;Doctype not implemented!!&quot;</span>);
-            }
-
+            <span class='ident'>tokenizer</span>::<span class='ident'>DoctypeToken</span>(<span class='ident'>d</span>) <span class='op'>=&gt;</span><span class='ident'>DoctypeToken</span>(<span class='ident'>d</span>),
             <span class='ident'>tokenizer</span>::<span class='ident'>PIToken</span>(<span class='ident'>x</span>)   <span class='op'>=&gt;</span> <span class='ident'>PIToken</span>(<span class='ident'>x</span>),
             <span class='ident'>tokenizer</span>::<span class='ident'>TagToken</span>(<span class='ident'>x</span>) <span class='op'>=&gt;</span> <span class='ident'>TagToken</span>(<span class='ident'>x</span>),
             <span class='ident'>tokenizer</span>::<span class='ident'>CommentToken</span>(<span class='ident'>x</span>) <span class='op'>=&gt;</span> <span class='ident'>CommentToken</span>(<span class='ident'>x</span>),
@@ -830,6 +823,6 @@
     <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
     
-    <script defer src="../../../search-index.js"></script>
+    <script async src="../../../search-index.js"></script>
 </body>
 </html>

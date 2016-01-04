@@ -9,7 +9,6 @@
 
     <title>mod.rs.html -- source</title>
 
-    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
 
     
@@ -2179,7 +2178,7 @@
              <span class='comment'>//§ after-doctype-system-keyword-state</span>
             <span class='ident'>XmlState</span>::<span class='ident'>AfterDoctypeKeyword</span>(<span class='ident'>System</span>) <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
                 <span class='string'>&#39;\t&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\n&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\x0C&#39;</span>
-                <span class='op'>|</span> <span class='string'>&#39; &#39;</span>   <span class='op'>=&gt;</span> (),
+                <span class='op'>|</span> <span class='string'>&#39; &#39;</span>   <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>BeforeDoctypeIdentifier</span> <span class='ident'>System</span>),
                 <span class='string'>&#39;&quot;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>clear_doctype_id</span> <span class='ident'>System</span>; <span class='ident'>to</span> <span class='ident'>DoctypeIdentifierDoubleQuoted</span> <span class='ident'>System</span>),
                 <span class='string'>&#39;\&#39;&#39;</span>    <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>clear_doctype_id</span> <span class='ident'>System</span>; <span class='ident'>to</span> <span class='ident'>DoctypeIdentifierSingleQuoted</span> <span class='ident'>System</span>),
                 <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
@@ -2190,15 +2189,15 @@
             <span class='ident'>XmlState</span>::<span class='ident'>BeforeDoctypeIdentifier</span>(<span class='ident'>kind</span>) <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
                 <span class='string'>&#39;\t&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\n&#39;</span> <span class='op'>|</span> <span class='string'>&#39;\x0C&#39;</span>
                 <span class='op'>|</span> <span class='string'>&#39; &#39;</span>   <span class='op'>=&gt;</span> (),
-                <span class='string'>&#39;&quot;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>clear_doctype_id</span> <span class='ident'>kind</span>; <span class='ident'>to</span> <span class='ident'>DoctypeIdentifierDoubleQuoted</span> <span class='ident'>kind</span>),
-                <span class='string'>&#39;\&#39;&#39;</span>    <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>clear_doctype_id</span> <span class='ident'>kind</span>; <span class='ident'>to</span> <span class='ident'>DoctypeIdentifierSingleQuoted</span> <span class='ident'>kind</span>),
+                <span class='string'>&#39;&quot;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>clear_doctype_id</span> <span class='ident'>kind</span>; <span class='ident'>to</span> <span class='ident'>DoctypeIdentifierDoubleQuoted</span> <span class='ident'>kind</span>),
+                <span class='string'>&#39;\&#39;&#39;</span>    <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>clear_doctype_id</span> <span class='ident'>kind</span>; <span class='ident'>to</span> <span class='ident'>DoctypeIdentifierSingleQuoted</span> <span class='ident'>kind</span>),
                 <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
                 _       <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>to</span> <span class='ident'>BogusDoctype</span>),
                 }
             },
             <span class='comment'>//§ doctype_public_identifier_double_quoted_state doctype_system_identifier_double_quoted_state</span>
             <span class='ident'>XmlState</span>::<span class='ident'>DoctypeIdentifierDoubleQuoted</span>(<span class='ident'>kind</span>) <span class='op'>=&gt;</span> <span class='kw'>loop</span> { <span class='kw'>match</span> <span class='macro'>get_char</span><span class='macro'>!</span>(<span class='self'>self</span>) {
-                <span class='string'>&#39;&quot;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>AfterDoctypeKeyword</span> <span class='ident'>kind</span>),
+                <span class='string'>&#39;&quot;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>to</span> <span class='ident'>AfterDoctypeIdentifier</span> <span class='ident'>kind</span>),
                 <span class='string'>&#39;&gt;&#39;</span>     <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>error</span>; <span class='ident'>emit_doctype</span>; <span class='ident'>to</span> <span class='ident'>Data</span>),
                 <span class='ident'>c</span>       <span class='op'>=&gt;</span> <span class='macro'>go</span><span class='macro'>!</span>(<span class='self'>self</span>: <span class='ident'>push_doctype_id</span> <span class='ident'>kind</span> <span class='ident'>c</span>),
                 }
@@ -2530,6 +2529,6 @@
     <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
     
-    <script defer src="../../../search-index.js"></script>
+    <script async src="../../../search-index.js"></script>
 </body>
 </html>
