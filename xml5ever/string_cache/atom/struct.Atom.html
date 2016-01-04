@@ -142,7 +142,7 @@ satisifed:</p>
 
 <ul>
 <li><code>begin</code> must come before <code>end</code>.</li>
-<li><code>begin</code> and <code>end</code> must be bye positions within the string slice.</li>
+<li><code>begin</code> and <code>end</code> must be byte positions within the string slice.</li>
 <li><code>begin</code> and <code>end</code> must lie on UTF-8 sequence boundaries.</li>
 </ul>
 
@@ -176,7 +176,7 @@ satisifed:</p>
 
 <ul>
 <li><code>begin</code> must come before <code>end</code>.</li>
-<li><code>begin</code> and <code>end</code> must be bye positions within the string slice.</li>
+<li><code>begin</code> and <code>end</code> must be byte positions within the string slice.</li>
 <li><code>begin</code> and <code>end</code> must lie on UTF-8 sequence boundaries.</li>
 </ul>
 </div><h4 id='method.char_range_at' class='method'><code>fn <a href='#method.char_range_at' class='fnname'>char_range_at</a>(&amp;self, start: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/core/str/struct.CharRange.html' title='core::str::CharRange'>CharRange</a></code></h4>
@@ -373,9 +373,9 @@ beyond the last code point of the string slice.</p>
 <div class='docblock'><p>Returns an iterator over the <code>char</code>s of a string slice.</p>
 
 <p>As a string slice consists of valid UTF-8, we can iterate through a
-string slice by <a href="../primitive.char.html"><code>char</code></a>. This method returns such an iterator.</p>
+string slice by <a href="primitive.char.html"><code>char</code></a>. This method returns such an iterator.</p>
 
-<p>It&#39;s important to remember that <a href="../primitive.char.html"><code>char</code></a> represents a Unicode Scalar
+<p>It&#39;s important to remember that <a href="primitive.char.html"><code>char</code></a> represents a Unicode Scalar
 Value, and may not match your idea of what a &#39;character&#39; is. Iteration
 over grapheme clusters may be what you actually want.</p>
 
@@ -996,7 +996,7 @@ Core Property <code>White_Space</code>.</p>
 <div class='docblock'><p>Returns a string slice with all prefixes and suffixes that match a
 pattern repeatedly removed.</p>
 
-<p>The pattern can be a <code>&amp;str</code>, <a href="primtive.char.html"><code>char</code></a>, or a closure that determines
+<p>The pattern can be a <code>&amp;str</code>, <a href="primitive.char.html"><code>char</code></a>, or a closure that determines
 if a character matches.</p>
 
 <h1 id='examples-36' class='section-header'><a href='#examples-36'>Examples</a></h1>
@@ -1054,7 +1054,7 @@ the syntax affectionately known as the &#39;turbofish&#39;: <code>::&lt;&gt;</co
 helps the inference algorithm understand specifically which type
 you&#39;re trying to parse into.</p>
 
-<p><code>parse()</code> can parse any type that implements the <a href="trait.FromStr.html"><code>FromStr</code></a> trait.</p>
+<p><code>parse()</code> can parse any type that implements the <a href="str/trait.FromStr.html"><code>FromStr</code></a> trait.</p>
 
 <h1 id='failure' class='section-header'><a href='#failure'>Failure</a></h1>
 <p>Will return <code>Err</code> if it&#39;s not possible to parse this string slice into
