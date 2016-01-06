@@ -46,15 +46,17 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-30' class='srclink' href='../../src/xml5ever/tokenizer/mod.rs.html#1-1214' title='goto source code'>[src]</a></span></h1>
-<h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
+        </span><a id='src-30' class='srclink' href='../../src/xml5ever/tokenizer/mod.rs.html#10-1227' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>XML5 tokenizer - converts input into tokens</p>
+</div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
 <table><tr><td><code>pub use self::interface::{<a class='enum' href='../../xml5ever/tokenizer/enum.TagKind.html' title='xml5ever::tokenizer::TagKind'>StartTag</a>, <a class='enum' href='../../xml5ever/tokenizer/enum.TagKind.html' title='xml5ever::tokenizer::TagKind'>EndTag</a>, <a class='enum' href='../../xml5ever/tokenizer/enum.TagKind.html' title='xml5ever::tokenizer::TagKind'>EmptyTag</a>, <a class='enum' href='../../xml5ever/tokenizer/enum.TagKind.html' title='xml5ever::tokenizer::TagKind'>ShortTag</a>};</code></td></tr><tr><td><code>pub use self::interface::{<a class='enum' href='../../xml5ever/tokenizer/enum.Token.html' title='xml5ever::tokenizer::Token'>DoctypeToken</a>, <a class='enum' href='../../xml5ever/tokenizer/enum.Token.html' title='xml5ever::tokenizer::Token'>TagToken</a>, <a class='enum' href='../../xml5ever/tokenizer/enum.Token.html' title='xml5ever::tokenizer::Token'>PIToken</a>, <a class='enum' href='../../xml5ever/tokenizer/enum.Token.html' title='xml5ever::tokenizer::Token'>CommentToken</a>};</code></td></tr><tr><td><code>pub use self::interface::{<a class='enum' href='../../xml5ever/tokenizer/enum.Token.html' title='xml5ever::tokenizer::Token'>CharacterTokens</a>, <a class='enum' href='../../xml5ever/tokenizer/enum.Token.html' title='xml5ever::tokenizer::Token'>EOFToken</a>, <a class='enum' href='../../xml5ever/tokenizer/enum.Token.html' title='xml5ever::tokenizer::Token'>NullCharacterToken</a>};</code></td></tr><tr><td><code>pub use self::interface::{<a class='enum' href='../../xml5ever/tokenizer/enum.Token.html' title='xml5ever::tokenizer::Token'>ParseError</a>};</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
                     <tr class=' module-item'>
                         <td><a class='mod' href='states/index.html'
                                title='xml5ever::tokenizer::states'>states</a></td>
                         <td class='docblock short'>
-                             
+                             <p>Tokenizer states.</p>
+
                         </td>
                     </tr>
                 </table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
@@ -72,7 +74,10 @@
                         <td><a class='struct' href='struct.Doctype.html'
                                title='xml5ever::tokenizer::Doctype'>Doctype</a></td>
                         <td class='docblock short'>
-                             <p>A <code>DOCTYPE</code> token.</p>
+                             <p>A <code>DOCTYPE</code> token.
+Doctype token in XML5 is rather limited for reasons, such as:
+security and simplicity. XML5 only supports declaring DTD with
+name, public identifier and system identifier</p>
 
                         </td>
                     </tr>
@@ -81,7 +86,8 @@
                         <td><a class='struct' href='struct.Pi.html'
                                title='xml5ever::tokenizer::Pi'>Pi</a></td>
                         <td class='docblock short'>
-                             
+                             <p>A ProcessingInstruction token.</p>
+
                         </td>
                     </tr>
                 
@@ -89,7 +95,8 @@
                         <td><a class='struct' href='struct.QName.html'
                                title='xml5ever::tokenizer::QName'>QName</a></td>
                         <td class='docblock short'>
-                             
+                             <p>Fully qualified name. Used to depict names of tags and attributes.</p>
+
                         </td>
                     </tr>
                 
@@ -125,7 +132,8 @@
                         <td><a class='enum' href='enum.TagKind.html'
                                title='xml5ever::tokenizer::TagKind'>TagKind</a></td>
                         <td class='docblock short'>
-                             
+                             <p>Tag kind denotes which kind of tag did we encounter.</p>
+
                         </td>
                     </tr>
                 
@@ -133,7 +141,8 @@
                         <td><a class='enum' href='enum.Token.html'
                                title='xml5ever::tokenizer::Token'>Token</a></td>
                         <td class='docblock short'>
-                             
+                             <p>Describes tokens encountered during parsing of input.</p>
+
                         </td>
                     </tr>
                 </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>

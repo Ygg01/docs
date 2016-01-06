@@ -46,14 +46,32 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-0' class='srclink' href='../src/xml5ever/lib.rs.html#1-109' title='goto source code'>[src]</a></span></h1>
-<h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+        </span><a id='src-0' class='srclink' href='../src/xml5ever/lib.rs.html#10-146' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>This crate provides a push based XML parser library that
+adheres to XML5 specification. In other words this library
+trades well-formedness for error recovery.</p>
+
+<p>The idea behind this, was to minimize number of errors from
+tools that generate XML (e.g. <code>&amp;#83</code> won&#39;t just return <code>&amp;#83</code>
+as text, but will parse it into <code>S</code> ).
+You can check out full specification <a href="https://ygg01.github.io/xml5_draft/">here</a>.</p>
+
+<p>What this library provides is a solid XML parser that can:
+  * Parse somewhat erroneous XML input
+  * Provide support for <a href="https://en.wikipedia.org/wiki/Numeric_character_reference">Numeric character references</a>.
+  * Provide partial <a href="http://www.w3.org/TR/xml-names11/">XML namespace</a> support.
+  * Provide full set of SVG/MathML entities</p>
+
+<p>What isn&#39;t in scope for this library:
+  * Document Type Definition parsing - this is pretty hard to do right and nowadays, its used</p>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
                     <tr class=' module-item'>
                         <td><a class='mod' href='rcdom/index.html'
                                title='xml5ever::rcdom'>rcdom</a></td>
                         <td class='docblock short'>
-                             <p>A simple reference-counted DOM.</p>
+                             <p>A simple reference-counted that serves as a default tree structure
+A simple reference-counted DOM.</p>
 
                         </td>
                     </tr>
@@ -62,7 +80,8 @@
                         <td><a class='mod' href='tokenizer/index.html'
                                title='xml5ever::tokenizer'>tokenizer</a></td>
                         <td class='docblock short'>
-                             
+                             <p>XML5 tokenizer - converts input into tokens</p>
+
                         </td>
                     </tr>
                 
@@ -70,7 +89,8 @@
                         <td><a class='mod' href='tree_builder/index.html'
                                title='xml5ever::tree_builder'>tree_builder</a></td>
                         <td class='docblock short'>
-                             
+                             <p>XML5 tree builder - converts tokens into a tree like structure</p>
+
                         </td>
                     </tr>
                 </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>

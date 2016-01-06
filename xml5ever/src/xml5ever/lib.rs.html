@@ -150,9 +150,75 @@
 <span id="107">107</span>
 <span id="108">108</span>
 <span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
 </pre><pre class='rust '>
+<span class='comment'>// Copyright 2015 The xml5ever Project Developers. See the</span>
+<span class='comment'>// COPYRIGHT file at the top-level directory of this distribution.</span>
+<span class='comment'>//</span>
+<span class='comment'>// Licensed under the Apache License, Version 2.0 &lt;LICENSE-APACHE or</span>
+<span class='comment'>// http://www.apache.org/licenses/LICENSE-2.0&gt; or the MIT license</span>
+<span class='comment'>// &lt;LICENSE-MIT or http://opensource.org/licenses/MIT&gt;, at your</span>
+<span class='comment'>// option. This file may not be copied, modified, or distributed</span>
+<span class='comment'>// except according to those terms.</span>
+
+<span class='doccomment'>//! This crate provides a push based XML parser library that</span>
+<span class='doccomment'>//! adheres to XML5 specification. In other words this library</span>
+<span class='doccomment'>//! trades well-formedness for error recovery.</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! The idea behind this, was to minimize number of errors from</span>
+<span class='doccomment'>//! tools that generate XML (e.g. `&amp;#83` won&#39;t just return `&amp;#83`</span>
+<span class='doccomment'>//! as text, but will parse it into `S` ).</span>
+<span class='doccomment'>//! You can check out full specification [here](https://ygg01.github.io/xml5_draft/).</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! What this library provides is a solid XML parser that can:</span>
+<span class='doccomment'>//!   * Parse somewhat erroneous XML input</span>
+<span class='doccomment'>//!   * Provide support for [Numeric character references](https://en.wikipedia.org/wiki/Numeric_character_reference).</span>
+<span class='doccomment'>//!   * Provide partial [XML namespace](http://www.w3.org/TR/xml-names11/) support.</span>
+<span class='doccomment'>//!   * Provide full set of SVG/MathML entities</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! What isn&#39;t in scope for this library:</span>
+<span class='doccomment'>//!   * Document Type Definition parsing - this is pretty hard to do right and nowadays, its used</span>
+<span class='doccomment'>//!</span>
+
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_name</span><span class='op'>=</span><span class='string'>&quot;xml5ever&quot;</span>]</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_type</span><span class='op'>=</span><span class='string'>&quot;dylib&quot;</span>]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>deny</span>(<span class='ident'>missing_docs</span>)]</span>
 
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>log</span>;
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>mac</span>;
@@ -173,14 +239,19 @@
 }
 
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span> <span class='kw'>mod</span> <span class='ident'>util</span>;
+
+<span class='doccomment'>/// XML5 tokenizer - converts input into tokens</span>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>tokenizer</span>;
+<span class='doccomment'>/// XML5 tree builder - converts tokens into a tree like structure</span>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>tree_builder</span>;
+<span class='doccomment'>/// A simple reference-counted that serves as a default tree structure</span>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>rcdom</span>;
 
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>option</span>;
 
 <span class='kw'>use</span> <span class='ident'>tokenizer</span>::{<span class='ident'>XmlTokenizerOpts</span>, <span class='ident'>XmlTokenizer</span>, <span class='ident'>TokenSink</span>};
 <span class='kw'>use</span> <span class='ident'>tree_builder</span>::{<span class='ident'>TreeSink</span>, <span class='ident'>XmlTreeBuilder</span>};
+
 
 <span class='doccomment'>/// Convenience function to turn a single value into an iterator.</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>one_input</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>(<span class='ident'>x</span>: <span class='ident'>T</span>) <span class='op'>-&gt;</span> <span class='ident'>option</span>::<span class='ident'>IntoIter</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
@@ -193,7 +264,7 @@
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// ```ignore</span>
 <span class='doccomment'>/// let mut sink = MySink;</span>
-<span class='doccomment'>/// parse_xml_to(&amp;mut sink, one_input(my_str), Default::default());</span>
+<span class='doccomment'>/// parse_to(&amp;mut sink, one_input(my_str), Default::default());</span>
 <span class='doccomment'>/// ```</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>parse_to</span><span class='op'>&lt;</span>
         <span class='ident'>Sink</span>:<span class='ident'>TreeSink</span>,
@@ -218,7 +289,7 @@
 <span class='doccomment'>/// ## Example</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// ```ignore</span>
-<span class='doccomment'>/// let dom: RcDom = parse_xml(one_input(my_str), Default::default());</span>
+<span class='doccomment'>/// let dom: RcDom = parse(one_input(my_str), Default::default());</span>
 <span class='doccomment'>/// ```</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>parse</span><span class='op'>&lt;</span><span class='ident'>Output</span>, <span class='ident'>It</span><span class='op'>&gt;</span>(<span class='ident'>input</span>: <span class='ident'>It</span>, <span class='ident'>opts</span>: <span class='ident'>XmlTokenizerOpts</span>) <span class='op'>-&gt;</span> <span class='ident'>Output</span>
     <span class='kw'>where</span> <span class='ident'>Output</span>: <span class='ident'>ParseResult</span>,
@@ -233,7 +304,10 @@
 <span class='doccomment'>/// Implement this for your parse tree data type so that it</span>
 <span class='doccomment'>/// can be returned by `parse()`.</span>
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ParseResult</span> {
+    <span class='doccomment'>/// Type of consumer of tree modifications.</span>
+    <span class='doccomment'>/// It also extends `Default` for convenience.</span>
     <span class='kw'>type</span> <span class='ident'>Sink</span>: <span class='ident'>TreeSink</span> <span class='op'>+</span> <span class='ident'>Default</span>;
+    <span class='doccomment'>/// Returns parsed tree data type</span>
     <span class='kw'>fn</span> <span class='ident'>get_result</span>(<span class='ident'>sink</span>: <span class='ident'>Self</span>::<span class='ident'>Sink</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span>;
 }
 
@@ -243,7 +317,7 @@
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// ```ignore</span>
 <span class='doccomment'>/// let mut sink = MySink;</span>
-<span class='doccomment'>/// tokenize_xml_to(&amp;mut sink, one_input(my_str), Default::default());</span>
+<span class='doccomment'>/// tokenize_to(&amp;mut sink, one_input(my_str), Default::default());</span>
 <span class='doccomment'>/// ```</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>tokenize_to</span><span class='op'>&lt;</span>
         <span class='ident'>Sink</span>: <span class='ident'>TokenSink</span>,
