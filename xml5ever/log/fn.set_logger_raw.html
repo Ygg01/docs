@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `Log` trait in crate `log`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, Log">
+    <meta name="description" content="API documentation for the Rust `set_logger_raw` fn in crate `log`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, set_logger_raw">
 
-    <title>log::Log - Rust</title>
+    <title>log::set_logger_raw - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
@@ -27,7 +27,7 @@
 
     <nav class="sidebar">
         <a href='../log/index.html'><img src='https://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
-        <p class='location'><a href='index.html'>log</a></p><script>window.sidebarCurrent = {name: 'Log', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'><a href='index.html'>log</a></p><script>window.sidebarCurrent = {name: 'set_logger_raw', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -41,36 +41,35 @@
         </form>
     </nav>
 
-    <section id='main' class="content trait">
-<h1 class='fqn'><span class='in-band'>Trait <a href='index.html'>log</a>::<wbr><a class='trait' href=''>Log</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content fn">
+<h1 class='fqn'><span class='in-band'>Function <a href='index.html'>log</a>::<wbr><a class='fn' href=''>set_logger_raw</a></span><span class='out-of-band'><span id='render-detail'>
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-192' class='srclink' href='../src/log/lib.rs.html#544-559' title='goto source code'>[src]</a></span></h1>
-<pre class='rust trait'>pub trait Log: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html' title='core::marker::Sync'>Sync</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Send.html' title='core::marker::Send'>Send</a> {
-    fn <a href='#tymethod.enabled' class='fnname'>enabled</a>(&amp;self, metadata: &amp;<a class='struct' href='../log/struct.LogMetadata.html' title='log::LogMetadata'>LogMetadata</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>;
-    fn <a href='#tymethod.log' class='fnname'>log</a>(&amp;self, record: &amp;<a class='struct' href='../log/struct.LogRecord.html' title='log::LogRecord'>LogRecord</a>);
-}</pre><div class='docblock'><p>A trait encapsulating the operations required of a logger</p>
-</div>
-            <h2 id='required-methods'>Required Methods</h2>
-            <div class='methods'>
-        <h3 id='tymethod.enabled' class='method stab '><code>fn <a href='#tymethod.enabled' class='fnname'>enabled</a>(&amp;self, metadata: &amp;<a class='struct' href='../log/struct.LogMetadata.html' title='log::LogMetadata'>LogMetadata</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h3><div class='docblock'><p>Determines if a log message with the specified metadata would be
-logged.</p>
+        </span><a id='src-262' class='srclink' href='../src/log/lib.rs.html#703-713' title='goto source code'>[src]</a></span></h1>
+<pre class='rust fn'>pub unsafe fn set_logger_raw&lt;M&gt;(make_logger: M) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='struct' href='../log/struct.SetLoggerError.html' title='log::SetLoggerError'>SetLoggerError</a>&gt; <span class='where'>where M: <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.FnOnce.html' title='core::ops::FnOnce'>FnOnce</a>(<a class='struct' href='../log/struct.MaxLogLevelFilter.html' title='log::MaxLogLevelFilter'>MaxLogLevelFilter</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*const <a class='trait' href='../log/trait.Log.html' title='log::Log'>Log</a></a></span></pre><div class='docblock'><p>Sets the global logger from a raw pointer.</p>
 
-<p>This is used by the <code>log_enabled!</code> macro to allow callers to avoid
-expensive computation of log message arguments if the message would be
-discarded anyway.</p>
-</div><h3 id='tymethod.log' class='method stab '><code>fn <a href='#tymethod.log' class='fnname'>log</a>(&amp;self, record: &amp;<a class='struct' href='../log/struct.LogRecord.html' title='log::LogRecord'>LogRecord</a>)</code></h3><div class='docblock'><p>Logs the <code>LogRecord</code>.</p>
+<p>This function is similar to <code>set_logger</code> except that it is usable in
+<code>no_std</code> code. Another difference is that the logger is not automatically
+shut down on program exit, and <code>shutdown_logger_raw</code> must be called to
+manually shut it down.</p>
 
-<p>Note that <code>enabled</code> is <em>not</em> necessarily called before this method.
-Implementations of <code>log</code> should perform all necessary filtering
-internally.</p>
-</div></div>
-        <h2 id='implementors'>Implementors</h2>
-        <ul class='item-list' id='implementors-list'>
-    </ul><script type="text/javascript" async
-                              src="../implementors/log/trait.Log.js">
-                      </script></section>
+<p>The <code>make_logger</code> closure is passed a <code>MaxLogLevel</code> object, which the
+logger should use to keep the global maximum log level in sync with the
+highest log level that the logger will not ignore.</p>
+
+<p>This function may only be called once in the lifetime of a program. Any log
+events that occur before the call to <code>set_logger_raw</code> completes will be
+ignored.</p>
+
+<p>This function does not typically need to be called manually. Logger
+implementations should provide an initialization method that calls
+<code>set_logger_raw</code> internally.</p>
+
+<h1 id='safety' class='section-header'><a href='#safety'>Safety</a></h1>
+<p>The pointer returned by <code>make_logger</code> must remain valid for the entire
+duration of the program or until <code>shutdown_logger_raw</code> is called.</p>
+</div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
