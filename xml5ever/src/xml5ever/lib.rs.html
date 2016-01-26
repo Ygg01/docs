@@ -187,6 +187,11 @@
 <span id="144">144</span>
 <span id="145">145</span>
 <span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2015 The xml5ever Project Developers. See the</span>
 <span class='comment'>// COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -226,8 +231,13 @@
 
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>rc</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>phf</span>;
-<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>tendril</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>time</span>;
+
+<span class='doccomment'>/// Re-export the tendril crate so that users don’t need to depend on it.</span>
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>tendril</span> {
+    <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>tendril</span>;
+    <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>tendril</span>::<span class='op'>*</span>;
+}
 
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>time</span> {
     (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {{
