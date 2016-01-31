@@ -674,14 +674,14 @@
     <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>dead_code</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>dump_state</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>label</span>: <span class='ident'>String</span>) {
 
-        <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;dump_state on {}&quot;</span>, <span class='ident'>label</span>);
-        <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;    open_elems:&quot;</span>);
+        <span class='macro'>debug</span><span class='macro'>!</span>(<span class='string'>&quot;dump_state on {}&quot;</span>, <span class='ident'>label</span>);
+        <span class='macro'>debug</span><span class='macro'>!</span>(<span class='string'>&quot;    open_elems:&quot;</span>);
         <span class='kw'>for</span> <span class='ident'>node</span> <span class='kw'>in</span> <span class='self'>self</span>.<span class='ident'>open_elems</span>.<span class='ident'>iter</span>() {
             <span class='kw'>let</span> <span class='ident'>QName</span> { <span class='ident'>prefix</span>, <span class='ident'>local</span>, .. } <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>elem_name</span>(<span class='ident'>node</span>);
-            <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot; {:?}:{:?}&quot;</span>, <span class='ident'>prefix</span>,<span class='ident'>local</span>);
+            <span class='macro'>debug</span><span class='macro'>!</span>(<span class='string'>&quot; {:?}:{:?}&quot;</span>, <span class='ident'>prefix</span>,<span class='ident'>local</span>);
 
         }
-        <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;&quot;</span>);
+        <span class='macro'>debug</span><span class='macro'>!</span>(<span class='string'>&quot;&quot;</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>for_c</span>)]</span>

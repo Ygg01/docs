@@ -186,13 +186,6 @@
 <span id="143">143</span>
 <span id="144">144</span>
 <span id="145">145</span>
-<span id="146">146</span>
-<span id="147">147</span>
-<span id="148">148</span>
-<span id="149">149</span>
-<span id="150">150</span>
-<span id="151">151</span>
-<span id="152">152</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2015 The xml5ever Project Developers. See the</span>
 <span class='comment'>// COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -259,16 +252,9 @@
 <span class='doccomment'>/// A simple reference-counted that serves as a default tree structure</span>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>rcdom</span>;
 
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>option</span>;
-
 <span class='kw'>use</span> <span class='ident'>tokenizer</span>::{<span class='ident'>XmlTokenizerOpts</span>, <span class='ident'>XmlTokenizer</span>, <span class='ident'>TokenSink</span>};
 <span class='kw'>use</span> <span class='ident'>tree_builder</span>::{<span class='ident'>TreeSink</span>, <span class='ident'>XmlTreeBuilder</span>};
 
-
-<span class='doccomment'>/// Convenience function to turn a single value into an iterator.</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>one_input</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>(<span class='ident'>x</span>: <span class='ident'>T</span>) <span class='op'>-&gt;</span> <span class='ident'>option</span>::<span class='ident'>IntoIter</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
-    <span class='prelude-val'>Some</span>(<span class='ident'>x</span>).<span class='ident'>into_iter</span>()
-}
 
 <span class='doccomment'>/// Parse and send results to a `TreeSink`.</span>
 <span class='doccomment'>///</span>
@@ -276,7 +262,7 @@
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// ```ignore</span>
 <span class='doccomment'>/// let mut sink = MySink;</span>
-<span class='doccomment'>/// parse_to(&amp;mut sink, one_input(my_str), Default::default());</span>
+<span class='doccomment'>/// parse_to(&amp;mut sink, iter::once(my_str), Default::default());</span>
 <span class='doccomment'>/// ```</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>parse_to</span><span class='op'>&lt;</span>
         <span class='ident'>Sink</span>:<span class='ident'>TreeSink</span>,
@@ -301,7 +287,7 @@
 <span class='doccomment'>/// ## Example</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// ```ignore</span>
-<span class='doccomment'>/// let dom: RcDom = parse(one_input(my_str), Default::default());</span>
+<span class='doccomment'>/// let dom: RcDom = parse(iter::once(my_str), Default::default());</span>
 <span class='doccomment'>/// ```</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>parse</span><span class='op'>&lt;</span><span class='ident'>Output</span>, <span class='ident'>It</span><span class='op'>&gt;</span>(<span class='ident'>input</span>: <span class='ident'>It</span>, <span class='ident'>opts</span>: <span class='ident'>XmlTokenizerOpts</span>) <span class='op'>-&gt;</span> <span class='ident'>Output</span>
     <span class='kw'>where</span> <span class='ident'>Output</span>: <span class='ident'>ParseResult</span>,
@@ -329,7 +315,7 @@
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// ```ignore</span>
 <span class='doccomment'>/// let mut sink = MySink;</span>
-<span class='doccomment'>/// tokenize_to(&amp;mut sink, one_input(my_str), Default::default());</span>
+<span class='doccomment'>/// tokenize_to(&amp;mut sink, iter::once(my_str), Default::default());</span>
 <span class='doccomment'>/// ```</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>tokenize_to</span><span class='op'>&lt;</span>
         <span class='ident'>Sink</span>: <span class='ident'>TokenSink</span>,
