@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["ASCIIDecoder","A decoder for ASCII."],["ASCIIEncoder","An encoder for ASCII."],["ASCIIEncoding","ASCII, also known as ISO/IEC 646:US.It is both a basis and a lowest common denominator of many other encodings including UTF-8, which Rust internally assumes."]]});
+initSidebarItems({"struct":[["ASCIIDecoder","A decoder for ASCII."],["ASCIIEncoder","An encoder for ASCII."],["ASCIIEncoding","ASCII, also known as ISO/IEC 646:US."]]});
