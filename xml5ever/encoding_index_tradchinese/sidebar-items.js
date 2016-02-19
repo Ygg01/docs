@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["big5","Big5 and HKSCS.From the Encoding Standard:This matches the Big5 standard in combination with the Hong Kong Supplementary Character Set and other common extensions."]]});
+initSidebarItems({"mod":[["big5","Big5 and HKSCS."]]});
