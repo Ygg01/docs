@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["jis0208","JIS X 0208 with common extensions.From the Encoding Standard:This is the JIS X 0208 standard including formerly proprietary extensions from IBM and NEC."],["jis0212","JIS X 0212.From the Encoding Standard:This is the JIS X 0212 standard. It is only used by the euc-jp decoder due to lack of widespread support elsewhere."]]});
+initSidebarItems({"mod":[["jis0208","JIS X 0208 with common extensions."],["jis0212","JIS X 0212."]]});
