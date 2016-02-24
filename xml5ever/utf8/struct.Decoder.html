@@ -85,7 +85,7 @@ can be rewritten as:</p>
 </div><h4 id='method.has_incomplete_sequence' class='method'><code>fn <a href='#method.has_incomplete_sequence' class='fnname'>has_incomplete_sequence</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
 <div class='docblock'><p>Return whether the input of the last call to <code>.decode()</code> returned <code>Result::Incomplete</code>.
 If this is true and there is no more input, this is a decoding error.</p>
-</div><h4 id='method.decode' class='method'><code>fn <a href='#method.decode' class='fnname'>decode</a>&lt;'a&gt;(&amp;mut self, input_chunk: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a [</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='struct' href='../utf8/struct.InlineString.html' title='utf8::InlineString'>InlineString</a>, &amp;'a <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, <a class='enum' href='../utf8/enum.Result.html' title='utf8::Result'>Result</a>&lt;'a&gt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a></code></h4>
+</div><h4 id='method.decode' class='method'><code>fn <a href='#method.decode' class='fnname'>decode</a>&lt;'a&gt;(&amp;mut self, input_chunk: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a [</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='struct' href='../utf8/struct.InlineString.html' title='utf8::InlineString'>InlineString</a>, &amp;'a <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, <a class='enum' href='../utf8/enum.Result.html' title='utf8::Result'>Result</a>&lt;'a&gt;)</a></code></h4>
 <div class='docblock'><p>Start decoding one chunk of input bytes. The return value is a tuple of:</p>
 
 <ul>
@@ -142,7 +142,7 @@ See the documentation of <a href="enum.Result.html"><code>Result</code></a>.</li
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                    <code>vec -> usize</code>)
                 </p>
             </div>
         </div>
