@@ -43,10 +43,10 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>time</a>::<wbr><a class='struct' href=''>Tm</a></span><span class='out-of-band'><span id='render-detail'>
-                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                       [<span class='inner'>&#x2212;</span>]
-                   </a>
-               </span><a id='src-1016' class='srclink' href='../src/time/lib.rs.html#299-339' title='goto source code'>[src]</a></span></h1>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-1016' class='srclink' href='../src/time/lib.rs.html#299-339' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Tm {
     pub tm_sec: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>,
     pub tm_min: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>,
@@ -63,34 +63,34 @@
 day, and so on), also called a broken-down time value.</p>
 </div><h2 class='fields'>Fields</h2>
 <table><tr class='stab '>
-                             <td id='structfield.tm_sec'><code>tm_sec</code></td><td><div class='docblock'><p>Seconds after the minute - [0, 60]</p>
+                                  <td id='structfield.tm_sec'><code>tm_sec</code></td><td><div class='docblock'><p>Seconds after the minute - [0, 60]</p>
 </div></td></tr><tr class='stab '>
-                             <td id='structfield.tm_min'><code>tm_min</code></td><td><div class='docblock'><p>Minutes after the hour - [0, 59]</p>
+                                  <td id='structfield.tm_min'><code>tm_min</code></td><td><div class='docblock'><p>Minutes after the hour - [0, 59]</p>
 </div></td></tr><tr class='stab '>
-                             <td id='structfield.tm_hour'><code>tm_hour</code></td><td><div class='docblock'><p>Hours after midnight - [0, 23]</p>
+                                  <td id='structfield.tm_hour'><code>tm_hour</code></td><td><div class='docblock'><p>Hours after midnight - [0, 23]</p>
 </div></td></tr><tr class='stab '>
-                             <td id='structfield.tm_mday'><code>tm_mday</code></td><td><div class='docblock'><p>Day of the month - [1, 31]</p>
+                                  <td id='structfield.tm_mday'><code>tm_mday</code></td><td><div class='docblock'><p>Day of the month - [1, 31]</p>
 </div></td></tr><tr class='stab '>
-                             <td id='structfield.tm_mon'><code>tm_mon</code></td><td><div class='docblock'><p>Months since January - [0, 11]</p>
+                                  <td id='structfield.tm_mon'><code>tm_mon</code></td><td><div class='docblock'><p>Months since January - [0, 11]</p>
 </div></td></tr><tr class='stab '>
-                             <td id='structfield.tm_year'><code>tm_year</code></td><td><div class='docblock'><p>Years since 1900</p>
+                                  <td id='structfield.tm_year'><code>tm_year</code></td><td><div class='docblock'><p>Years since 1900</p>
 </div></td></tr><tr class='stab '>
-                             <td id='structfield.tm_wday'><code>tm_wday</code></td><td><div class='docblock'><p>Days since Sunday - [0, 6]. 0 = Sunday, 1 = Monday, ..., 6 = Saturday.</p>
+                                  <td id='structfield.tm_wday'><code>tm_wday</code></td><td><div class='docblock'><p>Days since Sunday - [0, 6]. 0 = Sunday, 1 = Monday, ..., 6 = Saturday.</p>
 </div></td></tr><tr class='stab '>
-                             <td id='structfield.tm_yday'><code>tm_yday</code></td><td><div class='docblock'><p>Days since January 1 - [0, 365]</p>
+                                  <td id='structfield.tm_yday'><code>tm_yday</code></td><td><div class='docblock'><p>Days since January 1 - [0, 365]</p>
 </div></td></tr><tr class='stab '>
-                             <td id='structfield.tm_isdst'><code>tm_isdst</code></td><td><div class='docblock'><p>Daylight Saving Time flag.</p>
+                                  <td id='structfield.tm_isdst'><code>tm_isdst</code></td><td><div class='docblock'><p>Daylight Saving Time flag.</p>
 
 <p>This value is positive if Daylight Saving Time is in effect, zero if
 Daylight Saving Time is not in effect, and negative if this information
 is not available.</p>
 </div></td></tr><tr class='stab '>
-                             <td id='structfield.tm_utcoff'><code>tm_utcoff</code></td><td><div class='docblock'><p>Identifies the time zone that was used to compute this broken-down time
+                                  <td id='structfield.tm_utcoff'><code>tm_utcoff</code></td><td><div class='docblock'><p>Identifies the time zone that was used to compute this broken-down time
 value, including any adjustment for Daylight Saving Time. This is the
 number of seconds east of UTC. For example, for U.S. Pacific Daylight
 Time, the value is -7*60*60 = -25200.</p>
 </div></td></tr><tr class='stab '>
-                             <td id='structfield.tm_nsec'><code>tm_nsec</code></td><td><div class='docblock'><p>Nanoseconds after the second - [0, 10<sup>9</sup> - 1]</p>
+                                  <td id='structfield.tm_nsec'><code>tm_nsec</code></td><td><div class='docblock'><p>Nanoseconds after the second - [0, 10<sup>9</sup> - 1]</p>
 </div></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../time/struct.Tm.html' title='time::Tm'>Tm</a></code></h3><div class='impl-items'><h4 id='method.to_timespec' class='method'><code>fn <a href='#method.to_timespec' class='fnname'>to_timespec</a>(&amp;self) -&gt; <a class='struct' href='../time/struct.Timespec.html' title='time::Timespec'>Timespec</a></code></h4>
 <div class='docblock'><p>Convert time to the seconds from January 1, 1970</p>
 </div><h4 id='method.to_local' class='method'><code>fn <a href='#method.to_local' class='fnname'>to_local</a>(&amp;self) -&gt; <a class='struct' href='../time/struct.Tm.html' title='time::Tm'>Tm</a></code></h4>
