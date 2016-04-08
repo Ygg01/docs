@@ -43,10 +43,10 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>xml5ever</a>::<wbr><a href='index.html'>tree_builder</a>::<wbr><a class='struct' href=''>XmlTreeBuilder</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-2110' class='srclink' href='../../src/xml5ever/tree_builder/mod.rs.html#153-180' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-2045' class='srclink' href='../../src/xml5ever/src/tree_builder/mod.rs.html#153-180' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct XmlTreeBuilder&lt;Handle, Sink&gt; {
     // some fields omitted
 }</pre><div class='docblock'><p>The XML tree builder.</p>
@@ -63,7 +63,7 @@
 </div><h4 id='method.trace_handles' class='method'><code>fn <a href='#method.trace_handles' class='fnname'>trace_handles</a>(&amp;self, tracer: &amp;<a class='trait' href='../../xml5ever/tree_builder/interface/trait.Tracer.html' title='xml5ever::tree_builder::interface::Tracer'>Tracer</a>&lt;Handle=Handle&gt;)</code></h4>
 <div class='docblock'><p>Call the <code>Tracer</code>&#39;s <code>trace_handle</code> method on every <code>Handle</code> in the tree builder&#39;s
 internal state.  This is intended to support garbage-collected DOMs.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl&lt;Handle, Sink&gt; <a class='trait' href='../../xml5ever/tokenizer/trait.TokenSink.html' title='xml5ever::tokenizer::TokenSink'>TokenSink</a> for <a class='struct' href='../../xml5ever/tree_builder/struct.XmlTreeBuilder.html' title='xml5ever::tree_builder::XmlTreeBuilder'>XmlTreeBuilder</a>&lt;Handle, Sink&gt; <span class='where'>where Handle: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a>, Sink: <a class='trait' href='../../xml5ever/tree_builder/interface/trait.TreeSink.html' title='xml5ever::tree_builder::interface::TreeSink'>TreeSink</a>&lt;Handle=Handle&gt;</span></code></h3><div class='impl-items'><h4 id='method.process_token' class='method'><code>fn <a href='../../xml5ever/tokenizer/trait.TokenSink.html#method.process_token' class='fnname'>process_token</a>(&amp;mut self, token: <a class='enum' href='../../xml5ever/tokenizer/enum.Token.html' title='xml5ever::tokenizer::Token'>Token</a>)</code></h4>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl&lt;Handle, Sink&gt; <a class='trait' href='../../xml5ever/tokenizer/trait.TokenSink.html' title='xml5ever::tokenizer::TokenSink'>TokenSink</a> for <a class='struct' href='../../xml5ever/tree_builder/struct.XmlTreeBuilder.html' title='xml5ever::tree_builder::XmlTreeBuilder'>XmlTreeBuilder</a>&lt;Handle, Sink&gt; <span class='where'>where Handle: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a>, Sink: <a class='trait' href='../../xml5ever/tree_builder/interface/trait.TreeSink.html' title='xml5ever::tree_builder::interface::TreeSink'>TreeSink</a>&lt;Handle=Handle&gt;</span></code></h3><div class='impl-items'><h4 id='method.process_token' class='method'><code>fn <a href='../../xml5ever/tokenizer/trait.TokenSink.html#tymethod.process_token' class='fnname'>process_token</a>(&amp;mut self, token: <a class='enum' href='../../xml5ever/tokenizer/enum.Token.html' title='xml5ever::tokenizer::Token'>Token</a>)</code></h4>
 <h4 id='method.query_state_change' class='method'><code>fn <a href='../../xml5ever/tokenizer/trait.TokenSink.html#method.query_state_change' class='fnname'>query_state_change</a>(&amp;mut self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;XmlState&gt;</code></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
@@ -108,7 +108,7 @@ internal state.  This is intended to support garbage-collected DOMs.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>
