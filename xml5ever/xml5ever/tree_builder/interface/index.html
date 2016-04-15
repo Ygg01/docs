@@ -11,7 +11,6 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
-    
 
     
     
@@ -44,46 +43,50 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>xml5ever</a>::<wbr><a href='../index.html'>tree_builder</a>::<wbr><a class='mod' href=''>interface</a></span><span class='out-of-band'><span id='render-detail'>
-                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                       [<span class='inner'>&#x2212;</span>]
-                   </a>
-               </span><a id='src-1919' class='srclink' href='../../../src/xml5ever/src/tree_builder/interface.rs.html#10-94' title='goto source code'>[src]</a></span></h1>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-1979' class='srclink' href='../../../src/xml5ever/src/tree_builder/interface.rs.html#10-94' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>The interface for consumers of the tree builder (and thus the
 parser overall).</p>
 </div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
 <table><tr><td><code>pub use self::NodeOrText::{<a class='enum' href='../../../xml5ever/tree_builder/interface/enum.NodeOrText.html' title='xml5ever::tree_builder::interface::NodeOrText'>AppendNode</a>, <a class='enum' href='../../../xml5ever/tree_builder/interface/enum.NodeOrText.html' title='xml5ever::tree_builder::interface::NodeOrText'>AppendText</a>};</code></td></tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
 <table>
-                       <tr class=' module-item'>
-                           <td><a class='enum' href='enum.NextParserState.html'
-                                  title='xml5ever::tree_builder::interface::NextParserState'>NextParserState</a></td>
-                           <td class='docblock short'>
-                                <p>Whether to interrupt further parsing of the current input until
+                    <tr class=' module-item'>
+                        <td><a class='enum' href='enum.NextParserState.html'
+                               title='xml5ever::tree_builder::interface::NextParserState'>NextParserState</a></td>
+                        <td class='docblock short'>
+                             <p>Whether to interrupt further parsing of the current input until
 the next explicit resumption of the tokenizer, or continue without
 any interruption.</p>
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class='enum' href='enum.NodeOrText.html'
-                                  title='xml5ever::tree_builder::interface::NodeOrText'>NodeOrText</a></td>
-                           <td class='docblock short'>
-                                <p>Something which can be inserted into the DOM.</p>
-                           </td>
-                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='enum' href='enum.NodeOrText.html'
+                               title='xml5ever::tree_builder::interface::NodeOrText'>NodeOrText</a></td>
+                        <td class='docblock short'>
+                             <p>Something which can be inserted into the DOM.</p>
+                        </td>
+                    </tr>
+                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
 <table>
-                       <tr class=' module-item'>
-                           <td><a class='trait' href='trait.Tracer.html'
-                                  title='xml5ever::tree_builder::interface::Tracer'>Tracer</a></td>
-                           <td class='docblock short'>
-                                <p>Trace hooks for a garbage-collected DOM.</p>
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class='trait' href='trait.TreeSink.html'
-                                  title='xml5ever::tree_builder::interface::TreeSink'>TreeSink</a></td>
-                           <td class='docblock short'>
-                                <p>Types which can process tree modifications from the tree builder.</p>
-                           </td>
-                       </tr></table></section>
+                    <tr class=' module-item'>
+                        <td><a class='trait' href='trait.Tracer.html'
+                               title='xml5ever::tree_builder::interface::Tracer'>Tracer</a></td>
+                        <td class='docblock short'>
+                             <p>Trace hooks for a garbage-collected DOM.</p>
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='trait' href='trait.TreeSink.html'
+                               title='xml5ever::tree_builder::interface::TreeSink'>TreeSink</a></td>
+                        <td class='docblock short'>
+                             <p>Types which can process tree modifications from the tree builder.</p>
+                        </td>
+                    </tr>
+                </table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
