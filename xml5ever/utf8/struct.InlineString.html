@@ -378,9 +378,9 @@ beyond the last code point of the string slice.</p>
 <p>Basic usage:</p>
 
 <pre class='rust rust-example-rendered'>
-<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>s</span> <span class='op'>=</span> <span class='string'>&quot;Per Martin-Löf&quot;</span>.<span class='ident'>to_string</span>();
+<span class='kw'>let</span> <span class='ident'>s</span> <span class='op'>=</span> <span class='string'>&quot;Per Martin-Löf&quot;</span>;
 
-<span class='kw'>let</span> (<span class='ident'>first</span>, <span class='ident'>last</span>) <span class='op'>=</span> <span class='ident'>s</span>.<span class='ident'>split_at_mut</span>(<span class='number'>3</span>);
+<span class='kw'>let</span> (<span class='ident'>first</span>, <span class='ident'>last</span>) <span class='op'>=</span> <span class='ident'>s</span>.<span class='ident'>split_at</span>(<span class='number'>3</span>);
 
 <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;Per&quot;</span>, <span class='ident'>first</span>);
 <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot; Martin-Löf&quot;</span>, <span class='ident'>last</span>);</pre>
