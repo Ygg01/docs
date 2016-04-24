@@ -11,7 +11,6 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
-    
 
     
     
@@ -44,12 +43,12 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>xml5ever</a>::<wbr><a href='../index.html'>tree_builder</a>::<wbr><a href='index.html'>interface</a>::<wbr><a class='trait' href=''>TreeSink</a></span><span class='out-of-band'><span id='render-detail'>
-                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                       [<span class='inner'>&#x2212;</span>]
-                   </a>
-               </span><a id='src-1958' class='srclink' href='../../../src/xml5ever/src/tree_builder/interface.rs.html#45-84' title='goto source code'>[src]</a></span></h1>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-2023' class='srclink' href='../../../src/xml5ever/src/tree_builder/interface.rs.html#45-84' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait TreeSink {
-    type <a href='#associatedtype.Handle' class='type'>Handle</a>: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a>;
+    type Handle: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a>;
     fn <a href='#tymethod.parse_error' class='fnname'>parse_error</a>(&amp;mut self, msg: <a class='enum' href='https://doc.rust-lang.org/nightly/collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'static, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;);
     fn <a href='#tymethod.get_document' class='fnname'>get_document</a>(&amp;mut self) -&gt; Self::<a class='trait' href='../../../xml5ever/tree_builder/interface/trait.TreeSink.html' title='xml5ever::tree_builder::interface::TreeSink'>Handle</a>;
     fn <a href='#tymethod.elem_name' class='fnname'>elem_name</a>(&amp;self, target: &amp;Self::<a class='trait' href='../../../xml5ever/tree_builder/interface/trait.TreeSink.html' title='xml5ever::tree_builder::interface::TreeSink'>Handle</a>) -&gt; <a class='struct' href='../../../xml5ever/tokenizer/struct.QName.html' title='xml5ever::tokenizer::QName'>QName</a>;
@@ -62,7 +61,7 @@
 </div>
             <h2 id='associated-types'>Associated Types</h2>
             <div class='methods'>
-        <h3 id='associatedtype.Handle' class='method stab '><code>type <a href='#associatedtype.Handle' class='type'>Handle</a>: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a></code></h3><div class='docblock'><p><code>Handle</code> is a reference to a DOM node.  The tree builder requires
+        <h3 id='associatedtype.Handle' class='method stab '><code>type Handle: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a></code></h3><div class='docblock'><p><code>Handle</code> is a reference to a DOM node.  The tree builder requires
 that a <code>Handle</code> implements <code>Clone</code> to get another reference to
 the same node.</p>
 </div></div>
@@ -86,10 +85,10 @@ instead.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl TreeSink for <a class='struct' href='../../../xml5ever/rcdom/struct.RcDom.html' title='xml5ever::rcdom::RcDom'>RcDom</a></code></li>
+    <li><code>impl <a class='trait' href='../../../xml5ever/tree_builder/interface/trait.TreeSink.html' title='xml5ever::tree_builder::interface::TreeSink'>TreeSink</a> for <a class='struct' href='../../../xml5ever/rcdom/struct.RcDom.html' title='xml5ever::rcdom::RcDom'>RcDom</a></code></li>
 </ul><script type="text/javascript" async
-                         src="../../../implementors/xml5ever/tree_builder/interface/trait.TreeSink.js">
-                 </script></section>
+                              src="../../../implementors/xml5ever/tree_builder/interface/trait.TreeSink.js">
+                      </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
