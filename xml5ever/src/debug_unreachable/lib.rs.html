@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -79,7 +80,7 @@
     () <span class='op'>=&gt;</span> { <span class='macro'>debug_unreachable</span><span class='macro'>!</span>(<span class='string'>&quot;entered unreachable code&quot;</span>) };
     (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {
         <span class='kw'>if</span> <span class='macro'>cfg</span><span class='macro'>!</span>(<span class='ident'>ndebug</span>) {
-            <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>__unreachable</span>()
+            <span class='macro-nonterminal'>$</span><span class='kw'>crate</span>::<span class='macro-nonterminal'>__unreachable</span>()
         } <span class='kw'>else</span> {
             <span class='macro'>panic</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>);
         }
