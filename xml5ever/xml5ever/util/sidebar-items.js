@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["smallcharset",""]]});
+initSidebarItems({});
