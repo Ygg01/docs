@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["internal",""],["start",""],["transient",""]]});
+initSidebarItems({"mod":[["start",""],["transient",""]]});

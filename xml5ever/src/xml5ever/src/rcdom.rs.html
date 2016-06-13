@@ -250,9 +250,9 @@
 <span class='kw'>use</span> <span class='ident'>tendril</span>::<span class='ident'>StrTendril</span>;
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>NodeEnum</span>::{<span class='ident'>Document</span>, <span class='ident'>Doctype</span>, <span class='ident'>Text</span>, <span class='ident'>Comment</span>, <span class='ident'>Element</span>, <span class='ident'>PI</span>};
-<span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>tokenizer</span>::{<span class='ident'>Attribute</span>, <span class='ident'>QName</span>};
-<span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>tree_builder</span>::{<span class='ident'>TreeSink</span>, <span class='ident'>NodeOrText</span>};
-<span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>ParseResult</span>;
+<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>tokenizer</span>::{<span class='ident'>Attribute</span>, <span class='ident'>QName</span>};
+<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>tree_builder</span>::{<span class='ident'>TreeSink</span>, <span class='ident'>NodeOrText</span>};
+<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>ParseResult</span>;
 
 <span class='doccomment'>/// The different kinds of nodes in the DOM.</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
@@ -323,9 +323,9 @@
     <span class='kw'>match</span> <span class='ident'>prev</span>.<span class='ident'>borrow_mut</span>().<span class='ident'>deref_mut</span>().<span class='ident'>node</span> {
         <span class='ident'>Text</span>(<span class='kw-2'>ref</span> <span class='kw-2'>mut</span> <span class='ident'>existing</span>) <span class='op'>=&gt;</span> {
             <span class='ident'>existing</span>.<span class='ident'>push_slice</span>(<span class='ident'>text</span>);
-            <span class='boolval'>true</span>
+            <span class='bool-val'>true</span>
         }
-        _ <span class='op'>=&gt;</span> <span class='boolval'>false</span>,
+        _ <span class='op'>=&gt;</span> <span class='bool-val'>false</span>,
     }
 }
 
@@ -433,6 +433,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
