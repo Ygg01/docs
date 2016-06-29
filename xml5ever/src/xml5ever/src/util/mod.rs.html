@@ -93,13 +93,13 @@
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
 <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>test</span> {
-    <span class='kw'>use</span> <span class='ident'>super</span>::{<span class='ident'>is_ascii_alnum</span>};
+    <span class='kw'>use</span> <span class='kw'>super</span>::{<span class='ident'>is_ascii_alnum</span>};
 
-    <span class='macro'>test_eq</span><span class='macro'>!</span>(<span class='ident'>is_alnum_a</span>, <span class='ident'>is_ascii_alnum</span>(<span class='string'>&#39;a&#39;</span>), <span class='boolval'>true</span>);
-    <span class='macro'>test_eq</span><span class='macro'>!</span>(<span class='ident'>is_alnum_A</span>, <span class='ident'>is_ascii_alnum</span>(<span class='string'>&#39;A&#39;</span>), <span class='boolval'>true</span>);
-    <span class='macro'>test_eq</span><span class='macro'>!</span>(<span class='ident'>is_alnum_1</span>, <span class='ident'>is_ascii_alnum</span>(<span class='string'>&#39;1&#39;</span>), <span class='boolval'>true</span>);
-    <span class='macro'>test_eq</span><span class='macro'>!</span>(<span class='ident'>is_not_alnum_symbol</span>, <span class='ident'>is_ascii_alnum</span>(<span class='string'>&#39;!&#39;</span>), <span class='boolval'>false</span>);
-    <span class='macro'>test_eq</span><span class='macro'>!</span>(<span class='ident'>is_not_alnum_nonascii</span>, <span class='ident'>is_ascii_alnum</span>(<span class='string'>&#39;\u{a66e}&#39;</span>), <span class='boolval'>false</span>);
+    <span class='macro'>test_eq</span><span class='macro'>!</span>(<span class='ident'>is_alnum_a</span>, <span class='ident'>is_ascii_alnum</span>(<span class='string'>&#39;a&#39;</span>), <span class='boolvalue'>true</span>);
+    <span class='macro'>test_eq</span><span class='macro'>!</span>(<span class='ident'>is_alnum_A</span>, <span class='ident'>is_ascii_alnum</span>(<span class='string'>&#39;A&#39;</span>), <span class='boolvalue'>true</span>);
+    <span class='macro'>test_eq</span><span class='macro'>!</span>(<span class='ident'>is_alnum_1</span>, <span class='ident'>is_ascii_alnum</span>(<span class='string'>&#39;1&#39;</span>), <span class='boolvalue'>true</span>);
+    <span class='macro'>test_eq</span><span class='macro'>!</span>(<span class='ident'>is_not_alnum_symbol</span>, <span class='ident'>is_ascii_alnum</span>(<span class='string'>&#39;!&#39;</span>), <span class='boolvalue'>false</span>);
+    <span class='macro'>test_eq</span><span class='macro'>!</span>(<span class='ident'>is_not_alnum_nonascii</span>, <span class='ident'>is_ascii_alnum</span>(<span class='string'>&#39;\u{a66e}&#39;</span>), <span class='boolvalue'>false</span>);
 }
 </pre>
 </section>
@@ -125,6 +125,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
