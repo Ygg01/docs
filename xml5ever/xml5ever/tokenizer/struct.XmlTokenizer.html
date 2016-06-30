@@ -47,11 +47,12 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-1193' class='srclink' href='../../src/xml5ever/src/tokenizer/mod.rs.html#102-168' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-1189' class='srclink' href='../../src/xml5ever/src/tokenizer/mod.rs.html#102-168' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct XmlTokenizer&lt;Sink&gt; {
     // some fields omitted
 }</pre><div class='docblock'><p>The Xml tokenizer.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;Sink: <a class='trait' href='../../xml5ever/tokenizer/trait.TokenSink.html' title='xml5ever::tokenizer::TokenSink'>TokenSink</a>&gt; <a class='struct' href='../../xml5ever/tokenizer/struct.XmlTokenizer.html' title='xml5ever::tokenizer::XmlTokenizer'>XmlTokenizer</a>&lt;Sink&gt;</code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(sink: Sink, opts: <a class='struct' href='../../xml5ever/tokenizer/struct.XmlTokenizerOpts.html' title='xml5ever::tokenizer::XmlTokenizerOpts'>XmlTokenizerOpts</a>) -&gt; <a class='struct' href='../../xml5ever/tokenizer/struct.XmlTokenizer.html' title='xml5ever::tokenizer::XmlTokenizer'>XmlTokenizer</a>&lt;Sink&gt;</code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;Sink: <a class='trait' href='../../xml5ever/tokenizer/trait.TokenSink.html' title='xml5ever::tokenizer::TokenSink'>TokenSink</a>&gt; <a class='struct' href='../../xml5ever/tokenizer/struct.XmlTokenizer.html' title='xml5ever::tokenizer::XmlTokenizer'>XmlTokenizer</a>&lt;Sink&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1212' class='srclink' href='../../src/xml5ever/src/tokenizer/mod.rs.html#170-516' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(sink: Sink, opts: <a class='struct' href='../../xml5ever/tokenizer/struct.XmlTokenizerOpts.html' title='xml5ever::tokenizer::XmlTokenizerOpts'>XmlTokenizerOpts</a>) -&gt; <a class='struct' href='../../xml5ever/tokenizer/struct.XmlTokenizer.html' title='xml5ever::tokenizer::XmlTokenizer'>XmlTokenizer</a>&lt;Sink&gt;</code></h4>
 <div class='docblock'><p>Create a new tokenizer which feeds tokens to a particular <code>TokenSink</code>.</p>
 </div><h4 id='method.unwrap' class='method'><code>fn <a href='#method.unwrap' class='fnname'>unwrap</a>(self) -&gt; Sink</code></h4>
 <div class='docblock'><p>Returns destination of token events.</p>
@@ -63,7 +64,8 @@
 <div class='docblock'><p>Feed an input string into the tokenizer.</p>
 </div><h4 id='method.run' class='method'><code>fn <a href='#method.run' class='fnname'>run</a>(&amp;mut self)</code></h4>
 <div class='docblock'><p>Run the state machine for as long as we can.</p>
-</div></div><h3 class='impl'><code>impl&lt;Sink: <a class='trait' href='../../xml5ever/tokenizer/trait.TokenSink.html' title='xml5ever::tokenizer::TokenSink'>TokenSink</a>&gt; <a class='struct' href='../../xml5ever/tokenizer/struct.XmlTokenizer.html' title='xml5ever::tokenizer::XmlTokenizer'>XmlTokenizer</a>&lt;Sink&gt;</code></h3><div class='impl-items'><h4 id='method.end' class='method'><code>fn <a href='#method.end' class='fnname'>end</a>(&amp;mut self)</code></h4>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;Sink: <a class='trait' href='../../xml5ever/tokenizer/trait.TokenSink.html' title='xml5ever::tokenizer::TokenSink'>TokenSink</a>&gt; <a class='struct' href='../../xml5ever/tokenizer/struct.XmlTokenizer.html' title='xml5ever::tokenizer::XmlTokenizer'>XmlTokenizer</a>&lt;Sink&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1368' class='srclink' href='../../src/xml5ever/src/tokenizer/mod.rs.html#650-1183' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.end' class='method'><code>fn <a href='#method.end' class='fnname'>end</a>(&amp;mut self)</code></h4>
 <div class='docblock'><p>Indicate that we have reached the end of the input.</p>
 </div></div></section>
     <section id='search' class="content hidden"></section>
@@ -88,6 +90,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
