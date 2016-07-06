@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-744' class='srclink' href='../../src/xml5ever/src/tokenizer/interface.rs.html#201-211' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-756' class='srclink' href='../../src/xml5ever/src/tokenizer/interface.rs.html#201-211' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait TokenSink {
     fn <a href='#tymethod.process_token' class='fnname'>process_token</a>(&amp;mut self, token: <a class='enum' href='../../xml5ever/tokenizer/enum.Token.html' title='xml5ever::tokenizer::Token'>Token</a>);
 
@@ -66,7 +66,7 @@ By default no state changes occur.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;Handle,&nbsp;Sink&gt; TokenSink for <a class='struct' href='../../xml5ever/tree_builder/struct.XmlTreeBuilder.html' title='xml5ever::tree_builder::XmlTreeBuilder'>XmlTreeBuilder</a>&lt;Handle,&nbsp;Sink&gt; <span class='where'>where Handle: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a>, Sink: <a class='trait' href='../../xml5ever/tree_builder/interface/trait.TreeSink.html' title='xml5ever::tree_builder::interface::TreeSink'>TreeSink</a>&lt;Handle=Handle&gt;</span></code></li>
+    <li><code>impl&lt;Handle, Sink&gt; <a class='trait' href='../../xml5ever/tokenizer/trait.TokenSink.html' title='xml5ever::tokenizer::TokenSink'>TokenSink</a> for <a class='struct' href='../../xml5ever/tree_builder/struct.XmlTreeBuilder.html' title='xml5ever::tree_builder::XmlTreeBuilder'>XmlTreeBuilder</a>&lt;Handle, Sink&gt; <span class='where'>where Handle: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a>, Sink: <a class='trait' href='../../xml5ever/tree_builder/interface/trait.TreeSink.html' title='xml5ever::tree_builder::interface::TreeSink'>TreeSink</a>&lt;Handle=Handle&gt;</span></code></li>
 </ul><script type="text/javascript" async
                          src="../../implementors/xml5ever/tokenizer/trait.TokenSink.js">
                  </script></section>
@@ -92,8 +92,6 @@ By default no state changes occur.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
-                    <dt>+</dt>
-                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
