@@ -1,5 +1,5 @@
 (function() {var implementors = {};
-implementors["lazy_static"] = [];implementors["void"] = [];implementors["libc"] = [];implementors["serde"] = [];implementors["string_cache"] = [];implementors["tendril"] = [];implementors["string_cache"] = [];
+implementors['serde'] = [];implementors['serde'] = [];implementors["void"] = [];implementors["lazy_static"] = [];implementors["libc"] = [];implementors["serde"] = [];implementors["string_cache"] = [];implementors["serde"] = [];implementors["string_cache"] = [];implementors["string_cache"] = [];implementors["libc"] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);
