@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/string_cache-0.2.22/src/atom/mod.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/string_cache-0.2.23/src/atom/mod.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>mod.rs.html -- source</title>
@@ -858,6 +858,15 @@
 <span id="814">814</span>
 <span id="815">815</span>
 <span id="816">816</span>
+<span id="817">817</span>
+<span id="818">818</span>
+<span id="819">819</span>
+<span id="820">820</span>
+<span id="821">821</span>
+<span id="822">822</span>
+<span id="823">823</span>
+<span id="824">824</span>
+<span id="825">825</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2014 The Servo Project Developers. See the COPYRIGHT</span>
 <span class='comment'>// file at the top-level directory of this distribution.</span>
@@ -870,7 +879,7 @@
 
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>allow</span>(<span class='ident'>non_upper_case_globals</span>)]</span>
 
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;heap_size&quot;</span>)]</span>
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;heapsize&quot;</span>)]</span>
 <span class='kw'>use</span> <span class='ident'>heapsize</span>::<span class='ident'>HeapSizeOf</span>;
 
 <span class='kw'>use</span> <span class='ident'>serde</span>::{<span class='ident'>Deserialize</span>, <span class='ident'>Deserializer</span>, <span class='ident'>Serialize</span>, <span class='ident'>Serializer</span>};
@@ -907,7 +916,7 @@
     <span class='ident'>buckets</span>: [<span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>StringCacheEntry</span><span class='op'>&gt;&gt;</span>; <span class='ident'>NB_BUCKETS</span>],
 }
 
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;heap_size&quot;</span>)]</span>
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;heapsize&quot;</span>)]</span>
 <span class='kw'>impl</span> <span class='ident'>HeapSizeOf</span> <span class='kw'>for</span> <span class='ident'>StringCache</span> {
     <span class='kw'>fn</span> <span class='ident'>heap_size_of_children</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span> {
         <span class='self'>self</span>.<span class='ident'>buckets</span>.<span class='ident'>iter</span>().<span class='ident'>fold</span>(<span class='number'>0</span>, <span class='op'>|</span><span class='ident'>size</span>, <span class='ident'>bucket</span><span class='op'>|</span> <span class='ident'>size</span> <span class='op'>+</span> <span class='ident'>bucket</span>.<span class='ident'>heap_size_of_children</span>())
@@ -919,22 +928,29 @@
 }
 
 <span class='doccomment'>/// A token that represents the heap used by the dynamic string cache.</span>
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;heap_size&quot;</span>)]</span>
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;heapsize&quot;</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>StringCacheHeap</span>;
 
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;heap_size&quot;</span>)]</span>
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;heapsize&quot;</span>)]</span>
 <span class='kw'>impl</span> <span class='ident'>HeapSizeOf</span> <span class='kw'>for</span> <span class='ident'>StringCacheHeap</span> {
     <span class='kw'>fn</span> <span class='ident'>heap_size_of_children</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span> {
         <span class='ident'>STRING_CACHE</span>.<span class='ident'>lock</span>().<span class='ident'>unwrap</span>().<span class='ident'>heap_size_of_children</span>()
     }
 }
 
-<span class='attribute'>#[<span class='ident'>cfg_attr</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;heap_size&quot;</span>, <span class='ident'>derive</span>(<span class='ident'>HeapSizeOf</span>))]</span>
 <span class='kw'>struct</span> <span class='ident'>StringCacheEntry</span> {
     <span class='ident'>next_in_bucket</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>StringCacheEntry</span><span class='op'>&gt;&gt;</span>,
     <span class='ident'>hash</span>: <span class='ident'>u64</span>,
     <span class='ident'>ref_count</span>: <span class='ident'>AtomicIsize</span>,
     <span class='ident'>string</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>str</span><span class='op'>&gt;</span>,
+}
+
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;heapsize&quot;</span>)]</span>
+<span class='kw'>impl</span> <span class='ident'>HeapSizeOf</span> <span class='kw'>for</span> <span class='ident'>StringCacheEntry</span> {
+    <span class='kw'>fn</span> <span class='ident'>heap_size_of_children</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span> {
+        <span class='self'>self</span>.<span class='ident'>next_in_bucket</span>.<span class='ident'>heap_size_of_children</span>() <span class='op'>+</span>
+        <span class='self'>self</span>.<span class='ident'>string</span>.<span class='ident'>heap_size_of_children</span>()
+    }
 }
 
 <span class='kw'>impl</span> <span class='ident'>StringCacheEntry</span> {
@@ -1024,7 +1040,6 @@
 <span class='comment'>// NOTE: Deriving Eq here implies that a given string must always</span>
 <span class='comment'>// be interned the same way.</span>
 <span class='attribute'>#[<span class='ident'>cfg_attr</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;unstable&quot;</span>, <span class='ident'>unsafe_no_drop_flag</span>)]</span>  <span class='comment'>// See tests::atom_drop_is_idempotent</span>
-<span class='attribute'>#[<span class='ident'>cfg_attr</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;heap_size&quot;</span>, <span class='ident'>derive</span>(<span class='ident'>HeapSizeOf</span>))]</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Eq</span>, <span class='ident'>Hash</span>, <span class='ident'>PartialEq</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Atom</span> {
     <span class='doccomment'>/// This field is public so that the `atom!()` macro can use it.</span>
@@ -1032,6 +1047,9 @@
     <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
     <span class='kw'>pub</span> <span class='ident'>unsafe_data</span>: <span class='ident'>u64</span>,
 }
+
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;heapsize&quot;</span>)]</span>
+<span class='macro'>known_heap_size</span><span class='macro'>!</span>(<span class='number'>0</span>, <span class='ident'>Atom</span>);
 
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>BorrowedAtom</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw'>pub</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>Atom</span>);
 
