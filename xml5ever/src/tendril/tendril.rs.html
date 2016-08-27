@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/tendril-0.2.2/src/tendril.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/tendril-0.2.3/src/tendril.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>tendril.rs.html -- source</title>
@@ -2286,6 +2286,11 @@
 <span id="2242">2242</span>
 <span id="2243">2243</span>
 <span id="2244">2244</span>
+<span id="2245">2245</span>
+<span id="2246">2246</span>
+<span id="2247">2247</span>
+<span id="2248">2248</span>
+<span id="2249">2249</span>
 </pre><pre class='rust '>
 <span class='comment'>// Licensed under the Apache License, Version 2.0 &lt;LICENSE-APACHE or</span>
 <span class='comment'>// http://www.apache.org/licenses/LICENSE-2.0&gt; or the MIT license</span>
@@ -2312,7 +2317,7 @@
 <span class='kw'>use</span> <span class='ident'>fmt</span>::{<span class='self'>self</span>, <span class='ident'>Slice</span>};
 <span class='kw'>use</span> <span class='ident'>fmt</span>::<span class='ident'>imp</span>::<span class='ident'>Fixup</span>;
 <span class='kw'>use</span> <span class='ident'>util</span>::{<span class='ident'>unsafe_slice</span>, <span class='ident'>unsafe_slice_mut</span>, <span class='ident'>copy_and_advance</span>, <span class='ident'>copy_lifetime_mut</span>, <span class='ident'>copy_lifetime</span>,
-           <span class='ident'>NonZero</span>, <span class='ident'>is_post_drop</span>};
+           <span class='ident'>NonZero</span>};
 <span class='kw'>use</span> <span class='ident'>OFLOW</span>;
 
 <span class='kw'>const</span> <span class='ident'>MAX_INLINE_LEN</span>: <span class='ident'>usize</span> <span class='op'>=</span> <span class='number'>8</span>;
@@ -2474,7 +2479,6 @@
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// The maximum length of a `Tendril` is 4 GB. The library will panic if</span>
 <span class='doccomment'>/// you attempt to go over the limit.</span>
-<span class='attribute'>#[<span class='ident'>cfg_attr</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;unstable&quot;</span>, <span class='ident'>unsafe_no_drop_flag</span>)]</span>
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>packed</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Tendril</span><span class='op'>&lt;</span><span class='ident'>F</span>, <span class='ident'>A</span> <span class='op'>=</span> <span class='ident'>NonAtomic</span><span class='op'>&gt;</span>
     <span class='kw'>where</span> <span class='ident'>F</span>: <span class='ident'>fmt</span>::<span class='ident'>Format</span>,
@@ -2521,7 +2525,7 @@
     <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
         <span class='kw'>unsafe</span> {
             <span class='kw'>let</span> <span class='ident'>p</span> <span class='op'>=</span> <span class='op'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>();
-            <span class='kw'>if</span> <span class='ident'>p</span> <span class='op'>&lt;=</span> <span class='ident'>MAX_INLINE_TAG</span> <span class='op'>||</span> <span class='ident'>is_post_drop</span>(<span class='ident'>p</span>) {
+            <span class='kw'>if</span> <span class='ident'>p</span> <span class='op'>&lt;=</span> <span class='ident'>MAX_INLINE_TAG</span> {
                 <span class='kw'>return</span>;
             }
 
@@ -3861,8 +3865,14 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>assert_sizes</span>() {
         <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
-        <span class='kw'>let</span> <span class='ident'>drop_flag</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='macro'>cfg</span><span class='macro'>!</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;unstable&quot;</span>) { <span class='number'>0</span> } <span class='kw'>else</span> { <span class='number'>1</span> };
-        <span class='kw'>let</span> <span class='ident'>correct</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='op'>*</span><span class='kw'>const</span> ()<span class='op'>&gt;</span>() <span class='op'>+</span> <span class='number'>8</span> <span class='op'>+</span> <span class='ident'>drop_flag</span>;
+        <span class='kw'>struct</span> <span class='ident'>EmptyWithDrop</span>;
+        <span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>EmptyWithDrop</span> {
+            <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {}
+        }
+        <span class='kw'>let</span> <span class='ident'>compiler_uses_inline_drop_flags</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>EmptyWithDrop</span><span class='op'>&gt;</span>() <span class='op'>&gt;</span> <span class='number'>0</span>;
+
+        <span class='kw'>let</span> <span class='ident'>correct</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='op'>*</span><span class='kw'>const</span> ()<span class='op'>&gt;</span>() <span class='op'>+</span> <span class='number'>8</span> <span class='op'>+</span>
+                      <span class='kw'>if</span> <span class='ident'>compiler_uses_inline_drop_flags</span> { <span class='number'>1</span> } <span class='kw'>else</span> { <span class='number'>0</span> };
 
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>correct</span>, <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>ByteTendril</span><span class='op'>&gt;</span>());
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>correct</span>, <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>StrTendril</span><span class='op'>&gt;</span>());
@@ -4406,10 +4416,10 @@
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='string'>b&quot;Hello&quot;</span>.<span class='ident'>to_tendril</span>();
         <span class='ident'>t</span>.<span class='ident'>extend</span>(<span class='prelude-val'>None</span>::<span class='op'>&lt;</span><span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>]<span class='op'>&gt;</span>.<span class='ident'>into_iter</span>());
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;Hello&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
-        <span class='ident'>t</span>.<span class='ident'>extend</span>([<span class='string'>b&quot;, &quot;</span> <span class='kw'>as</span> <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>], <span class='string'>b&quot;world&quot;</span> <span class='kw'>as</span> <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>], <span class='string'>b&quot;!&quot;</span> <span class='kw'>as</span> <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>]].<span class='ident'>iter</span>().<span class='ident'>map</span>(<span class='op'>|</span><span class='kw-2'>&amp;</span><span class='ident'>s</span><span class='op'>|</span> <span class='ident'>s</span>));
+        <span class='ident'>t</span>.<span class='ident'>extend</span>([<span class='string'>b&quot;, &quot;</span>.<span class='ident'>as_ref</span>(), <span class='string'>b&quot;world&quot;</span>.<span class='ident'>as_ref</span>(), <span class='string'>b&quot;!&quot;</span>.<span class='ident'>as_ref</span>()].<span class='ident'>iter</span>().<span class='ident'>map</span>(<span class='op'>|</span><span class='kw-2'>&amp;</span><span class='ident'>s</span><span class='op'>|</span> <span class='ident'>s</span>));
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;Hello, world!&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;Hello, world!&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span>[<span class='string'>b&quot;Hello&quot;</span> <span class='kw'>as</span> <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>], <span class='string'>b&quot;, &quot;</span> <span class='kw'>as</span> <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>],
-                                        <span class='string'>b&quot;world&quot;</span> <span class='kw'>as</span> <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>], <span class='string'>b&quot;!&quot;</span> <span class='kw'>as</span> <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>]]
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;Hello, world!&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span>[<span class='string'>b&quot;Hello&quot;</span>.<span class='ident'>as_ref</span>(), <span class='string'>b&quot;, &quot;</span>.<span class='ident'>as_ref</span>(),
+                                        <span class='string'>b&quot;world&quot;</span>.<span class='ident'>as_ref</span>(), <span class='string'>b&quot;!&quot;</span>.<span class='ident'>as_ref</span>()]
                                     .<span class='ident'>iter</span>().<span class='ident'>map</span>(<span class='op'>|</span><span class='kw-2'>&amp;</span><span class='ident'>s</span><span class='op'>|</span> <span class='ident'>s</span>).<span class='ident'>collect</span>::<span class='op'>&lt;</span><span class='ident'>ByteTendril</span><span class='op'>&gt;</span>());
 
         <span class='kw'>let</span> <span class='ident'>string</span> <span class='op'>=</span> <span class='string'>&quot;the quick brown fox jumps over the lazy dog&quot;</span>;
@@ -4475,13 +4485,13 @@
         <span class='comment'>// https://github.com/rust-lang/rust/issues/27108.</span>
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>map</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>map</span>.<span class='ident'>insert</span>(<span class='string'>&quot;foo&quot;</span>.<span class='ident'>to_tendril</span>(), <span class='number'>1</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>map</span>.<span class='ident'>get</span>(<span class='string'>b&quot;foo&quot;</span> <span class='kw'>as</span> <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>]), <span class='prelude-val'>Some</span>(<span class='kw-2'>&amp;</span><span class='number'>1</span>));
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>map</span>.<span class='ident'>get</span>(<span class='string'>b&quot;bar&quot;</span> <span class='kw'>as</span> <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>]), <span class='prelude-val'>None</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>map</span>.<span class='ident'>get</span>(<span class='string'>b&quot;foo&quot;</span>.<span class='ident'>as_ref</span>()), <span class='prelude-val'>Some</span>(<span class='kw-2'>&amp;</span><span class='number'>1</span>));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>map</span>.<span class='ident'>get</span>(<span class='string'>b&quot;bar&quot;</span>.<span class='ident'>as_ref</span>()), <span class='prelude-val'>None</span>);
 
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>map</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>map</span>.<span class='ident'>insert</span>(<span class='string'>b&quot;foo&quot;</span>.<span class='ident'>to_tendril</span>(), <span class='number'>1</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>map</span>.<span class='ident'>get</span>(<span class='string'>b&quot;foo&quot;</span> <span class='kw'>as</span> <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>]), <span class='prelude-val'>Some</span>(<span class='kw-2'>&amp;</span><span class='number'>1</span>));
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>map</span>.<span class='ident'>get</span>(<span class='string'>b&quot;bar&quot;</span> <span class='kw'>as</span> <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>]), <span class='prelude-val'>None</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>map</span>.<span class='ident'>get</span>(<span class='string'>b&quot;foo&quot;</span>.<span class='ident'>as_ref</span>()), <span class='prelude-val'>Some</span>(<span class='kw-2'>&amp;</span><span class='number'>1</span>));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>map</span>.<span class='ident'>get</span>(<span class='string'>b&quot;bar&quot;</span>.<span class='ident'>as_ref</span>()), <span class='prelude-val'>None</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
