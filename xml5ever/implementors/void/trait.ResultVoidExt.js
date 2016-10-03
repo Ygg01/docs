@@ -1,5 +1,5 @@
 (function() {var implementors = {};
-implementors["void"] = [];implementors["tendril"] = [];implementors["string_cache"] = [];implementors["xml5ever"] = [];implementors["string_cache"] = [];implementors["xml5ever"] = [];implementors["tendril"] = [];implementors["string_cache"] = [];implementors["xml5ever"] = [];implementors["string_cache"] = [];implementors["xml5ever"] = [];
+implementors['void'] = [];implementors["void"] = [];implementors["void"] = [];implementors["void"] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);

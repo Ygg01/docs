@@ -1,5 +1,5 @@
 (function() {var implementors = {};
-implementors["unreachable"] = [];implementors["tendril"] = [];implementors["string_cache"] = [];implementors["xml5ever"] = [];implementors["string_cache"] = [];implementors["xml5ever"] = [];implementors["tendril"] = [];implementors["string_cache"] = [];implementors["xml5ever"] = [];implementors["string_cache"] = [];implementors["xml5ever"] = [];
+implementors['unreachable'] = [];implementors["unreachable"] = [];implementors["unreachable"] = [];implementors["unreachable"] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);
