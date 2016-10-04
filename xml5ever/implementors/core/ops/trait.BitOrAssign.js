@@ -1,5 +1,5 @@
 (function() {var implementors = {};
-implementors["lazy_static"] = [];implementors["phf"] = [];implementors["libc"] = [];implementors["tendril"] = [];implementors["serde"] = [];implementors["string_cache"] = [];implementors["xml5ever"] = [];implementors["string_cache"] = [];implementors["xml5ever"] = [];implementors["tendril"] = [];implementors["string_cache"] = [];implementors["xml5ever"] = [];implementors["string_cache"] = [];implementors["xml5ever"] = [];implementors["string_cache"] = [];implementors["tendril"] = [];implementors["xml5ever"] = [];implementors["string_cache"] = [];implementors["xml5ever"] = [];
+implementors["void"] = [];implementors["lazy_static"] = [];implementors["libc"] = [];implementors["phf"] = [];implementors["serde"] = [];implementors["string_cache"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["serde"] = [];implementors["string_cache"] = [];implementors["xml5ever"] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);
