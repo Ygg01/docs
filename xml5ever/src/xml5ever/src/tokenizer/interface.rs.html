@@ -268,7 +268,7 @@
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>Token</span>::{<span class='ident'>CharacterTokens</span>, <span class='ident'>EOFToken</span>, <span class='ident'>ParseError</span>, <span class='ident'>NullCharacterToken</span>};
 
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>borrow</span>::<span class='ident'>Cow</span>;
-<span class='kw'>use</span> <span class='ident'>string_cache</span>::{<span class='ident'>Atom</span>};
+<span class='kw'>use</span> {<span class='ident'>Prefix</span>, <span class='ident'>Namespace</span>, <span class='ident'>LocalName</span>};
 <span class='kw'>use</span> <span class='ident'>tendril</span>::<span class='ident'>StrTendril</span>;
 <span class='kw'>use</span> <span class='kw'>super</span>::{<span class='ident'>states</span>};
 
@@ -316,30 +316,30 @@
 <span class='doccomment'>/// ```</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>QName</span> {
     <span class='doccomment'>/// Prefix of fully qualified name, used for namespace lookup.</span>
-    <span class='kw'>pub</span> <span class='ident'>prefix</span>: <span class='ident'>Atom</span>,
+    <span class='kw'>pub</span> <span class='ident'>prefix</span>: <span class='ident'>Prefix</span>,
     <span class='doccomment'>/// Local name of a value.</span>
-    <span class='kw'>pub</span> <span class='ident'>local</span>: <span class='ident'>Atom</span>,
+    <span class='kw'>pub</span> <span class='ident'>local</span>: <span class='ident'>LocalName</span>,
     <span class='doccomment'>/// Resolved namespace of `QName`.</span>
-    <span class='kw'>pub</span> <span class='ident'>namespace_url</span>: <span class='ident'>Atom</span>,
+    <span class='kw'>pub</span> <span class='ident'>namespace_url</span>: <span class='ident'>Namespace</span>,
 }
 
 <span class='kw'>impl</span> <span class='ident'>QName</span> {
     <span class='doccomment'>/// Constructs a new `QName` from prefix and local part.</span>
-    <span class='doccomment'>/// Namespace is set to empty atom.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>prefix</span>: <span class='ident'>Atom</span>, <span class='ident'>local</span>: <span class='ident'>Atom</span>) <span class='op'>-&gt;</span> <span class='ident'>QName</span> {
+    <span class='doccomment'>/// Namespace is set to empty.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>prefix</span>: <span class='ident'>Prefix</span>, <span class='ident'>local</span>: <span class='ident'>LocalName</span>) <span class='op'>-&gt;</span> <span class='ident'>QName</span> {
         <span class='ident'>QName</span> {
             <span class='ident'>prefix</span>: <span class='ident'>prefix</span>,
             <span class='ident'>local</span>: <span class='ident'>local</span>,
-            <span class='ident'>namespace_url</span>: <span class='ident'>Atom</span>::<span class='ident'>from</span>(<span class='string'>&quot;&quot;</span>),
+            <span class='ident'>namespace_url</span>: <span class='macro'>ns</span><span class='macro'>!</span>(),
         }
     }
     <span class='doccomment'>/// Constructs a new `QName` with only local part.</span>
-    <span class='doccomment'>/// Namespace is set to empty atom.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new_empty</span>(<span class='ident'>local</span>: <span class='ident'>Atom</span>) <span class='op'>-&gt;</span> <span class='ident'>QName</span> {
+    <span class='doccomment'>/// Namespace is set to empty.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new_empty</span>(<span class='ident'>local</span>: <span class='ident'>LocalName</span>) <span class='op'>-&gt;</span> <span class='ident'>QName</span> {
         <span class='ident'>QName</span> {
-            <span class='ident'>prefix</span>: <span class='ident'>Atom</span>::<span class='ident'>from</span>(<span class='string'>&quot;&quot;</span>),
+            <span class='ident'>prefix</span>: <span class='macro'>namespace_prefix</span><span class='macro'>!</span>(<span class='string'>&quot;&quot;</span>),
             <span class='ident'>local</span>: <span class='ident'>local</span>,
-            <span class='ident'>namespace_url</span>: <span class='ident'>Atom</span>::<span class='ident'>from</span>(<span class='string'>&quot;&quot;</span>),
+            <span class='ident'>namespace_url</span>: <span class='macro'>ns</span><span class='macro'>!</span>(),
         }
     }
 }

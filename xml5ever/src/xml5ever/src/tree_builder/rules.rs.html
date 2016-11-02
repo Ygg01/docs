@@ -350,7 +350,7 @@
                         <span class='self'>self</span>.<span class='ident'>process_namespaces</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>tag</span>);
                         <span class='ident'>tag</span>
                     };
-                    <span class='kw'>if</span> <span class='ident'>tag</span>.<span class='ident'>name</span>.<span class='ident'>local</span> <span class='op'>==</span> <span class='macro'>atom</span><span class='macro'>!</span>(<span class='string'>&quot;script&quot;</span>) {
+                    <span class='kw'>if</span> <span class='ident'>tag</span>.<span class='ident'>name</span>.<span class='ident'>local</span> <span class='op'>==</span> <span class='macro'>local_name</span><span class='macro'>!</span>(<span class='string'>&quot;script&quot;</span>) {
                         <span class='self'>self</span>.<span class='ident'>insert_tag</span>(<span class='ident'>tag</span>.<span class='ident'>clone</span>());
                         <span class='self'>self</span>.<span class='ident'>complete_script</span>();
                         <span class='self'>self</span>.<span class='ident'>close_tag</span>(<span class='ident'>tag</span>)
@@ -368,7 +368,7 @@
                         <span class='self'>self</span>.<span class='ident'>process_namespaces</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>tag</span>);
                         <span class='ident'>tag</span>
                     };
-                    <span class='kw'>if</span> <span class='ident'>tag</span>.<span class='ident'>name</span>.<span class='ident'>local</span> <span class='op'>==</span> <span class='macro'>atom</span><span class='macro'>!</span>(<span class='string'>&quot;script&quot;</span>) {
+                    <span class='kw'>if</span> <span class='ident'>tag</span>.<span class='ident'>name</span>.<span class='ident'>local</span> <span class='op'>==</span> <span class='macro'>local_name</span><span class='macro'>!</span>(<span class='string'>&quot;script&quot;</span>) {
                         <span class='self'>self</span>.<span class='ident'>complete_script</span>();
                     }
                     <span class='kw'>let</span> <span class='ident'>retval</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>close_tag</span>(<span class='ident'>tag</span>);
