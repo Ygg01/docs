@@ -48,8 +48,7 @@
                        [<span class='inner'>&#x2212;</span>]
                    </a>
                </span><a id='src-449' class='srclink' href='../src/tendril/tendril.rs.html#189-198' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'><div class="docblock attributes">#[repr(packed)]
-</div>pub struct Tendril&lt;F, A&nbsp;=&nbsp;<a class='struct' href='../tendril/struct.NonAtomic.html' title='tendril::NonAtomic'>NonAtomic</a>&gt; <span class='where'>where F: <a class='trait' href='../tendril/fmt/trait.Format.html' title='tendril::fmt::Format'>Format</a>, A: <a class='trait' href='../tendril/trait.Atomicity.html' title='tendril::Atomicity'>Atomicity</a></span> { /* fields omitted */ }</pre><div class='docblock'><p>Compact string type for zero-copy parsing.</p>
+<pre class='rust struct'>pub struct Tendril&lt;F, A&nbsp;=&nbsp;<a class='struct' href='../tendril/struct.NonAtomic.html' title='tendril::NonAtomic'>NonAtomic</a>&gt; <span class='where'>where F: <a class='trait' href='../tendril/fmt/trait.Format.html' title='tendril::fmt::Format'>Format</a>, A: <a class='trait' href='../tendril/trait.Atomicity.html' title='tendril::Atomicity'>Atomicity</a></span> { /* fields omitted */ }</pre><div class='docblock'><p>Compact string type for zero-copy parsing.</p>
 
 <p><code>Tendril</code>s have the semantics of owned strings, but are sometimes views
 into shared buffers. When you mutate a <code>Tendril</code>, an owned copy is made
