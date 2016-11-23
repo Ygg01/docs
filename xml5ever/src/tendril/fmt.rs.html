@@ -718,7 +718,7 @@
 <span class='doccomment'>/// Indicates a format which corresponds to a Rust slice type,</span>
 <span class='doccomment'>/// representing exactly the same invariants.</span>
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>trait</span> <span class='ident'>SliceFormat</span>: <span class='ident'>Format</span> <span class='op'>+</span> <span class='ident'>Sized</span> {
-    <span class='kw'>type</span> <span class='ident'>Slice</span>: ?<span class='ident'>Sized</span> <span class='op'>+</span> <span class='ident'>Slice</span>;
+    <span class='kw'>type</span> <span class='ident'>Slice</span>: <span class='question-mark'>?</span><span class='ident'>Sized</span> <span class='op'>+</span> <span class='ident'>Slice</span>;
 }
 
 <span class='doccomment'>/// Indicates a format which contains characters from Unicode</span>
@@ -1132,11 +1132,9 @@
     <script>
         window.rootPath = "../../";
         window.currentCrate = "tendril";
-        window.playgroundUrl = "";
     </script>
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    
     <script defer src="../../search-index.js"></script>
 </body>
 </html>
