@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["interface","The interface for consumers of the tree builder (and thus the parser overall)."]],"struct":[["XmlTreeBuilder","The XML tree builder."]]});
+initSidebarItems({"mod":[["interface","The interface for consumers of the tree builder (and thus the parser overall)."]],"struct":[["XmlTreeBuilder","The XML tree builder."],["XmlTreeBuilderOpts","Tree builder options, with an impl for Default."]]});
