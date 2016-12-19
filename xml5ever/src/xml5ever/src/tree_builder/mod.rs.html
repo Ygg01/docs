@@ -432,6 +432,48 @@
 <span id="388">388</span>
 <span id="389">389</span>
 <span id="390">390</span>
+<span id="391">391</span>
+<span id="392">392</span>
+<span id="393">393</span>
+<span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
+<span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
+<span id="408">408</span>
+<span id="409">409</span>
+<span id="410">410</span>
+<span id="411">411</span>
+<span id="412">412</span>
+<span id="413">413</span>
+<span id="414">414</span>
+<span id="415">415</span>
+<span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
+<span id="423">423</span>
+<span id="424">424</span>
+<span id="425">425</span>
+<span id="426">426</span>
+<span id="427">427</span>
+<span id="428">428</span>
+<span id="429">429</span>
+<span id="430">430</span>
+<span id="431">431</span>
+<span id="432">432</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2015 The xml5ever Project Developers. See the</span>
 <span class='comment'>// COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -451,6 +493,7 @@
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>borrow</span>::{<span class='ident'>Cow</span>};
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>borrow</span>::<span class='ident'>Cow</span>::<span class='ident'>Borrowed</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::{<span class='ident'>VecDeque</span>, <span class='ident'>BTreeMap</span>, <span class='ident'>HashSet</span>};
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>btree_map</span>::{<span class='ident'>Iter</span>};
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>result</span>::<span class='prelude-ty'>Result</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 
@@ -483,14 +526,16 @@
         <span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>push</span>(<span class='ident'>map</span>);
     }
 
-    <span class='kw'>fn</span> <span class='ident'>pop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
+    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>pop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
         <span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>pop</span>();
     }
 
 }
 
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
-<span class='kw'>struct</span> <span class='ident'>NamespaceMap</span> {
+<span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>NamespaceMap</span> {
     <span class='comment'>// Map that maps prefixes to URI.</span>
     <span class='comment'>//</span>
     <span class='comment'>// Key denotes namespace prefix, and value denotes</span>
@@ -501,9 +546,11 @@
     <span class='ident'>scope</span>: <span class='ident'>BTreeMap</span><span class='op'>&lt;</span><span class='ident'>Prefix</span>, <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Namespace</span><span class='op'>&gt;&gt;</span>,
 }
 
+
 <span class='kw'>impl</span> <span class='ident'>NamespaceMap</span> {
     <span class='comment'>// Returns an empty namespace.</span>
-    <span class='kw'>fn</span> <span class='ident'>empty</span>() <span class='op'>-&gt;</span> <span class='ident'>NamespaceMap</span> {
+    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>empty</span>() <span class='op'>-&gt;</span> <span class='ident'>NamespaceMap</span> {
         <span class='ident'>NamespaceMap</span> {
             <span class='ident'>scope</span>: <span class='ident'>BTreeMap</span>::<span class='ident'>new</span>(),
         }
@@ -521,8 +568,22 @@
         }
     }
 
-    <span class='kw'>fn</span> <span class='ident'>get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>prefix</span>: <span class='kw-2'>&amp;</span><span class='ident'>Prefix</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Namespace</span><span class='op'>&gt;&gt;</span> {
+
+    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>prefix</span>: <span class='kw-2'>&amp;</span><span class='ident'>Prefix</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Namespace</span><span class='op'>&gt;&gt;</span> {
         <span class='self'>self</span>.<span class='ident'>scope</span>.<span class='ident'>get</span>(<span class='ident'>prefix</span>)
+    }
+
+    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_scope_iter</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Iter</span><span class='op'>&lt;</span><span class='ident'>Prefix</span>, <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Namespace</span><span class='op'>&gt;&gt;</span> {
+        <span class='self'>self</span>.<span class='ident'>scope</span>.<span class='ident'>iter</span>()
+    }
+
+    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>insert</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>name</span>: <span class='kw-2'>&amp;</span><span class='ident'>QName</span>)  {
+        <span class='kw'>let</span> <span class='ident'>prefix</span> <span class='op'>=</span> <span class='ident'>Prefix</span>::<span class='ident'>from</span>(<span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>name</span>.<span class='ident'>prefix</span>);
+        <span class='kw'>let</span> <span class='ident'>namespace</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>Namespace</span>::<span class='ident'>from</span>(<span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>name</span>.<span class='ident'>namespace_url</span>));
+        <span class='self'>self</span>.<span class='ident'>scope</span>.<span class='ident'>insert</span>(<span class='ident'>prefix</span>, <span class='ident'>namespace</span>);
     }
 
     <span class='kw'>fn</span> <span class='ident'>insert_ns</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>attr</span>: <span class='kw-2'>&amp;</span><span class='ident'>Attribute</span>) <span class='op'>-&gt;</span> <span class='ident'>InsResult</span> {
@@ -572,10 +633,32 @@
         <span class='ident'>result</span>
     }
 }
+<span class='doccomment'>/// Tree builder options, with an impl for Default.</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>XmlTreeBuilderOpts</span> {
+    <span class='doccomment'>/// Report all parse errors described in the spec, at some</span>
+    <span class='doccomment'>/// performance penalty?  Default: false</span>
+    <span class='kw'>pub</span> <span class='ident'>exact_errors</span>: <span class='ident'>bool</span>,
 
+    <span class='doccomment'>/// Keep a record of how long we spent in each state?  Printed</span>
+    <span class='doccomment'>/// when `end()` is called.  Default: false</span>
+    <span class='kw'>pub</span> <span class='ident'>profile</span>: <span class='ident'>bool</span>,
+}
+
+<span class='kw'>impl</span> <span class='ident'>Default</span> <span class='kw'>for</span> <span class='ident'>XmlTreeBuilderOpts</span> {
+    <span class='kw'>fn</span> <span class='ident'>default</span>() <span class='op'>-&gt;</span> <span class='ident'>XmlTreeBuilderOpts</span> {
+        <span class='ident'>XmlTreeBuilderOpts</span>{
+            <span class='ident'>exact_errors</span>: <span class='bool-val'>false</span>,
+            <span class='ident'>profile</span>: <span class='bool-val'>false</span>,
+        }
+    }
+}
 
 <span class='doccomment'>/// The XML tree builder.</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>XmlTreeBuilder</span><span class='op'>&lt;</span><span class='ident'>Handle</span>, <span class='ident'>Sink</span><span class='op'>&gt;</span> {
+    <span class='doccomment'>/// Configuration options for XmlTreeBuilder</span>
+    <span class='ident'>opts</span>: <span class='ident'>XmlTreeBuilderOpts</span>,
+
     <span class='doccomment'>/// Consumer of tree modifications.</span>
     <span class='ident'>sink</span>: <span class='ident'>Sink</span>,
 
@@ -610,9 +693,10 @@
     <span class='doccomment'>/// Create a new tree builder which sends tree modifications to a particular `TreeSink`.</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// The tree builder is also a `TokenSink`.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='kw-2'>mut</span> <span class='ident'>sink</span>: <span class='ident'>Sink</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlTreeBuilder</span><span class='op'>&lt;</span><span class='ident'>Handle</span>, <span class='ident'>Sink</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='kw-2'>mut</span> <span class='ident'>sink</span>: <span class='ident'>Sink</span>, <span class='ident'>opts</span>: <span class='ident'>XmlTreeBuilderOpts</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlTreeBuilder</span><span class='op'>&lt;</span><span class='ident'>Handle</span>, <span class='ident'>Sink</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>doc_handle</span> <span class='op'>=</span> <span class='ident'>sink</span>.<span class='ident'>get_document</span>();
         <span class='ident'>XmlTreeBuilder</span> {
+            <span class='ident'>opts</span>: <span class='ident'>opts</span>,
             <span class='ident'>sink</span>: <span class='ident'>sink</span>,
             <span class='ident'>doc_handle</span>: <span class='ident'>doc_handle</span>,
             <span class='ident'>next_tokenizer_state</span>: <span class='prelude-val'>None</span>,
@@ -880,9 +964,11 @@
     <script>
         window.rootPath = "../../../../";
         window.currentCrate = "xml5ever";
+        window.playgroundUrl = "";
     </script>
     <script src="../../../../jquery.js"></script>
     <script src="../../../../main.js"></script>
+    
     <script defer src="../../../../search-index.js"></script>
 </body>
 </html>
