@@ -9,7 +9,6 @@
 
     <title>interface.rs.html -- source</title>
 
-    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
     
@@ -158,6 +157,9 @@
 <span id="113">113</span>
 <span id="114">114</span>
 <span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2014 The xml5ever Project Developers. See the</span>
 <span class='comment'>// COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -263,6 +265,9 @@
     <span class='kw'>fn</span> <span class='ident'>complete_script</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_node</span>: <span class='self'>Self</span>::<span class='ident'>Handle</span>) <span class='op'>-&gt;</span> <span class='ident'>NextParserState</span> {
         <span class='ident'>NextParserState</span>::<span class='ident'>Continue</span>
     }
+
+    <span class='doccomment'>/// Indicate that a node was popped off the stack of open elements.</span>
+    <span class='kw'>fn</span> <span class='ident'>pop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_node</span>: <span class='self'>Self</span>::<span class='ident'>Handle</span>) {}
 }
 
 <span class='doccomment'>/// Trace hooks for a garbage-collected DOM.</span>

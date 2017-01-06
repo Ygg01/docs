@@ -9,7 +9,6 @@
 
     <title>mod.rs.html -- source</title>
 
-    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
     
@@ -475,6 +474,10 @@
 <span id="430">430</span>
 <span id="431">431</span>
 <span id="432">432</span>
+<span id="433">433</span>
+<span id="434">434</span>
+<span id="435">435</span>
+<span id="436">436</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2015 The xml5ever Project Developers. See the</span>
 <span class='comment'>// COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -883,7 +886,6 @@
           <span class='ident'>Sink</span>: <span class='ident'>TreeSink</span><span class='op'>&lt;</span><span class='ident'>Handle</span><span class='op'>=</span><span class='ident'>Handle</span><span class='op'>&gt;</span>,
 {
     <span class='kw'>fn</span> <span class='ident'>process_token</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>token</span>: <span class='ident'>tokenizer</span>::<span class='ident'>Token</span>) {
-
         <span class='comment'>// Handle `ParseError` and `DoctypeToken`; convert everything else to the local `Token` type.</span>
         <span class='kw'>let</span> <span class='ident'>token</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>token</span> {
             <span class='ident'>tokenizer</span>::<span class='ident'>ParseError</span>(<span class='ident'>e</span>) <span class='op'>=&gt;</span> {
@@ -898,10 +900,15 @@
             <span class='ident'>tokenizer</span>::<span class='ident'>NullCharacterToken</span> <span class='op'>=&gt;</span> <span class='ident'>NullCharacterToken</span>,
             <span class='ident'>tokenizer</span>::<span class='ident'>EOFToken</span> <span class='op'>=&gt;</span> <span class='ident'>EOFToken</span>,
             <span class='ident'>tokenizer</span>::<span class='ident'>CharacterTokens</span>(<span class='ident'>x</span>) <span class='op'>=&gt;</span> <span class='ident'>CharacterTokens</span>(<span class='ident'>x</span>),
-
         };
 
         <span class='self'>self</span>.<span class='ident'>process_to_completion</span>(<span class='ident'>token</span>);
+    }
+
+    <span class='kw'>fn</span> <span class='ident'>end</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
+        <span class='kw'>for</span> <span class='ident'>node</span> <span class='kw'>in</span> <span class='self'>self</span>.<span class='ident'>open_elems</span>.<span class='ident'>drain</span>(..).<span class='ident'>rev</span>() {
+            <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>pop</span>(<span class='ident'>node</span>);
+        }
     }
 
     <span class='kw'>fn</span> <span class='ident'>query_state_change</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>tokenizer</span>::<span class='ident'>states</span>::<span class='ident'>XmlState</span><span class='op'>&gt;</span> {
