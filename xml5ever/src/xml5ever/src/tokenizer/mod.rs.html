@@ -1329,6 +1329,9 @@
 <span id="1285">1285</span>
 <span id="1286">1286</span>
 <span id="1287">1287</span>
+<span id="1288">1288</span>
+<span id="1289">1289</span>
+<span id="1290">1290</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2015 The xml5ever Project Developers. See the</span>
 <span class='comment'>// COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -2405,10 +2408,13 @@
             <span class='comment'>// loop</span>
         }
 
+        <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>end</span>();
+
         <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>opts</span>.<span class='ident'>profile</span> {
             <span class='self'>self</span>.<span class='ident'>dump_profile</span>();
         }
     }
+
     <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>for_c</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>dump_profile</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) {
         <span class='macro'>unreachable</span><span class='macro'>!</span>();
