@@ -9,7 +9,6 @@
 
     <title>xml5ever::encoding::types::StringWriter - Rust</title>
 
-    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
     
@@ -48,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../../../src/encoding/types.rs.html#101-115' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-101' class='srclink' href='../../../encoding/types/trait.StringWriter.html?gotosrc=101' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait StringWriter {
     fn <a href='#tymethod.write_char' class='fnname'>write_char</a>(&amp;mut self, c: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.char.html'>char</a>);
     fn <a href='#tymethod.write_str' class='fnname'>write_str</a>(&amp;mut self, s: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>);
@@ -58,12 +57,12 @@
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.write_char' class='method'><span id='write_char.v' class='invisible'><code>fn <a href='#tymethod.write_char' class='fnname'>write_char</a>(&amp;mut self, c: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.char.html'>char</a>)</code></span></h3><div class='docblock'><p>Writes a single character.</p>
-</div><h3 id='tymethod.write_str' class='method'><span id='write_str.v' class='invisible'><code>fn <a href='#tymethod.write_str' class='fnname'>write_str</a>(&amp;mut self, s: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>)</code></span></h3><div class='docblock'><p>Writes a string.</p>
+        <h3 id='tymethod.write_char' class='method stab '><span id='write_char.v' class='invisible'><code>fn <a href='#tymethod.write_char' class='fnname'>write_char</a>(&amp;mut self, c: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.char.html'>char</a>)</code></span></h3><div class='docblock'><p>Writes a single character.</p>
+</div><h3 id='tymethod.write_str' class='method stab '><span id='write_str.v' class='invisible'><code>fn <a href='#tymethod.write_str' class='fnname'>write_str</a>(&amp;mut self, s: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>)</code></span></h3><div class='docblock'><p>Writes a string.</p>
 </div></div>
             <h2 id='provided-methods'>Provided Methods</h2>
             <div class='methods'>
-        <h3 id='method.writer_hint' class='method'><span id='writer_hint.v' class='invisible'><code>fn <a href='#method.writer_hint' class='fnname'>writer_hint</a>(&amp;mut self, _expectedlen: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>)</code></span></h3><div class='docblock'><p>Hints an expected lower bound on the length (in bytes) of the output
+        <h3 id='method.writer_hint' class='method stab '><span id='writer_hint.v' class='invisible'><code>fn <a href='#method.writer_hint' class='fnname'>writer_hint</a>(&amp;mut self, _expectedlen: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>)</code></span></h3><div class='docblock'><p>Hints an expected lower bound on the length (in bytes) of the output
 until the next call to <code>writer_hint</code>,
 so that the writer can reserve the memory for writing.
 <code>RawDecoder</code>s are recommended but not required to call this method
@@ -72,8 +71,8 @@ By default this method does nothing.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;A&gt; StringWriter for <a class='struct' href='../../../tendril/tendril/struct.Tendril.html' title='tendril::tendril::Tendril'>Tendril</a>&lt;<a class='struct' href='../../../tendril/fmt/struct.UTF8.html' title='tendril::fmt::UTF8'>UTF8</a>, A&gt; <span class='where'>where A: <a class='trait' href='../../../tendril/tendril/trait.Atomicity.html' title='tendril::tendril::Atomicity'>Atomicity</a></span></code></li>
-<li><code>impl StringWriter for <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code></li>
+    <li><code>impl StringWriter for <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code></li>
+<li><code>impl&lt;A&gt; StringWriter for <a class='struct' href='../../../tendril/tendril/struct.Tendril.html' title='tendril::tendril::Tendril'>Tendril</a>&lt;<a class='struct' href='../../../tendril/fmt/struct.UTF8.html' title='tendril::fmt::UTF8'>UTF8</a>, A&gt; <span class='where'>where A: <a class='trait' href='../../../tendril/tendril/trait.Atomicity.html' title='tendril::tendril::Atomicity'>Atomicity</a></span></code></li>
 </ul><script type="text/javascript" async
                          src="../../../implementors/encoding/types/trait.StringWriter.js">
                  </script></section>
