@@ -9,6 +9,7 @@
 
     <title>big5.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -8558,7 +8559,7 @@
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>forward</span>(<span class='ident'>code</span>: <span class='ident'>u16</span>) <span class='op'>-&gt;</span> <span class='ident'>u32</span> {
     <span class='kw'>let</span> <span class='ident'>code</span> <span class='op'>=</span> (<span class='ident'>code</span> <span class='kw'>as</span> <span class='ident'>usize</span>).<span class='ident'>wrapping_sub</span>(<span class='number'>942</span>);
     <span class='kw'>if</span> <span class='ident'>code</span> <span class='op'>&lt;</span> <span class='number'>18840</span> {
-        (<span class='ident'>FORWARD_TABLE</span>[<span class='ident'>code</span>] <span class='kw'>as</span> <span class='ident'>u32</span>) <span class='op'>|</span> (((<span class='ident'>FORWARD_TABLE_MORE</span>[<span class='ident'>code</span> <span class='op'>&gt;&gt;</span> <span class='number'>5</span>] <span class='op'>&gt;&gt;</span> (<span class='ident'>code</span> <span class='kw-2'>&amp;</span> <span class='number'>31</span>)) <span class='kw-2'>&amp;</span> <span class='number'>1</span>) <span class='op'>&lt;&lt;</span> <span class='number'>17</span>)
+        (<span class='ident'>FORWARD_TABLE</span>[<span class='ident'>code</span>] <span class='kw'>as</span> <span class='ident'>u32</span>) <span class='op'>|</span> (((<span class='ident'>FORWARD_TABLE_MORE</span>[<span class='ident'>code</span> <span class='op'>&gt;&gt;</span> <span class='number'>5</span>] <span class='op'>&gt;&gt;</span> (<span class='ident'>code</span> <span class='op'>&amp;</span> <span class='number'>31</span>)) <span class='op'>&amp;</span> <span class='number'>1</span>) <span class='op'>&lt;&lt;</span> <span class='number'>17</span>)
     } <span class='kw'>else</span> {
         <span class='number'>0xffff</span>
     }
@@ -13228,7 +13229,7 @@
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>backward</span>(<span class='ident'>code</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='ident'>u16</span> {
     <span class='kw'>let</span> <span class='ident'>offset</span> <span class='op'>=</span> (<span class='ident'>code</span> <span class='op'>&gt;&gt;</span> <span class='number'>4</span>) <span class='kw'>as</span> <span class='ident'>usize</span>;
     <span class='kw'>let</span> <span class='ident'>offset</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ident'>offset</span> <span class='op'>&lt;</span> <span class='number'>12190</span> {<span class='ident'>BACKWARD_TABLE_UPPER</span>[<span class='ident'>offset</span>] <span class='kw'>as</span> <span class='ident'>usize</span>} <span class='kw'>else</span> {<span class='number'>0</span>};
-    <span class='ident'>BACKWARD_TABLE_LOWER</span>[<span class='ident'>offset</span> <span class='op'>+</span> ((<span class='ident'>code</span> <span class='kw-2'>&amp;</span> <span class='number'>15</span>) <span class='kw'>as</span> <span class='ident'>usize</span>)]
+    <span class='ident'>BACKWARD_TABLE_LOWER</span>[<span class='ident'>offset</span> <span class='op'>+</span> ((<span class='ident'>code</span> <span class='op'>&amp;</span> <span class='number'>15</span>) <span class='kw'>as</span> <span class='ident'>usize</span>)]
 }
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
