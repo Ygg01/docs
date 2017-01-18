@@ -9,7 +9,6 @@
 
     <title>xml5ever::tree_builder::interface::Tracer - Rust</title>
 
-    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
     
@@ -48,19 +47,19 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../../../src/xml5ever/tree_builder/interface.rs.html#111-118' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-842' class='srclink' href='../../../src/xml5ever/src/tree_builder/interface.rs.html#111-118' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait Tracer {
     type <a href='#associatedtype.Handle' class='type'>Handle</a>;
-    fn <a href='#tymethod.trace_handle' class='fnname'>trace_handle</a>(&amp;self, node: Self::<a class='trait' href='../../../xml5ever/tree_builder/interface/trait.Tracer.html' title='xml5ever::tree_builder::interface::Tracer'>Handle</a>);
+    fn <a href='#tymethod.trace_handle' class='fnname'>trace_handle</a>(&amp;self, node: Self::Handle);
 }</pre><div class='docblock'><p>Trace hooks for a garbage-collected DOM.</p>
 </div>
             <h2 id='associated-types'>Associated Types</h2>
             <div class='methods'>
-        <h3 id='associatedtype.Handle' class='method'><span id='Handle.t' class='invisible'><code>type <a href='#associatedtype.Handle' class='type'>Handle</a></code></span></h3><div class='docblock'><p>Reference to a generic DOM node.</p>
+        <h3 id='associatedtype.Handle' class='method stab '><span id='Handle.t' class='invisible'><code>type <a href='#associatedtype.Handle' class='type'>Handle</a></code></span></h3><div class='docblock'><p>Reference to a generic DOM node.</p>
 </div></div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.trace_handle' class='method'><span id='trace_handle.v' class='invisible'><code>fn <a href='#tymethod.trace_handle' class='fnname'>trace_handle</a>(&amp;self, node: Self::<a class='trait' href='../../../xml5ever/tree_builder/interface/trait.Tracer.html' title='xml5ever::tree_builder::interface::Tracer'>Handle</a>)</code></span></h3><div class='docblock'><p>Upon a call to <code>trace_handles</code>, the tree builder will call this method
+        <h3 id='tymethod.trace_handle' class='method stab '><span id='trace_handle.v' class='invisible'><code>fn <a href='#tymethod.trace_handle' class='fnname'>trace_handle</a>(&amp;self, node: Self::Handle)</code></span></h3><div class='docblock'><p>Upon a call to <code>trace_handles</code>, the tree builder will call this method
 for each handle in its internal state.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
