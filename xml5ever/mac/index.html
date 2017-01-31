@@ -9,7 +9,6 @@
 
     <title>mac - Rust</title>
 
-    <link rel="stylesheet" type="text/css" href="../normalize.css">
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
     
@@ -48,17 +47,31 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../src/mac/lib.rs.html#1-69' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../src/mac/lib.rs.html#1-71' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'>
 <h1 id='mac' class='section-header'><a href='#mac'>mac</a></h1>
 <p>A collection of great and ubiqutitous macros.</p>
 </div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
                        <tr class=' module-item'>
+                           <td><a class='mod' href='cfg/index.html'
+                                  title='mac::cfg'>cfg</a></td>
+                           <td class='docblock-short'>
+                                <p>Macros for conditional compilation.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
                            <td><a class='mod' href='format/index.html'
                                   title='mac::format'>format</a></td>
                            <td class='docblock-short'>
                                 <p>Macros for string formatting.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='inspect/index.html'
+                                  title='mac::inspect'>inspect</a></td>
+                           <td class='docblock-short'>
+                                <p>Inspect Macros</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -130,6 +143,28 @@
                                   title='mac::format_if'>format_if</a></td>
                            <td class='docblock-short'>
                                 <p>Conditionally perform string formatting.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='macro' href='macro.if_cfg.html'
+                                  title='mac::if_cfg'>if_cfg</a></td>
+                           <td class='docblock-short'>
+                                <p>Compile-time conditional expression.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='macro' href='macro.inspect.html'
+                                  title='mac::inspect'>inspect</a></td>
+                           <td class='docblock-short'>
+                                <p>Evaluates an expression, prints a stringified version of the expression
+along with the evaluated value, and then returns that value.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='macro' href='macro.match_cfg.html'
+                                  title='mac::match_cfg'>match_cfg</a></td>
+                           <td class='docblock-short'>
+                                <p>Compile-time matching on config variables.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
