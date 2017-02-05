@@ -9,6 +9,7 @@
 
     <title>whatwg.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
     
@@ -84,7 +85,7 @@
 <span class='doccomment'>//! Asymmetric or special encoding constructions required by the WHATWG Encoding standard.</span>
 
 <span class='kw'>use</span> <span class='ident'>codec</span>;
-<span class='kw'>use</span> <span class='ident'>types</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>types</span>::<span class='kw-2'>*</span>;
 
 <span class='doccomment'>/// Replacement encoding used to solve a particular attack vector due to mismatching server and</span>
 <span class='doccomment'>/// client supports for encodings. It is rarely useful outside.</span>
@@ -107,7 +108,7 @@
 
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>backward</span>(<span class='ident'>code</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='ident'>u8</span> {
-        <span class='kw'>if</span> (<span class='ident'>code</span> <span class='kw-2'>&amp;</span> <span class='op'>!</span><span class='number'>0x7f</span>) <span class='op'>==</span> <span class='number'>0xf780</span> {(<span class='ident'>code</span> <span class='kw-2'>&amp;</span> <span class='number'>0xff</span>) <span class='kw'>as</span> <span class='ident'>u8</span>} <span class='kw'>else</span> {<span class='number'>0</span>}
+        <span class='kw'>if</span> (<span class='ident'>code</span> <span class='op'>&amp;</span> <span class='op'>!</span><span class='number'>0x7f</span>) <span class='op'>==</span> <span class='number'>0xf780</span> {(<span class='ident'>code</span> <span class='op'>&amp;</span> <span class='number'>0xff</span>) <span class='kw'>as</span> <span class='ident'>u8</span>} <span class='kw'>else</span> {<span class='number'>0</span>}
     }
 }
 
