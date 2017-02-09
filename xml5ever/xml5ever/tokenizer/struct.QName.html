@@ -9,6 +9,7 @@
 
     <title>xml5ever::tokenizer::QName - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -75,7 +76,7 @@ Without XML namespaces we can&#39;t use those two fragments in occur
 XML at same time. however if we declare a namespace we could instead say:</p>
 
 <pre class='rust rust-example-rendered'>
-   <span class='comment'>// Furniture XML</span>
+<span class='comment'>// Furniture XML</span>
    <span class='op'>&lt;</span><span class='ident'>furn</span>:<span class='ident'>table</span><span class='op'>&gt;</span>
      <span class='op'>&lt;</span><span class='ident'>furn</span>:<span class='ident'>name</span><span class='op'>&gt;</span><span class='ident'>African</span> <span class='ident'>Coffee</span> <span class='ident'>Table</span><span class='op'>&lt;</span><span class='op'>/</span><span class='ident'>furn</span>:<span class='ident'>name</span><span class='op'>&gt;</span>
      <span class='op'>&lt;</span><span class='ident'>furn</span>:<span class='ident'>width</span><span class='op'>&gt;</span><span class='number'>80</span><span class='op'>&lt;</span><span class='op'>/</span><span class='ident'>furn</span>:<span class='ident'>width</span><span class='op'>&gt;</span>
@@ -87,7 +88,7 @@ XML at same time. however if we declare a namespace we could instead say:</p>
 <p>For this reason we parse names that contain a colon in the following way</p>
 
 <pre class='rust rust-example-rendered'>
-   <span class='op'>&lt;</span> <span class='ident'>furn</span>:<span class='ident'>table</span><span class='op'>&gt;</span>
+<span class='op'>&lt;</span> <span class='ident'>furn</span>:<span class='ident'>table</span><span class='op'>&gt;</span>
        <span class='op'>|</span>    <span class='op'>|</span>
        <span class='op'>|</span>    <span class='op'>+</span><span class='op'>-</span> <span class='ident'>local</span> <span class='ident'>name</span>
        <span class='op'>|</span>
