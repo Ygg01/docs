@@ -1,5 +1,6 @@
 (function() {var implementors = {};
 implementors["string_cache"] = [];
+implementors["tendril"] = [];
 implementors["void"] = [];
 implementors["xml5ever"] = [];
 
