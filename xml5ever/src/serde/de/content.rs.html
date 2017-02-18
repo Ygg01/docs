@@ -9,6 +9,7 @@
 
     <title>content.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
     
@@ -1342,8 +1343,8 @@
             <span class='ident'>Content</span>::<span class='ident'>String</span>(<span class='ident'>v</span>) <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='ident'>visit_string</span>(<span class='ident'>v</span>),
             <span class='ident'>Content</span>::<span class='ident'>Unit</span> <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='ident'>visit_unit</span>(),
             <span class='ident'>Content</span>::<span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='ident'>visit_none</span>(),
-            <span class='ident'>Content</span>::<span class='prelude-val'>Some</span>(<span class='ident'>v</span>) <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='ident'>visit_some</span>(<span class='ident'>ContentDeserializer</span>::<span class='ident'>new</span>(<span class='op'>*</span><span class='ident'>v</span>)),
-            <span class='ident'>Content</span>::<span class='ident'>Newtype</span>(<span class='ident'>v</span>) <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='ident'>visit_newtype_struct</span>(<span class='ident'>ContentDeserializer</span>::<span class='ident'>new</span>(<span class='op'>*</span><span class='ident'>v</span>)),
+            <span class='ident'>Content</span>::<span class='prelude-val'>Some</span>(<span class='ident'>v</span>) <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='ident'>visit_some</span>(<span class='ident'>ContentDeserializer</span>::<span class='ident'>new</span>(<span class='kw-2'>*</span><span class='ident'>v</span>)),
+            <span class='ident'>Content</span>::<span class='ident'>Newtype</span>(<span class='ident'>v</span>) <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='ident'>visit_newtype_struct</span>(<span class='ident'>ContentDeserializer</span>::<span class='ident'>new</span>(<span class='kw-2'>*</span><span class='ident'>v</span>)),
             <span class='ident'>Content</span>::<span class='ident'>Seq</span>(<span class='ident'>v</span>) <span class='op'>=&gt;</span> {
                 <span class='kw'>let</span> <span class='ident'>seq</span> <span class='op'>=</span> <span class='ident'>v</span>.<span class='ident'>into_iter</span>().<span class='ident'>map</span>(<span class='ident'>ContentDeserializer</span>::<span class='ident'>new</span>);
                 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>seq_visitor</span> <span class='op'>=</span> <span class='ident'>de</span>::<span class='ident'>value</span>::<span class='ident'>SeqDeserializer</span>::<span class='ident'>new</span>(<span class='ident'>seq</span>);
@@ -1367,7 +1368,7 @@
     {
         <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>content</span> {
             <span class='ident'>Content</span>::<span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='ident'>visit_none</span>(),
-            <span class='ident'>Content</span>::<span class='prelude-val'>Some</span>(<span class='ident'>v</span>) <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='ident'>visit_some</span>(<span class='ident'>ContentDeserializer</span>::<span class='ident'>new</span>(<span class='op'>*</span><span class='ident'>v</span>)),
+            <span class='ident'>Content</span>::<span class='prelude-val'>Some</span>(<span class='ident'>v</span>) <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='ident'>visit_some</span>(<span class='ident'>ContentDeserializer</span>::<span class='ident'>new</span>(<span class='kw-2'>*</span><span class='ident'>v</span>)),
             <span class='ident'>Content</span>::<span class='ident'>Unit</span> <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='ident'>visit_unit</span>(),
             _ <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='ident'>visit_some</span>(<span class='self'>self</span>)
         }
@@ -1412,7 +1413,7 @@
     <span class='kw'>fn</span> <span class='ident'>deserialize</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='self'>self</span>, <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='self'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>
     {
-        <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span>.<span class='ident'>content</span> {
+        <span class='kw'>match</span> <span class='kw-2'>*</span><span class='self'>self</span>.<span class='ident'>content</span> {
             <span class='ident'>Content</span>::<span class='ident'>Bool</span>(<span class='ident'>v</span>) <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='ident'>visit_bool</span>(<span class='ident'>v</span>),
             <span class='ident'>Content</span>::<span class='ident'>U8</span>(<span class='ident'>v</span>) <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='ident'>visit_u8</span>(<span class='ident'>v</span>),
             <span class='ident'>Content</span>::<span class='ident'>U16</span>(<span class='ident'>v</span>) <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='ident'>visit_u16</span>(<span class='ident'>v</span>),
@@ -1451,7 +1452,7 @@
     <span class='kw'>fn</span> <span class='ident'>deserialize_option</span><span class='op'>&lt;</span><span class='ident'>V</span><span class='op'>&gt;</span>(<span class='self'>self</span>, <span class='ident'>visitor</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>V</span>::<span class='ident'>Value</span>, <span class='self'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>V</span>: <span class='ident'>Visitor</span>
     {
-        <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span>.<span class='ident'>content</span> {
+        <span class='kw'>match</span> <span class='kw-2'>*</span><span class='self'>self</span>.<span class='ident'>content</span> {
             <span class='ident'>Content</span>::<span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='ident'>visit_none</span>(),
             <span class='ident'>Content</span>::<span class='prelude-val'>Some</span>(<span class='kw-2'>ref</span> <span class='ident'>v</span>) <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='ident'>visit_some</span>(<span class='ident'>ContentRefDeserializer</span>::<span class='ident'>new</span>(<span class='ident'>v</span>)),
             <span class='ident'>Content</span>::<span class='ident'>Unit</span> <span class='op'>=&gt;</span> <span class='ident'>visitor</span>.<span class='ident'>visit_unit</span>(),
