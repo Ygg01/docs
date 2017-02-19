@@ -9,6 +9,7 @@
 
     <title>lib.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -377,11 +378,11 @@
 <span class='kw'>impl</span> <span class='ident'>Byte</span> {
     <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>classify</span>(<span class='ident'>x</span>: <span class='ident'>u8</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Byte</span><span class='op'>&gt;</span> {
-        <span class='kw'>match</span> <span class='ident'>x</span> <span class='kw-2'>&amp;</span> <span class='number'>0xC0</span> {
+        <span class='kw'>match</span> <span class='ident'>x</span> <span class='op'>&amp;</span> <span class='number'>0xC0</span> {
             <span class='number'>0xC0</span> <span class='op'>=&gt;</span> <span class='kw'>match</span> <span class='ident'>x</span> {
-                <span class='ident'>x</span> <span class='kw'>if</span> <span class='ident'>x</span> <span class='kw-2'>&amp;</span> <span class='number'>0b11111_000</span> <span class='op'>==</span> <span class='number'>0b11110_000</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Some</span>(<span class='ident'>Byte</span>::<span class='ident'>Start</span>(<span class='number'>4</span>)),
-                <span class='ident'>x</span> <span class='kw'>if</span> <span class='ident'>x</span> <span class='kw-2'>&amp;</span> <span class='number'>0b1111_0000</span> <span class='op'>==</span> <span class='number'>0b1110_0000</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Some</span>(<span class='ident'>Byte</span>::<span class='ident'>Start</span>(<span class='number'>3</span>)),
-                <span class='ident'>x</span> <span class='kw'>if</span> <span class='ident'>x</span> <span class='kw-2'>&amp;</span> <span class='number'>0b111_00000</span> <span class='op'>==</span> <span class='number'>0b110_00000</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Some</span>(<span class='ident'>Byte</span>::<span class='ident'>Start</span>(<span class='number'>2</span>)),
+                <span class='ident'>x</span> <span class='kw'>if</span> <span class='ident'>x</span> <span class='op'>&amp;</span> <span class='number'>0b11111_000</span> <span class='op'>==</span> <span class='number'>0b11110_000</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Some</span>(<span class='ident'>Byte</span>::<span class='ident'>Start</span>(<span class='number'>4</span>)),
+                <span class='ident'>x</span> <span class='kw'>if</span> <span class='ident'>x</span> <span class='op'>&amp;</span> <span class='number'>0b1111_0000</span> <span class='op'>==</span> <span class='number'>0b1110_0000</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Some</span>(<span class='ident'>Byte</span>::<span class='ident'>Start</span>(<span class='number'>3</span>)),
+                <span class='ident'>x</span> <span class='kw'>if</span> <span class='ident'>x</span> <span class='op'>&amp;</span> <span class='number'>0b111_00000</span> <span class='op'>==</span> <span class='number'>0b110_00000</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Some</span>(<span class='ident'>Byte</span>::<span class='ident'>Start</span>(<span class='number'>2</span>)),
                 _ <span class='op'>=&gt;</span> <span class='prelude-val'>None</span>,
             },
             <span class='number'>0x80</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Some</span>(<span class='ident'>Byte</span>::<span class='ident'>Cont</span>),
@@ -404,14 +405,14 @@
     <span class='kw'>let</span> <span class='ident'>n</span>;
     <span class='kw'>match</span> <span class='ident'>buf</span>.<span class='ident'>len</span>() {
         <span class='number'>2</span> <span class='op'>=&gt;</span> {
-            <span class='ident'>n</span> <span class='op'>=</span> ((<span class='op'>*</span><span class='ident'>buf</span>.<span class='ident'>get_unchecked</span>(<span class='number'>0</span>) <span class='kw-2'>&amp;</span> <span class='number'>0b11111</span>) <span class='kw'>as</span> <span class='ident'>u32</span>) <span class='op'>&lt;&lt;</span> <span class='number'>6</span>
-                <span class='op'>|</span> ((<span class='op'>*</span><span class='ident'>buf</span>.<span class='ident'>get_unchecked</span>(<span class='number'>1</span>) <span class='kw-2'>&amp;</span> <span class='number'>0x3F</span>) <span class='kw'>as</span> <span class='ident'>u32</span>);
+            <span class='ident'>n</span> <span class='op'>=</span> ((<span class='kw-2'>*</span><span class='ident'>buf</span>.<span class='ident'>get_unchecked</span>(<span class='number'>0</span>) <span class='op'>&amp;</span> <span class='number'>0b11111</span>) <span class='kw'>as</span> <span class='ident'>u32</span>) <span class='op'>&lt;&lt;</span> <span class='number'>6</span>
+                <span class='op'>|</span> ((<span class='kw-2'>*</span><span class='ident'>buf</span>.<span class='ident'>get_unchecked</span>(<span class='number'>1</span>) <span class='op'>&amp;</span> <span class='number'>0x3F</span>) <span class='kw'>as</span> <span class='ident'>u32</span>);
             <span class='kw'>if</span> <span class='ident'>n</span> <span class='op'>&lt;</span> <span class='number'>0x80</span> { <span class='kw'>return</span> <span class='prelude-val'>None</span> }  <span class='comment'>// Overlong</span>
         }
         <span class='number'>3</span> <span class='op'>=&gt;</span> {
-            <span class='ident'>n</span> <span class='op'>=</span> ((<span class='op'>*</span><span class='ident'>buf</span>.<span class='ident'>get_unchecked</span>(<span class='number'>0</span>) <span class='kw-2'>&amp;</span> <span class='number'>0b1111</span>) <span class='kw'>as</span> <span class='ident'>u32</span>) <span class='op'>&lt;&lt;</span> <span class='number'>12</span>
-                <span class='op'>|</span> ((<span class='op'>*</span><span class='ident'>buf</span>.<span class='ident'>get_unchecked</span>(<span class='number'>1</span>) <span class='kw-2'>&amp;</span> <span class='number'>0x3F</span>) <span class='kw'>as</span> <span class='ident'>u32</span>) <span class='op'>&lt;&lt;</span> <span class='number'>6</span>
-                <span class='op'>|</span> ((<span class='op'>*</span><span class='ident'>buf</span>.<span class='ident'>get_unchecked</span>(<span class='number'>2</span>) <span class='kw-2'>&amp;</span> <span class='number'>0x3F</span>) <span class='kw'>as</span> <span class='ident'>u32</span>);
+            <span class='ident'>n</span> <span class='op'>=</span> ((<span class='kw-2'>*</span><span class='ident'>buf</span>.<span class='ident'>get_unchecked</span>(<span class='number'>0</span>) <span class='op'>&amp;</span> <span class='number'>0b1111</span>) <span class='kw'>as</span> <span class='ident'>u32</span>) <span class='op'>&lt;&lt;</span> <span class='number'>12</span>
+                <span class='op'>|</span> ((<span class='kw-2'>*</span><span class='ident'>buf</span>.<span class='ident'>get_unchecked</span>(<span class='number'>1</span>) <span class='op'>&amp;</span> <span class='number'>0x3F</span>) <span class='kw'>as</span> <span class='ident'>u32</span>) <span class='op'>&lt;&lt;</span> <span class='number'>6</span>
+                <span class='op'>|</span> ((<span class='kw-2'>*</span><span class='ident'>buf</span>.<span class='ident'>get_unchecked</span>(<span class='number'>2</span>) <span class='op'>&amp;</span> <span class='number'>0x3F</span>) <span class='kw'>as</span> <span class='ident'>u32</span>);
             <span class='kw'>match</span> <span class='ident'>n</span> {
                 <span class='number'>0x0000</span> ... <span class='number'>0x07FF</span> <span class='op'>=&gt;</span> <span class='kw'>return</span> <span class='prelude-val'>None</span>,  <span class='comment'>// Overlong</span>
                 <span class='number'>0xD800</span> ... <span class='number'>0xDBFF</span> <span class='op'>=&gt;</span> <span class='kw'>return</span> <span class='prelude-val'>Some</span>(<span class='ident'>Meaning</span>::<span class='ident'>LeadSurrogate</span>(<span class='ident'>n</span> <span class='kw'>as</span> <span class='ident'>u16</span> <span class='op'>-</span> <span class='number'>0xD800</span>)),
@@ -420,10 +421,10 @@
             }
         }
         <span class='number'>4</span> <span class='op'>=&gt;</span> {
-            <span class='ident'>n</span> <span class='op'>=</span> ((<span class='op'>*</span><span class='ident'>buf</span>.<span class='ident'>get_unchecked</span>(<span class='number'>0</span>) <span class='kw-2'>&amp;</span> <span class='number'>0b111</span>) <span class='kw'>as</span> <span class='ident'>u32</span>) <span class='op'>&lt;&lt;</span> <span class='number'>18</span>
-                <span class='op'>|</span> ((<span class='op'>*</span><span class='ident'>buf</span>.<span class='ident'>get_unchecked</span>(<span class='number'>1</span>) <span class='kw-2'>&amp;</span> <span class='number'>0x3F</span>) <span class='kw'>as</span> <span class='ident'>u32</span>) <span class='op'>&lt;&lt;</span> <span class='number'>12</span>
-                <span class='op'>|</span> ((<span class='op'>*</span><span class='ident'>buf</span>.<span class='ident'>get_unchecked</span>(<span class='number'>2</span>) <span class='kw-2'>&amp;</span> <span class='number'>0x3F</span>) <span class='kw'>as</span> <span class='ident'>u32</span>) <span class='op'>&lt;&lt;</span> <span class='number'>6</span>
-                <span class='op'>|</span> ((<span class='op'>*</span><span class='ident'>buf</span>.<span class='ident'>get_unchecked</span>(<span class='number'>3</span>) <span class='kw-2'>&amp;</span> <span class='number'>0x3F</span>) <span class='kw'>as</span> <span class='ident'>u32</span>);
+            <span class='ident'>n</span> <span class='op'>=</span> ((<span class='kw-2'>*</span><span class='ident'>buf</span>.<span class='ident'>get_unchecked</span>(<span class='number'>0</span>) <span class='op'>&amp;</span> <span class='number'>0b111</span>) <span class='kw'>as</span> <span class='ident'>u32</span>) <span class='op'>&lt;&lt;</span> <span class='number'>18</span>
+                <span class='op'>|</span> ((<span class='kw-2'>*</span><span class='ident'>buf</span>.<span class='ident'>get_unchecked</span>(<span class='number'>1</span>) <span class='op'>&amp;</span> <span class='number'>0x3F</span>) <span class='kw'>as</span> <span class='ident'>u32</span>) <span class='op'>&lt;&lt;</span> <span class='number'>12</span>
+                <span class='op'>|</span> ((<span class='kw-2'>*</span><span class='ident'>buf</span>.<span class='ident'>get_unchecked</span>(<span class='number'>2</span>) <span class='op'>&amp;</span> <span class='number'>0x3F</span>) <span class='kw'>as</span> <span class='ident'>u32</span>) <span class='op'>&lt;&lt;</span> <span class='number'>6</span>
+                <span class='op'>|</span> ((<span class='kw-2'>*</span><span class='ident'>buf</span>.<span class='ident'>get_unchecked</span>(<span class='number'>3</span>) <span class='op'>&amp;</span> <span class='number'>0x3F</span>) <span class='kw'>as</span> <span class='ident'>u32</span>);
             <span class='kw'>if</span> <span class='ident'>n</span> <span class='op'>&lt;</span> <span class='number'>0x1_0000</span> { <span class='kw'>return</span> <span class='prelude-val'>None</span> }  <span class='comment'>// Overlong</span>
         }
         _ <span class='op'>=&gt;</span> <span class='macro'>debug_unreachable</span><span class='macro'>!</span>(),
@@ -455,7 +456,7 @@
     }
 
     <span class='kw'>unsafe</span> {
-        <span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='op'>*</span><span class='ident'>buf</span>.<span class='ident'>get_unchecked</span>(<span class='ident'>idx</span>);
+        <span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='kw-2'>*</span><span class='ident'>buf</span>.<span class='ident'>get_unchecked</span>(<span class='ident'>idx</span>);
         <span class='kw'>match</span> <span class='macro'>otry</span><span class='macro'>!</span>(<span class='ident'>Byte</span>::<span class='ident'>classify</span>(<span class='ident'>x</span>)) {
             <span class='ident'>Byte</span>::<span class='ident'>Ascii</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Some</span>(<span class='ident'>Codepoint</span> {
                 <span class='ident'>bytes</span>: <span class='ident'>unsafe_slice</span>(<span class='ident'>buf</span>, <span class='ident'>idx</span>, <span class='number'>1</span>),
@@ -498,7 +499,7 @@
 
                     <span class='ident'>start</span> <span class='op'>-=</span> <span class='number'>1</span>;
                     <span class='ident'>checked</span> <span class='op'>+=</span> <span class='number'>1</span>;
-                    <span class='kw'>match</span> <span class='macro'>otry</span><span class='macro'>!</span>(<span class='ident'>Byte</span>::<span class='ident'>classify</span>(<span class='op'>*</span><span class='ident'>buf</span>.<span class='ident'>get_unchecked</span>(<span class='ident'>start</span>))) {
+                    <span class='kw'>match</span> <span class='macro'>otry</span><span class='macro'>!</span>(<span class='ident'>Byte</span>::<span class='ident'>classify</span>(<span class='kw-2'>*</span><span class='ident'>buf</span>.<span class='ident'>get_unchecked</span>(<span class='ident'>start</span>))) {
                         <span class='ident'>Byte</span>::<span class='ident'>Cont</span> <span class='op'>=&gt;</span> (),
                         <span class='ident'>Byte</span>::<span class='ident'>Start</span>(<span class='ident'>n</span>) <span class='op'>=&gt;</span> {
                             <span class='kw'>let</span> <span class='ident'>avail</span> <span class='op'>=</span> <span class='ident'>buf</span>.<span class='ident'>len</span>() <span class='op'>-</span> <span class='ident'>start</span>;

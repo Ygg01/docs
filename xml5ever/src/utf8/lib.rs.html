@@ -9,6 +9,7 @@
 
     <title>lib.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -805,7 +806,7 @@
 <span class='kw'>fn</span> <span class='ident'>is_continuation_byte</span>(<span class='ident'>b</span>: <span class='ident'>u8</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
     <span class='kw'>const</span> <span class='ident'>CONTINUATION_MASK</span>: <span class='ident'>u8</span> <span class='op'>=</span> <span class='number'>0b1100_0000</span>;
     <span class='kw'>const</span> <span class='ident'>CONTINUATION_TAG</span>: <span class='ident'>u8</span> <span class='op'>=</span> <span class='number'>0b1000_0000</span>;
-    <span class='ident'>b</span> <span class='kw-2'>&amp;</span> <span class='ident'>CONTINUATION_MASK</span> <span class='op'>==</span> <span class='ident'>CONTINUATION_TAG</span>
+    <span class='ident'>b</span> <span class='op'>&amp;</span> <span class='ident'>CONTINUATION_MASK</span> <span class='op'>==</span> <span class='ident'>CONTINUATION_TAG</span>
 }
 
 

@@ -9,6 +9,7 @@
 
     <title>mod.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../../main.css">
     
@@ -741,8 +742,8 @@
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>char</span>::<span class='ident'>from_u32</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>borrow</span>::<span class='ident'>Cow</span>::<span class='ident'>Borrowed</span>;
 
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>Status</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>State</span>::<span class='op'>*</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>Status</span>::<span class='kw-2'>*</span>;
+<span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>State</span>::<span class='kw-2'>*</span>;
 
 <span class='kw'>mod</span> <span class='ident'>data</span>;
 
@@ -954,7 +955,7 @@
             <span class='number'>0x01</span>...<span class='number'>0x08</span> <span class='op'>|</span> <span class='number'>0x0B</span> <span class='op'>|</span> <span class='number'>0x0D</span>...<span class='number'>0x1F</span> <span class='op'>|</span> <span class='number'>0x7F</span> <span class='op'>|</span> <span class='number'>0xFDD0</span>...<span class='number'>0xFDEF</span>
                 <span class='op'>=&gt;</span> (<span class='ident'>conv</span>(<span class='self'>self</span>.<span class='ident'>num</span>), <span class='bool-val'>true</span>),
 
-            <span class='ident'>n</span> <span class='kw'>if</span> (<span class='ident'>n</span> <span class='kw-2'>&amp;</span> <span class='number'>0xFFFE</span>) <span class='op'>==</span> <span class='number'>0xFFFE</span>
+            <span class='ident'>n</span> <span class='kw'>if</span> (<span class='ident'>n</span> <span class='op'>&amp;</span> <span class='number'>0xFFFE</span>) <span class='op'>==</span> <span class='number'>0xFFFE</span>
                 <span class='op'>=&gt;</span> (<span class='ident'>conv</span>(<span class='ident'>n</span>), <span class='bool-val'>true</span>),
 
             <span class='ident'>n</span> <span class='op'>=&gt;</span> (<span class='ident'>conv</span>(<span class='ident'>n</span>), <span class='bool-val'>false</span>),
