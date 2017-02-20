@@ -163,7 +163,7 @@ One example is <code>&amp;str</code>.</p>
 <table>
                        <tr class=' module-item'>
                            <td><a class='mod' href='value/index.html'
-                                  title='mod serde::de::value'>value</a></td>
+                                  title='serde::de::value'>value</a></td>
                            <td class='docblock-short'>
                                 <p>This module supports deserializing from primitives with the <code>ValueDeserializer</code> trait.</p>
                            </td>
@@ -171,7 +171,7 @@ One example is <code>&amp;str</code>.</p>
 <table>
                        <tr class=' module-item'>
                            <td><a class='enum' href='enum.Unexpected.html'
-                                  title='enum serde::de::Unexpected'>Unexpected</a></td>
+                                  title='serde::de::Unexpected'>Unexpected</a></td>
                            <td class='docblock-short'>
                                 <p><code>Unexpected</code> represents an unexpected invocation of any one of the <code>Visitor</code>
 trait methods.</p>
@@ -180,7 +180,7 @@ trait methods.</p>
 <table>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.Deserialize.html'
-                                  title='trait serde::de::Deserialize'>Deserialize</a></td>
+                                  title='serde::de::Deserialize'>Deserialize</a></td>
                            <td class='docblock-short'>
                                 <p>A <strong>data structure</strong> that can be deserialized from any data format supported
 by Serde.</p>
@@ -188,7 +188,7 @@ by Serde.</p>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.DeserializeSeed.html'
-                                  title='trait serde::de::DeserializeSeed'>DeserializeSeed</a></td>
+                                  title='serde::de::DeserializeSeed'>DeserializeSeed</a></td>
                            <td class='docblock-short'>
                                 <p><code>DeserializeSeed</code> is the stateful form of the <code>Deserialize</code> trait. If you
 ever find yourself looking for a way to pass data into a <code>Deserialize</code> impl,
@@ -197,7 +197,7 @@ this trait is the way to do it.</p>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.Deserializer.html'
-                                  title='trait serde::de::Deserializer'>Deserializer</a></td>
+                                  title='serde::de::Deserializer'>Deserializer</a></td>
                            <td class='docblock-short'>
                                 <p>A <strong>data format</strong> that can deserialize any data structure supported by
 Serde.</p>
@@ -205,7 +205,7 @@ Serde.</p>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.EnumVisitor.html'
-                                  title='trait serde::de::EnumVisitor'>EnumVisitor</a></td>
+                                  title='serde::de::EnumVisitor'>EnumVisitor</a></td>
                            <td class='docblock-short'>
                                 <p><code>EnumVisitor</code> is a visitor that is created by the <code>Deserializer</code> and passed
 to the <code>Deserialize</code> in order to identify which variant of an enum to
@@ -214,7 +214,7 @@ deserialize.</p>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.Error.html'
-                                  title='trait serde::de::Error'>Error</a></td>
+                                  title='serde::de::Error'>Error</a></td>
                            <td class='docblock-short'>
                                 <p>The <code>Error</code> trait allows <code>Deserialize</code> implementations to create descriptive
 error messages belonging to the <code>Deserializer</code> against which they are
@@ -223,7 +223,7 @@ currently running.</p>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.Expected.html'
-                                  title='trait serde::de::Expected'>Expected</a></td>
+                                  title='serde::de::Expected'>Expected</a></td>
                            <td class='docblock-short'>
                                 <p><code>Expected</code> represents an explanation of what data a <code>Visitor</code> was expecting
 to receive.</p>
@@ -231,21 +231,21 @@ to receive.</p>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.MapVisitor.html'
-                                  title='trait serde::de::MapVisitor'>MapVisitor</a></td>
+                                  title='serde::de::MapVisitor'>MapVisitor</a></td>
                            <td class='docblock-short'>
                                 <p><code>MapVisitor</code> visits each item in a sequence.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.SeqVisitor.html'
-                                  title='trait serde::de::SeqVisitor'>SeqVisitor</a></td>
+                                  title='serde::de::SeqVisitor'>SeqVisitor</a></td>
                            <td class='docblock-short'>
                                 <p><code>SeqVisitor</code> visits each item in a sequence.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.VariantVisitor.html'
-                                  title='trait serde::de::VariantVisitor'>VariantVisitor</a></td>
+                                  title='serde::de::VariantVisitor'>VariantVisitor</a></td>
                            <td class='docblock-short'>
                                 <p><code>VariantVisitor</code> is a visitor that is created by the <code>Deserializer</code> and
 passed to the <code>Deserialize</code> to deserialize the content of a particular enum
@@ -254,7 +254,7 @@ variant.</p>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.Visitor.html'
-                                  title='trait serde::de::Visitor'>Visitor</a></td>
+                                  title='serde::de::Visitor'>Visitor</a></td>
                            <td class='docblock-short'>
                                 <p>This trait represents a visitor that walks through a deserializer.</p>
                            </td>
