@@ -9,6 +9,7 @@
 
     <title>lib.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -162,7 +163,7 @@
 <span class='doccomment'>/// Re-export the tendril crate so that users don’t need to depend on it.</span>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>tendril</span> {
     <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>tendril</span>;
-    <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>tendril</span>::<span class='op'>*</span>;
+    <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>tendril</span>::<span class='kw-2'>*</span>;
 }
 
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>time</span> {
