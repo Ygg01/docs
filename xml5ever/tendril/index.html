@@ -9,6 +9,7 @@
 
     <title>tendril - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
     
@@ -49,25 +50,25 @@
                    </a>
                </span><a class='srclink' href='../src/tendril/lib.rs.html#7-37' title='goto source code'>[src]</a></span></h1>
 <h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
-<table><tr><td><code>pub use fmt::<a class='trait' href='../tendril/fmt/trait.Format.html' title='tendril::fmt::Format'>Format</a>;</code></td></tr><tr><td><code>pub use stream::<a class='trait' href='../tendril/stream/trait.TendrilSink.html' title='tendril::stream::TendrilSink'>TendrilSink</a>;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table><tr><td><code>pub use fmt::<a class='trait' href='../tendril/fmt/trait.Format.html' title='trait tendril::fmt::Format'>Format</a>;</code></td></tr><tr><td><code>pub use stream::<a class='trait' href='../tendril/stream/trait.TendrilSink.html' title='trait tendril::stream::TendrilSink'>TendrilSink</a>;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
                        <tr class=' module-item'>
                            <td><a class='mod' href='encoding/index.html'
-                                  title='tendril::encoding'>encoding</a></td>
+                                  title='mod tendril::encoding'>encoding</a></td>
                            <td class='docblock-short'>
                                 <p>Re-export the rust-encoding crate.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='mod' href='fmt/index.html'
-                                  title='tendril::fmt'>fmt</a></td>
+                                  title='mod tendril::fmt'>fmt</a></td>
                            <td class='docblock-short'>
                                 <p>Marker types for formats.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='mod' href='stream/index.html'
-                                  title='tendril::stream'>stream</a></td>
+                                  title='mod tendril::stream'>stream</a></td>
                            <td class='docblock-short'>
                                 <p>Streams of tendrils.</p>
                            </td>
@@ -75,7 +76,7 @@
 <table>
                        <tr class=' module-item'>
                            <td><a class='macro' href='macro.format_tendril.html'
-                                  title='tendril::format_tendril'>format_tendril</a></td>
+                                  title='macro tendril::format_tendril'>format_tendril</a></td>
                            <td class='docblock-short'>
                                 <p>Create a <code>StrTendril</code> through string formatting.</p>
                            </td>
@@ -83,28 +84,28 @@
 <table>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.Atomic.html'
-                                  title='tendril::Atomic'>Atomic</a></td>
+                                  title='struct tendril::Atomic'>Atomic</a></td>
                            <td class='docblock-short'>
                                 <p>A marker of an atomic (and hence concurrent) tendril.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.NonAtomic.html'
-                                  title='tendril::NonAtomic'>NonAtomic</a></td>
+                                  title='struct tendril::NonAtomic'>NonAtomic</a></td>
                            <td class='docblock-short'>
                                 <p>A marker of a non-atomic tendril.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.SendTendril.html'
-                                  title='tendril::SendTendril'>SendTendril</a></td>
+                                  title='struct tendril::SendTendril'>SendTendril</a></td>
                            <td class='docblock-short'>
                                 <p>A simple wrapper to make <code>Tendril</code> <code>Send</code>.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.Tendril.html'
-                                  title='tendril::Tendril'>Tendril</a></td>
+                                  title='struct tendril::Tendril'>Tendril</a></td>
                            <td class='docblock-short'>
                                 <p>Compact string type for zero-copy parsing.</p>
                            </td>
@@ -112,7 +113,7 @@
 <table>
                        <tr class=' module-item'>
                            <td><a class='enum' href='enum.SubtendrilError.html'
-                                  title='tendril::SubtendrilError'>SubtendrilError</a></td>
+                                  title='enum tendril::SubtendrilError'>SubtendrilError</a></td>
                            <td class='docblock-short'>
                                 <p>Errors that can occur when slicing a <code>Tendril</code>.</p>
                            </td>
@@ -120,21 +121,21 @@
 <table>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.Atomicity.html'
-                                  title='tendril::Atomicity'>Atomicity</a></td>
+                                  title='trait tendril::Atomicity'>Atomicity</a></td>
                            <td class='docblock-short'>
                                 <p>The multithreadedness of a tendril.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.ReadExt.html'
-                                  title='tendril::ReadExt'>ReadExt</a></td>
+                                  title='trait tendril::ReadExt'>ReadExt</a></td>
                            <td class='docblock-short'>
                                 <p>Extension trait for <code>io::Read</code>.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.SliceExt.html'
-                                  title='tendril::SliceExt'>SliceExt</a></td>
+                                  title='trait tendril::SliceExt'>SliceExt</a></td>
                            <td class='docblock-short'>
                                 <p><code>Tendril</code>-related methods for Rust slices.</p>
                            </td>
@@ -142,14 +143,14 @@
 <table>
                        <tr class=' module-item'>
                            <td><a class='type' href='type.ByteTendril.html'
-                                  title='tendril::ByteTendril'>ByteTendril</a></td>
+                                  title='type tendril::ByteTendril'>ByteTendril</a></td>
                            <td class='docblock-short'>
                                 <p><code>Tendril</code> for storing binary data.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='type' href='type.StrTendril.html'
-                                  title='tendril::StrTendril'>StrTendril</a></td>
+                                  title='type tendril::StrTendril'>StrTendril</a></td>
                            <td class='docblock-short'>
                                 <p><code>Tendril</code> for storing native Rust strings.</p>
                            </td>
