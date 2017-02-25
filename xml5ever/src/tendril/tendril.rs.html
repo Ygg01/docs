@@ -9,7 +9,6 @@
 
     <title>tendril.rs.html -- source</title>
 
-    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -2488,7 +2487,7 @@
     <span class='ident'>ptr</span>: <span class='ident'>Cell</span><span class='op'>&lt;</span><span class='ident'>NonZero</span><span class='op'>&lt;</span><span class='ident'>usize</span><span class='op'>&gt;&gt;</span>,
     <span class='ident'>len</span>: <span class='ident'>u32</span>,
     <span class='ident'>aux</span>: <span class='ident'>Cell</span><span class='op'>&lt;</span><span class='ident'>u32</span><span class='op'>&gt;</span>,
-    <span class='ident'>marker</span>: <span class='ident'>PhantomData</span><span class='op'>&lt;</span><span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>F</span><span class='op'>&gt;</span>,
+    <span class='ident'>marker</span>: <span class='ident'>PhantomData</span><span class='op'>&lt;</span><span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>F</span><span class='op'>&gt;</span>,
     <span class='ident'>refcount_marker</span>: <span class='ident'>PhantomData</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>,
 }
 
@@ -2508,7 +2507,7 @@
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>clone</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Tendril</span><span class='op'>&lt;</span><span class='ident'>F</span>, <span class='ident'>A</span><span class='op'>&gt;</span> {
         <span class='kw'>unsafe</span> {
-            <span class='kw'>if</span> <span class='kw-2'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>() <span class='op'>&gt;</span> <span class='ident'>MAX_INLINE_TAG</span> {
+            <span class='kw'>if</span> <span class='op'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>() <span class='op'>&gt;</span> <span class='ident'>MAX_INLINE_TAG</span> {
                 <span class='self'>self</span>.<span class='ident'>make_buf_shared</span>();
                 <span class='self'>self</span>.<span class='ident'>incref</span>();
             }
@@ -2525,7 +2524,7 @@
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
         <span class='kw'>unsafe</span> {
-            <span class='kw'>let</span> <span class='ident'>p</span> <span class='op'>=</span> <span class='kw-2'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>();
+            <span class='kw'>let</span> <span class='ident'>p</span> <span class='op'>=</span> <span class='op'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>();
             <span class='kw'>if</span> <span class='ident'>p</span> <span class='op'>&lt;=</span> <span class='ident'>MAX_INLINE_TAG</span> {
                 <span class='kw'>return</span>;
             }
@@ -2533,7 +2532,7 @@
             <span class='kw'>let</span> (<span class='ident'>buf</span>, <span class='ident'>shared</span>, _) <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>assume_buf</span>();
             <span class='kw'>if</span> <span class='ident'>shared</span> {
                 <span class='kw'>let</span> <span class='ident'>header</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>header</span>();
-                <span class='kw'>if</span> (<span class='kw-2'>*</span><span class='ident'>header</span>).<span class='ident'>refcount</span>.<span class='ident'>decrement</span>() <span class='op'>==</span> <span class='number'>1</span> {
+                <span class='kw'>if</span> (<span class='op'>*</span><span class='ident'>header</span>).<span class='ident'>refcount</span>.<span class='ident'>decrement</span>() <span class='op'>==</span> <span class='number'>1</span> {
                     <span class='ident'>A</span>::<span class='ident'>fence_acquire</span>();
                     <span class='ident'>buf</span>.<span class='ident'>destroy</span>();
                 }
@@ -2745,7 +2744,7 @@
 {
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>partial_cmp</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>other</span>: <span class='kw-2'>&amp;</span><span class='self'>Self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Ordering</span><span class='op'>&gt;</span> {
-        <span class='ident'>PartialOrd</span>::<span class='ident'>partial_cmp</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='kw-2'>*</span><span class='self'>self</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='kw-2'>*</span><span class='ident'>other</span>)
+        <span class='ident'>PartialOrd</span>::<span class='ident'>partial_cmp</span>(<span class='kw-2'>&amp;</span><span class='op'>*</span><span class='op'>*</span><span class='self'>self</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='op'>*</span><span class='ident'>other</span>)
     }
 }
 
@@ -2756,7 +2755,7 @@
 {
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>cmp</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>other</span>: <span class='kw-2'>&amp;</span><span class='self'>Self</span>) <span class='op'>-&gt;</span> <span class='ident'>Ordering</span> {
-        <span class='ident'>Ord</span>::<span class='ident'>cmp</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='kw-2'>*</span><span class='self'>self</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='kw-2'>*</span><span class='ident'>other</span>)
+        <span class='ident'>Ord</span>::<span class='ident'>cmp</span>(<span class='kw-2'>&amp;</span><span class='op'>*</span><span class='op'>*</span><span class='self'>self</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='op'>*</span><span class='ident'>other</span>)
     }
 }
 
@@ -2777,14 +2776,14 @@
 {
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>strfmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>strfmt</span>::<span class='prelude-ty'>Result</span> {
-        <span class='kw'>let</span> <span class='ident'>kind</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='kw-2'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>() {
+        <span class='kw'>let</span> <span class='ident'>kind</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>() {
             <span class='ident'>p</span> <span class='kw'>if</span> <span class='ident'>p</span> <span class='op'>&lt;=</span> <span class='ident'>MAX_INLINE_TAG</span> <span class='op'>=&gt;</span> <span class='string'>&quot;inline&quot;</span>,
-            <span class='ident'>p</span> <span class='kw'>if</span> <span class='ident'>p</span> <span class='op'>&amp;</span> <span class='number'>1</span> <span class='op'>==</span> <span class='number'>1</span> <span class='op'>=&gt;</span> <span class='string'>&quot;shared&quot;</span>,
+            <span class='ident'>p</span> <span class='kw'>if</span> <span class='ident'>p</span> <span class='kw-2'>&amp;</span> <span class='number'>1</span> <span class='op'>==</span> <span class='number'>1</span> <span class='op'>=&gt;</span> <span class='string'>&quot;shared&quot;</span>,
             _ <span class='op'>=&gt;</span> <span class='string'>&quot;owned&quot;</span>,
         };
 
         <span class='macro'>try</span><span class='macro'>!</span>(<span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>f</span>, <span class='string'>&quot;Tendril&lt;{:?}&gt;({}: &quot;</span>, <span class='op'>&lt;</span><span class='ident'>F</span> <span class='kw'>as</span> <span class='ident'>Default</span><span class='op'>&gt;</span>::<span class='ident'>default</span>(), <span class='ident'>kind</span>));
-        <span class='macro'>try</span><span class='macro'>!</span>(<span class='op'>&lt;&lt;</span><span class='ident'>F</span> <span class='kw'>as</span> <span class='ident'>fmt</span>::<span class='ident'>SliceFormat</span><span class='op'>&gt;</span>::<span class='ident'>Slice</span> <span class='kw'>as</span> <span class='ident'>strfmt</span>::<span class='ident'>Debug</span><span class='op'>&gt;</span>::<span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='kw-2'>*</span><span class='self'>self</span>, <span class='ident'>f</span>));
+        <span class='macro'>try</span><span class='macro'>!</span>(<span class='op'>&lt;&lt;</span><span class='ident'>F</span> <span class='kw'>as</span> <span class='ident'>fmt</span>::<span class='ident'>SliceFormat</span><span class='op'>&gt;</span>::<span class='ident'>Slice</span> <span class='kw'>as</span> <span class='ident'>strfmt</span>::<span class='ident'>Debug</span><span class='op'>&gt;</span>::<span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='op'>*</span><span class='op'>*</span><span class='self'>self</span>, <span class='ident'>f</span>));
         <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>f</span>, <span class='string'>&quot;)&quot;</span>)
     }
 }
@@ -2853,7 +2852,7 @@
     <span class='doccomment'>/// slice, if any.</span>
     <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>len32</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>u32</span> {
-        <span class='kw'>match</span> <span class='kw-2'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>() {
+        <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>() {
             <span class='ident'>EMPTY_TAG</span> <span class='op'>=&gt;</span> <span class='number'>0</span>,
             <span class='ident'>n</span> <span class='kw'>if</span> <span class='ident'>n</span> <span class='op'>&lt;=</span> <span class='ident'>MAX_INLINE_LEN</span> <span class='op'>=&gt;</span> <span class='ident'>n</span> <span class='kw'>as</span> <span class='ident'>u32</span>,
             _ <span class='op'>=&gt;</span> <span class='self'>self</span>.<span class='ident'>len</span>,
@@ -2863,29 +2862,29 @@
     <span class='doccomment'>/// Is the backing buffer shared?</span>
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_shared</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
-        <span class='kw'>let</span> <span class='ident'>n</span> <span class='op'>=</span> <span class='kw-2'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>();
+        <span class='kw'>let</span> <span class='ident'>n</span> <span class='op'>=</span> <span class='op'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>();
 
-        (<span class='ident'>n</span> <span class='op'>&gt;</span> <span class='ident'>MAX_INLINE_TAG</span>) <span class='op'>&amp;&amp;</span> ((<span class='ident'>n</span> <span class='op'>&amp;</span> <span class='number'>1</span>) <span class='op'>==</span> <span class='number'>1</span>)
+        (<span class='ident'>n</span> <span class='op'>&gt;</span> <span class='ident'>MAX_INLINE_TAG</span>) <span class='op'>&amp;&amp;</span> ((<span class='ident'>n</span> <span class='kw-2'>&amp;</span> <span class='number'>1</span>) <span class='op'>==</span> <span class='number'>1</span>)
     }
 
     <span class='doccomment'>/// Is the backing buffer shared with this other `Tendril`?</span>
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_shared_with</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>other</span>: <span class='kw-2'>&amp;</span><span class='ident'>Tendril</span><span class='op'>&lt;</span><span class='ident'>F</span>, <span class='ident'>A</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
-        <span class='kw'>let</span> <span class='ident'>n</span> <span class='op'>=</span> <span class='kw-2'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>();
+        <span class='kw'>let</span> <span class='ident'>n</span> <span class='op'>=</span> <span class='op'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>();
 
-        (<span class='ident'>n</span> <span class='op'>&gt;</span> <span class='ident'>MAX_INLINE_TAG</span>) <span class='op'>&amp;&amp;</span> (<span class='ident'>n</span> <span class='op'>==</span> <span class='kw-2'>*</span><span class='ident'>other</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>())
+        (<span class='ident'>n</span> <span class='op'>&gt;</span> <span class='ident'>MAX_INLINE_TAG</span>) <span class='op'>&amp;&amp;</span> (<span class='ident'>n</span> <span class='op'>==</span> <span class='op'>*</span><span class='ident'>other</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>())
     }
 
     <span class='doccomment'>/// Truncate to length 0 without discarding any owned storage.</span>
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>clear</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>if</span> <span class='kw-2'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>() <span class='op'>&lt;=</span> <span class='ident'>MAX_INLINE_TAG</span> {
+        <span class='kw'>if</span> <span class='op'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>() <span class='op'>&lt;=</span> <span class='ident'>MAX_INLINE_TAG</span> {
             <span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>set</span>(<span class='kw'>unsafe</span> { <span class='ident'>NonZero</span>::<span class='ident'>new</span>(<span class='ident'>EMPTY_TAG</span>) });
         } <span class='kw'>else</span> {
             <span class='kw'>let</span> (_, <span class='ident'>shared</span>, _) <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='self'>self</span>.<span class='ident'>assume_buf</span>() };
             <span class='kw'>if</span> <span class='ident'>shared</span> {
                 <span class='comment'>// No need to keep a reference alive for a 0-size slice.</span>
-                <span class='kw-2'>*</span><span class='self'>self</span> <span class='op'>=</span> <span class='ident'>Tendril</span>::<span class='ident'>new</span>();
+                <span class='op'>*</span><span class='self'>self</span> <span class='op'>=</span> <span class='ident'>Tendril</span>::<span class='ident'>new</span>();
             } <span class='kw'>else</span> {
                 <span class='self'>self</span>.<span class='ident'>len</span> <span class='op'>=</span> <span class='number'>0</span>;
             }
@@ -3014,7 +3013,7 @@
         <span class='kw'>let</span> <span class='ident'>new_len</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>len32</span>().<span class='ident'>checked_add</span>(<span class='ident'>other</span>.<span class='ident'>len32</span>()).<span class='ident'>expect</span>(<span class='ident'>OFLOW</span>);
 
         <span class='kw'>unsafe</span> {
-            <span class='kw'>if</span> (<span class='kw-2'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>() <span class='op'>&gt;</span> <span class='ident'>MAX_INLINE_TAG</span>) <span class='op'>&amp;&amp;</span> (<span class='kw-2'>*</span><span class='ident'>other</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>() <span class='op'>&gt;</span> <span class='ident'>MAX_INLINE_TAG</span>) {
+            <span class='kw'>if</span> (<span class='op'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>() <span class='op'>&gt;</span> <span class='ident'>MAX_INLINE_TAG</span>) <span class='op'>&amp;&amp;</span> (<span class='op'>*</span><span class='ident'>other</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>() <span class='op'>&gt;</span> <span class='ident'>MAX_INLINE_TAG</span>) {
                 <span class='kw'>let</span> (<span class='ident'>self_buf</span>, <span class='ident'>self_shared</span>, _) <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>assume_buf</span>();
                 <span class='kw'>let</span> (<span class='ident'>other_buf</span>, <span class='ident'>other_shared</span>, _) <span class='op'>=</span> <span class='ident'>other</span>.<span class='ident'>assume_buf</span>();
 
@@ -3190,7 +3189,7 @@
                 <span class='ident'>copy_and_advance</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>dest</span>, <span class='ident'>unsafe_slice</span>(<span class='kw-2'>&amp;</span><span class='ident'>insert_bytes</span>, <span class='number'>0</span>, <span class='ident'>insert_len</span> <span class='kw'>as</span> <span class='ident'>usize</span>));
                 <span class='ident'>copy_and_advance</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>dest</span>, <span class='ident'>unsafe_slice</span>(<span class='ident'>buf</span>, <span class='ident'>drop_right</span>, <span class='ident'>buf</span>.<span class='ident'>len</span>() <span class='op'>-</span> <span class='ident'>drop_right</span>));
             }
-            <span class='kw-2'>*</span><span class='self'>self</span> <span class='op'>=</span> <span class='ident'>Tendril</span>::<span class='ident'>inline</span>(<span class='kw-2'>&amp;</span><span class='ident'>tmp</span>[..<span class='ident'>new_len</span> <span class='kw'>as</span> <span class='ident'>usize</span>]);
+            <span class='op'>*</span><span class='self'>self</span> <span class='op'>=</span> <span class='ident'>Tendril</span>::<span class='ident'>inline</span>(<span class='kw-2'>&amp;</span><span class='ident'>tmp</span>[..<span class='ident'>new_len</span> <span class='kw'>as</span> <span class='ident'>usize</span>]);
         } <span class='kw'>else</span> {
             <span class='self'>self</span>.<span class='ident'>make_owned_with_capacity</span>(<span class='ident'>new_len</span>);
             <span class='kw'>let</span> (<span class='ident'>owned</span>, _, _) <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>assume_buf</span>();
@@ -3224,7 +3223,7 @@
     <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_pop_front</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>n</span>: <span class='ident'>u32</span>) {
         <span class='kw'>let</span> <span class='ident'>new_len</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>len32</span>() <span class='op'>-</span> <span class='ident'>n</span>;
         <span class='kw'>if</span> <span class='ident'>new_len</span> <span class='op'>&lt;=</span> <span class='ident'>MAX_INLINE_LEN</span> <span class='kw'>as</span> <span class='ident'>u32</span> {
-             <span class='kw-2'>*</span><span class='self'>self</span> <span class='op'>=</span> <span class='ident'>Tendril</span>::<span class='ident'>inline</span>(<span class='ident'>unsafe_slice</span>(<span class='self'>self</span>.<span class='ident'>as_byte_slice</span>(),
+             <span class='op'>*</span><span class='self'>self</span> <span class='op'>=</span> <span class='ident'>Tendril</span>::<span class='ident'>inline</span>(<span class='ident'>unsafe_slice</span>(<span class='self'>self</span>.<span class='ident'>as_byte_slice</span>(),
                 <span class='ident'>n</span> <span class='kw'>as</span> <span class='ident'>usize</span>, <span class='ident'>new_len</span> <span class='kw'>as</span> <span class='ident'>usize</span>));
         } <span class='kw'>else</span> {
             <span class='self'>self</span>.<span class='ident'>make_buf_shared</span>();
@@ -3240,7 +3239,7 @@
     <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_pop_back</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>n</span>: <span class='ident'>u32</span>) {
         <span class='kw'>let</span> <span class='ident'>new_len</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>len32</span>() <span class='op'>-</span> <span class='ident'>n</span>;
         <span class='kw'>if</span> <span class='ident'>new_len</span> <span class='op'>&lt;=</span> <span class='ident'>MAX_INLINE_LEN</span> <span class='kw'>as</span> <span class='ident'>u32</span> {
-             <span class='kw-2'>*</span><span class='self'>self</span> <span class='op'>=</span> <span class='ident'>Tendril</span>::<span class='ident'>inline</span>(<span class='ident'>unsafe_slice</span>(<span class='self'>self</span>.<span class='ident'>as_byte_slice</span>(),
+             <span class='op'>*</span><span class='self'>self</span> <span class='op'>=</span> <span class='ident'>Tendril</span>::<span class='ident'>inline</span>(<span class='ident'>unsafe_slice</span>(<span class='self'>self</span>.<span class='ident'>as_byte_slice</span>(),
                 <span class='number'>0</span>, <span class='ident'>new_len</span> <span class='kw'>as</span> <span class='ident'>usize</span>));
         } <span class='kw'>else</span> {
             <span class='self'>self</span>.<span class='ident'>make_buf_shared</span>();
@@ -3250,15 +3249,15 @@
 
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>incref</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) {
-        (<span class='kw-2'>*</span><span class='self'>self</span>.<span class='ident'>header</span>()).<span class='ident'>refcount</span>.<span class='ident'>increment</span>();
+        (<span class='op'>*</span><span class='self'>self</span>.<span class='ident'>header</span>()).<span class='ident'>refcount</span>.<span class='ident'>increment</span>();
     }
 
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>make_buf_shared</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) {
-        <span class='kw'>let</span> <span class='ident'>p</span> <span class='op'>=</span> <span class='kw-2'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>();
-        <span class='kw'>if</span> <span class='ident'>p</span> <span class='op'>&amp;</span> <span class='number'>1</span> <span class='op'>==</span> <span class='number'>0</span> {
-            <span class='kw'>let</span> <span class='ident'>header</span> <span class='op'>=</span> <span class='ident'>p</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>Header</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>;
-            (<span class='kw-2'>*</span><span class='ident'>header</span>).<span class='ident'>cap</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>aux</span>.<span class='ident'>get</span>();
+        <span class='kw'>let</span> <span class='ident'>p</span> <span class='op'>=</span> <span class='op'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>();
+        <span class='kw'>if</span> <span class='ident'>p</span> <span class='kw-2'>&amp;</span> <span class='number'>1</span> <span class='op'>==</span> <span class='number'>0</span> {
+            <span class='kw'>let</span> <span class='ident'>header</span> <span class='op'>=</span> <span class='ident'>p</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>Header</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>;
+            (<span class='op'>*</span><span class='ident'>header</span>).<span class='ident'>cap</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>aux</span>.<span class='ident'>get</span>();
 
             <span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>set</span>(<span class='ident'>NonZero</span>::<span class='ident'>new</span>(<span class='ident'>p</span> <span class='op'>|</span> <span class='number'>1</span>));
             <span class='self'>self</span>.<span class='ident'>aux</span>.<span class='ident'>set</span>(<span class='number'>0</span>);
@@ -3271,9 +3270,9 @@
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>make_owned</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
         <span class='kw'>unsafe</span> {
-            <span class='kw'>let</span> <span class='ident'>ptr</span> <span class='op'>=</span> <span class='kw-2'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>();
-            <span class='kw'>if</span> <span class='ident'>ptr</span> <span class='op'>&lt;=</span> <span class='ident'>MAX_INLINE_TAG</span> <span class='op'>||</span> (<span class='ident'>ptr</span> <span class='op'>&amp;</span> <span class='number'>1</span>) <span class='op'>==</span> <span class='number'>1</span> {
-                <span class='kw-2'>*</span><span class='self'>self</span> <span class='op'>=</span> <span class='ident'>Tendril</span>::<span class='ident'>owned_copy</span>(<span class='self'>self</span>.<span class='ident'>as_byte_slice</span>());
+            <span class='kw'>let</span> <span class='ident'>ptr</span> <span class='op'>=</span> <span class='op'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>();
+            <span class='kw'>if</span> <span class='ident'>ptr</span> <span class='op'>&lt;=</span> <span class='ident'>MAX_INLINE_TAG</span> <span class='op'>||</span> (<span class='ident'>ptr</span> <span class='kw-2'>&amp;</span> <span class='number'>1</span>) <span class='op'>==</span> <span class='number'>1</span> {
+                <span class='op'>*</span><span class='self'>self</span> <span class='op'>=</span> <span class='ident'>Tendril</span>::<span class='ident'>owned_copy</span>(<span class='self'>self</span>.<span class='ident'>as_byte_slice</span>());
             }
         }
     }
@@ -3288,17 +3287,17 @@
     }
 
     <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
-    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>header</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>Header</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> {
-        (<span class='kw-2'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>() <span class='op'>&amp;</span> <span class='op'>!</span><span class='number'>1</span>) <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>Header</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>
+    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>header</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>Header</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> {
+        (<span class='op'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>() <span class='kw-2'>&amp;</span> <span class='op'>!</span><span class='number'>1</span>) <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>Header</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>
     }
 
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>assume_buf</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> (<span class='ident'>Buf32</span><span class='op'>&lt;</span><span class='ident'>Header</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;&gt;</span>, <span class='ident'>bool</span>, <span class='ident'>u32</span>) {
         <span class='kw'>let</span> <span class='ident'>ptr</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>();
         <span class='kw'>let</span> <span class='ident'>header</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>header</span>();
-        <span class='kw'>let</span> <span class='ident'>shared</span> <span class='op'>=</span> (<span class='kw-2'>*</span><span class='ident'>ptr</span> <span class='op'>&amp;</span> <span class='number'>1</span>) <span class='op'>==</span> <span class='number'>1</span>;
+        <span class='kw'>let</span> <span class='ident'>shared</span> <span class='op'>=</span> (<span class='op'>*</span><span class='ident'>ptr</span> <span class='kw-2'>&amp;</span> <span class='number'>1</span>) <span class='op'>==</span> <span class='number'>1</span>;
         <span class='kw'>let</span> (<span class='ident'>cap</span>, <span class='ident'>offset</span>) <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>shared</span> {
-            <span class='bool-val'>true</span> <span class='op'>=&gt;</span> ((<span class='kw-2'>*</span><span class='ident'>header</span>).<span class='ident'>cap</span>, <span class='self'>self</span>.<span class='ident'>aux</span>.<span class='ident'>get</span>()),
+            <span class='bool-val'>true</span> <span class='op'>=&gt;</span> ((<span class='op'>*</span><span class='ident'>header</span>).<span class='ident'>cap</span>, <span class='self'>self</span>.<span class='ident'>aux</span>.<span class='ident'>get</span>()),
             <span class='bool-val'>false</span> <span class='op'>=&gt;</span> (<span class='self'>self</span>.<span class='ident'>aux</span>.<span class='ident'>get</span>(), <span class='number'>0</span>),
         };
 
@@ -3319,7 +3318,7 @@
             <span class='ident'>marker</span>: <span class='ident'>PhantomData</span>,
             <span class='ident'>refcount_marker</span>: <span class='ident'>PhantomData</span>,
         };
-        <span class='ident'>ptr</span>::<span class='ident'>copy_nonoverlapping</span>(<span class='ident'>x</span>.<span class='ident'>as_ptr</span>(), <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>t</span>.<span class='ident'>len</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>u32</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>u8</span>, <span class='ident'>len</span>);
+        <span class='ident'>ptr</span>::<span class='ident'>copy_nonoverlapping</span>(<span class='ident'>x</span>.<span class='ident'>as_ptr</span>(), <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>t</span>.<span class='ident'>len</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>u32</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>u8</span>, <span class='ident'>len</span>);
         <span class='ident'>t</span>
     }
 
@@ -3357,10 +3356,10 @@
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>as_byte_slice</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> [<span class='ident'>u8</span>] {
         <span class='kw'>unsafe</span> {
-            <span class='kw'>match</span> <span class='kw-2'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>() {
+            <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>() {
                 <span class='ident'>EMPTY_TAG</span> <span class='op'>=&gt;</span> <span class='kw-2'>&amp;</span>[],
                 <span class='ident'>n</span> <span class='kw'>if</span> <span class='ident'>n</span> <span class='op'>&lt;=</span> <span class='ident'>MAX_INLINE_LEN</span> <span class='op'>=&gt;</span> {
-                    <span class='ident'>slice</span>::<span class='ident'>from_raw_parts</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>len</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>u32</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>, <span class='ident'>n</span>)
+                    <span class='ident'>slice</span>::<span class='ident'>from_raw_parts</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>len</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u32</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>, <span class='ident'>n</span>)
                 }
                 _ <span class='op'>=&gt;</span> {
                     <span class='kw'>let</span> (<span class='ident'>buf</span>, _, <span class='ident'>offset</span>) <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>assume_buf</span>();
@@ -3376,10 +3375,10 @@
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>as_mut_byte_slice</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> [<span class='ident'>u8</span>] {
         <span class='kw'>unsafe</span> {
-            <span class='kw'>match</span> <span class='kw-2'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>() {
+            <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>() {
                 <span class='ident'>EMPTY_TAG</span> <span class='op'>=&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [],
                 <span class='ident'>n</span> <span class='kw'>if</span> <span class='ident'>n</span> <span class='op'>&lt;=</span> <span class='ident'>MAX_INLINE_LEN</span> <span class='op'>=&gt;</span> {
-                    <span class='ident'>slice</span>::<span class='ident'>from_raw_parts_mut</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>len</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>u32</span> <span class='kw'>as</span> <span class='kw-2'>*</span><span class='kw-2'>mut</span> <span class='ident'>u8</span>, <span class='ident'>n</span>)
+                    <span class='ident'>slice</span>::<span class='ident'>from_raw_parts_mut</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>len</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>u32</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>u8</span>, <span class='ident'>n</span>)
                 }
                 _ <span class='op'>=&gt;</span> {
                     <span class='self'>self</span>.<span class='ident'>make_owned</span>();
@@ -3661,7 +3660,7 @@
         <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Tendril</span><span class='op'>&lt;</span><span class='ident'>fmt</span>::<span class='ident'>UTF8</span>, <span class='ident'>A</span><span class='op'>&gt;</span>, <span class='ident'>Cow</span><span class='op'>&lt;</span><span class='lifetime'>&#39;static</span>, <span class='ident'>str</span><span class='op'>&gt;&gt;</span>
     {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='ident'>Tendril</span>::<span class='ident'>new</span>();
-        <span class='ident'>encoding</span>.<span class='ident'>decode_to</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='self'>self</span>, <span class='ident'>trap</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>ret</span>).<span class='ident'>map</span>(<span class='op'>|</span>_<span class='op'>|</span> <span class='ident'>ret</span>)
+        <span class='ident'>encoding</span>.<span class='ident'>decode_to</span>(<span class='kw-2'>&amp;</span><span class='op'>*</span><span class='self'>self</span>, <span class='ident'>trap</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>ret</span>).<span class='ident'>map</span>(<span class='op'>|</span>_<span class='op'>|</span> <span class='ident'>ret</span>)
     }
 
     <span class='doccomment'>/// Push &quot;uninitialized bytes&quot; onto the end.</span>
@@ -3673,7 +3672,7 @@
     <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>push_uninitialized</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>n</span>: <span class='ident'>u32</span>) {
         <span class='kw'>let</span> <span class='ident'>new_len</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>len32</span>().<span class='ident'>checked_add</span>(<span class='ident'>n</span>).<span class='ident'>expect</span>(<span class='ident'>OFLOW</span>);
         <span class='kw'>if</span> <span class='ident'>new_len</span> <span class='op'>&lt;=</span> <span class='ident'>MAX_INLINE_LEN</span> <span class='kw'>as</span> <span class='ident'>u32</span>
-            <span class='op'>&amp;&amp;</span> <span class='kw-2'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>() <span class='op'>&lt;=</span> <span class='ident'>MAX_INLINE_TAG</span>
+            <span class='op'>&amp;&amp;</span> <span class='op'>*</span><span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>get</span>() <span class='op'>&lt;=</span> <span class='ident'>MAX_INLINE_TAG</span>
         {
             <span class='self'>self</span>.<span class='ident'>ptr</span>.<span class='ident'>set</span>(<span class='ident'>inline_tag</span>(<span class='ident'>new_len</span>))
         } <span class='kw'>else</span> {
@@ -3688,7 +3687,7 @@
 {
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>strfmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>strfmt</span>::<span class='prelude-ty'>Result</span> {
-        <span class='op'>&lt;</span><span class='ident'>str</span> <span class='kw'>as</span> <span class='ident'>strfmt</span>::<span class='ident'>Display</span><span class='op'>&gt;</span>::<span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='kw-2'>*</span><span class='self'>self</span>, <span class='ident'>f</span>)
+        <span class='op'>&lt;</span><span class='ident'>str</span> <span class='kw'>as</span> <span class='ident'>strfmt</span>::<span class='ident'>Display</span><span class='op'>&gt;</span>::<span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='op'>*</span><span class='op'>*</span><span class='self'>self</span>, <span class='ident'>f</span>)
     }
 }
 
@@ -3744,7 +3743,7 @@
         <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Tendril</span><span class='op'>&lt;</span><span class='ident'>fmt</span>::<span class='ident'>Bytes</span>, <span class='ident'>A</span><span class='op'>&gt;</span>, <span class='ident'>Cow</span><span class='op'>&lt;</span><span class='lifetime'>&#39;static</span>, <span class='ident'>str</span><span class='op'>&gt;&gt;</span>
     {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='ident'>Tendril</span>::<span class='ident'>new</span>();
-        <span class='ident'>encoding</span>.<span class='ident'>encode_to</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='self'>self</span>, <span class='ident'>trap</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>ret</span>).<span class='ident'>map</span>(<span class='op'>|</span>_<span class='op'>|</span> <span class='ident'>ret</span>)
+        <span class='ident'>encoding</span>.<span class='ident'>encode_to</span>(<span class='kw-2'>&amp;</span><span class='op'>*</span><span class='self'>self</span>, <span class='ident'>trap</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>ret</span>).<span class='ident'>map</span>(<span class='op'>|</span>_<span class='op'>|</span> <span class='ident'>ret</span>)
     }
 
     <span class='doccomment'>/// Push a character onto the end.</span>
@@ -3785,7 +3784,7 @@
 <span class='doccomment'>/// Works just like the standard `format!` macro.</span>
 <span class='attribute'>#[<span class='ident'>macro_export</span>]</span>
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>format_tendril</span> {
-    ($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg</span>:<span class='ident'>tt</span>)<span class='kw-2'>*</span>) <span class='op'>=&gt;</span> (<span class='macro-nonterminal'>$</span><span class='kw'>crate</span>::<span class='macro-nonterminal'>StrTendril</span>::<span class='ident'>format</span>(<span class='macro'>format_args</span><span class='macro'>!</span>($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg</span>)<span class='kw-2'>*</span>)))
+    ($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg</span>:<span class='ident'>tt</span>)<span class='op'>*</span>) <span class='op'>=&gt;</span> (<span class='macro-nonterminal'>$</span><span class='kw'>crate</span>::<span class='macro-nonterminal'>StrTendril</span>::<span class='ident'>format</span>(<span class='macro'>format_args</span><span class='macro'>!</span>($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg</span>)<span class='op'>*</span>)))
 }
 
 
@@ -3804,7 +3803,7 @@
 {
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>from</span>(<span class='ident'>input</span>: <span class='ident'>String</span>) <span class='op'>-&gt;</span> <span class='ident'>Tendril</span><span class='op'>&lt;</span><span class='ident'>fmt</span>::<span class='ident'>UTF8</span>, <span class='ident'>A</span><span class='op'>&gt;</span> {
-        <span class='ident'>Tendril</span>::<span class='ident'>from_slice</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>input</span>)
+        <span class='ident'>Tendril</span>::<span class='ident'>from_slice</span>(<span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>input</span>)
     }
 }
 
@@ -3814,7 +3813,7 @@
 {
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>as_ref</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>F</span>::<span class='ident'>Slice</span> {
-        <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='kw-2'>*</span><span class='self'>self</span>
+        <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='op'>*</span><span class='self'>self</span>
     }
 }
 
@@ -3823,7 +3822,7 @@
 {
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>from</span>(<span class='ident'>input</span>: <span class='ident'>Tendril</span><span class='op'>&lt;</span><span class='ident'>fmt</span>::<span class='ident'>UTF8</span>, <span class='ident'>A</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>String</span> {
-        <span class='ident'>String</span>::<span class='ident'>from</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>input</span>)
+        <span class='ident'>String</span>::<span class='ident'>from</span>(<span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>input</span>)
     }
 }
 
@@ -3832,7 +3831,7 @@
 {
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>from</span>(<span class='ident'>input</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>Tendril</span><span class='op'>&lt;</span><span class='ident'>fmt</span>::<span class='ident'>UTF8</span>, <span class='ident'>A</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>String</span> {
-        <span class='ident'>String</span>::<span class='ident'>from</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='kw-2'>*</span><span class='ident'>input</span>)
+        <span class='ident'>String</span>::<span class='ident'>from</span>(<span class='kw-2'>&amp;</span><span class='op'>*</span><span class='op'>*</span><span class='ident'>input</span>)
     }
 }
 
@@ -3854,13 +3853,13 @@
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>smoke_test</span>() {
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='string'>&quot;&quot;</span>.<span class='ident'>to_tendril</span>());
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;abc&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='string'>&quot;abc&quot;</span>.<span class='ident'>to_tendril</span>());
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;Hello, world!&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='string'>&quot;Hello, world!&quot;</span>.<span class='ident'>to_tendril</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='string'>&quot;&quot;</span>.<span class='ident'>to_tendril</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;abc&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='string'>&quot;abc&quot;</span>.<span class='ident'>to_tendril</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;Hello, world!&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='string'>&quot;Hello, world!&quot;</span>.<span class='ident'>to_tendril</span>());
 
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='string'>b&quot;&quot;</span>.<span class='ident'>to_tendril</span>());
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;abc&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='string'>b&quot;abc&quot;</span>.<span class='ident'>to_tendril</span>());
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;Hello, world!&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='string'>b&quot;Hello, world!&quot;</span>.<span class='ident'>to_tendril</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='string'>b&quot;&quot;</span>.<span class='ident'>to_tendril</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;abc&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='string'>b&quot;abc&quot;</span>.<span class='ident'>to_tendril</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;Hello, world!&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='string'>b&quot;Hello, world!&quot;</span>.<span class='ident'>to_tendril</span>());
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -3872,7 +3871,7 @@
         }
         <span class='kw'>let</span> <span class='ident'>compiler_uses_inline_drop_flags</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>EmptyWithDrop</span><span class='op'>&gt;</span>() <span class='op'>&gt;</span> <span class='number'>0</span>;
 
-        <span class='kw'>let</span> <span class='ident'>correct</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='kw-2'>*</span><span class='kw'>const</span> ()<span class='op'>&gt;</span>() <span class='op'>+</span> <span class='number'>8</span> <span class='op'>+</span>
+        <span class='kw'>let</span> <span class='ident'>correct</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='op'>*</span><span class='kw'>const</span> ()<span class='op'>&gt;</span>() <span class='op'>+</span> <span class='number'>8</span> <span class='op'>+</span>
                       <span class='kw'>if</span> <span class='ident'>compiler_uses_inline_drop_flags</span> { <span class='number'>1</span> } <span class='kw'>else</span> { <span class='number'>0</span> };
 
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>correct</span>, <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>ByteTendril</span><span class='op'>&gt;</span>());
@@ -3884,7 +3883,7 @@
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>correct</span>, <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>ByteTendril</span><span class='op'>&gt;&gt;</span>());
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>correct</span>, <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>StrTendril</span><span class='op'>&gt;&gt;</span>());
 
-        <span class='kw'>let</span> <span class='ident'>correct_header</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='kw-2'>*</span><span class='kw'>const</span> ()<span class='op'>&gt;</span>() <span class='op'>+</span> <span class='number'>4</span>;
+        <span class='kw'>let</span> <span class='ident'>correct_header</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='op'>*</span><span class='kw'>const</span> ()<span class='op'>&gt;</span>() <span class='op'>+</span> <span class='number'>4</span>;
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>correct_header</span>, <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>Header</span><span class='op'>&lt;</span><span class='ident'>Atomic</span><span class='op'>&gt;&gt;</span>());
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>correct_header</span>, <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>Header</span><span class='op'>&lt;</span><span class='ident'>NonAtomic</span><span class='op'>&gt;&gt;</span>());
     }
@@ -3896,19 +3895,19 @@
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>StrTendril</span>::<span class='ident'>try_from_byte_slice</span>(<span class='string'>b&quot;\xEA\x99\xFF&quot;</span>).<span class='ident'>is_err</span>());
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>StrTendril</span>::<span class='ident'>try_from_byte_slice</span>(<span class='string'>b&quot;\xEA\x99&quot;</span>).<span class='ident'>is_err</span>());
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>StrTendril</span>::<span class='ident'>try_from_byte_slice</span>(<span class='string'>b&quot;\xEA\x99\xAE\xEA&quot;</span>).<span class='ident'>is_err</span>());
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;\u{a66e}&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>StrTendril</span>::<span class='ident'>try_from_byte_slice</span>(<span class='string'>b&quot;\xEA\x99\xAE&quot;</span>).<span class='ident'>unwrap</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;\u{a66e}&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>StrTendril</span>::<span class='ident'>try_from_byte_slice</span>(<span class='string'>b&quot;\xEA\x99\xAE&quot;</span>).<span class='ident'>unwrap</span>());
 
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='ident'>StrTendril</span>::<span class='ident'>new</span>();
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>try_push_bytes</span>(<span class='string'>b&quot;\xEA\x99&quot;</span>).<span class='ident'>is_err</span>());
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>try_push_bytes</span>(<span class='string'>b&quot;\xAE&quot;</span>).<span class='ident'>is_err</span>());
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>try_push_bytes</span>(<span class='string'>b&quot;\xEA\x99\xAE&quot;</span>).<span class='ident'>is_ok</span>());
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;\u{a66e}&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;\u{a66e}&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>share_and_unshare</span>() {
         <span class='kw'>let</span> <span class='ident'>s</span> <span class='op'>=</span> <span class='string'>b&quot;foobarbaz&quot;</span>.<span class='ident'>to_tendril</span>();
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;foobarbaz&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>s</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;foobarbaz&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>s</span>);
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span><span class='ident'>s</span>.<span class='ident'>is_shared</span>());
 
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='ident'>s</span>.<span class='ident'>clone</span>();
@@ -3917,41 +3916,41 @@
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>is_shared</span>());
 
         <span class='ident'>t</span>.<span class='ident'>push_slice</span>(<span class='string'>b&quot;quux&quot;</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;foobarbaz&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>s</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;foobarbazquux&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;foobarbaz&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>s</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;foobarbazquux&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>s</span>.<span class='ident'>as_ptr</span>() <span class='op'>!=</span> <span class='ident'>t</span>.<span class='ident'>as_ptr</span>());
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span><span class='ident'>t</span>.<span class='ident'>is_shared</span>());
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>format_display</span>() {
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;foobar&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='string'>&quot;foobar&quot;</span>.<span class='ident'>to_tendril</span>()));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;foobar&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='string'>&quot;foobar&quot;</span>.<span class='ident'>to_tendril</span>()));
 
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>s</span> <span class='op'>=</span> <span class='string'>&quot;foo&quot;</span>.<span class='ident'>to_tendril</span>();
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;foo&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>s</span>));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;foo&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>s</span>));
 
         <span class='kw'>let</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='ident'>s</span>.<span class='ident'>clone</span>();
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;foo&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>s</span>));
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;foo&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>t</span>));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;foo&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>s</span>));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;foo&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>t</span>));
 
         <span class='ident'>s</span>.<span class='ident'>push_slice</span>(<span class='string'>&quot;barbaz!&quot;</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;foobarbaz!&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>s</span>));
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;foo&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>t</span>));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;foobarbaz!&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>s</span>));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;foo&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>t</span>));
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>format_debug</span>() {
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>r#&quot;Tendril&lt;UTF8&gt;(inline: &quot;foobar&quot;)&quot;#</span>,
-                   <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='string'>&quot;foobar&quot;</span>.<span class='ident'>to_tendril</span>()));
+                   <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='string'>&quot;foobar&quot;</span>.<span class='ident'>to_tendril</span>()));
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>r#&quot;Tendril&lt;Bytes&gt;(inline: [102, 111, 111, 98, 97, 114])&quot;#</span>,
-                   <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='string'>b&quot;foobar&quot;</span>.<span class='ident'>to_tendril</span>()));
+                   <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='string'>b&quot;foobar&quot;</span>.<span class='ident'>to_tendril</span>()));
 
         <span class='kw'>let</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='string'>&quot;anextralongstring&quot;</span>.<span class='ident'>to_tendril</span>();
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>r#&quot;Tendril&lt;UTF8&gt;(owned: &quot;anextralongstring&quot;)&quot;#</span>,
-                   <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='ident'>t</span>));
+                   <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='ident'>t</span>));
         <span class='ident'>t</span>.<span class='ident'>clone</span>();
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>r#&quot;Tendril&lt;UTF8&gt;(shared: &quot;anextralongstring&quot;)&quot;#</span>,
-                   <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='ident'>t</span>));
+                   <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='ident'>t</span>));
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -4000,14 +3999,14 @@
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>try_pop_front</span>(<span class='number'>2</span>).<span class='ident'>is_err</span>());
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>try_pop_front</span>(<span class='number'>3</span>).<span class='ident'>is_err</span>());
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>try_pop_front</span>(<span class='number'>4</span>).<span class='ident'>is_ok</span>());
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;zzzzzz&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;zzzzzz&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
 
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='string'>&quot;zzzzzz\u{1f4a9}&quot;</span>.<span class='ident'>to_tendril</span>();
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>try_pop_back</span>(<span class='number'>1</span>).<span class='ident'>is_err</span>());
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>try_pop_back</span>(<span class='number'>2</span>).<span class='ident'>is_err</span>());
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>try_pop_back</span>(<span class='number'>3</span>).<span class='ident'>is_err</span>());
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>try_pop_back</span>(<span class='number'>4</span>).<span class='ident'>is_ok</span>());
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;zzzzzz&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;zzzzzz&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -4023,13 +4022,13 @@
 
         <span class='kw'>let</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='string'>&quot;hello&quot;</span>.<span class='ident'>to_tendril</span>();
         <span class='kw'>let</span> <span class='ident'>ascii</span>: <span class='kw-2'>&amp;</span><span class='ident'>Tendril</span><span class='op'>&lt;</span><span class='ident'>fmt</span>::<span class='ident'>ASCII</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>t</span>.<span class='ident'>try_as_subset</span>().<span class='ident'>unwrap</span>();
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;hello&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='kw-2'>*</span><span class='ident'>ascii</span>.<span class='ident'>as_bytes</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;hello&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='op'>*</span><span class='ident'>ascii</span>.<span class='ident'>as_bytes</span>());
 
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='string'>&quot;ő&quot;</span>.<span class='ident'>to_tendril</span>().<span class='ident'>try_reinterpret_view</span>::<span class='op'>&lt;</span><span class='ident'>fmt</span>::<span class='ident'>ASCII</span><span class='op'>&gt;</span>().<span class='ident'>is_err</span>());
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='string'>&quot;ő&quot;</span>.<span class='ident'>to_tendril</span>().<span class='ident'>try_as_subset</span>::<span class='op'>&lt;</span><span class='ident'>fmt</span>::<span class='ident'>ASCII</span><span class='op'>&gt;</span>().<span class='ident'>is_err</span>());
 
         <span class='kw'>let</span> <span class='ident'>ascii</span>: <span class='ident'>Tendril</span><span class='op'>&lt;</span><span class='ident'>fmt</span>::<span class='ident'>ASCII</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='string'>&quot;hello&quot;</span>.<span class='ident'>to_tendril</span>().<span class='ident'>try_into_subset</span>().<span class='ident'>unwrap</span>();
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;hello&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='kw-2'>*</span><span class='ident'>ascii</span>.<span class='ident'>as_bytes</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;hello&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='op'>*</span><span class='ident'>ascii</span>.<span class='ident'>as_bytes</span>());
 
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='string'>&quot;ő&quot;</span>.<span class='ident'>to_tendril</span>().<span class='ident'>try_reinterpret</span>::<span class='op'>&lt;</span><span class='ident'>fmt</span>::<span class='ident'>ASCII</span><span class='op'>&gt;</span>().<span class='ident'>is_err</span>());
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='string'>&quot;ő&quot;</span>.<span class='ident'>to_tendril</span>().<span class='ident'>try_into_subset</span>::<span class='op'>&lt;</span><span class='ident'>fmt</span>::<span class='ident'>ASCII</span><span class='op'>&gt;</span>().<span class='ident'>is_err</span>());
@@ -4041,22 +4040,22 @@
         <span class='ident'>t</span>.<span class='ident'>clear</span>();
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>len</span>(), <span class='number'>0</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>len32</span>(), <span class='number'>0</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>, <span class='string'>&quot;&quot;</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>, <span class='string'>&quot;&quot;</span>);
 
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='string'>&quot;much longer&quot;</span>.<span class='ident'>to_tendril</span>();
         <span class='kw'>let</span> <span class='ident'>s</span> <span class='op'>=</span> <span class='ident'>t</span>.<span class='ident'>clone</span>();
         <span class='ident'>t</span>.<span class='ident'>clear</span>();
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>len</span>(), <span class='number'>0</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>len32</span>(), <span class='number'>0</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>, <span class='string'>&quot;&quot;</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>s</span>, <span class='string'>&quot;much longer&quot;</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>, <span class='string'>&quot;&quot;</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>s</span>, <span class='string'>&quot;much longer&quot;</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>push_tendril</span>() {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='string'>&quot;abc&quot;</span>.<span class='ident'>to_tendril</span>();
         <span class='ident'>t</span>.<span class='ident'>push_tendril</span>(<span class='kw-2'>&amp;</span><span class='string'>&quot;xyz&quot;</span>.<span class='ident'>to_tendril</span>());
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;abcxyz&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;abcxyz&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -4144,7 +4143,7 @@
                 <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>res</span>.<span class='ident'>is_none</span>()),
                 <span class='prelude-val'>Some</span>((<span class='ident'>es</span>, <span class='ident'>ec</span>)) <span class='op'>=&gt;</span> {
                     <span class='kw'>let</span> (<span class='ident'>rt</span>, <span class='ident'>rc</span>) <span class='op'>=</span> <span class='ident'>res</span>.<span class='ident'>unwrap</span>();
-                    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>es</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>rt</span>);
+                    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>es</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>rt</span>);
                     <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>ec</span>, <span class='ident'>rc</span>);
                 }
             }
@@ -4155,20 +4154,20 @@
     <span class='kw'>fn</span> <span class='ident'>deref_mut_inline</span>() {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='string'>&quot;xyő&quot;</span>.<span class='ident'>to_tendril</span>().<span class='ident'>into_bytes</span>();
         <span class='ident'>t</span>[<span class='number'>3</span>] <span class='op'>=</span> <span class='number'>0xff</span>;
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;xy\xC5\xFF&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;xy\xC5\xFF&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>try_reinterpret_view</span>::<span class='op'>&lt;</span><span class='ident'>fmt</span>::<span class='ident'>UTF8</span><span class='op'>&gt;</span>().<span class='ident'>is_err</span>());
         <span class='ident'>t</span>[<span class='number'>3</span>] <span class='op'>=</span> <span class='number'>0x8b</span>;
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;xyŋ&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='kw-2'>*</span><span class='ident'>t</span>.<span class='ident'>try_reinterpret_view</span>::<span class='op'>&lt;</span><span class='ident'>fmt</span>::<span class='ident'>UTF8</span><span class='op'>&gt;</span>().<span class='ident'>unwrap</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;xyŋ&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='op'>*</span><span class='ident'>t</span>.<span class='ident'>try_reinterpret_view</span>::<span class='op'>&lt;</span><span class='ident'>fmt</span>::<span class='ident'>UTF8</span><span class='op'>&gt;</span>().<span class='ident'>unwrap</span>());
 
         <span class='kw'>unsafe</span> {
             <span class='ident'>t</span>.<span class='ident'>push_uninitialized</span>(<span class='number'>3</span>);
             <span class='ident'>t</span>[<span class='number'>4</span>] <span class='op'>=</span> <span class='number'>0xEA</span>;
             <span class='ident'>t</span>[<span class='number'>5</span>] <span class='op'>=</span> <span class='number'>0x99</span>;
             <span class='ident'>t</span>[<span class='number'>6</span>] <span class='op'>=</span> <span class='number'>0xAE</span>;
-            <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;xyŋ\u{a66e}&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='kw-2'>*</span><span class='ident'>t</span>.<span class='ident'>try_reinterpret_view</span>::<span class='op'>&lt;</span><span class='ident'>fmt</span>::<span class='ident'>UTF8</span><span class='op'>&gt;</span>().<span class='ident'>unwrap</span>());
+            <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;xyŋ\u{a66e}&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='op'>*</span><span class='ident'>t</span>.<span class='ident'>try_reinterpret_view</span>::<span class='op'>&lt;</span><span class='ident'>fmt</span>::<span class='ident'>UTF8</span><span class='op'>&gt;</span>().<span class='ident'>unwrap</span>());
             <span class='ident'>t</span>.<span class='ident'>push_uninitialized</span>(<span class='number'>20</span>);
             <span class='ident'>t</span>.<span class='ident'>pop_back</span>(<span class='number'>20</span>);
-            <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;xyŋ\u{a66e}&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='kw-2'>*</span><span class='ident'>t</span>.<span class='ident'>try_reinterpret_view</span>::<span class='op'>&lt;</span><span class='ident'>fmt</span>::<span class='ident'>UTF8</span><span class='op'>&gt;</span>().<span class='ident'>unwrap</span>());
+            <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;xyŋ\u{a66e}&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='op'>*</span><span class='ident'>t</span>.<span class='ident'>try_reinterpret_view</span>::<span class='op'>&lt;</span><span class='ident'>fmt</span>::<span class='ident'>UTF8</span><span class='op'>&gt;</span>().<span class='ident'>unwrap</span>());
         }
     }
 
@@ -4179,21 +4178,21 @@
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>is_shared</span>());
         <span class='ident'>t</span>[<span class='number'>9</span>] <span class='op'>=</span> <span class='number'>0xff</span>;
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span><span class='ident'>t</span>.<span class='ident'>is_shared</span>());
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;0123456789&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>u</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;012345678\xff&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;0123456789&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>u</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;012345678\xff&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>push_char</span>() {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='string'>&quot;xyz&quot;</span>.<span class='ident'>to_tendril</span>();
         <span class='ident'>t</span>.<span class='ident'>push_char</span>(<span class='string'>&#39;o&#39;</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;xyzo&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;xyzo&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
         <span class='ident'>t</span>.<span class='ident'>push_char</span>(<span class='string'>&#39;ő&#39;</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;xyzoő&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;xyzoő&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
         <span class='ident'>t</span>.<span class='ident'>push_char</span>(<span class='string'>&#39;\u{a66e}&#39;</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;xyzoő\u{a66e}&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;xyzoő\u{a66e}&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
         <span class='ident'>t</span>.<span class='ident'>push_char</span>(<span class='string'>&#39;\u{1f4a9}&#39;</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;xyzoő\u{a66e}\u{1f4a9}&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;xyzoő\u{a66e}\u{1f4a9}&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>len</span>(), <span class='number'>13</span>);
     }
 
@@ -4203,12 +4202,12 @@
 
         <span class='kw'>let</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='string'>&quot;안녕하세요 러스트&quot;</span>.<span class='ident'>to_tendril</span>();
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;\xbe\xc8\xb3\xe7\xc7\xcf\xbc\xbc\xbf\xe4\x20\xb7\xaf\xbd\xba\xc6\xae&quot;</span>,
-            <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>.<span class='ident'>encode</span>(<span class='ident'>all</span>::<span class='ident'>WINDOWS_949</span>, <span class='ident'>EncoderTrap</span>::<span class='ident'>Strict</span>).<span class='ident'>unwrap</span>());
+            <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>.<span class='ident'>encode</span>(<span class='ident'>all</span>::<span class='ident'>WINDOWS_949</span>, <span class='ident'>EncoderTrap</span>::<span class='ident'>Strict</span>).<span class='ident'>unwrap</span>());
 
         <span class='kw'>let</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='string'>&quot;Энергия пробуждения ия-я-я! \u{a66e}&quot;</span>.<span class='ident'>to_tendril</span>();
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;\xfc\xce\xc5\xd2\xc7\xc9\xd1 \xd0\xd2\xcf\xc2\xd5\xd6\xc4\xc5\xce\
                      \xc9\xd1 \xc9\xd1\x2d\xd1\x2d\xd1\x21 ?&quot;</span>,
-            <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>.<span class='ident'>encode</span>(<span class='ident'>all</span>::<span class='ident'>KOI8_U</span>, <span class='ident'>EncoderTrap</span>::<span class='ident'>Replace</span>).<span class='ident'>unwrap</span>());
+            <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>.<span class='ident'>encode</span>(<span class='ident'>all</span>::<span class='ident'>KOI8_U</span>, <span class='ident'>EncoderTrap</span>::<span class='ident'>Replace</span>).<span class='ident'>unwrap</span>());
 
         <span class='kw'>let</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='string'>&quot;\u{1f4a9}&quot;</span>.<span class='ident'>to_tendril</span>();
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>encode</span>(<span class='ident'>all</span>::<span class='ident'>WINDOWS_1252</span>, <span class='ident'>EncoderTrap</span>::<span class='ident'>Strict</span>).<span class='ident'>is_err</span>());
@@ -4221,19 +4220,19 @@
         <span class='kw'>let</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='string'>b&quot;\xbe\xc8\xb3\xe7\xc7\xcf\xbc\xbc\
                   \xbf\xe4\x20\xb7\xaf\xbd\xba\xc6\xae&quot;</span>.<span class='ident'>to_tendril</span>();
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;안녕하세요 러스트&quot;</span>,
-            <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>.<span class='ident'>decode</span>(<span class='ident'>all</span>::<span class='ident'>WINDOWS_949</span>, <span class='ident'>DecoderTrap</span>::<span class='ident'>Strict</span>).<span class='ident'>unwrap</span>());
+            <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>.<span class='ident'>decode</span>(<span class='ident'>all</span>::<span class='ident'>WINDOWS_949</span>, <span class='ident'>DecoderTrap</span>::<span class='ident'>Strict</span>).<span class='ident'>unwrap</span>());
 
         <span class='kw'>let</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='string'>b&quot;\xfc\xce\xc5\xd2\xc7\xc9\xd1 \xd0\xd2\xcf\xc2\xd5\xd6\xc4\xc5\xce\
                   \xc9\xd1 \xc9\xd1\x2d\xd1\x2d\xd1\x21&quot;</span>.<span class='ident'>to_tendril</span>();
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;Энергия пробуждения ия-я-я!&quot;</span>,
-            <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>.<span class='ident'>decode</span>(<span class='ident'>all</span>::<span class='ident'>KOI8_U</span>, <span class='ident'>DecoderTrap</span>::<span class='ident'>Replace</span>).<span class='ident'>unwrap</span>());
+            <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>.<span class='ident'>decode</span>(<span class='ident'>all</span>::<span class='ident'>KOI8_U</span>, <span class='ident'>DecoderTrap</span>::<span class='ident'>Replace</span>).<span class='ident'>unwrap</span>());
 
         <span class='kw'>let</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='string'>b&quot;x \xff y&quot;</span>.<span class='ident'>to_tendril</span>();
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>decode</span>(<span class='ident'>all</span>::<span class='ident'>UTF_8</span>, <span class='ident'>DecoderTrap</span>::<span class='ident'>Strict</span>).<span class='ident'>is_err</span>());
 
         <span class='kw'>let</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='string'>b&quot;x \xff y&quot;</span>.<span class='ident'>to_tendril</span>();
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;x \u{fffd} y&quot;</span>,
-            <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>.<span class='ident'>decode</span>(<span class='ident'>all</span>::<span class='ident'>UTF_8</span>, <span class='ident'>DecoderTrap</span>::<span class='ident'>Replace</span>).<span class='ident'>unwrap</span>());
+            <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>.<span class='ident'>decode</span>(<span class='ident'>all</span>::<span class='ident'>UTF_8</span>, <span class='ident'>DecoderTrap</span>::<span class='ident'>Replace</span>).<span class='ident'>unwrap</span>());
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -4294,8 +4293,8 @@
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>format</span>() {
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='macro'>format_tendril</span><span class='macro'>!</span>(<span class='string'>&quot;&quot;</span>));
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;two and two make 4&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='macro'>format_tendril</span><span class='macro'>!</span>(<span class='string'>&quot;two and two make {}&quot;</span>, <span class='number'>2</span><span class='op'>+</span><span class='number'>2</span>));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='macro'>format_tendril</span><span class='macro'>!</span>(<span class='string'>&quot;&quot;</span>));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;two and two make 4&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='macro'>format_tendril</span><span class='macro'>!</span>(<span class='string'>&quot;two and two make {}&quot;</span>, <span class='number'>2</span><span class='op'>+</span><span class='number'>2</span>));
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -4303,17 +4302,17 @@
         <span class='kw'>let</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='string'>&quot;012345678901234567890123456789&quot;</span>.<span class='ident'>to_tendril</span>();
         <span class='kw'>let</span> <span class='ident'>a</span> <span class='op'>=</span> <span class='ident'>t</span>.<span class='ident'>subtendril</span>(<span class='number'>10</span>, <span class='number'>20</span>);
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>a</span>.<span class='ident'>is_shared</span>());
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;01234567890123456789&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>a</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;01234567890123456789&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>a</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>b</span> <span class='op'>=</span> <span class='ident'>t</span>.<span class='ident'>subtendril</span>(<span class='number'>0</span>, <span class='number'>10</span>);
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>b</span>.<span class='ident'>is_shared</span>());
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;0123456789&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>b</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;0123456789&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>b</span>);
 
         <span class='ident'>b</span>.<span class='ident'>push_tendril</span>(<span class='kw-2'>&amp;</span><span class='ident'>a</span>);
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>b</span>.<span class='ident'>is_shared</span>());
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>a</span>.<span class='ident'>is_shared</span>());
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>a</span>.<span class='ident'>is_shared_with</span>(<span class='kw-2'>&amp;</span><span class='ident'>b</span>));
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>b</span>.<span class='ident'>is_shared_with</span>(<span class='kw-2'>&amp;</span><span class='ident'>a</span>));
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;012345678901234567890123456789&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>b</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;012345678901234567890123456789&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>b</span>);
 
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>is_shared</span>());
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>is_shared_with</span>(<span class='kw-2'>&amp;</span><span class='ident'>a</span>));
@@ -4325,11 +4324,11 @@
         <span class='kw'>let</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='string'>&quot;012345678901234567890123456789&quot;</span>.<span class='ident'>to_tendril</span>();
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>b</span> <span class='op'>=</span> <span class='ident'>t</span>.<span class='ident'>subtendril</span>(<span class='number'>0</span>, <span class='number'>10</span>);
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>b</span>.<span class='ident'>is_shared</span>());
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;0123456789&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>b</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;0123456789&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>b</span>);
 
         <span class='ident'>b</span>.<span class='ident'>push_tendril</span>(<span class='kw-2'>&amp;</span><span class='string'>&quot;abcd&quot;</span>.<span class='ident'>to_tendril</span>());
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span><span class='ident'>b</span>.<span class='ident'>is_shared</span>());
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;0123456789abcd&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>b</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;0123456789abcd&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>b</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -4397,29 +4396,29 @@
         <span class='comment'>// Tendril&lt;F&gt;</span>
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='string'>&quot;Hello&quot;</span>.<span class='ident'>to_tendril</span>();
         <span class='ident'>t</span>.<span class='ident'>extend</span>(<span class='prelude-val'>None</span>::<span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>Tendril</span><span class='op'>&lt;</span>_<span class='op'>&gt;&gt;</span>.<span class='ident'>into_iter</span>());
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;Hello&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;Hello&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
         <span class='ident'>t</span>.<span class='ident'>extend</span>(<span class='kw-2'>&amp;</span>[<span class='string'>&quot;, &quot;</span>.<span class='ident'>to_tendril</span>(), <span class='string'>&quot;world&quot;</span>.<span class='ident'>to_tendril</span>(), <span class='string'>&quot;!&quot;</span>.<span class='ident'>to_tendril</span>()]);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;Hello, world!&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;Hello, world!&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span>[<span class='string'>&quot;Hello&quot;</span>.<span class='ident'>to_tendril</span>(), <span class='string'>&quot;, &quot;</span>.<span class='ident'>to_tendril</span>(),
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;Hello, world!&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;Hello, world!&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span>[<span class='string'>&quot;Hello&quot;</span>.<span class='ident'>to_tendril</span>(), <span class='string'>&quot;, &quot;</span>.<span class='ident'>to_tendril</span>(),
                                        <span class='string'>&quot;world&quot;</span>.<span class='ident'>to_tendril</span>(), <span class='string'>&quot;!&quot;</span>.<span class='ident'>to_tendril</span>()]
                                     .<span class='ident'>iter</span>().<span class='ident'>collect</span>::<span class='op'>&lt;</span><span class='ident'>StrTendril</span><span class='op'>&gt;</span>());
 
         <span class='comment'>// &amp;str</span>
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='string'>&quot;Hello&quot;</span>.<span class='ident'>to_tendril</span>();
         <span class='ident'>t</span>.<span class='ident'>extend</span>(<span class='prelude-val'>None</span>::<span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>str</span><span class='op'>&gt;</span>.<span class='ident'>into_iter</span>());
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;Hello&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;Hello&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
         <span class='ident'>t</span>.<span class='ident'>extend</span>([<span class='string'>&quot;, &quot;</span>, <span class='string'>&quot;world&quot;</span>, <span class='string'>&quot;!&quot;</span>].<span class='ident'>iter</span>().<span class='ident'>map</span>(<span class='op'>|</span><span class='kw-2'>&amp;</span><span class='ident'>s</span><span class='op'>|</span> <span class='ident'>s</span>));
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;Hello, world!&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;Hello, world!&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span>[<span class='string'>&quot;Hello&quot;</span>, <span class='string'>&quot;, &quot;</span>, <span class='string'>&quot;world&quot;</span>, <span class='string'>&quot;!&quot;</span>]
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;Hello, world!&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;Hello, world!&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span>[<span class='string'>&quot;Hello&quot;</span>, <span class='string'>&quot;, &quot;</span>, <span class='string'>&quot;world&quot;</span>, <span class='string'>&quot;!&quot;</span>]
                                     .<span class='ident'>iter</span>().<span class='ident'>map</span>(<span class='op'>|</span><span class='kw-2'>&amp;</span><span class='ident'>s</span><span class='op'>|</span> <span class='ident'>s</span>).<span class='ident'>collect</span>::<span class='op'>&lt;</span><span class='ident'>StrTendril</span><span class='op'>&gt;</span>());
 
         <span class='comment'>// &amp;[u8]</span>
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='string'>b&quot;Hello&quot;</span>.<span class='ident'>to_tendril</span>();
         <span class='ident'>t</span>.<span class='ident'>extend</span>(<span class='prelude-val'>None</span>::<span class='op'>&lt;</span><span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>]<span class='op'>&gt;</span>.<span class='ident'>into_iter</span>());
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;Hello&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;Hello&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
         <span class='ident'>t</span>.<span class='ident'>extend</span>([<span class='string'>b&quot;, &quot;</span>.<span class='ident'>as_ref</span>(), <span class='string'>b&quot;world&quot;</span>.<span class='ident'>as_ref</span>(), <span class='string'>b&quot;!&quot;</span>.<span class='ident'>as_ref</span>()].<span class='ident'>iter</span>().<span class='ident'>map</span>(<span class='op'>|</span><span class='kw-2'>&amp;</span><span class='ident'>s</span><span class='op'>|</span> <span class='ident'>s</span>));
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;Hello, world!&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;Hello, world!&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span>[<span class='string'>b&quot;Hello&quot;</span>.<span class='ident'>as_ref</span>(), <span class='string'>b&quot;, &quot;</span>.<span class='ident'>as_ref</span>(),
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;Hello, world!&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>b&quot;Hello, world!&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span>[<span class='string'>b&quot;Hello&quot;</span>.<span class='ident'>as_ref</span>(), <span class='string'>b&quot;, &quot;</span>.<span class='ident'>as_ref</span>(),
                                         <span class='string'>b&quot;world&quot;</span>.<span class='ident'>as_ref</span>(), <span class='string'>b&quot;!&quot;</span>.<span class='ident'>as_ref</span>()]
                                     .<span class='ident'>iter</span>().<span class='ident'>map</span>(<span class='op'>|</span><span class='kw-2'>&amp;</span><span class='ident'>s</span><span class='op'>|</span> <span class='ident'>s</span>).<span class='ident'>collect</span>::<span class='op'>&lt;</span><span class='ident'>ByteTendril</span><span class='op'>&gt;</span>());
 
@@ -4451,15 +4450,15 @@
     <span class='kw'>fn</span> <span class='ident'>from_str</span>() {
         <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>str</span>::<span class='ident'>FromStr</span>;
         <span class='kw'>let</span> <span class='ident'>t</span>: <span class='ident'>Tendril</span><span class='op'>&lt;</span>_<span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;foo bar baz&quot;</span>).<span class='ident'>unwrap</span>();
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;foo bar baz&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;foo bar baz&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>from_char</span>() {
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;o&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>StrTendril</span>::<span class='ident'>from_char</span>(<span class='string'>&#39;o&#39;</span>));
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;ő&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>StrTendril</span>::<span class='ident'>from_char</span>(<span class='string'>&#39;ő&#39;</span>));
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;\u{a66e}&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>StrTendril</span>::<span class='ident'>from_char</span>(<span class='string'>&#39;\u{a66e}&#39;</span>));
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;\u{1f4a9}&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>StrTendril</span>::<span class='ident'>from_char</span>(<span class='string'>&#39;\u{1f4a9}&#39;</span>));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;o&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>StrTendril</span>::<span class='ident'>from_char</span>(<span class='string'>&#39;o&#39;</span>));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;ő&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>StrTendril</span>::<span class='ident'>from_char</span>(<span class='string'>&#39;ő&#39;</span>));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;\u{a66e}&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>StrTendril</span>::<span class='ident'>from_char</span>(<span class='string'>&#39;\u{a66e}&#39;</span>));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;\u{1f4a9}&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>StrTendril</span>::<span class='ident'>from_char</span>(<span class='string'>&#39;\u{1f4a9}&#39;</span>));
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -4468,7 +4467,7 @@
             <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>io</span>::<span class='ident'>Cursor</span>;
             <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>t</span> <span class='op'>=</span> <span class='ident'>ByteTendril</span>::<span class='ident'>new</span>();
             <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>x</span>.<span class='ident'>len</span>(), <span class='ident'>Cursor</span>::<span class='ident'>new</span>(<span class='ident'>x</span>).<span class='ident'>read_to_tendril</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>t</span>).<span class='ident'>unwrap</span>());
-            <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>x</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>);
+            <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>x</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
         }
 
         <span class='ident'>check</span>(<span class='string'>b&quot;&quot;</span>);
@@ -4507,12 +4506,12 @@
         <span class='ident'>thread</span>::<span class='ident'>spawn</span>(<span class='kw'>move</span> <span class='op'>||</span> {
             <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>is_shared</span>());
             <span class='ident'>t</span>.<span class='ident'>push_slice</span>(<span class='string'>&quot; extended&quot;</span>);
-            <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;this is a string extended&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>);
+            <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;this is a string extended&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
             <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>t</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='ident'>usize</span> <span class='op'>!=</span> <span class='ident'>sp</span>);
             <span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span><span class='ident'>t</span>.<span class='ident'>is_shared</span>());
         }).<span class='ident'>join</span>().<span class='ident'>unwrap</span>();
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>s</span>.<span class='ident'>is_shared</span>());
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;this is a string&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>s</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;this is a string&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>s</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -4524,9 +4523,9 @@
         <span class='ident'>thread</span>::<span class='ident'>spawn</span>(<span class='kw'>move</span> <span class='op'>||</span> {
             <span class='kw'>let</span> <span class='ident'>s</span> <span class='op'>=</span> <span class='ident'>StrTendril</span>::<span class='ident'>from</span>(<span class='ident'>s2</span>);
             <span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span><span class='ident'>s</span>.<span class='ident'>is_shared</span>());
-            <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;this is a string&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>s</span>);
+            <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;this is a string&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>s</span>);
         }).<span class='ident'>join</span>().<span class='ident'>unwrap</span>();
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;this is a string&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;this is a string&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -4537,9 +4536,9 @@
         <span class='ident'>thread</span>::<span class='ident'>spawn</span>(<span class='kw'>move</span> <span class='op'>||</span> {
             <span class='kw'>let</span> <span class='ident'>s</span> <span class='op'>=</span> <span class='ident'>StrTendril</span>::<span class='ident'>from</span>(<span class='ident'>s2</span>);
             <span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span><span class='ident'>s</span>.<span class='ident'>is_shared</span>());
-            <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;x&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>s</span>);
+            <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;x&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>s</span>);
         }).<span class='ident'>join</span>().<span class='ident'>unwrap</span>();
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;x&quot;</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>*</span><span class='ident'>t</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;x&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>t</span>);
     }
 }
 </pre>
