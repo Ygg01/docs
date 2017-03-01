@@ -4,12 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/serde-0.9.9/src/ser/mod.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/serde-0.9.10/src/ser/mod.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>mod.rs.html -- source</title>
 
-    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
     
@@ -1360,13 +1359,13 @@
     <span class='kw'>fn</span> <span class='ident'>serialize_seq_fixed_size</span>(<span class='self'>self</span>, <span class='ident'>size</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='self'>Self</span>::<span class='ident'>SerializeSeq</span>, <span class='self'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>;
 
     <span class='doccomment'>/// Begin to serialize a tuple. This call must be followed by zero or more</span>
-    <span class='doccomment'>/// calls to `serialize_field`, then a call to `end`.</span>
+    <span class='doccomment'>/// calls to `serialize_element`, then a call to `end`.</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ```rust,ignore</span>
     <span class='doccomment'>/// let mut tup = serializer.serialize_tuple(3)?;</span>
-    <span class='doccomment'>/// tup.serialize_field(&amp;self.0)?;</span>
-    <span class='doccomment'>/// tup.serialize_field(&amp;self.1)?;</span>
-    <span class='doccomment'>/// tup.serialize_field(&amp;self.2)?;</span>
+    <span class='doccomment'>/// tup.serialize_element(&amp;self.0)?;</span>
+    <span class='doccomment'>/// tup.serialize_element(&amp;self.1)?;</span>
+    <span class='doccomment'>/// tup.serialize_element(&amp;self.2)?;</span>
     <span class='doccomment'>/// tup.end()</span>
     <span class='doccomment'>/// ```</span>
     <span class='kw'>fn</span> <span class='ident'>serialize_tuple</span>(<span class='self'>self</span>, <span class='ident'>len</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='self'>Self</span>::<span class='ident'>SerializeTuple</span>, <span class='self'>Self</span>::<span class='ident'>Error</span><span class='op'>&gt;</span>;
@@ -1540,9 +1539,9 @@
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// ```rust,ignore</span>
 <span class='doccomment'>/// let mut tup = serializer.serialize_tuple(3)?;</span>
-<span class='doccomment'>/// tup.serialize_field(&amp;self.0)?;</span>
-<span class='doccomment'>/// tup.serialize_field(&amp;self.1)?;</span>
-<span class='doccomment'>/// tup.serialize_field(&amp;self.2)?;</span>
+<span class='doccomment'>/// tup.serialize_element(&amp;self.0)?;</span>
+<span class='doccomment'>/// tup.serialize_element(&amp;self.1)?;</span>
+<span class='doccomment'>/// tup.serialize_element(&amp;self.2)?;</span>
 <span class='doccomment'>/// tup.end()</span>
 <span class='doccomment'>/// ```</span>
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>SerializeTuple</span> {
