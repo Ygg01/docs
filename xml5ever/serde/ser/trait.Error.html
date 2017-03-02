@@ -49,14 +49,14 @@
                        [<span class='inner'>&#x2212;</span>]
                    </a>
                </span><a class='srclink' href='../../src/serde/ser/mod.rs.html#119-144' title='goto source code'>[src]</a></span></h1>
-<pre class='rust trait'>pub trait Error: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='trait core::marker::Sized'>Sized</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/std/error/trait.Error.html' title='trait std::error::Error'>Error</a> {
-    fn <a href='#tymethod.custom' class='fnname'>custom</a>&lt;T:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html' title='trait core::fmt::Display'>Display</a>&gt;(msg: T) -&gt; Self;
+<pre class='rust trait'>pub trait Error: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/std/error/trait.Error.html' title='std::error::Error'>Error</a> {
+    fn <a href='#tymethod.custom' class='fnname'>custom</a>&lt;T:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html' title='core::fmt::Display'>Display</a>&gt;(msg: T) -&gt; Self;
 }</pre><div class='docblock'><p>Trait used by <code>Serialize</code> implementations to generically construct errors
 belonging to the <code>Serializer</code> against which they are currently running.</p>
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.custom' class='method'><span id='custom.v' class='invisible'><code>fn <a href='#tymethod.custom' class='fnname'>custom</a>&lt;T:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html' title='trait core::fmt::Display'>Display</a>&gt;(msg: T) -&gt; Self</code></span></h3><div class='docblock'><p>Raised when a <code>Serialize</code> implementation encounters a general error
+        <h3 id='tymethod.custom' class='method'><span id='custom.v' class='invisible'><code>fn <a href='#tymethod.custom' class='fnname'>custom</a>&lt;T:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html' title='core::fmt::Display'>Display</a>&gt;(msg: T) -&gt; Self</code></span></h3><div class='docblock'><p>Raised when a <code>Serialize</code> implementation encounters a general error
 while serializing a type.</p>
 
 <p>The message should not be capitalized and should not end with a period.</p>
