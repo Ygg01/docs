@@ -9,7 +9,6 @@
 
     <title>test.rs.html -- source</title>
 
-    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -67,28 +66,28 @@
 <span id="22">22</span>
 <span id="23">23</span>
 <span id="24">24</span>
-</pre><pre class="rust ">
-<span class="doccomment">//! Macros for writing test suites.</span>
+</pre><pre class='rust '>
+<span class='doccomment'>//! Macros for writing test suites.</span>
 
-<span class="doccomment">/// Generate a test function `$name` which asserts that `$left` and `$right`</span>
-<span class="doccomment">/// are equal.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # Example</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ```</span>
-<span class="doccomment">/// # #[macro_use] extern crate mac;</span>
-<span class="doccomment">/// mod test {</span>
-<span class="doccomment">/// #   // doesn&#39;t actually run the test :/</span>
-<span class="doccomment">///     test_eq!(two_and_two_is_four, 2 + 2, 4);</span>
-<span class="doccomment">/// }</span>
-<span class="doccomment">/// # fn main() { }</span>
-<span class="doccomment">/// ```</span>
-<span class="attribute">#[<span class="ident">macro_export</span>]</span>
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">test_eq</span> {
-    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">left</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">right</span>:<span class="ident">expr</span>) <span class="op">=&gt;</span> {
-        <span class="attribute">#[<span class="ident">test</span>]</span>
-        <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>() {
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">left</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">right</span>);
+<span class='doccomment'>/// Generate a test function `$name` which asserts that `$left` and `$right`</span>
+<span class='doccomment'>/// are equal.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// # Example</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// ```</span>
+<span class='doccomment'>/// # #[macro_use] extern crate mac;</span>
+<span class='doccomment'>/// mod test {</span>
+<span class='doccomment'>/// #   // doesn&#39;t actually run the test :/</span>
+<span class='doccomment'>///     test_eq!(two_and_two_is_four, 2 + 2, 4);</span>
+<span class='doccomment'>/// }</span>
+<span class='doccomment'>/// # fn main() { }</span>
+<span class='doccomment'>/// ```</span>
+<span class='attribute'>#[<span class='ident'>macro_export</span>]</span>
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>test_eq</span> {
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>name</span>:<span class='ident'>ident</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>left</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>right</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {
+        <span class='attribute'>#[<span class='ident'>test</span>]</span>
+        <span class='kw'>fn</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>name</span>() {
+            <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>left</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>right</span>);
         }
     }
 }
