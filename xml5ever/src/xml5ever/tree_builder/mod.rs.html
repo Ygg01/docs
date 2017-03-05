@@ -9,6 +9,7 @@
 
     <title>mod.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
     
@@ -478,401 +479,401 @@
 <span id="434">434</span>
 <span id="435">435</span>
 <span id="436">436</span>
-</pre><pre class='rust '>
-<span class='comment'>// Copyright 2015 The xml5ever Project Developers. See the</span>
-<span class='comment'>// COPYRIGHT file at the top-level directory of this distribution.</span>
-<span class='comment'>//</span>
-<span class='comment'>// Licensed under the Apache License, Version 2.0 &lt;LICENSE-APACHE or</span>
-<span class='comment'>// http://www.apache.org/licenses/LICENSE-2.0&gt; or the MIT license</span>
-<span class='comment'>// &lt;LICENSE-MIT or http://opensource.org/licenses/MIT&gt;, at your</span>
-<span class='comment'>// option. This file may not be copied, modified, or distributed</span>
-<span class='comment'>// except according to those terms.</span>
+</pre><pre class="rust ">
+<span class="comment">// Copyright 2015 The xml5ever Project Developers. See the</span>
+<span class="comment">// COPYRIGHT file at the top-level directory of this distribution.</span>
+<span class="comment">//</span>
+<span class="comment">// Licensed under the Apache License, Version 2.0 &lt;LICENSE-APACHE or</span>
+<span class="comment">// http://www.apache.org/licenses/LICENSE-2.0&gt; or the MIT license</span>
+<span class="comment">// &lt;LICENSE-MIT or http://opensource.org/licenses/MIT&gt;, at your</span>
+<span class="comment">// option. This file may not be copied, modified, or distributed</span>
+<span class="comment">// except according to those terms.</span>
 
-<span class='kw'>mod</span> <span class='ident'>actions</span>;
-<span class='kw'>mod</span> <span class='ident'>rules</span>;
-<span class='kw'>mod</span> <span class='ident'>types</span>;
-<span class='comment'>// &quot;pub&quot; is a workaround for rust#18241 (?)</span>
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>interface</span>;
+<span class="kw">mod</span> <span class="ident">actions</span>;
+<span class="kw">mod</span> <span class="ident">rules</span>;
+<span class="kw">mod</span> <span class="ident">types</span>;
+<span class="comment">// &quot;pub&quot; is a workaround for rust#18241 (?)</span>
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">interface</span>;
 
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>borrow</span>::{<span class='ident'>Cow</span>};
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>borrow</span>::<span class='ident'>Cow</span>::<span class='ident'>Borrowed</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::{<span class='ident'>VecDeque</span>, <span class='ident'>BTreeMap</span>, <span class='ident'>HashSet</span>};
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>btree_map</span>::{<span class='ident'>Iter</span>};
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>result</span>::<span class='prelude-ty'>Result</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">borrow</span>::{<span class="ident">Cow</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">borrow</span>::<span class="ident">Cow</span>::<span class="ident">Borrowed</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::{<span class="ident">VecDeque</span>, <span class="ident">BTreeMap</span>, <span class="ident">HashSet</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::<span class="ident">btree_map</span>::{<span class="ident">Iter</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">result</span>::<span class="prelude-ty">Result</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
 
-<span class='kw'>use</span> {<span class='ident'>Prefix</span>, <span class='ident'>Namespace</span>, <span class='ident'>LocalName</span>};
+<span class="kw">use</span> {<span class="ident">Prefix</span>, <span class="ident">Namespace</span>, <span class="ident">LocalName</span>};
 
-<span class='kw'>use</span> <span class='ident'>tokenizer</span>::{<span class='self'>self</span>, <span class='ident'>TokenSink</span>, <span class='ident'>Tag</span>, <span class='ident'>QName</span>, <span class='ident'>Attribute</span>, <span class='ident'>StartTag</span>};
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>interface</span>::{<span class='ident'>TreeSink</span>, <span class='ident'>Tracer</span>, <span class='ident'>NextParserState</span>, <span class='ident'>NodeOrText</span>};
-<span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>rules</span>::<span class='ident'>XmlTreeBuilderStep</span>;
-<span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>types</span>::<span class='op'>*</span>;
+<span class="kw">use</span> <span class="ident">tokenizer</span>::{<span class="self">self</span>, <span class="ident">TokenSink</span>, <span class="ident">Tag</span>, <span class="ident">QName</span>, <span class="ident">Attribute</span>, <span class="ident">StartTag</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">interface</span>::{<span class="ident">TreeSink</span>, <span class="ident">Tracer</span>, <span class="ident">NextParserState</span>, <span class="ident">NodeOrText</span>};
+<span class="kw">use</span> <span class="self">self</span>::<span class="ident">rules</span>::<span class="ident">XmlTreeBuilderStep</span>;
+<span class="kw">use</span> <span class="self">self</span>::<span class="ident">types</span>::<span class="kw-2">*</span>;
 
-<span class='kw'>static</span> <span class='ident'>XML_URI</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span> <span class='op'>=</span> <span class='string'>&quot;http://www.w3.org/XML/1998/namespace&quot;</span>;
-<span class='kw'>static</span> <span class='ident'>XMLNS_URI</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span> <span class='op'>=</span> <span class='string'>&quot;http://www.w3.org/2000/xmlns/&quot;</span>;
+<span class="kw">static</span> <span class="ident">XML_URI</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;http://www.w3.org/XML/1998/namespace&quot;</span>;
+<span class="kw">static</span> <span class="ident">XMLNS_URI</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;http://www.w3.org/2000/xmlns/&quot;</span>;
 
-<span class='kw'>type</span> <span class='ident'>InsResult</span> <span class='op'>=</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>Cow</span><span class='op'>&lt;</span><span class='lifetime'>&#39;static</span>, <span class='ident'>str</span><span class='op'>&gt;&gt;</span>;
+<span class="kw">type</span> <span class="ident">InsResult</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">str</span><span class="op">&gt;&gt;</span>;
 
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
-<span class='kw'>struct</span> <span class='ident'>NamespaceMapStack</span>(<span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>NamespaceMap</span><span class='op'>&gt;</span>);
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
+<span class="kw">struct</span> <span class="ident">NamespaceMapStack</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">NamespaceMap</span><span class="op">&gt;</span>);
 
 
-<span class='kw'>impl</span> <span class='ident'>NamespaceMapStack</span>{
-    <span class='kw'>fn</span> <span class='ident'>new</span>() <span class='op'>-&gt;</span> <span class='ident'>NamespaceMapStack</span> {
-        <span class='ident'>NamespaceMapStack</span>({
-            <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>new</span>();
-            <span class='ident'>vec</span>.<span class='ident'>push</span>(<span class='ident'>NamespaceMap</span>::<span class='ident'>default</span>());
-            <span class='ident'>vec</span>
+<span class="kw">impl</span> <span class="ident">NamespaceMapStack</span>{
+    <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-&gt;</span> <span class="ident">NamespaceMapStack</span> {
+        <span class="ident">NamespaceMapStack</span>({
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">vec</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
+            <span class="ident">vec</span>.<span class="ident">push</span>(<span class="ident">NamespaceMap</span>::<span class="ident">default</span>());
+            <span class="ident">vec</span>
         })
     }
 
-    <span class='kw'>fn</span> <span class='ident'>push</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>map</span>: <span class='ident'>NamespaceMap</span>) {
-        <span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>push</span>(<span class='ident'>map</span>);
+    <span class="kw">fn</span> <span class="ident">push</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">map</span>: <span class="ident">NamespaceMap</span>) {
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">push</span>(<span class="ident">map</span>);
     }
 
-    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>pop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>pop</span>();
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">pop</span>();
     }
 
 }
 
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
-<span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>NamespaceMap</span> {
-    <span class='comment'>// Map that maps prefixes to URI.</span>
-    <span class='comment'>//</span>
-    <span class='comment'>// Key denotes namespace prefix, and value denotes</span>
-    <span class='comment'>// URI it maps to.</span>
-    <span class='comment'>//</span>
-    <span class='comment'>// If value of value is None, that means the namespace</span>
-    <span class='comment'>// denoted by key has been undeclared.</span>
-    <span class='ident'>scope</span>: <span class='ident'>BTreeMap</span><span class='op'>&lt;</span><span class='ident'>Prefix</span>, <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Namespace</span><span class='op'>&gt;&gt;</span>,
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">NamespaceMap</span> {
+    <span class="comment">// Map that maps prefixes to URI.</span>
+    <span class="comment">//</span>
+    <span class="comment">// Key denotes namespace prefix, and value denotes</span>
+    <span class="comment">// URI it maps to.</span>
+    <span class="comment">//</span>
+    <span class="comment">// If value of value is None, that means the namespace</span>
+    <span class="comment">// denoted by key has been undeclared.</span>
+    <span class="ident">scope</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Prefix</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Namespace</span><span class="op">&gt;&gt;</span>,
 }
 
 
-<span class='kw'>impl</span> <span class='ident'>NamespaceMap</span> {
-    <span class='comment'>// Returns an empty namespace.</span>
-    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>empty</span>() <span class='op'>-&gt;</span> <span class='ident'>NamespaceMap</span> {
-        <span class='ident'>NamespaceMap</span> {
-            <span class='ident'>scope</span>: <span class='ident'>BTreeMap</span>::<span class='ident'>new</span>(),
+<span class="kw">impl</span> <span class="ident">NamespaceMap</span> {
+    <span class="comment">// Returns an empty namespace.</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">empty</span>() <span class="op">-&gt;</span> <span class="ident">NamespaceMap</span> {
+        <span class="ident">NamespaceMap</span> {
+            <span class="ident">scope</span>: <span class="ident">BTreeMap</span>::<span class="ident">new</span>(),
         }
     }
 
-    <span class='kw'>fn</span> <span class='ident'>default</span>() <span class='op'>-&gt;</span> <span class='ident'>NamespaceMap</span> {
-        <span class='ident'>NamespaceMap</span> {
-            <span class='ident'>scope</span>: {
-                <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>map</span> <span class='op'>=</span> <span class='ident'>BTreeMap</span>::<span class='ident'>new</span>();
-                <span class='ident'>map</span>.<span class='ident'>insert</span>(<span class='macro'>namespace_prefix</span><span class='macro'>!</span>(<span class='string'>&quot;&quot;</span>), <span class='prelude-val'>None</span>);
-                <span class='ident'>map</span>.<span class='ident'>insert</span>(<span class='macro'>namespace_prefix</span><span class='macro'>!</span>(<span class='string'>&quot;xml&quot;</span>), <span class='prelude-val'>Some</span>(<span class='macro'>ns</span><span class='macro'>!</span>(<span class='ident'>xml</span>)));
-                <span class='ident'>map</span>.<span class='ident'>insert</span>(<span class='macro'>namespace_prefix</span><span class='macro'>!</span>(<span class='string'>&quot;xmlns&quot;</span>), <span class='prelude-val'>Some</span>(<span class='macro'>ns</span><span class='macro'>!</span>(<span class='ident'>xmlns</span>)));
-                <span class='ident'>map</span>
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-&gt;</span> <span class="ident">NamespaceMap</span> {
+        <span class="ident">NamespaceMap</span> {
+            <span class="ident">scope</span>: {
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">map</span> <span class="op">=</span> <span class="ident">BTreeMap</span>::<span class="ident">new</span>();
+                <span class="ident">map</span>.<span class="ident">insert</span>(<span class="macro">namespace_prefix</span><span class="macro">!</span>(<span class="string">&quot;&quot;</span>), <span class="prelude-val">None</span>);
+                <span class="ident">map</span>.<span class="ident">insert</span>(<span class="macro">namespace_prefix</span><span class="macro">!</span>(<span class="string">&quot;xml&quot;</span>), <span class="prelude-val">Some</span>(<span class="macro">ns</span><span class="macro">!</span>(<span class="ident">xml</span>)));
+                <span class="ident">map</span>.<span class="ident">insert</span>(<span class="macro">namespace_prefix</span><span class="macro">!</span>(<span class="string">&quot;xmlns&quot;</span>), <span class="prelude-val">Some</span>(<span class="macro">ns</span><span class="macro">!</span>(<span class="ident">xmlns</span>)));
+                <span class="ident">map</span>
             },
         }
     }
 
 
-    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>prefix</span>: <span class='kw-2'>&amp;</span><span class='ident'>Prefix</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Namespace</span><span class='op'>&gt;&gt;</span> {
-        <span class='self'>self</span>.<span class='ident'>scope</span>.<span class='ident'>get</span>(<span class='ident'>prefix</span>)
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">prefix</span>: <span class="kw-2">&amp;</span><span class="ident">Prefix</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Namespace</span><span class="op">&gt;&gt;</span> {
+        <span class="self">self</span>.<span class="ident">scope</span>.<span class="ident">get</span>(<span class="ident">prefix</span>)
     }
 
-    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_scope_iter</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Iter</span><span class='op'>&lt;</span><span class='ident'>Prefix</span>, <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Namespace</span><span class='op'>&gt;&gt;</span> {
-        <span class='self'>self</span>.<span class='ident'>scope</span>.<span class='ident'>iter</span>()
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_scope_iter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Iter</span><span class="op">&lt;</span><span class="ident">Prefix</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Namespace</span><span class="op">&gt;&gt;</span> {
+        <span class="self">self</span>.<span class="ident">scope</span>.<span class="ident">iter</span>()
     }
 
-    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>insert</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>name</span>: <span class='kw-2'>&amp;</span><span class='ident'>QName</span>)  {
-        <span class='kw'>let</span> <span class='ident'>prefix</span> <span class='op'>=</span> <span class='ident'>Prefix</span>::<span class='ident'>from</span>(<span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>name</span>.<span class='ident'>prefix</span>);
-        <span class='kw'>let</span> <span class='ident'>namespace</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>Namespace</span>::<span class='ident'>from</span>(<span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>name</span>.<span class='ident'>namespace_url</span>));
-        <span class='self'>self</span>.<span class='ident'>scope</span>.<span class='ident'>insert</span>(<span class='ident'>prefix</span>, <span class='ident'>namespace</span>);
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">insert</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">QName</span>)  {
+        <span class="kw">let</span> <span class="ident">prefix</span> <span class="op">=</span> <span class="ident">Prefix</span>::<span class="ident">from</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">name</span>.<span class="ident">prefix</span>);
+        <span class="kw">let</span> <span class="ident">namespace</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">Namespace</span>::<span class="ident">from</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">name</span>.<span class="ident">namespace_url</span>));
+        <span class="self">self</span>.<span class="ident">scope</span>.<span class="ident">insert</span>(<span class="ident">prefix</span>, <span class="ident">namespace</span>);
     }
 
-    <span class='kw'>fn</span> <span class='ident'>insert_ns</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>attr</span>: <span class='kw-2'>&amp;</span><span class='ident'>Attribute</span>) <span class='op'>-&gt;</span> <span class='ident'>InsResult</span> {
-        <span class='kw'>if</span> <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>attr</span>.<span class='ident'>value</span> <span class='op'>==</span> <span class='ident'>XMLNS_URI</span> {
-            <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>Borrowed</span>(<span class='string'>&quot;Can&#39;t declare XMLNS URI&quot;</span>));
+    <span class="kw">fn</span> <span class="ident">insert_ns</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">attr</span>: <span class="kw-2">&amp;</span><span class="ident">Attribute</span>) <span class="op">-&gt;</span> <span class="ident">InsResult</span> {
+        <span class="kw">if</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">attr</span>.<span class="ident">value</span> <span class="op">==</span> <span class="ident">XMLNS_URI</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Borrowed</span>(<span class="string">&quot;Can&#39;t declare XMLNS URI&quot;</span>));
         };
 
-        <span class='kw'>let</span> <span class='ident'>opt_uri</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ident'>attr</span>.<span class='ident'>value</span>.<span class='ident'>is_empty</span>() {
-            <span class='prelude-val'>None</span>
-        } <span class='kw'>else</span> {
-            <span class='prelude-val'>Some</span>(<span class='ident'>Namespace</span>::<span class='ident'>from</span>(<span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>attr</span>.<span class='ident'>value</span>))
+        <span class="kw">let</span> <span class="ident">opt_uri</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">attr</span>.<span class="ident">value</span>.<span class="ident">is_empty</span>() {
+            <span class="prelude-val">None</span>
+        } <span class="kw">else</span> {
+            <span class="prelude-val">Some</span>(<span class="ident">Namespace</span>::<span class="ident">from</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">attr</span>.<span class="ident">value</span>))
         };
 
-        <span class='kw'>let</span> <span class='ident'>result</span> <span class='op'>=</span> <span class='kw'>match</span> (<span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>attr</span>.<span class='ident'>name</span>.<span class='ident'>prefix</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>attr</span>.<span class='ident'>name</span>.<span class='ident'>local</span>) {
-            (<span class='string'>&quot;xmlns&quot;</span>, <span class='string'>&quot;xml&quot;</span>) <span class='op'>=&gt;</span> {
-                <span class='kw'>if</span> <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>attr</span>.<span class='ident'>value</span> <span class='op'>!=</span> <span class='ident'>XML_URI</span> {
-                    <span class='prelude-val'>Err</span>(<span class='ident'>Borrowed</span>(<span class='string'>&quot;XML namespace can&#39;t be redeclared&quot;</span>))
-                } <span class='kw'>else</span> {
-                    <span class='prelude-val'>Ok</span>(())
+        <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="kw">match</span> (<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">attr</span>.<span class="ident">name</span>.<span class="ident">prefix</span>, <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">attr</span>.<span class="ident">name</span>.<span class="ident">local</span>) {
+            (<span class="string">&quot;xmlns&quot;</span>, <span class="string">&quot;xml&quot;</span>) <span class="op">=&gt;</span> {
+                <span class="kw">if</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">attr</span>.<span class="ident">value</span> <span class="op">!=</span> <span class="ident">XML_URI</span> {
+                    <span class="prelude-val">Err</span>(<span class="ident">Borrowed</span>(<span class="string">&quot;XML namespace can&#39;t be redeclared&quot;</span>))
+                } <span class="kw">else</span> {
+                    <span class="prelude-val">Ok</span>(())
                 }
             },
 
-            (<span class='string'>&quot;xmlns&quot;</span> , <span class='string'>&quot;xmlns&quot;</span>) <span class='op'>=&gt;</span> {
-                <span class='prelude-val'>Err</span>(<span class='ident'>Borrowed</span>(<span class='string'>&quot;XMLNS namespaces can&#39;t be changed&quot;</span>))
+            (<span class="string">&quot;xmlns&quot;</span> , <span class="string">&quot;xmlns&quot;</span>) <span class="op">=&gt;</span> {
+                <span class="prelude-val">Err</span>(<span class="ident">Borrowed</span>(<span class="string">&quot;XMLNS namespaces can&#39;t be changed&quot;</span>))
             },
 
-            (<span class='string'>&quot;xmlns&quot;</span>, _)
-            <span class='op'>|</span> (<span class='string'>&quot;&quot;</span>, <span class='string'>&quot;xmlns&quot;</span>)<span class='op'>=&gt;</span> {
-                <span class='kw'>let</span> <span class='ident'>ext</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ident'>attr</span>.<span class='ident'>name</span>.<span class='ident'>prefix</span>.<span class='ident'>is_empty</span>() {
-                    <span class='macro'>namespace_prefix</span><span class='macro'>!</span>(<span class='string'>&quot;&quot;</span>)
-                } <span class='kw'>else</span> {
-                    <span class='ident'>Prefix</span>::<span class='ident'>from</span>(<span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>attr</span>.<span class='ident'>name</span>.<span class='ident'>local</span>)
+            (<span class="string">&quot;xmlns&quot;</span>, _)
+            <span class="op">|</span> (<span class="string">&quot;&quot;</span>, <span class="string">&quot;xmlns&quot;</span>)<span class="op">=&gt;</span> {
+                <span class="kw">let</span> <span class="ident">ext</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">attr</span>.<span class="ident">name</span>.<span class="ident">prefix</span>.<span class="ident">is_empty</span>() {
+                    <span class="macro">namespace_prefix</span><span class="macro">!</span>(<span class="string">&quot;&quot;</span>)
+                } <span class="kw">else</span> {
+                    <span class="ident">Prefix</span>::<span class="ident">from</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">attr</span>.<span class="ident">name</span>.<span class="ident">local</span>)
                 };
 
-                <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>scope</span>.<span class='ident'>contains_key</span>(<span class='kw-2'>&amp;</span><span class='ident'>ext</span>) <span class='op'>&amp;&amp;</span> <span class='ident'>opt_uri</span>.<span class='ident'>is_some</span>() {
-                    <span class='prelude-val'>Err</span>(<span class='ident'>Borrowed</span>(<span class='string'>&quot;Namespace already defined&quot;</span>))
-                } <span class='kw'>else</span> {
-                    <span class='self'>self</span>.<span class='ident'>scope</span>.<span class='ident'>insert</span>(<span class='ident'>ext</span>, <span class='ident'>opt_uri</span>);
-                    <span class='prelude-val'>Ok</span>(())
+                <span class="kw">if</span> <span class="self">self</span>.<span class="ident">scope</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">ext</span>) <span class="op">&amp;&amp;</span> <span class="ident">opt_uri</span>.<span class="ident">is_some</span>() {
+                    <span class="prelude-val">Err</span>(<span class="ident">Borrowed</span>(<span class="string">&quot;Namespace already defined&quot;</span>))
+                } <span class="kw">else</span> {
+                    <span class="self">self</span>.<span class="ident">scope</span>.<span class="ident">insert</span>(<span class="ident">ext</span>, <span class="ident">opt_uri</span>);
+                    <span class="prelude-val">Ok</span>(())
                 }
             },
 
-            (_, _) <span class='op'>=&gt;</span> {
-                <span class='prelude-val'>Err</span>(<span class='ident'>Borrowed</span>(<span class='string'>&quot;Invalid namespace declaration.&quot;</span>))
+            (_, _) <span class="op">=&gt;</span> {
+                <span class="prelude-val">Err</span>(<span class="ident">Borrowed</span>(<span class="string">&quot;Invalid namespace declaration.&quot;</span>))
             }
         };
-        <span class='ident'>result</span>
+        <span class="ident">result</span>
     }
 }
-<span class='doccomment'>/// Tree builder options, with an impl for Default.</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>XmlTreeBuilderOpts</span> {
-    <span class='doccomment'>/// Report all parse errors described in the spec, at some</span>
-    <span class='doccomment'>/// performance penalty?  Default: false</span>
-    <span class='kw'>pub</span> <span class='ident'>exact_errors</span>: <span class='ident'>bool</span>,
+<span class="doccomment">/// Tree builder options, with an impl for Default.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">XmlTreeBuilderOpts</span> {
+    <span class="doccomment">/// Report all parse errors described in the spec, at some</span>
+    <span class="doccomment">/// performance penalty?  Default: false</span>
+    <span class="kw">pub</span> <span class="ident">exact_errors</span>: <span class="ident">bool</span>,
 
-    <span class='doccomment'>/// Keep a record of how long we spent in each state?  Printed</span>
-    <span class='doccomment'>/// when `end()` is called.  Default: false</span>
-    <span class='kw'>pub</span> <span class='ident'>profile</span>: <span class='ident'>bool</span>,
+    <span class="doccomment">/// Keep a record of how long we spent in each state?  Printed</span>
+    <span class="doccomment">/// when `end()` is called.  Default: false</span>
+    <span class="kw">pub</span> <span class="ident">profile</span>: <span class="ident">bool</span>,
 }
 
-<span class='kw'>impl</span> <span class='ident'>Default</span> <span class='kw'>for</span> <span class='ident'>XmlTreeBuilderOpts</span> {
-    <span class='kw'>fn</span> <span class='ident'>default</span>() <span class='op'>-&gt;</span> <span class='ident'>XmlTreeBuilderOpts</span> {
-        <span class='ident'>XmlTreeBuilderOpts</span>{
-            <span class='ident'>exact_errors</span>: <span class='bool-val'>false</span>,
-            <span class='ident'>profile</span>: <span class='bool-val'>false</span>,
+<span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">XmlTreeBuilderOpts</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-&gt;</span> <span class="ident">XmlTreeBuilderOpts</span> {
+        <span class="ident">XmlTreeBuilderOpts</span>{
+            <span class="ident">exact_errors</span>: <span class="bool-val">false</span>,
+            <span class="ident">profile</span>: <span class="bool-val">false</span>,
         }
     }
 }
 
-<span class='doccomment'>/// The XML tree builder.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>XmlTreeBuilder</span><span class='op'>&lt;</span><span class='ident'>Handle</span>, <span class='ident'>Sink</span><span class='op'>&gt;</span> {
-    <span class='doccomment'>/// Configuration options for XmlTreeBuilder</span>
-    <span class='ident'>opts</span>: <span class='ident'>XmlTreeBuilderOpts</span>,
+<span class="doccomment">/// The XML tree builder.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">XmlTreeBuilder</span><span class="op">&lt;</span><span class="ident">Handle</span>, <span class="ident">Sink</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// Configuration options for XmlTreeBuilder</span>
+    <span class="ident">opts</span>: <span class="ident">XmlTreeBuilderOpts</span>,
 
-    <span class='doccomment'>/// Consumer of tree modifications.</span>
-    <span class='ident'>sink</span>: <span class='ident'>Sink</span>,
+    <span class="doccomment">/// Consumer of tree modifications.</span>
+    <span class="ident">sink</span>: <span class="ident">Sink</span>,
 
-    <span class='doccomment'>/// The document node, which is created by the sink.</span>
-    <span class='ident'>doc_handle</span>: <span class='ident'>Handle</span>,
+    <span class="doccomment">/// The document node, which is created by the sink.</span>
+    <span class="ident">doc_handle</span>: <span class="ident">Handle</span>,
 
-    <span class='doccomment'>/// Next state change for the tokenizer, if any.</span>
-    <span class='ident'>next_tokenizer_state</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>tokenizer</span>::<span class='ident'>states</span>::<span class='ident'>XmlState</span><span class='op'>&gt;</span>,
+    <span class="doccomment">/// Next state change for the tokenizer, if any.</span>
+    <span class="ident">next_tokenizer_state</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">tokenizer</span>::<span class="ident">states</span>::<span class="ident">XmlState</span><span class="op">&gt;</span>,
 
-    <span class='doccomment'>/// Stack of open elements, most recently added at end.</span>
-    <span class='ident'>open_elems</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Handle</span><span class='op'>&gt;</span>,
+    <span class="doccomment">/// Stack of open elements, most recently added at end.</span>
+    <span class="ident">open_elems</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Handle</span><span class="op">&gt;</span>,
 
-    <span class='doccomment'>/// Current element pointer.</span>
-    <span class='ident'>curr_elem</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Handle</span><span class='op'>&gt;</span>,
+    <span class="doccomment">/// Current element pointer.</span>
+    <span class="ident">curr_elem</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Handle</span><span class="op">&gt;</span>,
 
-    <span class='doccomment'>/// Stack of namespace identifiers and namespaces.</span>
-    <span class='ident'>namespace_stack</span>: <span class='ident'>NamespaceMapStack</span>,
+    <span class="doccomment">/// Stack of namespace identifiers and namespaces.</span>
+    <span class="ident">namespace_stack</span>: <span class="ident">NamespaceMapStack</span>,
 
-    <span class='doccomment'>/// Current namespace identifier</span>
-    <span class='ident'>current_namespace</span>: <span class='ident'>NamespaceMap</span>,
+    <span class="doccomment">/// Current namespace identifier</span>
+    <span class="ident">current_namespace</span>: <span class="ident">NamespaceMap</span>,
 
-    <span class='doccomment'>/// List of already present namespace local name attribute pairs.</span>
-    <span class='ident'>present_attrs</span>: <span class='ident'>HashSet</span><span class='op'>&lt;</span>(<span class='ident'>Namespace</span>, <span class='ident'>LocalName</span>)<span class='op'>&gt;</span>,
+    <span class="doccomment">/// List of already present namespace local name attribute pairs.</span>
+    <span class="ident">present_attrs</span>: <span class="ident">HashSet</span><span class="op">&lt;</span>(<span class="ident">Namespace</span>, <span class="ident">LocalName</span>)<span class="op">&gt;</span>,
 
-    <span class='doccomment'>/// Current tree builder phase.</span>
-    <span class='ident'>phase</span>: <span class='ident'>XmlPhase</span>,
+    <span class="doccomment">/// Current tree builder phase.</span>
+    <span class="ident">phase</span>: <span class="ident">XmlPhase</span>,
 }
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>Handle</span>, <span class='ident'>Sink</span><span class='op'>&gt;</span> <span class='ident'>XmlTreeBuilder</span><span class='op'>&lt;</span><span class='ident'>Handle</span>, <span class='ident'>Sink</span><span class='op'>&gt;</span>
-    <span class='kw'>where</span> <span class='ident'>Handle</span>: <span class='ident'>Clone</span>,
-          <span class='ident'>Sink</span>: <span class='ident'>TreeSink</span><span class='op'>&lt;</span><span class='ident'>Handle</span><span class='op'>=</span><span class='ident'>Handle</span><span class='op'>&gt;</span>,
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Handle</span>, <span class="ident">Sink</span><span class="op">&gt;</span> <span class="ident">XmlTreeBuilder</span><span class="op">&lt;</span><span class="ident">Handle</span>, <span class="ident">Sink</span><span class="op">&gt;</span>
+    <span class="kw">where</span> <span class="ident">Handle</span>: <span class="ident">Clone</span>,
+          <span class="ident">Sink</span>: <span class="ident">TreeSink</span><span class="op">&lt;</span><span class="ident">Handle</span><span class="op">=</span><span class="ident">Handle</span><span class="op">&gt;</span>,
 {
-    <span class='doccomment'>/// Create a new tree builder which sends tree modifications to a particular `TreeSink`.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// The tree builder is also a `TokenSink`.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='kw-2'>mut</span> <span class='ident'>sink</span>: <span class='ident'>Sink</span>, <span class='ident'>opts</span>: <span class='ident'>XmlTreeBuilderOpts</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlTreeBuilder</span><span class='op'>&lt;</span><span class='ident'>Handle</span>, <span class='ident'>Sink</span><span class='op'>&gt;</span> {
-        <span class='kw'>let</span> <span class='ident'>doc_handle</span> <span class='op'>=</span> <span class='ident'>sink</span>.<span class='ident'>get_document</span>();
-        <span class='ident'>XmlTreeBuilder</span> {
-            <span class='ident'>opts</span>: <span class='ident'>opts</span>,
-            <span class='ident'>sink</span>: <span class='ident'>sink</span>,
-            <span class='ident'>doc_handle</span>: <span class='ident'>doc_handle</span>,
-            <span class='ident'>next_tokenizer_state</span>: <span class='prelude-val'>None</span>,
-            <span class='ident'>open_elems</span>: <span class='macro'>vec</span><span class='macro'>!</span>(),
-            <span class='ident'>curr_elem</span>: <span class='prelude-val'>None</span>,
-            <span class='ident'>namespace_stack</span>: <span class='ident'>NamespaceMapStack</span>::<span class='ident'>new</span>(),
-            <span class='ident'>current_namespace</span>: <span class='ident'>NamespaceMap</span>::<span class='ident'>empty</span>(),
-            <span class='ident'>present_attrs</span>: <span class='ident'>HashSet</span>::<span class='ident'>new</span>(),
-            <span class='ident'>phase</span>: <span class='ident'>StartPhase</span>,
+    <span class="doccomment">/// Create a new tree builder which sends tree modifications to a particular `TreeSink`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The tree builder is also a `TokenSink`.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="kw-2">mut</span> <span class="ident">sink</span>: <span class="ident">Sink</span>, <span class="ident">opts</span>: <span class="ident">XmlTreeBuilderOpts</span>) <span class="op">-&gt;</span> <span class="ident">XmlTreeBuilder</span><span class="op">&lt;</span><span class="ident">Handle</span>, <span class="ident">Sink</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">doc_handle</span> <span class="op">=</span> <span class="ident">sink</span>.<span class="ident">get_document</span>();
+        <span class="ident">XmlTreeBuilder</span> {
+            <span class="ident">opts</span>: <span class="ident">opts</span>,
+            <span class="ident">sink</span>: <span class="ident">sink</span>,
+            <span class="ident">doc_handle</span>: <span class="ident">doc_handle</span>,
+            <span class="ident">next_tokenizer_state</span>: <span class="prelude-val">None</span>,
+            <span class="ident">open_elems</span>: <span class="macro">vec</span><span class="macro">!</span>(),
+            <span class="ident">curr_elem</span>: <span class="prelude-val">None</span>,
+            <span class="ident">namespace_stack</span>: <span class="ident">NamespaceMapStack</span>::<span class="ident">new</span>(),
+            <span class="ident">current_namespace</span>: <span class="ident">NamespaceMap</span>::<span class="ident">empty</span>(),
+            <span class="ident">present_attrs</span>: <span class="ident">HashSet</span>::<span class="ident">new</span>(),
+            <span class="ident">phase</span>: <span class="ident">StartPhase</span>,
         }
     }
 
-    <span class='doccomment'>/// Returns consumer of tree modifications.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>unwrap</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Sink</span> {
-        <span class='self'>self</span>.<span class='ident'>sink</span>
+    <span class="doccomment">/// Returns consumer of tree modifications.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unwrap</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Sink</span> {
+        <span class="self">self</span>.<span class="ident">sink</span>
     }
 
-    <span class='doccomment'>/// Immutably borrows consumer of tree modifications.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>sink</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>Sink</span> {
-        <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>sink</span>
+    <span class="doccomment">/// Immutably borrows consumer of tree modifications.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sink</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Sink</span> {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">sink</span>
     }
 
-    <span class='doccomment'>/// Mutably borrows consumer of tree modifications.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>sink_mut</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>Sink</span> {
-        <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>sink</span>
+    <span class="doccomment">/// Mutably borrows consumer of tree modifications.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sink_mut</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">Sink</span> {
+        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">sink</span>
     }
 
-    <span class='doccomment'>/// Call the `Tracer`&#39;s `trace_handle` method on every `Handle` in the tree builder&#39;s</span>
-    <span class='doccomment'>/// internal state.  This is intended to support garbage-collected DOMs.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>trace_handles</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>tracer</span>: <span class='kw-2'>&amp;</span><span class='ident'>Tracer</span><span class='op'>&lt;</span><span class='ident'>Handle</span><span class='op'>=</span><span class='ident'>Handle</span><span class='op'>&gt;</span>) {
-        <span class='ident'>tracer</span>.<span class='ident'>trace_handle</span>(<span class='self'>self</span>.<span class='ident'>doc_handle</span>.<span class='ident'>clone</span>());
-        <span class='kw'>for</span> <span class='ident'>e</span> <span class='kw'>in</span> <span class='self'>self</span>.<span class='ident'>open_elems</span>.<span class='ident'>iter</span>() {
-            <span class='ident'>tracer</span>.<span class='ident'>trace_handle</span>(<span class='ident'>e</span>.<span class='ident'>clone</span>());
+    <span class="doccomment">/// Call the `Tracer`&#39;s `trace_handle` method on every `Handle` in the tree builder&#39;s</span>
+    <span class="doccomment">/// internal state.  This is intended to support garbage-collected DOMs.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">trace_handles</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tracer</span>: <span class="kw-2">&amp;</span><span class="ident">Tracer</span><span class="op">&lt;</span><span class="ident">Handle</span><span class="op">=</span><span class="ident">Handle</span><span class="op">&gt;</span>) {
+        <span class="ident">tracer</span>.<span class="ident">trace_handle</span>(<span class="self">self</span>.<span class="ident">doc_handle</span>.<span class="ident">clone</span>());
+        <span class="kw">for</span> <span class="ident">e</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">open_elems</span>.<span class="ident">iter</span>() {
+            <span class="ident">tracer</span>.<span class="ident">trace_handle</span>(<span class="ident">e</span>.<span class="ident">clone</span>());
         }
-        <span class='self'>self</span>.<span class='ident'>curr_elem</span>.<span class='ident'>as_ref</span>().<span class='ident'>map</span>(<span class='op'>|</span><span class='ident'>h</span><span class='op'>|</span> <span class='ident'>tracer</span>.<span class='ident'>trace_handle</span>(<span class='ident'>h</span>.<span class='ident'>clone</span>()));
+        <span class="self">self</span>.<span class="ident">curr_elem</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">h</span><span class="op">|</span> <span class="ident">tracer</span>.<span class="ident">trace_handle</span>(<span class="ident">h</span>.<span class="ident">clone</span>()));
     }
 
-    <span class='comment'>// Debug helper</span>
-    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>not</span>(<span class='ident'>for_c</span>))]</span>
-    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>dead_code</span>)]</span>
-    <span class='kw'>fn</span> <span class='ident'>dump_state</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>label</span>: <span class='ident'>String</span>) {
+    <span class="comment">// Debug helper</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">for_c</span>))]</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">dump_state</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">label</span>: <span class="ident">String</span>) {
 
-        <span class='macro'>debug</span><span class='macro'>!</span>(<span class='string'>&quot;dump_state on {}&quot;</span>, <span class='ident'>label</span>);
-        <span class='macro'>debug</span><span class='macro'>!</span>(<span class='string'>&quot;    open_elems:&quot;</span>);
-        <span class='kw'>for</span> <span class='ident'>node</span> <span class='kw'>in</span> <span class='self'>self</span>.<span class='ident'>open_elems</span>.<span class='ident'>iter</span>() {
-            <span class='kw'>let</span> <span class='ident'>QName</span> { <span class='ident'>prefix</span>, <span class='ident'>local</span>, .. } <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>elem_name</span>(<span class='ident'>node</span>);
-            <span class='macro'>debug</span><span class='macro'>!</span>(<span class='string'>&quot; {:?}:{:?}&quot;</span>, <span class='ident'>prefix</span>,<span class='ident'>local</span>);
+        <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;dump_state on {}&quot;</span>, <span class="ident">label</span>);
+        <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;    open_elems:&quot;</span>);
+        <span class="kw">for</span> <span class="ident">node</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">open_elems</span>.<span class="ident">iter</span>() {
+            <span class="kw">let</span> <span class="ident">QName</span> { <span class="ident">prefix</span>, <span class="ident">local</span>, .. } <span class="op">=</span> <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">elem_name</span>(<span class="ident">node</span>);
+            <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot; {:?}:{:?}&quot;</span>, <span class="ident">prefix</span>,<span class="ident">local</span>);
 
         }
-        <span class='macro'>debug</span><span class='macro'>!</span>(<span class='string'>&quot;&quot;</span>);
+        <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;&quot;</span>);
     }
 
-    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>for_c</span>)]</span>
-    <span class='kw'>fn</span> <span class='ident'>debug_step</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>_mode</span>: <span class='ident'>XmlPhase</span>, <span class='ident'>_token</span>: <span class='kw-2'>&amp;</span><span class='ident'>Token</span>) {
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">for_c</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">debug_step</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_mode</span>: <span class="ident">XmlPhase</span>, <span class="ident">_token</span>: <span class="kw-2">&amp;</span><span class="ident">Token</span>) {
     }
 
-    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>not</span>(<span class='ident'>for_c</span>))]</span>
-    <span class='kw'>fn</span> <span class='ident'>debug_step</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>mode</span>: <span class='ident'>XmlPhase</span>, <span class='ident'>token</span>: <span class='kw-2'>&amp;</span><span class='ident'>Token</span>) {
-        <span class='macro'>debug</span><span class='macro'>!</span>(<span class='string'>&quot;processing {:?} in insertion mode {:?}&quot;</span>, <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='ident'>token</span>), <span class='ident'>mode</span>);
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">for_c</span>))]</span>
+    <span class="kw">fn</span> <span class="ident">debug_step</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mode</span>: <span class="ident">XmlPhase</span>, <span class="ident">token</span>: <span class="kw-2">&amp;</span><span class="ident">Token</span>) {
+        <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;processing {:?} in insertion mode {:?}&quot;</span>, <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{:?}&quot;</span>, <span class="ident">token</span>), <span class="ident">mode</span>);
     }
 
 
-    <span class='kw'>fn</span> <span class='ident'>declare_ns</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>attr</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Attribute</span>) {
-        <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Err</span>(<span class='ident'>msg</span>) <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>current_namespace</span>.<span class='ident'>insert_ns</span>(<span class='kw-2'>&amp;</span><span class='ident'>attr</span>) {
-            <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>parse_error</span>(<span class='ident'>msg</span>);
+    <span class="kw">fn</span> <span class="ident">declare_ns</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">attr</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Attribute</span>) {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">msg</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">current_namespace</span>.<span class="ident">insert_ns</span>(<span class="kw-2">&amp;</span><span class="ident">attr</span>) {
+            <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">parse_error</span>(<span class="ident">msg</span>);
 
-        } <span class='kw'>else</span> {
-            <span class='ident'>attr</span>.<span class='ident'>name</span>.<span class='ident'>namespace_url</span> <span class='op'>=</span> <span class='macro'>ns</span><span class='macro'>!</span>(<span class='ident'>xmlns</span>);
+        } <span class="kw">else</span> {
+            <span class="ident">attr</span>.<span class="ident">name</span>.<span class="ident">namespace_url</span> <span class="op">=</span> <span class="macro">ns</span><span class="macro">!</span>(<span class="ident">xmlns</span>);
         }
 
     }
 
-    <span class='kw'>fn</span> <span class='ident'>find_uri</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>prefix</span>: <span class='kw-2'>&amp;</span><span class='ident'>Prefix</span>) <span class='op'>-&gt;</span>  <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Namespace</span><span class='op'>&gt;</span>, <span class='ident'>Cow</span><span class='op'>&lt;</span><span class='lifetime'>&#39;static</span>, <span class='ident'>str</span><span class='op'>&gt;</span> <span class='op'>&gt;</span>{
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>uri</span> <span class='op'>=</span> <span class='prelude-val'>Err</span>(<span class='ident'>Borrowed</span>(<span class='string'>&quot;No appropriate namespace found&quot;</span>));
-        <span class='kw'>for</span> <span class='ident'>ns</span> <span class='kw'>in</span> <span class='self'>self</span>.<span class='ident'>namespace_stack</span>.<span class='number'>0</span>.<span class='ident'>iter</span>()
-                    .<span class='ident'>chain</span>(<span class='prelude-val'>Some</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>current_namespace</span>)).<span class='ident'>rev</span>() {
-            <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='ident'>el</span>) <span class='op'>=</span> <span class='ident'>ns</span>.<span class='ident'>get</span>(<span class='ident'>prefix</span>) {
-                <span class='ident'>uri</span> <span class='op'>=</span> <span class='prelude-val'>Ok</span>(<span class='ident'>el</span>.<span class='ident'>clone</span>());
-                <span class='kw'>break</span>;
+    <span class="kw">fn</span> <span class="ident">find_uri</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">prefix</span>: <span class="kw-2">&amp;</span><span class="ident">Prefix</span>) <span class="op">-&gt;</span>  <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Namespace</span><span class="op">&gt;</span>, <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">str</span><span class="op">&gt;</span> <span class="op">&gt;</span>{
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">uri</span> <span class="op">=</span> <span class="prelude-val">Err</span>(<span class="ident">Borrowed</span>(<span class="string">&quot;No appropriate namespace found&quot;</span>));
+        <span class="kw">for</span> <span class="ident">ns</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">namespace_stack</span>.<span class="number">0</span>.<span class="ident">iter</span>()
+                    .<span class="ident">chain</span>(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">current_namespace</span>)).<span class="ident">rev</span>() {
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">el</span>) <span class="op">=</span> <span class="ident">ns</span>.<span class="ident">get</span>(<span class="ident">prefix</span>) {
+                <span class="ident">uri</span> <span class="op">=</span> <span class="prelude-val">Ok</span>(<span class="ident">el</span>.<span class="ident">clone</span>());
+                <span class="kw">break</span>;
             }
         }
-        <span class='ident'>uri</span>
+        <span class="ident">uri</span>
     }
 
-    <span class='kw'>fn</span> <span class='ident'>bind_qname</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>name</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>QName</span>) {
-        <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>find_uri</span>(<span class='kw-2'>&amp;</span><span class='ident'>name</span>.<span class='ident'>prefix</span>) {
-            <span class='prelude-val'>Ok</span>(<span class='ident'>uri</span>) <span class='op'>=&gt;</span> {
-                <span class='kw'>let</span> <span class='ident'>ns_uri</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>uri</span> {
-                    <span class='prelude-val'>Some</span>(<span class='ident'>e</span>) <span class='op'>=&gt;</span> <span class='ident'>e</span>,
-                    <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='macro'>ns</span><span class='macro'>!</span>(),
+    <span class="kw">fn</span> <span class="ident">bind_qname</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">QName</span>) {
+        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">find_uri</span>(<span class="kw-2">&amp;</span><span class="ident">name</span>.<span class="ident">prefix</span>) {
+            <span class="prelude-val">Ok</span>(<span class="ident">uri</span>) <span class="op">=&gt;</span> {
+                <span class="kw">let</span> <span class="ident">ns_uri</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">uri</span> {
+                    <span class="prelude-val">Some</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> <span class="ident">e</span>,
+                    <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="macro">ns</span><span class="macro">!</span>(),
                 };
-                <span class='ident'>name</span>.<span class='ident'>namespace_url</span> <span class='op'>=</span> <span class='ident'>ns_uri</span>;
+                <span class="ident">name</span>.<span class="ident">namespace_url</span> <span class="op">=</span> <span class="ident">ns_uri</span>;
             },
-            <span class='prelude-val'>Err</span>(<span class='ident'>msg</span>) <span class='op'>=&gt;</span> {
-                <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>parse_error</span>(<span class='ident'>msg</span>);
+            <span class="prelude-val">Err</span>(<span class="ident">msg</span>) <span class="op">=&gt;</span> {
+                <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">parse_error</span>(<span class="ident">msg</span>);
             },
         }
     }
 
-    <span class='comment'>// This method takes in name qualified name and binds it to the</span>
-    <span class='comment'>// existing namespace context.</span>
-    <span class='comment'>//</span>
-    <span class='comment'>// Returns false if the attribute is a duplicate, returns true otherwise.</span>
-    <span class='kw'>fn</span> <span class='ident'>bind_attr_qname</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>name</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>QName</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
-        <span class='comment'>// Attributes don&#39;t have default namespace</span>
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>not_duplicate</span> <span class='op'>=</span> <span class='bool-val'>true</span>;
+    <span class="comment">// This method takes in name qualified name and binds it to the</span>
+    <span class="comment">// existing namespace context.</span>
+    <span class="comment">//</span>
+    <span class="comment">// Returns false if the attribute is a duplicate, returns true otherwise.</span>
+    <span class="kw">fn</span> <span class="ident">bind_attr_qname</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">QName</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+        <span class="comment">// Attributes don&#39;t have default namespace</span>
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">not_duplicate</span> <span class="op">=</span> <span class="bool-val">true</span>;
 
-        <span class='kw'>if</span> <span class='op'>!</span><span class='ident'>name</span>.<span class='ident'>prefix</span>.<span class='ident'>is_empty</span>() {
-            <span class='self'>self</span>.<span class='ident'>bind_qname</span>(<span class='ident'>name</span>);
-            <span class='ident'>not_duplicate</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>check_duplicate_attr</span>(<span class='ident'>name</span>);
+        <span class="kw">if</span> <span class="op">!</span><span class="ident">name</span>.<span class="ident">prefix</span>.<span class="ident">is_empty</span>() {
+            <span class="self">self</span>.<span class="ident">bind_qname</span>(<span class="ident">name</span>);
+            <span class="ident">not_duplicate</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">check_duplicate_attr</span>(<span class="ident">name</span>);
         }
-        <span class='ident'>not_duplicate</span>
+        <span class="ident">not_duplicate</span>
     }
 
-    <span class='kw'>fn</span> <span class='ident'>check_duplicate_attr</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>name</span>: <span class='kw-2'>&amp;</span><span class='ident'>QName</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
-        <span class='kw'>let</span> <span class='ident'>pair</span> <span class='op'>=</span> (<span class='ident'>name</span>.<span class='ident'>namespace_url</span>.<span class='ident'>clone</span>(), <span class='ident'>name</span>.<span class='ident'>local</span>.<span class='ident'>clone</span>());
+    <span class="kw">fn</span> <span class="ident">check_duplicate_attr</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">QName</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+        <span class="kw">let</span> <span class="ident">pair</span> <span class="op">=</span> (<span class="ident">name</span>.<span class="ident">namespace_url</span>.<span class="ident">clone</span>(), <span class="ident">name</span>.<span class="ident">local</span>.<span class="ident">clone</span>());
 
-        <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>present_attrs</span>.<span class='ident'>contains</span>(<span class='kw-2'>&amp;</span><span class='ident'>pair</span>) {
-            <span class='kw'>return</span> <span class='bool-val'>false</span>;
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">present_attrs</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">pair</span>) {
+            <span class="kw">return</span> <span class="bool-val">false</span>;
         }
-        <span class='self'>self</span>.<span class='ident'>present_attrs</span>.<span class='ident'>insert</span>(<span class='ident'>pair</span>);
-        <span class='bool-val'>true</span>
+        <span class="self">self</span>.<span class="ident">present_attrs</span>.<span class="ident">insert</span>(<span class="ident">pair</span>);
+        <span class="bool-val">true</span>
     }
 
-    <span class='kw'>fn</span> <span class='ident'>process_namespaces</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>tag</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Tag</span>) {
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>new_attr</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[];
-        <span class='comment'>// First we extract all namespace declarations</span>
-        <span class='kw'>for</span> <span class='kw-2'>mut</span> <span class='ident'>attr</span> <span class='kw'>in</span> <span class='ident'>tag</span>.<span class='ident'>attrs</span>.<span class='ident'>iter_mut</span>()
-            .<span class='ident'>filter</span>(<span class='op'>|</span><span class='ident'>attr</span><span class='op'>|</span> <span class='ident'>attr</span>.<span class='ident'>name</span>.<span class='ident'>prefix</span> <span class='op'>==</span> <span class='macro'>namespace_prefix</span><span class='macro'>!</span>(<span class='string'>&quot;xmlns&quot;</span>)
-                          <span class='op'>||</span> <span class='ident'>attr</span>.<span class='ident'>name</span>.<span class='ident'>local</span> <span class='op'>==</span> <span class='macro'>local_name</span><span class='macro'>!</span>(<span class='string'>&quot;xmlns&quot;</span>)) {
+    <span class="kw">fn</span> <span class="ident">process_namespaces</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tag</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Tag</span>) {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">new_attr</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[];
+        <span class="comment">// First we extract all namespace declarations</span>
+        <span class="kw">for</span> <span class="kw-2">mut</span> <span class="ident">attr</span> <span class="kw">in</span> <span class="ident">tag</span>.<span class="ident">attrs</span>.<span class="ident">iter_mut</span>()
+            .<span class="ident">filter</span>(<span class="op">|</span><span class="ident">attr</span><span class="op">|</span> <span class="ident">attr</span>.<span class="ident">name</span>.<span class="ident">prefix</span> <span class="op">==</span> <span class="macro">namespace_prefix</span><span class="macro">!</span>(<span class="string">&quot;xmlns&quot;</span>)
+                          <span class="op">||</span> <span class="ident">attr</span>.<span class="ident">name</span>.<span class="ident">local</span> <span class="op">==</span> <span class="macro">local_name</span><span class="macro">!</span>(<span class="string">&quot;xmlns&quot;</span>)) {
 
-            <span class='self'>self</span>.<span class='ident'>declare_ns</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>attr</span>);
+            <span class="self">self</span>.<span class="ident">declare_ns</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">attr</span>);
         }
 
-        <span class='comment'>// Then we bind those namespace declarations to attributes</span>
-        <span class='kw'>for</span> <span class='kw-2'>mut</span> <span class='ident'>attr</span> <span class='kw'>in</span> <span class='ident'>tag</span>.<span class='ident'>attrs</span>.<span class='ident'>iter_mut</span>()
-            .<span class='ident'>filter</span>(<span class='op'>|</span><span class='ident'>attr</span><span class='op'>|</span> <span class='ident'>attr</span>.<span class='ident'>name</span>.<span class='ident'>prefix</span> <span class='op'>!=</span> <span class='macro'>namespace_prefix</span><span class='macro'>!</span>(<span class='string'>&quot;xmlns&quot;</span>)
-                          <span class='op'>&amp;&amp;</span> <span class='ident'>attr</span>.<span class='ident'>name</span>.<span class='ident'>local</span> <span class='op'>!=</span> <span class='macro'>local_name</span><span class='macro'>!</span>(<span class='string'>&quot;xmlns&quot;</span>)) {
+        <span class="comment">// Then we bind those namespace declarations to attributes</span>
+        <span class="kw">for</span> <span class="kw-2">mut</span> <span class="ident">attr</span> <span class="kw">in</span> <span class="ident">tag</span>.<span class="ident">attrs</span>.<span class="ident">iter_mut</span>()
+            .<span class="ident">filter</span>(<span class="op">|</span><span class="ident">attr</span><span class="op">|</span> <span class="ident">attr</span>.<span class="ident">name</span>.<span class="ident">prefix</span> <span class="op">!=</span> <span class="macro">namespace_prefix</span><span class="macro">!</span>(<span class="string">&quot;xmlns&quot;</span>)
+                          <span class="op">&amp;&amp;</span> <span class="ident">attr</span>.<span class="ident">name</span>.<span class="ident">local</span> <span class="op">!=</span> <span class="macro">local_name</span><span class="macro">!</span>(<span class="string">&quot;xmlns&quot;</span>)) {
 
-            <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>bind_attr_qname</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>attr</span>.<span class='ident'>name</span>) {
-                <span class='ident'>new_attr</span>.<span class='ident'>push</span>(<span class='ident'>attr</span>.<span class='ident'>clone</span>());
+            <span class="kw">if</span> <span class="self">self</span>.<span class="ident">bind_attr_qname</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">attr</span>.<span class="ident">name</span>) {
+                <span class="ident">new_attr</span>.<span class="ident">push</span>(<span class="ident">attr</span>.<span class="ident">clone</span>());
             }
 
         }
-        <span class='ident'>mem</span>::<span class='ident'>replace</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>tag</span>.<span class='ident'>attrs</span>, <span class='ident'>new_attr</span>);
-        <span class='comment'>// Then we bind the tags namespace.</span>
-        <span class='self'>self</span>.<span class='ident'>bind_qname</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>tag</span>.<span class='ident'>name</span>);
+        <span class="ident">mem</span>::<span class="ident">replace</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">tag</span>.<span class="ident">attrs</span>, <span class="ident">new_attr</span>);
+        <span class="comment">// Then we bind the tags namespace.</span>
+        <span class="self">self</span>.<span class="ident">bind_qname</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">tag</span>.<span class="ident">name</span>);
 
-        <span class='comment'>// Finally, we dump current namespace if its unneeded.</span>
-        <span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>replace</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>current_namespace</span>, <span class='ident'>NamespaceMap</span>::<span class='ident'>empty</span>());
+        <span class="comment">// Finally, we dump current namespace if its unneeded.</span>
+        <span class="kw">let</span> <span class="ident">x</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">replace</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">current_namespace</span>, <span class="ident">NamespaceMap</span>::<span class="ident">empty</span>());
 
-        <span class='comment'>// Only start tag doesn&#39;t dump current namespace.</span>
-        <span class='kw'>if</span> <span class='ident'>tag</span>.<span class='ident'>kind</span> <span class='op'>==</span> <span class='ident'>StartTag</span> {
-            <span class='self'>self</span>.<span class='ident'>namespace_stack</span>.<span class='ident'>push</span>(<span class='ident'>x</span>);
+        <span class="comment">// Only start tag doesn&#39;t dump current namespace.</span>
+        <span class="kw">if</span> <span class="ident">tag</span>.<span class="ident">kind</span> <span class="op">==</span> <span class="ident">StartTag</span> {
+            <span class="self">self</span>.<span class="ident">namespace_stack</span>.<span class="ident">push</span>(<span class="ident">x</span>);
         }
 
     }
 
-    <span class='kw'>fn</span> <span class='ident'>process_to_completion</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='kw-2'>mut</span> <span class='ident'>token</span>: <span class='ident'>Token</span>) {
-        <span class='comment'>// Queue of additional tokens yet to be processed.</span>
-        <span class='comment'>// This stays empty in the common case where we don&#39;t split whitespace.</span>
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>more_tokens</span> <span class='op'>=</span> <span class='ident'>VecDeque</span>::<span class='ident'>new</span>();
+    <span class="kw">fn</span> <span class="ident">process_to_completion</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">token</span>: <span class="ident">Token</span>) {
+        <span class="comment">// Queue of additional tokens yet to be processed.</span>
+        <span class="comment">// This stays empty in the common case where we don&#39;t split whitespace.</span>
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">more_tokens</span> <span class="op">=</span> <span class="ident">VecDeque</span>::<span class="ident">new</span>();
 
-        <span class='kw'>loop</span> {
-            <span class='kw'>let</span> <span class='ident'>phase</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>phase</span>;
-            <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>step</span>(<span class='ident'>phase</span>, <span class='ident'>token</span>) {
-                <span class='ident'>Done</span> <span class='op'>=&gt;</span> {
-                    <span class='ident'>token</span> <span class='op'>=</span> <span class='macro'>unwrap_or_return</span><span class='macro'>!</span>(<span class='ident'>more_tokens</span>.<span class='ident'>pop_front</span>(), ());
+        <span class="kw">loop</span> {
+            <span class="kw">let</span> <span class="ident">phase</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">phase</span>;
+            <span class="kw">match</span> <span class="self">self</span>.<span class="ident">step</span>(<span class="ident">phase</span>, <span class="ident">token</span>) {
+                <span class="ident">Done</span> <span class="op">=&gt;</span> {
+                    <span class="ident">token</span> <span class="op">=</span> <span class="macro">unwrap_or_return</span><span class="macro">!</span>(<span class="ident">more_tokens</span>.<span class="ident">pop_front</span>(), ());
                 }
-                <span class='ident'>Reprocess</span>(<span class='ident'>m</span>, <span class='ident'>t</span>) <span class='op'>=&gt;</span> {
-                    <span class='self'>self</span>.<span class='ident'>phase</span> <span class='op'>=</span> <span class='ident'>m</span>;
-                    <span class='ident'>token</span> <span class='op'>=</span> <span class='ident'>t</span>;
+                <span class="ident">Reprocess</span>(<span class="ident">m</span>, <span class="ident">t</span>) <span class="op">=&gt;</span> {
+                    <span class="self">self</span>.<span class="ident">phase</span> <span class="op">=</span> <span class="ident">m</span>;
+                    <span class="ident">token</span> <span class="op">=</span> <span class="ident">t</span>;
                 }
 
             }
@@ -880,39 +881,39 @@
     }
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>Handle</span>, <span class='ident'>Sink</span><span class='op'>&gt;</span> <span class='ident'>TokenSink</span>
-    <span class='kw'>for</span> <span class='ident'>XmlTreeBuilder</span><span class='op'>&lt;</span><span class='ident'>Handle</span>, <span class='ident'>Sink</span><span class='op'>&gt;</span>
-    <span class='kw'>where</span> <span class='ident'>Handle</span>: <span class='ident'>Clone</span>,
-          <span class='ident'>Sink</span>: <span class='ident'>TreeSink</span><span class='op'>&lt;</span><span class='ident'>Handle</span><span class='op'>=</span><span class='ident'>Handle</span><span class='op'>&gt;</span>,
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Handle</span>, <span class="ident">Sink</span><span class="op">&gt;</span> <span class="ident">TokenSink</span>
+    <span class="kw">for</span> <span class="ident">XmlTreeBuilder</span><span class="op">&lt;</span><span class="ident">Handle</span>, <span class="ident">Sink</span><span class="op">&gt;</span>
+    <span class="kw">where</span> <span class="ident">Handle</span>: <span class="ident">Clone</span>,
+          <span class="ident">Sink</span>: <span class="ident">TreeSink</span><span class="op">&lt;</span><span class="ident">Handle</span><span class="op">=</span><span class="ident">Handle</span><span class="op">&gt;</span>,
 {
-    <span class='kw'>fn</span> <span class='ident'>process_token</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>token</span>: <span class='ident'>tokenizer</span>::<span class='ident'>Token</span>) {
-        <span class='comment'>// Handle `ParseError` and `DoctypeToken`; convert everything else to the local `Token` type.</span>
-        <span class='kw'>let</span> <span class='ident'>token</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>token</span> {
-            <span class='ident'>tokenizer</span>::<span class='ident'>ParseError</span>(<span class='ident'>e</span>) <span class='op'>=&gt;</span> {
-                <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>parse_error</span>(<span class='ident'>e</span>);
-                <span class='kw'>return</span>;
+    <span class="kw">fn</span> <span class="ident">process_token</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">token</span>: <span class="ident">tokenizer</span>::<span class="ident">Token</span>) {
+        <span class="comment">// Handle `ParseError` and `DoctypeToken`; convert everything else to the local `Token` type.</span>
+        <span class="kw">let</span> <span class="ident">token</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">token</span> {
+            <span class="ident">tokenizer</span>::<span class="ident">ParseError</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
+                <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">parse_error</span>(<span class="ident">e</span>);
+                <span class="kw">return</span>;
             }
 
-            <span class='ident'>tokenizer</span>::<span class='ident'>DoctypeToken</span>(<span class='ident'>d</span>) <span class='op'>=&gt;</span><span class='ident'>DoctypeToken</span>(<span class='ident'>d</span>),
-            <span class='ident'>tokenizer</span>::<span class='ident'>PIToken</span>(<span class='ident'>x</span>)   <span class='op'>=&gt;</span> <span class='ident'>PIToken</span>(<span class='ident'>x</span>),
-            <span class='ident'>tokenizer</span>::<span class='ident'>TagToken</span>(<span class='ident'>x</span>) <span class='op'>=&gt;</span> <span class='ident'>TagToken</span>(<span class='ident'>x</span>),
-            <span class='ident'>tokenizer</span>::<span class='ident'>CommentToken</span>(<span class='ident'>x</span>) <span class='op'>=&gt;</span> <span class='ident'>CommentToken</span>(<span class='ident'>x</span>),
-            <span class='ident'>tokenizer</span>::<span class='ident'>NullCharacterToken</span> <span class='op'>=&gt;</span> <span class='ident'>NullCharacterToken</span>,
-            <span class='ident'>tokenizer</span>::<span class='ident'>EOFToken</span> <span class='op'>=&gt;</span> <span class='ident'>EOFToken</span>,
-            <span class='ident'>tokenizer</span>::<span class='ident'>CharacterTokens</span>(<span class='ident'>x</span>) <span class='op'>=&gt;</span> <span class='ident'>CharacterTokens</span>(<span class='ident'>x</span>),
+            <span class="ident">tokenizer</span>::<span class="ident">DoctypeToken</span>(<span class="ident">d</span>) <span class="op">=&gt;</span><span class="ident">DoctypeToken</span>(<span class="ident">d</span>),
+            <span class="ident">tokenizer</span>::<span class="ident">PIToken</span>(<span class="ident">x</span>)   <span class="op">=&gt;</span> <span class="ident">PIToken</span>(<span class="ident">x</span>),
+            <span class="ident">tokenizer</span>::<span class="ident">TagToken</span>(<span class="ident">x</span>) <span class="op">=&gt;</span> <span class="ident">TagToken</span>(<span class="ident">x</span>),
+            <span class="ident">tokenizer</span>::<span class="ident">CommentToken</span>(<span class="ident">x</span>) <span class="op">=&gt;</span> <span class="ident">CommentToken</span>(<span class="ident">x</span>),
+            <span class="ident">tokenizer</span>::<span class="ident">NullCharacterToken</span> <span class="op">=&gt;</span> <span class="ident">NullCharacterToken</span>,
+            <span class="ident">tokenizer</span>::<span class="ident">EOFToken</span> <span class="op">=&gt;</span> <span class="ident">EOFToken</span>,
+            <span class="ident">tokenizer</span>::<span class="ident">CharacterTokens</span>(<span class="ident">x</span>) <span class="op">=&gt;</span> <span class="ident">CharacterTokens</span>(<span class="ident">x</span>),
         };
 
-        <span class='self'>self</span>.<span class='ident'>process_to_completion</span>(<span class='ident'>token</span>);
+        <span class="self">self</span>.<span class="ident">process_to_completion</span>(<span class="ident">token</span>);
     }
 
-    <span class='kw'>fn</span> <span class='ident'>end</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>for</span> <span class='ident'>node</span> <span class='kw'>in</span> <span class='self'>self</span>.<span class='ident'>open_elems</span>.<span class='ident'>drain</span>(..).<span class='ident'>rev</span>() {
-            <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>pop</span>(<span class='ident'>node</span>);
+    <span class="kw">fn</span> <span class="ident">end</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+        <span class="kw">for</span> <span class="ident">node</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">open_elems</span>.<span class="ident">drain</span>(..).<span class="ident">rev</span>() {
+            <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">pop</span>(<span class="ident">node</span>);
         }
     }
 
-    <span class='kw'>fn</span> <span class='ident'>query_state_change</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>tokenizer</span>::<span class='ident'>states</span>::<span class='ident'>XmlState</span><span class='op'>&gt;</span> {
-        <span class='self'>self</span>.<span class='ident'>next_tokenizer_state</span>.<span class='ident'>take</span>()
+    <span class="kw">fn</span> <span class="ident">query_state_change</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">tokenizer</span>::<span class="ident">states</span>::<span class="ident">XmlState</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">next_tokenizer_state</span>.<span class="ident">take</span>()
     }
 }
 </pre>

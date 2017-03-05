@@ -9,6 +9,7 @@
 
     <title>cfg.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -132,95 +133,95 @@
 <span id="88">88</span>
 <span id="89">89</span>
 <span id="90">90</span>
-</pre><pre class='rust '>
-<span class='doccomment'>//! Macros for conditional compilation.</span>
+</pre><pre class="rust ">
+<span class="doccomment">//! Macros for conditional compilation.</span>
 
-<span class='doccomment'>/// Compile-time matching on config variables.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// Only the branch relevant on your machine will be type-checked!</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// # Example</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// ```</span>
-<span class='doccomment'>/// # #[macro_use] extern crate mac;</span>
-<span class='doccomment'>/// # fn main() {</span>
-<span class='doccomment'>/// let mascot = match_cfg! {</span>
-<span class='doccomment'>///     (target_os = &quot;linux&quot;) =&gt; &quot;penguin&quot;,</span>
-<span class='doccomment'>///     (target_os = &quot;openbsd&quot;) =&gt; &quot;blowfish&quot;,</span>
-<span class='doccomment'>///     _ =&gt; &quot;unknown&quot;,</span>
-<span class='doccomment'>/// };</span>
-<span class='doccomment'>/// println!(&quot;{}&quot;, mascot);</span>
-<span class='doccomment'>/// # }</span>
-<span class='doccomment'>/// ```</span>
-<span class='doccomment'>///</span>
-<span class='attribute'>#[<span class='ident'>macro_export</span>]</span>
-<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>match_cfg</span> {
-    ( $( (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>cfg</span>:<span class='ident'>meta</span>) <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>:<span class='ident'>expr</span>, )<span class='op'>*</span> _ <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>last</span>:<span class='ident'>expr</span>, ) <span class='op'>=&gt;</span> {
-        <span class='kw'>match</span> () {
+<span class="doccomment">/// Compile-time matching on config variables.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Only the branch relevant on your machine will be type-checked!</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Example</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// # #[macro_use] extern crate mac;</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// let mascot = match_cfg! {</span>
+<span class="doccomment">///     (target_os = &quot;linux&quot;) =&gt; &quot;penguin&quot;,</span>
+<span class="doccomment">///     (target_os = &quot;openbsd&quot;) =&gt; &quot;blowfish&quot;,</span>
+<span class="doccomment">///     _ =&gt; &quot;unknown&quot;,</span>
+<span class="doccomment">/// };</span>
+<span class="doccomment">/// println!(&quot;{}&quot;, mascot);</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
+<span class="attribute">#[<span class="ident">macro_export</span>]</span>
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">match_cfg</span> {
+    ( $( (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">cfg</span>:<span class="ident">meta</span>) <span class="op">=&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">e</span>:<span class="ident">expr</span>, )<span class="op">*</span> _ <span class="op">=&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">last</span>:<span class="ident">expr</span>, ) <span class="op">=&gt;</span> {
+        <span class="kw">match</span> () {
             $(
-                <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>cfg</span>)]</span>
-                () <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>,
-            )<span class='op'>*</span>
+                <span class="attribute">#[<span class="ident">cfg</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">cfg</span>)]</span>
+                () <span class="op">=&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">e</span>,
+            )<span class="op">*</span>
 
-            <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>all</span>( $( <span class='ident'>not</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>cfg</span>) ),<span class='op'>*</span> ))]</span>
-            () <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>last</span>,
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>( $( <span class="ident">not</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">cfg</span>) ),<span class="op">*</span> ))]</span>
+            () <span class="op">=&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">last</span>,
         }
     };
 
-    ( $( (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>cfg</span>:<span class='ident'>meta</span>) <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>:<span class='ident'>expr</span>, )<span class='op'>*</span> ) <span class='op'>=&gt;</span> {
-        <span class='macro'>match_cfg</span><span class='macro'>!</span> {
+    ( $( (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">cfg</span>:<span class="ident">meta</span>) <span class="op">=&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">e</span>:<span class="ident">expr</span>, )<span class="op">*</span> ) <span class="op">=&gt;</span> {
+        <span class="macro">match_cfg</span><span class="macro">!</span> {
             $(
-                (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>cfg</span>) <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>,
-            )<span class='op'>*</span>
+                (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">cfg</span>) <span class="op">=&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">e</span>,
+            )<span class="op">*</span>
 
-            _ <span class='op'>=&gt;</span> {
-                <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>dead_code</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>static_assert</span>]</span>
-                <span class='kw'>static</span> <span class='ident'>MATCH_CFG_FALLBACK_UNREACHABLE</span>: <span class='ident'>bool</span> <span class='op'>=</span> <span class='bool-val'>false</span>;
+            _ <span class="op">=&gt;</span> {
+                <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
+                <span class="attribute">#[<span class="ident">static_assert</span>]</span>
+                <span class="kw">static</span> <span class="ident">MATCH_CFG_FALLBACK_UNREACHABLE</span>: <span class="ident">bool</span> <span class="op">=</span> <span class="bool-val">false</span>;
             }
         }
     };
 }
 
-<span class='doccomment'>/// Compile-time conditional expression.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// # Example</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// ```</span>
-<span class='doccomment'>/// # #[macro_use] extern crate mac;</span>
-<span class='doccomment'>/// # fn main() {</span>
-<span class='doccomment'>/// if_cfg!(test {</span>
-<span class='doccomment'>///     println!(&quot;Crate built as a test suite&quot;);</span>
-<span class='doccomment'>/// })</span>
-<span class='doccomment'>/// # }</span>
-<span class='doccomment'>/// ```</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// Unlike `if cfg!(...)`, this will not even compile the unused branch.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// ```</span>
-<span class='doccomment'>/// # #[macro_use] extern crate mac;</span>
-<span class='doccomment'>/// # fn main() {</span>
-<span class='doccomment'>/// let x = if_cfg!(any(bleh, blah=&quot;bluh&quot;) {</span>
-<span class='doccomment'>///     some_undefined_function_name();</span>
-<span class='doccomment'>///     2 + &quot;doesn&#39;t even typecheck&quot;</span>
-<span class='doccomment'>/// } else {</span>
-<span class='doccomment'>///     3</span>
-<span class='doccomment'>/// });</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// assert_eq!(x, 3);</span>
-<span class='doccomment'>/// # }</span>
-<span class='doccomment'>/// ```</span>
-<span class='attribute'>#[<span class='ident'>macro_export</span>]</span>
-<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>if_cfg</span> {
-    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>cfg</span>:<span class='ident'>meta</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span>:<span class='ident'>block</span> <span class='kw'>else</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>:<span class='ident'>block</span>) <span class='op'>=&gt;</span> {
-        <span class='macro'>match_cfg</span><span class='macro'>!</span> {
-            (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>cfg</span>) <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span>,
-            _ <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>f</span>,
+<span class="doccomment">/// Compile-time conditional expression.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Example</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// # #[macro_use] extern crate mac;</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// if_cfg!(test {</span>
+<span class="doccomment">///     println!(&quot;Crate built as a test suite&quot;);</span>
+<span class="doccomment">/// })</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Unlike `if cfg!(...)`, this will not even compile the unused branch.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// # #[macro_use] extern crate mac;</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// let x = if_cfg!(any(bleh, blah=&quot;bluh&quot;) {</span>
+<span class="doccomment">///     some_undefined_function_name();</span>
+<span class="doccomment">///     2 + &quot;doesn&#39;t even typecheck&quot;</span>
+<span class="doccomment">/// } else {</span>
+<span class="doccomment">///     3</span>
+<span class="doccomment">/// });</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// assert_eq!(x, 3);</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="attribute">#[<span class="ident">macro_export</span>]</span>
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">if_cfg</span> {
+    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">cfg</span>:<span class="ident">meta</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>:<span class="ident">block</span> <span class="kw">else</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">f</span>:<span class="ident">block</span>) <span class="op">=&gt;</span> {
+        <span class="macro">match_cfg</span><span class="macro">!</span> {
+            (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">cfg</span>) <span class="op">=&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>,
+            _ <span class="op">=&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">f</span>,
         }
     };
 
-    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>cfg</span>:<span class='ident'>meta</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span>:<span class='ident'>block</span>) <span class='op'>=&gt;</span> {
-        <span class='macro'>if_cfg</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>cfg</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span> <span class='kw'>else</span> { })
+    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">cfg</span>:<span class="ident">meta</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>:<span class="ident">block</span>) <span class="op">=&gt;</span> {
+        <span class="macro">if_cfg</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">cfg</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span> <span class="kw">else</span> { })
     };
 }
 </pre>
