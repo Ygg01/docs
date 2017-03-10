@@ -150,114 +150,114 @@
 <span id="105">105</span>
 <span id="106">106</span>
 <span id="107">107</span>
-</pre><pre class="rust ">
-<span class="doccomment">//! # Serde</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! Serde is a framework for ***ser***ializing and ***de***serializing Rust data</span>
-<span class="doccomment">//! structures efficiently and generically.</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! The Serde ecosystem consists of data structures that know how to serialize</span>
-<span class="doccomment">//! and deserialize themselves along with data formats that know how to</span>
-<span class="doccomment">//! serialize and deserialize other things. Serde provides the layer by which</span>
-<span class="doccomment">//! these two groups interact with each other, allowing any supported data</span>
-<span class="doccomment">//! structure to be serialized and deserialized using any supported data format.</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! See the Serde website https://serde.rs/ for additional documentation and</span>
-<span class="doccomment">//! usage examples.</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! ### Design</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! Where many other languages rely on runtime reflection for serializing data,</span>
-<span class="doccomment">//! Serde is instead built on Rust&#39;s powerful trait system. A data structure</span>
-<span class="doccomment">//! that knows how to serialize and deserialize itself is one that implements</span>
-<span class="doccomment">//! Serde&#39;s `Serialize` and `Deserialize` traits (or uses Serde&#39;s code</span>
-<span class="doccomment">//! generation to automatically derive implementations at compile time). This</span>
-<span class="doccomment">//! avoids any overhead of reflection or runtime type information. In fact in</span>
-<span class="doccomment">//! many situations the interaction between data structure and data format can</span>
-<span class="doccomment">//! be completely optimized away by the Rust compiler, leaving Serde</span>
-<span class="doccomment">//! serialization to perform roughly the same speed as a handwritten serializer</span>
-<span class="doccomment">//! for the specific selection of data structure and data format.</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! ### Data formats</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! The following is a partial list of data formats that have been implemented</span>
-<span class="doccomment">//! for Serde by the community.</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! - [JSON](https://github.com/serde-rs/json), the ubiquitous JavaScript Object</span>
-<span class="doccomment">//!   Notation used by many HTTP APIs.</span>
-<span class="doccomment">//! - [Bincode](https://github.com/TyOverby/bincode), a compact binary format</span>
-<span class="doccomment">//!   used for IPC within the Servo rendering engine.</span>
-<span class="doccomment">//! - [CBOR](https://github.com/pyfisch/cbor), a Concise Binary Object</span>
-<span class="doccomment">//!   Representation designed for small message size without the need for</span>
-<span class="doccomment">//!   version negotiation.</span>
-<span class="doccomment">//! - [YAML](https://github.com/dtolnay/serde-yaml), a popular human-friendly</span>
-<span class="doccomment">//!   configuration language that ain&#39;t markup language.</span>
-<span class="doccomment">//! - [MessagePack](https://github.com/3Hren/msgpack-rust), an efficient binary</span>
-<span class="doccomment">//!   format that resembles a compact JSON.</span>
-<span class="doccomment">//! - [TOML](https://github.com/alexcrichton/toml-rs), a minimal configuration</span>
-<span class="doccomment">//!   format used by [Cargo](http://doc.crates.io/manifest.html).</span>
-<span class="doccomment">//! - [Pickle](https://github.com/birkenfeld/serde-pickle), a format common in</span>
-<span class="doccomment">//!   the Python world.</span>
-<span class="doccomment">//! - [Hjson](https://github.com/laktak/hjson-rust), a variant of JSON designed</span>
-<span class="doccomment">//!   to be readable and writable by humans.</span>
-<span class="doccomment">//! - [BSON](https://github.com/zonyitoo/bson-rs), the data storage and network</span>
-<span class="doccomment">//!   transfer format used by MongoDB.</span>
-<span class="doccomment">//! - [URL](https://github.com/nox/serde_urlencoded), the x-www-form-urlencoded</span>
-<span class="doccomment">//!   format.</span>
-<span class="doccomment">//! - [XML](https://github.com/serde-rs/xml), the flexible machine-friendly W3C</span>
-<span class="doccomment">//!   standard. *(deserialization only)*</span>
-<span class="doccomment">//! - [Envy](https://github.com/softprops/envy), a way to deserialize</span>
-<span class="doccomment">//!   environment variables into Rust structs. *(deserialization only)*</span>
-<span class="doccomment">//! - [Redis](https://github.com/OneSignal/serde-redis), deserialize values from</span>
-<span class="doccomment">//!   Redis when using [redis-rs](https://crates.io/crates/redis).</span>
-<span class="doccomment">//!   *(deserialization only)*</span>
+</pre><pre class='rust '>
+<span class='doccomment'>//! # Serde</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! Serde is a framework for ***ser***ializing and ***de***serializing Rust data</span>
+<span class='doccomment'>//! structures efficiently and generically.</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! The Serde ecosystem consists of data structures that know how to serialize</span>
+<span class='doccomment'>//! and deserialize themselves along with data formats that know how to</span>
+<span class='doccomment'>//! serialize and deserialize other things. Serde provides the layer by which</span>
+<span class='doccomment'>//! these two groups interact with each other, allowing any supported data</span>
+<span class='doccomment'>//! structure to be serialized and deserialized using any supported data format.</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! See the Serde website https://serde.rs/ for additional documentation and</span>
+<span class='doccomment'>//! usage examples.</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! ### Design</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! Where many other languages rely on runtime reflection for serializing data,</span>
+<span class='doccomment'>//! Serde is instead built on Rust&#39;s powerful trait system. A data structure</span>
+<span class='doccomment'>//! that knows how to serialize and deserialize itself is one that implements</span>
+<span class='doccomment'>//! Serde&#39;s `Serialize` and `Deserialize` traits (or uses Serde&#39;s code</span>
+<span class='doccomment'>//! generation to automatically derive implementations at compile time). This</span>
+<span class='doccomment'>//! avoids any overhead of reflection or runtime type information. In fact in</span>
+<span class='doccomment'>//! many situations the interaction between data structure and data format can</span>
+<span class='doccomment'>//! be completely optimized away by the Rust compiler, leaving Serde</span>
+<span class='doccomment'>//! serialization to perform roughly the same speed as a handwritten serializer</span>
+<span class='doccomment'>//! for the specific selection of data structure and data format.</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! ### Data formats</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! The following is a partial list of data formats that have been implemented</span>
+<span class='doccomment'>//! for Serde by the community.</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! - [JSON](https://github.com/serde-rs/json), the ubiquitous JavaScript Object</span>
+<span class='doccomment'>//!   Notation used by many HTTP APIs.</span>
+<span class='doccomment'>//! - [Bincode](https://github.com/TyOverby/bincode), a compact binary format</span>
+<span class='doccomment'>//!   used for IPC within the Servo rendering engine.</span>
+<span class='doccomment'>//! - [CBOR](https://github.com/pyfisch/cbor), a Concise Binary Object</span>
+<span class='doccomment'>//!   Representation designed for small message size without the need for</span>
+<span class='doccomment'>//!   version negotiation.</span>
+<span class='doccomment'>//! - [YAML](https://github.com/dtolnay/serde-yaml), a popular human-friendly</span>
+<span class='doccomment'>//!   configuration language that ain&#39;t markup language.</span>
+<span class='doccomment'>//! - [MessagePack](https://github.com/3Hren/msgpack-rust), an efficient binary</span>
+<span class='doccomment'>//!   format that resembles a compact JSON.</span>
+<span class='doccomment'>//! - [TOML](https://github.com/alexcrichton/toml-rs), a minimal configuration</span>
+<span class='doccomment'>//!   format used by [Cargo](http://doc.crates.io/manifest.html).</span>
+<span class='doccomment'>//! - [Pickle](https://github.com/birkenfeld/serde-pickle), a format common in</span>
+<span class='doccomment'>//!   the Python world.</span>
+<span class='doccomment'>//! - [Hjson](https://github.com/laktak/hjson-rust), a variant of JSON designed</span>
+<span class='doccomment'>//!   to be readable and writable by humans.</span>
+<span class='doccomment'>//! - [BSON](https://github.com/zonyitoo/bson-rs), the data storage and network</span>
+<span class='doccomment'>//!   transfer format used by MongoDB.</span>
+<span class='doccomment'>//! - [URL](https://github.com/nox/serde_urlencoded), the x-www-form-urlencoded</span>
+<span class='doccomment'>//!   format.</span>
+<span class='doccomment'>//! - [XML](https://github.com/serde-rs/xml), the flexible machine-friendly W3C</span>
+<span class='doccomment'>//!   standard. *(deserialization only)*</span>
+<span class='doccomment'>//! - [Envy](https://github.com/softprops/envy), a way to deserialize</span>
+<span class='doccomment'>//!   environment variables into Rust structs. *(deserialization only)*</span>
+<span class='doccomment'>//! - [Redis](https://github.com/OneSignal/serde-redis), deserialize values from</span>
+<span class='doccomment'>//!   Redis when using [redis-rs](https://crates.io/crates/redis).</span>
+<span class='doccomment'>//!   *(deserialization only)*</span>
 
-<span class="attribute">#<span class="op">!</span>[<span class="ident">doc</span>(<span class="ident">html_root_url</span><span class="op">=</span><span class="string">&quot;https://docs.serde.rs&quot;</span>)]</span>
-<span class="attribute">#<span class="op">!</span>[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>), <span class="ident">no_std</span>)]</span>
-<span class="attribute">#<span class="op">!</span>[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable&quot;</span>, <span class="ident">feature</span>(<span class="ident">inclusive_range</span>, <span class="ident">nonzero</span>, <span class="ident">specialization</span>, <span class="ident">zero_one</span>))]</span>
-<span class="attribute">#<span class="op">!</span>[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;alloc&quot;</span>, <span class="ident">feature</span>(<span class="ident">alloc</span>))]</span>
-<span class="attribute">#<span class="op">!</span>[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;collections&quot;</span>, <span class="ident">feature</span>(<span class="ident">collections</span>))]</span>
-<span class="attribute">#<span class="op">!</span>[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;cargo-clippy&quot;</span>, <span class="ident">allow</span>(<span class="ident">linkedlist</span>, <span class="ident">type_complexity</span>, <span class="ident">doc_markdown</span>))]</span>
-<span class="attribute">#<span class="op">!</span>[<span class="ident">deny</span>(<span class="ident">missing_docs</span>)]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>doc</span>(<span class='ident'>html_root_url</span><span class='op'>=</span><span class='string'>&quot;https://docs.serde.rs&quot;</span>)]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>not</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;std&quot;</span>), <span class='ident'>no_std</span>)]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;unstable&quot;</span>, <span class='ident'>feature</span>(<span class='ident'>inclusive_range</span>, <span class='ident'>nonzero</span>, <span class='ident'>specialization</span>, <span class='ident'>zero_one</span>))]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;alloc&quot;</span>, <span class='ident'>feature</span>(<span class='ident'>alloc</span>))]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;collections&quot;</span>, <span class='ident'>feature</span>(<span class='ident'>collections</span>))]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;cargo-clippy&quot;</span>, <span class='ident'>allow</span>(<span class='ident'>linkedlist</span>, <span class='ident'>type_complexity</span>, <span class='ident'>doc_markdown</span>))]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>deny</span>(<span class='ident'>missing_docs</span>)]</span>
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;collections&quot;</span>)]</span>
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">collections</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;collections&quot;</span>)]</span>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>collections</span>;
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;alloc&quot;</span>)]</span>
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">alloc</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;alloc&quot;</span>)]</span>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>alloc</span>;
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable&quot;</span>)]</span>
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">core</span> <span class="kw">as</span> <span class="ident">actual_core</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;unstable&quot;</span>)]</span>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>core</span> <span class='kw'>as</span> <span class='ident'>actual_core</span>;
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>)]</span>
-<span class="kw">mod</span> <span class="ident">core</span> {
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">ops</span>, <span class="ident">hash</span>, <span class="ident">fmt</span>, <span class="ident">cmp</span>, <span class="ident">marker</span>, <span class="ident">mem</span>, <span class="ident">i8</span>, <span class="ident">i16</span>, <span class="ident">i32</span>, <span class="ident">i64</span>, <span class="ident">u8</span>, <span class="ident">u16</span>, <span class="ident">u32</span>, <span class="ident">u64</span>, <span class="ident">isize</span>,
-                  <span class="ident">usize</span>, <span class="ident">f32</span>, <span class="ident">f64</span>, <span class="ident">char</span>, <span class="ident">str</span>, <span class="ident">num</span>, <span class="ident">slice</span>, <span class="ident">iter</span>, <span class="ident">cell</span>, <span class="ident">default</span>, <span class="ident">result</span>, <span class="ident">option</span>};
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">actual_core</span>::<span class="ident">nonzero</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;std&quot;</span>)]</span>
+<span class='kw'>mod</span> <span class='ident'>core</span> {
+    <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>std</span>::{<span class='ident'>ops</span>, <span class='ident'>hash</span>, <span class='ident'>fmt</span>, <span class='ident'>cmp</span>, <span class='ident'>marker</span>, <span class='ident'>mem</span>, <span class='ident'>i8</span>, <span class='ident'>i16</span>, <span class='ident'>i32</span>, <span class='ident'>i64</span>, <span class='ident'>u8</span>, <span class='ident'>u16</span>, <span class='ident'>u32</span>, <span class='ident'>u64</span>, <span class='ident'>isize</span>,
+                  <span class='ident'>usize</span>, <span class='ident'>f32</span>, <span class='ident'>f64</span>, <span class='ident'>char</span>, <span class='ident'>str</span>, <span class='ident'>num</span>, <span class='ident'>slice</span>, <span class='ident'>iter</span>, <span class='ident'>cell</span>, <span class='ident'>default</span>, <span class='ident'>result</span>, <span class='ident'>option</span>};
+    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;unstable&quot;</span>)]</span>
+    <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>actual_core</span>::<span class='ident'>nonzero</span>;
 }
 
-<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">inline</span>)]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ser</span>::{<span class="ident">Serialize</span>, <span class="ident">Serializer</span>};
-<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">inline</span>)]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">de</span>::{<span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>};
+<span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>inline</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>ser</span>::{<span class='ident'>Serialize</span>, <span class='ident'>Serializer</span>};
+<span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>inline</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>de</span>::{<span class='ident'>Deserialize</span>, <span class='ident'>Deserializer</span>};
 
-<span class="attribute">#[<span class="ident">macro_use</span>]</span>
-<span class="kw">mod</span> <span class="ident">macros</span>;
+<span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
+<span class='kw'>mod</span> <span class='ident'>macros</span>;
 
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">bytes</span>;
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">de</span>;
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">iter</span>;
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">ser</span>;
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>, <span class="ident">doc</span>(<span class="ident">hidden</span>))]</span>
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">error</span>;
-<span class="kw">mod</span> <span class="ident">utils</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>bytes</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>de</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;std&quot;</span>)]</span>
+<span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>iter</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>ser</span>;
+<span class='attribute'>#[<span class='ident'>cfg_attr</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;std&quot;</span>, <span class='ident'>doc</span>(<span class='ident'>hidden</span>))]</span>
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>error</span>;
+<span class='kw'>mod</span> <span class='ident'>utils</span>;
 
-<span class="comment">// Generated code uses these to support no_std. Not public API.</span>
-<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">export</span>;
+<span class='comment'>// Generated code uses these to support no_std. Not public API.</span>
+<span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>export</span>;
 </pre>
 </section>
     <section id='search' class="content hidden"></section>
