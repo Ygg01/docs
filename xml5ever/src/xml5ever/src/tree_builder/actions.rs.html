@@ -281,6 +281,8 @@
 <span id="237">237</span>
 <span id="238">238</span>
 <span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2015 The xml5ever Project Developers. See the</span>
 <span class='comment'>// COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -387,7 +389,8 @@
 
     <span class='kw'>fn</span> <span class='ident'>append_tag</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>tag</span>: <span class='ident'>Tag</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span> {
         <span class='kw'>let</span> <span class='ident'>child</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>create_element</span>(<span class='ident'>tag</span>.<span class='ident'>name</span>, <span class='ident'>tag</span>.<span class='ident'>attrs</span>);
-        <span class='self'>self</span>.<span class='ident'>insert_appropriately</span>(<span class='ident'>AppendNode</span>(<span class='ident'>child</span>));
+        <span class='self'>self</span>.<span class='ident'>insert_appropriately</span>(<span class='ident'>AppendNode</span>(<span class='ident'>child</span>.<span class='ident'>clone</span>()));
+        <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>pop</span>(<span class='ident'>child</span>);
         <span class='ident'>Done</span>
     }
 
@@ -470,8 +473,7 @@
             <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>current_node_in</span>(<span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> <span class='ident'>pred</span>(<span class='ident'>x</span>)) {
                 <span class='kw'>break</span>;
             }
-            <span class='self'>self</span>.<span class='ident'>open_elems</span>.<span class='ident'>pop</span>();
-            <span class='self'>self</span>.<span class='ident'>namespace_stack</span>.<span class='ident'>pop</span>();
+            <span class='self'>self</span>.<span class='ident'>pop</span>();
         }
     }
 
@@ -506,7 +508,9 @@
 
     <span class='kw'>fn</span> <span class='ident'>pop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Handle</span> {
         <span class='self'>self</span>.<span class='ident'>namespace_stack</span>.<span class='ident'>pop</span>();
-        <span class='self'>self</span>.<span class='ident'>open_elems</span>.<span class='ident'>pop</span>().<span class='ident'>expect</span>(<span class='string'>&quot;no current element&quot;</span>)
+        <span class='kw'>let</span> <span class='ident'>node</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>open_elems</span>.<span class='ident'>pop</span>().<span class='ident'>expect</span>(<span class='string'>&quot;no current element&quot;</span>);
+        <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>pop</span>(<span class='ident'>node</span>.<span class='ident'>clone</span>());
+        <span class='ident'>node</span>
     }
 
     <span class='kw'>fn</span> <span class='ident'>stop_parsing</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span> {
