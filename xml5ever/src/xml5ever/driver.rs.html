@@ -405,367 +405,367 @@
 <span id="360">360</span>
 <span id="361">361</span>
 <span id="362">362</span>
-</pre><pre class="rust ">
-<span class="comment">// Copyright 2015 The xml5ever Project Developers. See the</span>
-<span class="comment">// COPYRIGHT file at the top-level directory of this distribution.</span>
-<span class="comment">//</span>
-<span class="comment">// Licensed under the Apache License, Version 2.0 &lt;LICENSE-APACHE or</span>
-<span class="comment">// http://www.apache.org/licenses/LICENSE-2.0&gt; or the MIT license</span>
-<span class="comment">// &lt;LICENSE-MIT or http://opensource.org/licenses/MIT&gt;, at your</span>
-<span class="comment">// option. This file may not be copied, modified, or distributed</span>
-<span class="comment">// except according to those terms.</span>
+</pre><pre class='rust '>
+<span class='comment'>// Copyright 2015 The xml5ever Project Developers. See the</span>
+<span class='comment'>// COPYRIGHT file at the top-level directory of this distribution.</span>
+<span class='comment'>//</span>
+<span class='comment'>// Licensed under the Apache License, Version 2.0 &lt;LICENSE-APACHE or</span>
+<span class='comment'>// http://www.apache.org/licenses/LICENSE-2.0&gt; or the MIT license</span>
+<span class='comment'>// &lt;LICENSE-MIT or http://opensource.org/licenses/MIT&gt;, at your</span>
+<span class='comment'>// option. This file may not be copied, modified, or distributed</span>
+<span class='comment'>// except according to those terms.</span>
 
-<span class="kw">use</span> <span class="ident">tokenizer</span>::{<span class="ident">XmlTokenizerOpts</span>, <span class="ident">XmlTokenizer</span>};
-<span class="kw">use</span> <span class="ident">tree_builder</span>::{<span class="ident">TreeSink</span>, <span class="ident">XmlTreeBuilder</span>, <span class="ident">XmlTreeBuilderOpts</span>};
+<span class='kw'>use</span> <span class='ident'>tokenizer</span>::{<span class='ident'>XmlTokenizerOpts</span>, <span class='ident'>XmlTokenizer</span>};
+<span class='kw'>use</span> <span class='ident'>tree_builder</span>::{<span class='ident'>TreeSink</span>, <span class='ident'>XmlTreeBuilder</span>, <span class='ident'>XmlTreeBuilderOpts</span>};
 
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">borrow</span>::<span class="ident">Cow</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>borrow</span>::<span class='ident'>Cow</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 
-<span class="kw">use</span> <span class="ident">encoding</span>::{<span class="self">self</span>, <span class="ident">EncodingRef</span>};
-<span class="kw">use</span> <span class="ident">tendril</span>;
-<span class="kw">use</span> <span class="ident">tendril</span>::{<span class="ident">StrTendril</span>, <span class="ident">ByteTendril</span>};
-<span class="kw">use</span> <span class="ident">tendril</span>::<span class="ident">stream</span>::{<span class="ident">TendrilSink</span>, <span class="ident">Utf8LossyDecoder</span>, <span class="ident">LossyDecoder</span>};
+<span class='kw'>use</span> <span class='ident'>encoding</span>::{<span class='self'>self</span>, <span class='ident'>EncodingRef</span>};
+<span class='kw'>use</span> <span class='ident'>tendril</span>;
+<span class='kw'>use</span> <span class='ident'>tendril</span>::{<span class='ident'>StrTendril</span>, <span class='ident'>ByteTendril</span>};
+<span class='kw'>use</span> <span class='ident'>tendril</span>::<span class='ident'>stream</span>::{<span class='ident'>TendrilSink</span>, <span class='ident'>Utf8LossyDecoder</span>, <span class='ident'>LossyDecoder</span>};
 
-<span class="doccomment">/// All-encompasing parser setting structure.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">XmlParseOpts</span> {
-    <span class="doccomment">/// Xml tokenizer options.</span>
-    <span class="kw">pub</span> <span class="ident">tokenizer</span>: <span class="ident">XmlTokenizerOpts</span>,
-    <span class="doccomment">/// Xml tree builder .</span>
-    <span class="kw">pub</span> <span class="ident">tree_builder</span>: <span class="ident">XmlTreeBuilderOpts</span>,
+<span class='doccomment'>/// All-encompasing parser setting structure.</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Default</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>XmlParseOpts</span> {
+    <span class='doccomment'>/// Xml tokenizer options.</span>
+    <span class='kw'>pub</span> <span class='ident'>tokenizer</span>: <span class='ident'>XmlTokenizerOpts</span>,
+    <span class='doccomment'>/// Xml tree builder .</span>
+    <span class='kw'>pub</span> <span class='ident'>tree_builder</span>: <span class='ident'>XmlTreeBuilderOpts</span>,
 }
 
-<span class="doccomment">/// Parse and send results to a `TreeSink`.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ## Example</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ```ignore</span>
-<span class="doccomment">/// let mut sink = MySink;</span>
-<span class="doccomment">/// parse_document(&amp;mut sink, iter::once(my_str), Default::default());</span>
-<span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_document</span><span class="op">&lt;</span><span class="ident">Sink</span><span class="op">&gt;</span>(<span class="ident">sink</span>: <span class="ident">Sink</span>, <span class="ident">opts</span>: <span class="ident">XmlParseOpts</span>) <span class="op">-&gt;</span> <span class="ident">XmlParser</span><span class="op">&lt;</span><span class="ident">Sink</span><span class="op">&gt;</span>
-    <span class="kw">where</span> <span class="ident">Sink</span>: <span class="ident">TreeSink</span> {
+<span class='doccomment'>/// Parse and send results to a `TreeSink`.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// ## Example</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// ```ignore</span>
+<span class='doccomment'>/// let mut sink = MySink;</span>
+<span class='doccomment'>/// parse_document(&amp;mut sink, iter::once(my_str), Default::default());</span>
+<span class='doccomment'>/// ```</span>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>parse_document</span><span class='op'>&lt;</span><span class='ident'>Sink</span><span class='op'>&gt;</span>(<span class='ident'>sink</span>: <span class='ident'>Sink</span>, <span class='ident'>opts</span>: <span class='ident'>XmlParseOpts</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlParser</span><span class='op'>&lt;</span><span class='ident'>Sink</span><span class='op'>&gt;</span>
+    <span class='kw'>where</span> <span class='ident'>Sink</span>: <span class='ident'>TreeSink</span> {
 
-    <span class="kw">let</span> <span class="ident">tb</span> <span class="op">=</span> <span class="ident">XmlTreeBuilder</span>::<span class="ident">new</span>(<span class="ident">sink</span>, <span class="ident">opts</span>.<span class="ident">tree_builder</span>);
-    <span class="kw">let</span> <span class="ident">tok</span> <span class="op">=</span> <span class="ident">XmlTokenizer</span>::<span class="ident">new</span>(<span class="ident">tb</span>, <span class="ident">opts</span>.<span class="ident">tokenizer</span>);
-    <span class="ident">XmlParser</span> { <span class="ident">tokenizer</span>: <span class="ident">tok</span>}
+    <span class='kw'>let</span> <span class='ident'>tb</span> <span class='op'>=</span> <span class='ident'>XmlTreeBuilder</span>::<span class='ident'>new</span>(<span class='ident'>sink</span>, <span class='ident'>opts</span>.<span class='ident'>tree_builder</span>);
+    <span class='kw'>let</span> <span class='ident'>tok</span> <span class='op'>=</span> <span class='ident'>XmlTokenizer</span>::<span class='ident'>new</span>(<span class='ident'>tb</span>, <span class='ident'>opts</span>.<span class='ident'>tokenizer</span>);
+    <span class='ident'>XmlParser</span> { <span class='ident'>tokenizer</span>: <span class='ident'>tok</span>}
 }
 
-<span class="doccomment">/// An XML parser,</span>
-<span class="doccomment">/// ready to recieve Unicode input through the `tendril::TendrilSink` trait’s methods.</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">XmlParser</span><span class="op">&lt;</span><span class="ident">Sink</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">Sink</span>: <span class="ident">TreeSink</span> {
-    <span class="doccomment">/// Tokenizer used by XmlParser.</span>
-    <span class="kw">pub</span> <span class="ident">tokenizer</span>: <span class="ident">XmlTokenizer</span><span class="op">&lt;</span><span class="ident">XmlTreeBuilder</span><span class="op">&lt;</span><span class="ident">Sink</span>::<span class="ident">Handle</span>, <span class="ident">Sink</span><span class="op">&gt;&gt;</span>,
+<span class='doccomment'>/// An XML parser,</span>
+<span class='doccomment'>/// ready to recieve Unicode input through the `tendril::TendrilSink` trait’s methods.</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>XmlParser</span><span class='op'>&lt;</span><span class='ident'>Sink</span><span class='op'>&gt;</span> <span class='kw'>where</span> <span class='ident'>Sink</span>: <span class='ident'>TreeSink</span> {
+    <span class='doccomment'>/// Tokenizer used by XmlParser.</span>
+    <span class='kw'>pub</span> <span class='ident'>tokenizer</span>: <span class='ident'>XmlTokenizer</span><span class='op'>&lt;</span><span class='ident'>XmlTreeBuilder</span><span class='op'>&lt;</span><span class='ident'>Sink</span>::<span class='ident'>Handle</span>, <span class='ident'>Sink</span><span class='op'>&gt;&gt;</span>,
 }
 
 
-<span class="doccomment">/// Results which can be extracted from a `TreeSink`.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Implement this for your parse tree data type so that it</span>
-<span class="doccomment">/// can be returned by `parse()`.</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ParseResult</span> {
-    <span class="doccomment">/// Type of consumer of tree modifications.</span>
-    <span class="doccomment">/// It also extends `Default` for convenience.</span>
-    <span class="kw">type</span> <span class="ident">Sink</span>: <span class="ident">TreeSink</span> <span class="op">+</span> <span class="ident">Default</span>;
-    <span class="doccomment">/// Returns parsed tree data type</span>
-    <span class="kw">fn</span> <span class="ident">get_result</span>(<span class="ident">sink</span>: <span class="self">Self</span>::<span class="ident">Sink</span>) <span class="op">-&gt;</span> <span class="self">Self</span>;
+<span class='doccomment'>/// Results which can be extracted from a `TreeSink`.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// Implement this for your parse tree data type so that it</span>
+<span class='doccomment'>/// can be returned by `parse()`.</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ParseResult</span> {
+    <span class='doccomment'>/// Type of consumer of tree modifications.</span>
+    <span class='doccomment'>/// It also extends `Default` for convenience.</span>
+    <span class='kw'>type</span> <span class='ident'>Sink</span>: <span class='ident'>TreeSink</span> <span class='op'>+</span> <span class='ident'>Default</span>;
+    <span class='doccomment'>/// Returns parsed tree data type</span>
+    <span class='kw'>fn</span> <span class='ident'>get_result</span>(<span class='ident'>sink</span>: <span class='self'>Self</span>::<span class='ident'>Sink</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span>;
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Sink</span>: <span class="ident">TreeSink</span><span class="op">&gt;</span> <span class="ident">TendrilSink</span><span class="op">&lt;</span><span class="ident">tendril</span>::<span class="ident">fmt</span>::<span class="ident">UTF8</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">XmlParser</span><span class="op">&lt;</span><span class="ident">Sink</span><span class="op">&gt;</span> {
+<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>Sink</span>: <span class='ident'>TreeSink</span><span class='op'>&gt;</span> <span class='ident'>TendrilSink</span><span class='op'>&lt;</span><span class='ident'>tendril</span>::<span class='ident'>fmt</span>::<span class='ident'>UTF8</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>XmlParser</span><span class='op'>&lt;</span><span class='ident'>Sink</span><span class='op'>&gt;</span> {
 
-    <span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">Sink</span>::<span class="ident">Output</span>;
+    <span class='kw'>type</span> <span class='ident'>Output</span> <span class='op'>=</span> <span class='ident'>Sink</span>::<span class='ident'>Output</span>;
 
-    <span class="kw">fn</span> <span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">t</span>: <span class="ident">StrTendril</span>) {
-        <span class="self">self</span>.<span class="ident">tokenizer</span>.<span class="ident">feed</span>(<span class="ident">t</span>)
+    <span class='kw'>fn</span> <span class='ident'>process</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>t</span>: <span class='ident'>StrTendril</span>) {
+        <span class='self'>self</span>.<span class='ident'>tokenizer</span>.<span class='ident'>feed</span>(<span class='ident'>t</span>)
     }
 
-    <span class="comment">// FIXME: Is it too noisy to report every character decoding error?</span>
-    <span class="kw">fn</span> <span class="ident">error</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">desc</span>: <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">str</span><span class="op">&gt;</span>) {
-        <span class="self">self</span>.<span class="ident">tokenizer</span>.<span class="ident">sink_mut</span>().<span class="ident">sink_mut</span>().<span class="ident">parse_error</span>(<span class="ident">desc</span>)
+    <span class='comment'>// FIXME: Is it too noisy to report every character decoding error?</span>
+    <span class='kw'>fn</span> <span class='ident'>error</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>desc</span>: <span class='ident'>Cow</span><span class='op'>&lt;</span><span class='lifetime'>&#39;static</span>, <span class='ident'>str</span><span class='op'>&gt;</span>) {
+        <span class='self'>self</span>.<span class='ident'>tokenizer</span>.<span class='ident'>sink_mut</span>().<span class='ident'>sink_mut</span>().<span class='ident'>parse_error</span>(<span class='ident'>desc</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">finish</span>(<span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="self">Self</span>::<span class="ident">Output</span> {
-        <span class="self">self</span>.<span class="ident">tokenizer</span>.<span class="ident">end</span>();
-        <span class="self">self</span>.<span class="ident">tokenizer</span>.<span class="ident">unwrap</span>().<span class="ident">unwrap</span>().<span class="ident">finish</span>()
+    <span class='kw'>fn</span> <span class='ident'>finish</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span>::<span class='ident'>Output</span> {
+        <span class='self'>self</span>.<span class='ident'>tokenizer</span>.<span class='ident'>end</span>();
+        <span class='self'>self</span>.<span class='ident'>tokenizer</span>.<span class='ident'>unwrap</span>().<span class='ident'>unwrap</span>().<span class='ident'>finish</span>()
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Sink</span>: <span class="ident">TreeSink</span><span class="op">&gt;</span> <span class="ident">XmlParser</span><span class="op">&lt;</span><span class="ident">Sink</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Wrap this parser into a `TendrilSink` that accepts UTF-8 bytes.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Use this when your input is bytes that are known to be in the UTF-8 encoding.</span>
-    <span class="doccomment">/// Decoding is lossy, like `String::from_utf8_lossy`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_utf8</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Utf8LossyDecoder</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="ident">Utf8LossyDecoder</span>::<span class="ident">new</span>(<span class="self">self</span>)
+<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>Sink</span>: <span class='ident'>TreeSink</span><span class='op'>&gt;</span> <span class='ident'>XmlParser</span><span class='op'>&lt;</span><span class='ident'>Sink</span><span class='op'>&gt;</span> {
+    <span class='doccomment'>/// Wrap this parser into a `TendrilSink` that accepts UTF-8 bytes.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Use this when your input is bytes that are known to be in the UTF-8 encoding.</span>
+    <span class='doccomment'>/// Decoding is lossy, like `String::from_utf8_lossy`.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>from_utf8</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Utf8LossyDecoder</span><span class='op'>&lt;</span><span class='self'>Self</span><span class='op'>&gt;</span> {
+        <span class='ident'>Utf8LossyDecoder</span>::<span class='ident'>new</span>(<span class='self'>self</span>)
     }
 
-    <span class="doccomment">/// Wrap this parser into a `TendrilSink` that accepts bytes</span>
-    <span class="doccomment">/// and tries to detect the correct character encoding.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Currently this looks for a Byte Order Mark,</span>
-    <span class="doccomment">/// then uses `BytesOpts::transport_layer_encoding`,</span>
-    <span class="doccomment">/// then falls back to UTF-8.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// FIXME(https://github.com/servo/html5ever/issues/18): this should look for `&lt;meta&gt;` elements</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_bytes</span>(<span class="self">self</span>, <span class="ident">opts</span>: <span class="ident">BytesOpts</span>) <span class="op">-&gt;</span> <span class="ident">BytesParser</span><span class="op">&lt;</span><span class="ident">Sink</span><span class="op">&gt;</span> {
-        <span class="ident">BytesParser</span> {
-            <span class="ident">state</span>: <span class="ident">BytesParserState</span>::<span class="ident">Initial</span> { <span class="ident">parser</span>: <span class="self">self</span> },
-            <span class="ident">opts</span>: <span class="ident">opts</span>,
+    <span class='doccomment'>/// Wrap this parser into a `TendrilSink` that accepts bytes</span>
+    <span class='doccomment'>/// and tries to detect the correct character encoding.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Currently this looks for a Byte Order Mark,</span>
+    <span class='doccomment'>/// then uses `BytesOpts::transport_layer_encoding`,</span>
+    <span class='doccomment'>/// then falls back to UTF-8.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// FIXME(https://github.com/servo/html5ever/issues/18): this should look for `&lt;meta&gt;` elements</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>from_bytes</span>(<span class='self'>self</span>, <span class='ident'>opts</span>: <span class='ident'>BytesOpts</span>) <span class='op'>-&gt;</span> <span class='ident'>BytesParser</span><span class='op'>&lt;</span><span class='ident'>Sink</span><span class='op'>&gt;</span> {
+        <span class='ident'>BytesParser</span> {
+            <span class='ident'>state</span>: <span class='ident'>BytesParserState</span>::<span class='ident'>Initial</span> { <span class='ident'>parser</span>: <span class='self'>self</span> },
+            <span class='ident'>opts</span>: <span class='ident'>opts</span>,
         }
     }
 }
 
-<span class="doccomment">/// Options for choosing a character encoding</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BytesOpts</span> {
-    <span class="doccomment">/// The character encoding specified by the transport layer, if any.</span>
-    <span class="doccomment">/// In HTTP for example, this is the `charset` parameter of the `Content-Type` response header.</span>
-    <span class="kw">pub</span> <span class="ident">transport_layer_encoding</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EncodingRef</span><span class="op">&gt;</span>,
+<span class='doccomment'>/// Options for choosing a character encoding</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Default</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>BytesOpts</span> {
+    <span class='doccomment'>/// The character encoding specified by the transport layer, if any.</span>
+    <span class='doccomment'>/// In HTTP for example, this is the `charset` parameter of the `Content-Type` response header.</span>
+    <span class='kw'>pub</span> <span class='ident'>transport_layer_encoding</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>EncodingRef</span><span class='op'>&gt;</span>,
 }
 
-<span class="doccomment">/// An HTML parser,</span>
-<span class="doccomment">/// ready to recieve bytes input through the `tendril::TendrilSink` trait’s methods.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// See `Parser::from_bytes`.</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BytesParser</span><span class="op">&lt;</span><span class="ident">Sink</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">Sink</span>: <span class="ident">TreeSink</span> {
-    <span class="ident">state</span>: <span class="ident">BytesParserState</span><span class="op">&lt;</span><span class="ident">Sink</span><span class="op">&gt;</span>,
-    <span class="ident">opts</span>: <span class="ident">BytesOpts</span>,
+<span class='doccomment'>/// An HTML parser,</span>
+<span class='doccomment'>/// ready to recieve bytes input through the `tendril::TendrilSink` trait’s methods.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// See `Parser::from_bytes`.</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>BytesParser</span><span class='op'>&lt;</span><span class='ident'>Sink</span><span class='op'>&gt;</span> <span class='kw'>where</span> <span class='ident'>Sink</span>: <span class='ident'>TreeSink</span> {
+    <span class='ident'>state</span>: <span class='ident'>BytesParserState</span><span class='op'>&lt;</span><span class='ident'>Sink</span><span class='op'>&gt;</span>,
+    <span class='ident'>opts</span>: <span class='ident'>BytesOpts</span>,
 }
 
-<span class="kw">enum</span> <span class="ident">BytesParserState</span><span class="op">&lt;</span><span class="ident">Sink</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">Sink</span>: <span class="ident">TreeSink</span> {
-    <span class="ident">Initial</span> {
-        <span class="ident">parser</span>: <span class="ident">XmlParser</span><span class="op">&lt;</span><span class="ident">Sink</span><span class="op">&gt;</span>,
+<span class='kw'>enum</span> <span class='ident'>BytesParserState</span><span class='op'>&lt;</span><span class='ident'>Sink</span><span class='op'>&gt;</span> <span class='kw'>where</span> <span class='ident'>Sink</span>: <span class='ident'>TreeSink</span> {
+    <span class='ident'>Initial</span> {
+        <span class='ident'>parser</span>: <span class='ident'>XmlParser</span><span class='op'>&lt;</span><span class='ident'>Sink</span><span class='op'>&gt;</span>,
     },
-    <span class="ident">Buffering</span> {
-        <span class="ident">parser</span>: <span class="ident">XmlParser</span><span class="op">&lt;</span><span class="ident">Sink</span><span class="op">&gt;</span>,
-        <span class="ident">buffer</span>: <span class="ident">ByteTendril</span>
+    <span class='ident'>Buffering</span> {
+        <span class='ident'>parser</span>: <span class='ident'>XmlParser</span><span class='op'>&lt;</span><span class='ident'>Sink</span><span class='op'>&gt;</span>,
+        <span class='ident'>buffer</span>: <span class='ident'>ByteTendril</span>
     },
-    <span class="ident">Parsing</span> {
-        <span class="ident">decoder</span>: <span class="ident">LossyDecoder</span><span class="op">&lt;</span><span class="ident">XmlParser</span><span class="op">&lt;</span><span class="ident">Sink</span><span class="op">&gt;&gt;</span>,
+    <span class='ident'>Parsing</span> {
+        <span class='ident'>decoder</span>: <span class='ident'>LossyDecoder</span><span class='op'>&lt;</span><span class='ident'>XmlParser</span><span class='op'>&lt;</span><span class='ident'>Sink</span><span class='op'>&gt;&gt;</span>,
     },
-    <span class="ident">Transient</span>
+    <span class='ident'>Transient</span>
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Sink</span>: <span class="ident">TreeSink</span><span class="op">&gt;</span> <span class="ident">BytesParser</span><span class="op">&lt;</span><span class="ident">Sink</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Access the underlying Parser</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">str_parser</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">XmlParser</span><span class="op">&lt;</span><span class="ident">Sink</span><span class="op">&gt;</span> {
-        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">state</span> {
-            <span class="ident">BytesParserState</span>::<span class="ident">Initial</span> { <span class="kw-2">ref</span> <span class="ident">parser</span> } <span class="op">=&gt;</span> <span class="ident">parser</span>,
-            <span class="ident">BytesParserState</span>::<span class="ident">Buffering</span> { <span class="kw-2">ref</span> <span class="ident">parser</span>, .. } <span class="op">=&gt;</span> <span class="ident">parser</span>,
-            <span class="ident">BytesParserState</span>::<span class="ident">Parsing</span> { <span class="kw-2">ref</span> <span class="ident">decoder</span> } <span class="op">=&gt;</span> <span class="ident">decoder</span>.<span class="ident">inner_sink</span>(),
-            <span class="ident">BytesParserState</span>::<span class="ident">Transient</span> <span class="op">=&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(),
+<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>Sink</span>: <span class='ident'>TreeSink</span><span class='op'>&gt;</span> <span class='ident'>BytesParser</span><span class='op'>&lt;</span><span class='ident'>Sink</span><span class='op'>&gt;</span> {
+    <span class='doccomment'>/// Access the underlying Parser</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>str_parser</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>XmlParser</span><span class='op'>&lt;</span><span class='ident'>Sink</span><span class='op'>&gt;</span> {
+        <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>state</span> {
+            <span class='ident'>BytesParserState</span>::<span class='ident'>Initial</span> { <span class='kw-2'>ref</span> <span class='ident'>parser</span> } <span class='op'>=&gt;</span> <span class='ident'>parser</span>,
+            <span class='ident'>BytesParserState</span>::<span class='ident'>Buffering</span> { <span class='kw-2'>ref</span> <span class='ident'>parser</span>, .. } <span class='op'>=&gt;</span> <span class='ident'>parser</span>,
+            <span class='ident'>BytesParserState</span>::<span class='ident'>Parsing</span> { <span class='kw-2'>ref</span> <span class='ident'>decoder</span> } <span class='op'>=&gt;</span> <span class='ident'>decoder</span>.<span class='ident'>inner_sink</span>(),
+            <span class='ident'>BytesParserState</span>::<span class='ident'>Transient</span> <span class='op'>=&gt;</span> <span class='macro'>unreachable</span><span class='macro'>!</span>(),
         }
     }
 
-    <span class="doccomment">/// Access the underlying Parser</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">str_parser_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">XmlParser</span><span class="op">&lt;</span><span class="ident">Sink</span><span class="op">&gt;</span> {
-        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">state</span> {
-            <span class="ident">BytesParserState</span>::<span class="ident">Initial</span> { <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">parser</span> } <span class="op">=&gt;</span> <span class="ident">parser</span>,
-            <span class="ident">BytesParserState</span>::<span class="ident">Buffering</span> { <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">parser</span>, .. } <span class="op">=&gt;</span> <span class="ident">parser</span>,
-            <span class="ident">BytesParserState</span>::<span class="ident">Parsing</span> { <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">decoder</span> } <span class="op">=&gt;</span> <span class="ident">decoder</span>.<span class="ident">inner_sink_mut</span>(),
-            <span class="ident">BytesParserState</span>::<span class="ident">Transient</span> <span class="op">=&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(),
+    <span class='doccomment'>/// Access the underlying Parser</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>str_parser_mut</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>XmlParser</span><span class='op'>&lt;</span><span class='ident'>Sink</span><span class='op'>&gt;</span> {
+        <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>state</span> {
+            <span class='ident'>BytesParserState</span>::<span class='ident'>Initial</span> { <span class='kw-2'>ref</span> <span class='kw-2'>mut</span> <span class='ident'>parser</span> } <span class='op'>=&gt;</span> <span class='ident'>parser</span>,
+            <span class='ident'>BytesParserState</span>::<span class='ident'>Buffering</span> { <span class='kw-2'>ref</span> <span class='kw-2'>mut</span> <span class='ident'>parser</span>, .. } <span class='op'>=&gt;</span> <span class='ident'>parser</span>,
+            <span class='ident'>BytesParserState</span>::<span class='ident'>Parsing</span> { <span class='kw-2'>ref</span> <span class='kw-2'>mut</span> <span class='ident'>decoder</span> } <span class='op'>=&gt;</span> <span class='ident'>decoder</span>.<span class='ident'>inner_sink_mut</span>(),
+            <span class='ident'>BytesParserState</span>::<span class='ident'>Transient</span> <span class='op'>=&gt;</span> <span class='macro'>unreachable</span><span class='macro'>!</span>(),
         }
     }
 
-    <span class="doccomment">/// Insert a Unicode chunk in the middle of the byte stream.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This is e.g. for supporting `document.write`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">process_unicode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">t</span>: <span class="ident">StrTendril</span>) {
-        <span class="kw">if</span> <span class="ident">t</span>.<span class="ident">is_empty</span>() {
-            <span class="kw">return</span>  <span class="comment">// Don’t prevent buffering/encoding detection</span>
+    <span class='doccomment'>/// Insert a Unicode chunk in the middle of the byte stream.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// This is e.g. for supporting `document.write`.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>process_unicode</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>t</span>: <span class='ident'>StrTendril</span>) {
+        <span class='kw'>if</span> <span class='ident'>t</span>.<span class='ident'>is_empty</span>() {
+            <span class='kw'>return</span>  <span class='comment'>// Don’t prevent buffering/encoding detection</span>
         }
-        <span class="kw">if</span> <span class="kw">let</span> <span class="ident">BytesParserState</span>::<span class="ident">Parsing</span> { <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">decoder</span> } <span class="op">=</span> <span class="self">self</span>.<span class="ident">state</span> {
-            <span class="ident">decoder</span>.<span class="ident">inner_sink_mut</span>().<span class="ident">process</span>(<span class="ident">t</span>)
-        } <span class="kw">else</span> {
-            <span class="kw">match</span> <span class="ident">mem</span>::<span class="ident">replace</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">state</span>, <span class="ident">BytesParserState</span>::<span class="ident">Transient</span>) {
-                <span class="ident">BytesParserState</span>::<span class="ident">Initial</span> { <span class="kw-2">mut</span> <span class="ident">parser</span> } <span class="op">=&gt;</span> {
-                    <span class="ident">parser</span>.<span class="ident">process</span>(<span class="ident">t</span>);
-                    <span class="self">self</span>.<span class="ident">start_parsing</span>(<span class="ident">parser</span>, <span class="ident">ByteTendril</span>::<span class="ident">new</span>())
+        <span class='kw'>if</span> <span class='kw'>let</span> <span class='ident'>BytesParserState</span>::<span class='ident'>Parsing</span> { <span class='kw-2'>ref</span> <span class='kw-2'>mut</span> <span class='ident'>decoder</span> } <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>state</span> {
+            <span class='ident'>decoder</span>.<span class='ident'>inner_sink_mut</span>().<span class='ident'>process</span>(<span class='ident'>t</span>)
+        } <span class='kw'>else</span> {
+            <span class='kw'>match</span> <span class='ident'>mem</span>::<span class='ident'>replace</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>state</span>, <span class='ident'>BytesParserState</span>::<span class='ident'>Transient</span>) {
+                <span class='ident'>BytesParserState</span>::<span class='ident'>Initial</span> { <span class='kw-2'>mut</span> <span class='ident'>parser</span> } <span class='op'>=&gt;</span> {
+                    <span class='ident'>parser</span>.<span class='ident'>process</span>(<span class='ident'>t</span>);
+                    <span class='self'>self</span>.<span class='ident'>start_parsing</span>(<span class='ident'>parser</span>, <span class='ident'>ByteTendril</span>::<span class='ident'>new</span>())
                 }
-                <span class="ident">BytesParserState</span>::<span class="ident">Buffering</span> { <span class="ident">parser</span>, <span class="ident">buffer</span> } <span class="op">=&gt;</span> {
-                    <span class="self">self</span>.<span class="ident">start_parsing</span>(<span class="ident">parser</span>, <span class="ident">buffer</span>);
-                    <span class="kw">if</span> <span class="kw">let</span> <span class="ident">BytesParserState</span>::<span class="ident">Parsing</span> { <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">decoder</span> } <span class="op">=</span> <span class="self">self</span>.<span class="ident">state</span> {
-                        <span class="ident">decoder</span>.<span class="ident">inner_sink_mut</span>().<span class="ident">process</span>(<span class="ident">t</span>)
-                    } <span class="kw">else</span> {
-                        <span class="macro">unreachable</span><span class="macro">!</span>()
+                <span class='ident'>BytesParserState</span>::<span class='ident'>Buffering</span> { <span class='ident'>parser</span>, <span class='ident'>buffer</span> } <span class='op'>=&gt;</span> {
+                    <span class='self'>self</span>.<span class='ident'>start_parsing</span>(<span class='ident'>parser</span>, <span class='ident'>buffer</span>);
+                    <span class='kw'>if</span> <span class='kw'>let</span> <span class='ident'>BytesParserState</span>::<span class='ident'>Parsing</span> { <span class='kw-2'>ref</span> <span class='kw-2'>mut</span> <span class='ident'>decoder</span> } <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>state</span> {
+                        <span class='ident'>decoder</span>.<span class='ident'>inner_sink_mut</span>().<span class='ident'>process</span>(<span class='ident'>t</span>)
+                    } <span class='kw'>else</span> {
+                        <span class='macro'>unreachable</span><span class='macro'>!</span>()
                     }
                 }
-                <span class="ident">BytesParserState</span>::<span class="ident">Parsing</span> { .. } <span class="op">|</span> <span class="ident">BytesParserState</span>::<span class="ident">Transient</span> <span class="op">=&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(),
+                <span class='ident'>BytesParserState</span>::<span class='ident'>Parsing</span> { .. } <span class='op'>|</span> <span class='ident'>BytesParserState</span>::<span class='ident'>Transient</span> <span class='op'>=&gt;</span> <span class='macro'>unreachable</span><span class='macro'>!</span>(),
             }
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">start_parsing</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">parser</span>: <span class="ident">XmlParser</span><span class="op">&lt;</span><span class="ident">Sink</span><span class="op">&gt;</span>, <span class="ident">buffer</span>: <span class="ident">ByteTendril</span>) {
-        <span class="kw">let</span> <span class="ident">encoding</span> <span class="op">=</span> <span class="ident">detect_encoding</span>(<span class="kw-2">&amp;</span><span class="ident">buffer</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">opts</span>);
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">decoder</span> <span class="op">=</span> <span class="ident">LossyDecoder</span>::<span class="ident">new</span>(<span class="ident">encoding</span>, <span class="ident">parser</span>);
-        <span class="ident">decoder</span>.<span class="ident">process</span>(<span class="ident">buffer</span>);
-        <span class="self">self</span>.<span class="ident">state</span> <span class="op">=</span> <span class="ident">BytesParserState</span>::<span class="ident">Parsing</span> { <span class="ident">decoder</span>: <span class="ident">decoder</span> }
+    <span class='kw'>fn</span> <span class='ident'>start_parsing</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>parser</span>: <span class='ident'>XmlParser</span><span class='op'>&lt;</span><span class='ident'>Sink</span><span class='op'>&gt;</span>, <span class='ident'>buffer</span>: <span class='ident'>ByteTendril</span>) {
+        <span class='kw'>let</span> <span class='ident'>encoding</span> <span class='op'>=</span> <span class='ident'>detect_encoding</span>(<span class='kw-2'>&amp;</span><span class='ident'>buffer</span>, <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>opts</span>);
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>decoder</span> <span class='op'>=</span> <span class='ident'>LossyDecoder</span>::<span class='ident'>new</span>(<span class='ident'>encoding</span>, <span class='ident'>parser</span>);
+        <span class='ident'>decoder</span>.<span class='ident'>process</span>(<span class='ident'>buffer</span>);
+        <span class='self'>self</span>.<span class='ident'>state</span> <span class='op'>=</span> <span class='ident'>BytesParserState</span>::<span class='ident'>Parsing</span> { <span class='ident'>decoder</span>: <span class='ident'>decoder</span> }
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Sink</span>: <span class="ident">TreeSink</span><span class="op">&gt;</span> <span class="ident">TendrilSink</span><span class="op">&lt;</span><span class="ident">tendril</span>::<span class="ident">fmt</span>::<span class="ident">Bytes</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">BytesParser</span><span class="op">&lt;</span><span class="ident">Sink</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">t</span>: <span class="ident">ByteTendril</span>) {
-        <span class="kw">if</span> <span class="kw">let</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">BytesParserState</span>::<span class="ident">Parsing</span> { <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">decoder</span> } <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">state</span> {
-            <span class="kw">return</span> <span class="ident">decoder</span>.<span class="ident">process</span>(<span class="ident">t</span>)
+<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>Sink</span>: <span class='ident'>TreeSink</span><span class='op'>&gt;</span> <span class='ident'>TendrilSink</span><span class='op'>&lt;</span><span class='ident'>tendril</span>::<span class='ident'>fmt</span>::<span class='ident'>Bytes</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>BytesParser</span><span class='op'>&lt;</span><span class='ident'>Sink</span><span class='op'>&gt;</span> {
+    <span class='kw'>fn</span> <span class='ident'>process</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>t</span>: <span class='ident'>ByteTendril</span>) {
+        <span class='kw'>if</span> <span class='kw'>let</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>BytesParserState</span>::<span class='ident'>Parsing</span> { <span class='kw-2'>ref</span> <span class='kw-2'>mut</span> <span class='ident'>decoder</span> } <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>state</span> {
+            <span class='kw'>return</span> <span class='ident'>decoder</span>.<span class='ident'>process</span>(<span class='ident'>t</span>)
         }
-        <span class="kw">let</span> (<span class="ident">parser</span>, <span class="ident">buffer</span>) <span class="op">=</span> <span class="kw">match</span> <span class="ident">mem</span>::<span class="ident">replace</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">state</span>, <span class="ident">BytesParserState</span>::<span class="ident">Transient</span>) {
-            <span class="ident">BytesParserState</span>::<span class="ident">Initial</span>{ <span class="ident">parser</span> } <span class="op">=&gt;</span> (<span class="ident">parser</span>, <span class="ident">t</span>),
-            <span class="ident">BytesParserState</span>::<span class="ident">Buffering</span> { <span class="ident">parser</span>, <span class="kw-2">mut</span> <span class="ident">buffer</span> } <span class="op">=&gt;</span> {
-                <span class="ident">buffer</span>.<span class="ident">push_tendril</span>(<span class="kw-2">&amp;</span><span class="ident">t</span>);
-                (<span class="ident">parser</span>, <span class="ident">buffer</span>)
+        <span class='kw'>let</span> (<span class='ident'>parser</span>, <span class='ident'>buffer</span>) <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>mem</span>::<span class='ident'>replace</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>state</span>, <span class='ident'>BytesParserState</span>::<span class='ident'>Transient</span>) {
+            <span class='ident'>BytesParserState</span>::<span class='ident'>Initial</span>{ <span class='ident'>parser</span> } <span class='op'>=&gt;</span> (<span class='ident'>parser</span>, <span class='ident'>t</span>),
+            <span class='ident'>BytesParserState</span>::<span class='ident'>Buffering</span> { <span class='ident'>parser</span>, <span class='kw-2'>mut</span> <span class='ident'>buffer</span> } <span class='op'>=&gt;</span> {
+                <span class='ident'>buffer</span>.<span class='ident'>push_tendril</span>(<span class='kw-2'>&amp;</span><span class='ident'>t</span>);
+                (<span class='ident'>parser</span>, <span class='ident'>buffer</span>)
             }
-            <span class="ident">BytesParserState</span>::<span class="ident">Parsing</span> { .. } <span class="op">|</span> <span class="ident">BytesParserState</span>::<span class="ident">Transient</span> <span class="op">=&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(),
+            <span class='ident'>BytesParserState</span>::<span class='ident'>Parsing</span> { .. } <span class='op'>|</span> <span class='ident'>BytesParserState</span>::<span class='ident'>Transient</span> <span class='op'>=&gt;</span> <span class='macro'>unreachable</span><span class='macro'>!</span>(),
         };
-        <span class="kw">if</span> <span class="ident">buffer</span>.<span class="ident">len32</span>() <span class="op">&gt;=</span> <span class="ident">PRESCAN_BYTES</span> {
-            <span class="self">self</span>.<span class="ident">start_parsing</span>(<span class="ident">parser</span>, <span class="ident">buffer</span>)
-        } <span class="kw">else</span> {
-            <span class="self">self</span>.<span class="ident">state</span> <span class="op">=</span> <span class="ident">BytesParserState</span>::<span class="ident">Buffering</span> {
-                <span class="ident">parser</span>: <span class="ident">parser</span>,
-                <span class="ident">buffer</span>: <span class="ident">buffer</span>,
+        <span class='kw'>if</span> <span class='ident'>buffer</span>.<span class='ident'>len32</span>() <span class='op'>&gt;=</span> <span class='ident'>PRESCAN_BYTES</span> {
+            <span class='self'>self</span>.<span class='ident'>start_parsing</span>(<span class='ident'>parser</span>, <span class='ident'>buffer</span>)
+        } <span class='kw'>else</span> {
+            <span class='self'>self</span>.<span class='ident'>state</span> <span class='op'>=</span> <span class='ident'>BytesParserState</span>::<span class='ident'>Buffering</span> {
+                <span class='ident'>parser</span>: <span class='ident'>parser</span>,
+                <span class='ident'>buffer</span>: <span class='ident'>buffer</span>,
             }
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">error</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">desc</span>: <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">str</span><span class="op">&gt;</span>) {
-        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">state</span> {
-            <span class="ident">BytesParserState</span>::<span class="ident">Initial</span> { <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">parser</span> } <span class="op">=&gt;</span> <span class="ident">parser</span>.<span class="ident">error</span>(<span class="ident">desc</span>),
-            <span class="ident">BytesParserState</span>::<span class="ident">Buffering</span> { <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">parser</span>, .. } <span class="op">=&gt;</span> <span class="ident">parser</span>.<span class="ident">error</span>(<span class="ident">desc</span>),
-            <span class="ident">BytesParserState</span>::<span class="ident">Parsing</span> { <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">decoder</span> } <span class="op">=&gt;</span> <span class="ident">decoder</span>.<span class="ident">error</span>(<span class="ident">desc</span>),
-            <span class="ident">BytesParserState</span>::<span class="ident">Transient</span> <span class="op">=&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(),
+    <span class='kw'>fn</span> <span class='ident'>error</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>desc</span>: <span class='ident'>Cow</span><span class='op'>&lt;</span><span class='lifetime'>&#39;static</span>, <span class='ident'>str</span><span class='op'>&gt;</span>) {
+        <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>state</span> {
+            <span class='ident'>BytesParserState</span>::<span class='ident'>Initial</span> { <span class='kw-2'>ref</span> <span class='kw-2'>mut</span> <span class='ident'>parser</span> } <span class='op'>=&gt;</span> <span class='ident'>parser</span>.<span class='ident'>error</span>(<span class='ident'>desc</span>),
+            <span class='ident'>BytesParserState</span>::<span class='ident'>Buffering</span> { <span class='kw-2'>ref</span> <span class='kw-2'>mut</span> <span class='ident'>parser</span>, .. } <span class='op'>=&gt;</span> <span class='ident'>parser</span>.<span class='ident'>error</span>(<span class='ident'>desc</span>),
+            <span class='ident'>BytesParserState</span>::<span class='ident'>Parsing</span> { <span class='kw-2'>ref</span> <span class='kw-2'>mut</span> <span class='ident'>decoder</span> } <span class='op'>=&gt;</span> <span class='ident'>decoder</span>.<span class='ident'>error</span>(<span class='ident'>desc</span>),
+            <span class='ident'>BytesParserState</span>::<span class='ident'>Transient</span> <span class='op'>=&gt;</span> <span class='macro'>unreachable</span><span class='macro'>!</span>(),
         }
     }
 
-    <span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">Sink</span>::<span class="ident">Output</span>;
+    <span class='kw'>type</span> <span class='ident'>Output</span> <span class='op'>=</span> <span class='ident'>Sink</span>::<span class='ident'>Output</span>;
 
-    <span class="kw">fn</span> <span class="ident">finish</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="self">Self</span>::<span class="ident">Output</span> {
-        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">state</span> {
-            <span class="ident">BytesParserState</span>::<span class="ident">Initial</span> { <span class="ident">parser</span> } <span class="op">=&gt;</span> <span class="ident">parser</span>.<span class="ident">finish</span>(),
-            <span class="ident">BytesParserState</span>::<span class="ident">Buffering</span> { <span class="ident">parser</span>, <span class="ident">buffer</span> } <span class="op">=&gt;</span> {
-                <span class="kw">let</span> <span class="ident">encoding</span> <span class="op">=</span> <span class="ident">detect_encoding</span>(<span class="kw-2">&amp;</span><span class="ident">buffer</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">opts</span>);
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">decoder</span> <span class="op">=</span> <span class="ident">LossyDecoder</span>::<span class="ident">new</span>(<span class="ident">encoding</span>, <span class="ident">parser</span>);
-                <span class="ident">decoder</span>.<span class="ident">process</span>(<span class="ident">buffer</span>);
-                <span class="ident">decoder</span>.<span class="ident">finish</span>()
+    <span class='kw'>fn</span> <span class='ident'>finish</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span>::<span class='ident'>Output</span> {
+        <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>state</span> {
+            <span class='ident'>BytesParserState</span>::<span class='ident'>Initial</span> { <span class='ident'>parser</span> } <span class='op'>=&gt;</span> <span class='ident'>parser</span>.<span class='ident'>finish</span>(),
+            <span class='ident'>BytesParserState</span>::<span class='ident'>Buffering</span> { <span class='ident'>parser</span>, <span class='ident'>buffer</span> } <span class='op'>=&gt;</span> {
+                <span class='kw'>let</span> <span class='ident'>encoding</span> <span class='op'>=</span> <span class='ident'>detect_encoding</span>(<span class='kw-2'>&amp;</span><span class='ident'>buffer</span>, <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>opts</span>);
+                <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>decoder</span> <span class='op'>=</span> <span class='ident'>LossyDecoder</span>::<span class='ident'>new</span>(<span class='ident'>encoding</span>, <span class='ident'>parser</span>);
+                <span class='ident'>decoder</span>.<span class='ident'>process</span>(<span class='ident'>buffer</span>);
+                <span class='ident'>decoder</span>.<span class='ident'>finish</span>()
             },
-            <span class="ident">BytesParserState</span>::<span class="ident">Parsing</span> { <span class="ident">decoder</span> } <span class="op">=&gt;</span> <span class="ident">decoder</span>.<span class="ident">finish</span>(),
-            <span class="ident">BytesParserState</span>::<span class="ident">Transient</span> <span class="op">=&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(),
+            <span class='ident'>BytesParserState</span>::<span class='ident'>Parsing</span> { <span class='ident'>decoder</span> } <span class='op'>=&gt;</span> <span class='ident'>decoder</span>.<span class='ident'>finish</span>(),
+            <span class='ident'>BytesParserState</span>::<span class='ident'>Transient</span> <span class='op'>=&gt;</span> <span class='macro'>unreachable</span><span class='macro'>!</span>(),
         }
     }
 }
 
-<span class="doccomment">/// How many bytes does detect_encoding() need</span>
-<span class="comment">// FIXME(#18): should be 1024 for &lt;meta&gt; elements.</span>
-<span class="kw">const</span> <span class="ident">PRESCAN_BYTES</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">3</span>;
+<span class='doccomment'>/// How many bytes does detect_encoding() need</span>
+<span class='comment'>// FIXME(#18): should be 1024 for &lt;meta&gt; elements.</span>
+<span class='kw'>const</span> <span class='ident'>PRESCAN_BYTES</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>3</span>;
 
-<span class="doccomment">/// https://html.spec.whatwg.org/multipage/syntax.html#determining-the-character-encoding</span>
-<span class="kw">fn</span> <span class="ident">detect_encoding</span>(<span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="ident">ByteTendril</span>, <span class="ident">opts</span>: <span class="kw-2">&amp;</span><span class="ident">BytesOpts</span>) <span class="op">-&gt;</span> <span class="ident">EncodingRef</span> {
-    <span class="kw">if</span> <span class="ident">bytes</span>.<span class="ident">starts_with</span>(<span class="string">b&quot;\xEF\xBB\xBF&quot;</span>) {
-        <span class="kw">return</span> <span class="ident">encoding</span>::<span class="ident">all</span>::<span class="ident">UTF_8</span>
+<span class='doccomment'>/// https://html.spec.whatwg.org/multipage/syntax.html#determining-the-character-encoding</span>
+<span class='kw'>fn</span> <span class='ident'>detect_encoding</span>(<span class='ident'>bytes</span>: <span class='kw-2'>&amp;</span><span class='ident'>ByteTendril</span>, <span class='ident'>opts</span>: <span class='kw-2'>&amp;</span><span class='ident'>BytesOpts</span>) <span class='op'>-&gt;</span> <span class='ident'>EncodingRef</span> {
+    <span class='kw'>if</span> <span class='ident'>bytes</span>.<span class='ident'>starts_with</span>(<span class='string'>b&quot;\xEF\xBB\xBF&quot;</span>) {
+        <span class='kw'>return</span> <span class='ident'>encoding</span>::<span class='ident'>all</span>::<span class='ident'>UTF_8</span>
     }
-    <span class="kw">if</span> <span class="ident">bytes</span>.<span class="ident">starts_with</span>(<span class="string">b&quot;\xFE\xFF&quot;</span>) {
-        <span class="kw">return</span> <span class="ident">encoding</span>::<span class="ident">all</span>::<span class="ident">UTF_16BE</span>
+    <span class='kw'>if</span> <span class='ident'>bytes</span>.<span class='ident'>starts_with</span>(<span class='string'>b&quot;\xFE\xFF&quot;</span>) {
+        <span class='kw'>return</span> <span class='ident'>encoding</span>::<span class='ident'>all</span>::<span class='ident'>UTF_16BE</span>
     }
-    <span class="kw">if</span> <span class="ident">bytes</span>.<span class="ident">starts_with</span>(<span class="string">b&quot;\xFF\xFE&quot;</span>) {
-        <span class="kw">return</span> <span class="ident">encoding</span>::<span class="ident">all</span>::<span class="ident">UTF_16LE</span>
+    <span class='kw'>if</span> <span class='ident'>bytes</span>.<span class='ident'>starts_with</span>(<span class='string'>b&quot;\xFF\xFE&quot;</span>) {
+        <span class='kw'>return</span> <span class='ident'>encoding</span>::<span class='ident'>all</span>::<span class='ident'>UTF_16LE</span>
     }
-    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">encoding</span>) <span class="op">=</span> <span class="ident">opts</span>.<span class="ident">transport_layer_encoding</span> {
-        <span class="kw">return</span> <span class="ident">encoding</span>
+    <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='ident'>encoding</span>) <span class='op'>=</span> <span class='ident'>opts</span>.<span class='ident'>transport_layer_encoding</span> {
+        <span class='kw'>return</span> <span class='ident'>encoding</span>
     }
-    <span class="comment">// FIXME(#18): &lt;meta&gt; etc.</span>
-    <span class="kw">return</span> <span class="ident">encoding</span>::<span class="ident">all</span>::<span class="ident">UTF_8</span>
+    <span class='comment'>// FIXME(#18): &lt;meta&gt; etc.</span>
+    <span class='kw'>return</span> <span class='ident'>encoding</span>::<span class='ident'>all</span>::<span class='ident'>UTF_8</span>
 }
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
-<span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="ident">rcdom</span>::<span class="ident">RcDom</span>;
-    <span class="kw">use</span> <span class="ident">serialize</span>::<span class="ident">serialize</span>;
-    <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">iter</span>::<span class="ident">repeat</span>;
-    <span class="kw">use</span> <span class="ident">tendril</span>::<span class="ident">TendrilSink</span>;
-    <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
+<span class='kw'>mod</span> <span class='ident'>tests</span> {
+    <span class='kw'>use</span> <span class='ident'>rcdom</span>::<span class='ident'>RcDom</span>;
+    <span class='kw'>use</span> <span class='ident'>serialize</span>::<span class='ident'>serialize</span>;
+    <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>iter</span>::<span class='ident'>repeat</span>;
+    <span class='kw'>use</span> <span class='ident'>tendril</span>::<span class='ident'>TendrilSink</span>;
+    <span class='kw'>use</span> <span class='kw'>super</span>::<span class='kw-2'>*</span>;
 
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">el_ns_serialize</span>() {
-        <span class="ident">assert_eq_serialization</span>(<span class="string">&quot;&lt;a:title xmlns:a=\&quot;http://www.foo.org/\&quot; value=\&quot;test\&quot;&gt;Test&lt;/a:title&gt;&quot;</span>,
-            <span class="ident">parse_document</span>(<span class="ident">RcDom</span>::<span class="ident">default</span>(), <span class="ident">XmlParseOpts</span>::<span class="ident">default</span>())
-                .<span class="ident">from_utf8</span>()
-                .<span class="ident">one</span>(<span class="string">&quot;&lt;a:title xmlns:a=\&quot;http://www.foo.org/\&quot; value=\&quot;test\&quot;&gt;Test&lt;/title&gt;&quot;</span>.<span class="ident">as_bytes</span>()));
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>el_ns_serialize</span>() {
+        <span class='ident'>assert_eq_serialization</span>(<span class='string'>&quot;&lt;a:title xmlns:a=\&quot;http://www.foo.org/\&quot; value=\&quot;test\&quot;&gt;Test&lt;/a:title&gt;&quot;</span>,
+            <span class='ident'>parse_document</span>(<span class='ident'>RcDom</span>::<span class='ident'>default</span>(), <span class='ident'>XmlParseOpts</span>::<span class='ident'>default</span>())
+                .<span class='ident'>from_utf8</span>()
+                .<span class='ident'>one</span>(<span class='string'>&quot;&lt;a:title xmlns:a=\&quot;http://www.foo.org/\&quot; value=\&quot;test\&quot;&gt;Test&lt;/title&gt;&quot;</span>.<span class='ident'>as_bytes</span>()));
     }
 
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">nested_ns_serialize</span>() {
-        <span class="ident">assert_eq_serialization</span>(<span class="string">&quot;&lt;a:x xmlns:a=\&quot;http://www.foo.org/\&quot; xmlns:b=\&quot;http://www.bar.org/\&quot; value=\&quot;test\&quot;&gt;&lt;b:y/&gt;&lt;/a:x&gt;&quot;</span>,
-            <span class="ident">parse_document</span>(<span class="ident">RcDom</span>::<span class="ident">default</span>(), <span class="ident">XmlParseOpts</span>::<span class="ident">default</span>())
-                .<span class="ident">from_utf8</span>()
-                .<span class="ident">one</span>(<span class="string">&quot;&lt;a:x xmlns:a=\&quot;http://www.foo.org/\&quot; xmlns:b=\&quot;http://www.bar.org/\&quot; value=\&quot;test\&quot;&gt;&lt;b:y/&gt;&lt;/a:x&gt;&quot;</span>.<span class="ident">as_bytes</span>()));
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>nested_ns_serialize</span>() {
+        <span class='ident'>assert_eq_serialization</span>(<span class='string'>&quot;&lt;a:x xmlns:a=\&quot;http://www.foo.org/\&quot; xmlns:b=\&quot;http://www.bar.org/\&quot; value=\&quot;test\&quot;&gt;&lt;b:y/&gt;&lt;/a:x&gt;&quot;</span>,
+            <span class='ident'>parse_document</span>(<span class='ident'>RcDom</span>::<span class='ident'>default</span>(), <span class='ident'>XmlParseOpts</span>::<span class='ident'>default</span>())
+                .<span class='ident'>from_utf8</span>()
+                .<span class='ident'>one</span>(<span class='string'>&quot;&lt;a:x xmlns:a=\&quot;http://www.foo.org/\&quot; xmlns:b=\&quot;http://www.bar.org/\&quot; value=\&quot;test\&quot;&gt;&lt;b:y/&gt;&lt;/a:x&gt;&quot;</span>.<span class='ident'>as_bytes</span>()));
     }
 
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">def_ns_serialize</span>() {
-        <span class="ident">assert_eq_serialization</span>(<span class="string">&quot;&lt;table xmlns=\&quot;html4\&quot;&gt;&lt;td&gt;&lt;/td&gt;&lt;/table&gt;&quot;</span>,
-            <span class="ident">parse_document</span>(<span class="ident">RcDom</span>::<span class="ident">default</span>(), <span class="ident">XmlParseOpts</span>::<span class="ident">default</span>())
-                .<span class="ident">from_utf8</span>()
-                .<span class="ident">one</span>(<span class="string">&quot;&lt;table xmlns=\&quot;html4\&quot;&gt;&lt;td&gt;&lt;/td&gt;&lt;/table&gt;&quot;</span>.<span class="ident">as_bytes</span>()));
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>def_ns_serialize</span>() {
+        <span class='ident'>assert_eq_serialization</span>(<span class='string'>&quot;&lt;table xmlns=\&quot;html4\&quot;&gt;&lt;td&gt;&lt;/td&gt;&lt;/table&gt;&quot;</span>,
+            <span class='ident'>parse_document</span>(<span class='ident'>RcDom</span>::<span class='ident'>default</span>(), <span class='ident'>XmlParseOpts</span>::<span class='ident'>default</span>())
+                .<span class='ident'>from_utf8</span>()
+                .<span class='ident'>one</span>(<span class='string'>&quot;&lt;table xmlns=\&quot;html4\&quot;&gt;&lt;td&gt;&lt;/td&gt;&lt;/table&gt;&quot;</span>.<span class='ident'>as_bytes</span>()));
     }
 
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">undefine_ns_serialize</span>() {
-        <span class="ident">assert_eq_serialization</span>(<span class="string">&quot;&lt;a:x xmlns:a=\&quot;http://www.foo.org\&quot;&gt;&lt;a:y xmlns:a=\&quot;\&quot;&gt;&lt;a:z/&gt;&lt;/a:y&lt;/a:x&gt;&quot;</span>,
-            <span class="ident">parse_document</span>(<span class="ident">RcDom</span>::<span class="ident">default</span>(), <span class="ident">XmlParseOpts</span>::<span class="ident">default</span>())
-                .<span class="ident">from_utf8</span>()
-                .<span class="ident">one</span>(<span class="string">&quot;&lt;a:x xmlns:a=\&quot;http://www.foo.org\&quot;&gt;&lt;a:y xmlns:a=\&quot;\&quot;&gt;&lt;a:z/&gt;&lt;/a:y&lt;/a:x&gt;&quot;</span>.<span class="ident">as_bytes</span>()));
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>undefine_ns_serialize</span>() {
+        <span class='ident'>assert_eq_serialization</span>(<span class='string'>&quot;&lt;a:x xmlns:a=\&quot;http://www.foo.org\&quot;&gt;&lt;a:y xmlns:a=\&quot;\&quot;&gt;&lt;a:z/&gt;&lt;/a:y&lt;/a:x&gt;&quot;</span>,
+            <span class='ident'>parse_document</span>(<span class='ident'>RcDom</span>::<span class='ident'>default</span>(), <span class='ident'>XmlParseOpts</span>::<span class='ident'>default</span>())
+                .<span class='ident'>from_utf8</span>()
+                .<span class='ident'>one</span>(<span class='string'>&quot;&lt;a:x xmlns:a=\&quot;http://www.foo.org\&quot;&gt;&lt;a:y xmlns:a=\&quot;\&quot;&gt;&lt;a:z/&gt;&lt;/a:y&lt;/a:x&gt;&quot;</span>.<span class='ident'>as_bytes</span>()));
     }
 
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">redefine_default_ns_serialize</span>() {
-        <span class="ident">assert_eq_serialization</span>(<span class="string">&quot;&lt;x xmlns=\&quot;http://www.foo.org\&quot;&gt;&lt;y xmlns=\&quot;\&quot;&gt;&lt;z/&gt;&lt;/y&lt;/x&gt;&quot;</span>,
-            <span class="ident">parse_document</span>(<span class="ident">RcDom</span>::<span class="ident">default</span>(), <span class="ident">XmlParseOpts</span>::<span class="ident">default</span>())
-                .<span class="ident">from_utf8</span>()
-                .<span class="ident">one</span>(<span class="string">&quot;&lt;x xmlns=\&quot;http://www.foo.org\&quot;&gt;&lt;y xmlns=\&quot;\&quot;&gt;&lt;z/&gt;&lt;/y&lt;/x&gt;&quot;</span>.<span class="ident">as_bytes</span>()));
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>redefine_default_ns_serialize</span>() {
+        <span class='ident'>assert_eq_serialization</span>(<span class='string'>&quot;&lt;x xmlns=\&quot;http://www.foo.org\&quot;&gt;&lt;y xmlns=\&quot;\&quot;&gt;&lt;z/&gt;&lt;/y&lt;/x&gt;&quot;</span>,
+            <span class='ident'>parse_document</span>(<span class='ident'>RcDom</span>::<span class='ident'>default</span>(), <span class='ident'>XmlParseOpts</span>::<span class='ident'>default</span>())
+                .<span class='ident'>from_utf8</span>()
+                .<span class='ident'>one</span>(<span class='string'>&quot;&lt;x xmlns=\&quot;http://www.foo.org\&quot;&gt;&lt;y xmlns=\&quot;\&quot;&gt;&lt;z/&gt;&lt;/y&lt;/x&gt;&quot;</span>.<span class='ident'>as_bytes</span>()));
     }
 
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">attr_serialize</span>() {
-        <span class="ident">assert_serialization</span>(<span class="string">&quot;&lt;title value=\&quot;test\&quot;&gt;Test&lt;/title&gt;&quot;</span>,
-            <span class="ident">parse_document</span>(<span class="ident">RcDom</span>::<span class="ident">default</span>(), <span class="ident">XmlParseOpts</span>::<span class="ident">default</span>())
-                .<span class="ident">from_utf8</span>()
-                .<span class="ident">one</span>(<span class="string">&quot;&lt;title value=&#39;test&#39;&gt;Test&quot;</span>.<span class="ident">as_bytes</span>()));
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>attr_serialize</span>() {
+        <span class='ident'>assert_serialization</span>(<span class='string'>&quot;&lt;title value=\&quot;test\&quot;&gt;Test&lt;/title&gt;&quot;</span>,
+            <span class='ident'>parse_document</span>(<span class='ident'>RcDom</span>::<span class='ident'>default</span>(), <span class='ident'>XmlParseOpts</span>::<span class='ident'>default</span>())
+                .<span class='ident'>from_utf8</span>()
+                .<span class='ident'>one</span>(<span class='string'>&quot;&lt;title value=&#39;test&#39;&gt;Test&quot;</span>.<span class='ident'>as_bytes</span>()));
     }
 
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">from_utf8</span>() {
-        <span class="ident">assert_serialization</span>(<span class="string">&quot;&lt;title&gt;Test&lt;/title&gt;&quot;</span>,
-            <span class="ident">parse_document</span>(<span class="ident">RcDom</span>::<span class="ident">default</span>(), <span class="ident">XmlParseOpts</span>::<span class="ident">default</span>())
-                .<span class="ident">from_utf8</span>()
-                .<span class="ident">one</span>(<span class="string">&quot;&lt;title&gt;Test&quot;</span>.<span class="ident">as_bytes</span>()));
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>from_utf8</span>() {
+        <span class='ident'>assert_serialization</span>(<span class='string'>&quot;&lt;title&gt;Test&lt;/title&gt;&quot;</span>,
+            <span class='ident'>parse_document</span>(<span class='ident'>RcDom</span>::<span class='ident'>default</span>(), <span class='ident'>XmlParseOpts</span>::<span class='ident'>default</span>())
+                .<span class='ident'>from_utf8</span>()
+                .<span class='ident'>one</span>(<span class='string'>&quot;&lt;title&gt;Test&quot;</span>.<span class='ident'>as_bytes</span>()));
     }
 
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">from_bytes_one</span>() {
-        <span class="ident">assert_serialization</span>(<span class="string">&quot;&lt;title&gt;Test&lt;/title&gt;&quot;</span>,
-            <span class="ident">parse_document</span>(<span class="ident">RcDom</span>::<span class="ident">default</span>(), <span class="ident">XmlParseOpts</span>::<span class="ident">default</span>())
-                .<span class="ident">from_bytes</span>(<span class="ident">BytesOpts</span>::<span class="ident">default</span>())
-                .<span class="ident">one</span>(<span class="string">&quot;&lt;title&gt;Test&quot;</span>.<span class="ident">as_bytes</span>()));
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>from_bytes_one</span>() {
+        <span class='ident'>assert_serialization</span>(<span class='string'>&quot;&lt;title&gt;Test&lt;/title&gt;&quot;</span>,
+            <span class='ident'>parse_document</span>(<span class='ident'>RcDom</span>::<span class='ident'>default</span>(), <span class='ident'>XmlParseOpts</span>::<span class='ident'>default</span>())
+                .<span class='ident'>from_bytes</span>(<span class='ident'>BytesOpts</span>::<span class='ident'>default</span>())
+                .<span class='ident'>one</span>(<span class='string'>&quot;&lt;title&gt;Test&quot;</span>.<span class='ident'>as_bytes</span>()));
     }
 
-    <span class="kw">fn</span> <span class="ident">assert_eq_serialization</span>(<span class="ident">text</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>, <span class="ident">dom</span>: <span class="ident">RcDom</span>) {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">serialized</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
-        <span class="ident">serialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">serialized</span>, <span class="kw-2">&amp;</span><span class="ident">dom</span>.<span class="ident">document</span>, <span class="ident">Default</span>::<span class="ident">default</span>()).<span class="ident">unwrap</span>();
+    <span class='kw'>fn</span> <span class='ident'>assert_eq_serialization</span>(<span class='ident'>text</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>, <span class='ident'>dom</span>: <span class='ident'>RcDom</span>) {
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>serialized</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>new</span>();
+        <span class='ident'>serialize</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>serialized</span>, <span class='kw-2'>&amp;</span><span class='ident'>dom</span>.<span class='ident'>document</span>, <span class='ident'>Default</span>::<span class='ident'>default</span>()).<span class='ident'>unwrap</span>();
 
-        <span class="kw">let</span> <span class="ident">dom_from_text</span> <span class="op">=</span> <span class="ident">parse_document</span>(<span class="ident">RcDom</span>::<span class="ident">default</span>(), <span class="ident">XmlParseOpts</span>::<span class="ident">default</span>())
-            .<span class="ident">from_bytes</span>(<span class="ident">BytesOpts</span>::<span class="ident">default</span>())
-            .<span class="ident">one</span>(<span class="ident">text</span>.<span class="ident">as_bytes</span>());
+        <span class='kw'>let</span> <span class='ident'>dom_from_text</span> <span class='op'>=</span> <span class='ident'>parse_document</span>(<span class='ident'>RcDom</span>::<span class='ident'>default</span>(), <span class='ident'>XmlParseOpts</span>::<span class='ident'>default</span>())
+            .<span class='ident'>from_bytes</span>(<span class='ident'>BytesOpts</span>::<span class='ident'>default</span>())
+            .<span class='ident'>one</span>(<span class='ident'>text</span>.<span class='ident'>as_bytes</span>());
 
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">reserialized</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
-        <span class="ident">serialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">reserialized</span>, <span class="kw-2">&amp;</span><span class="ident">dom_from_text</span>.<span class="ident">document</span>, <span class="ident">Default</span>::<span class="ident">default</span>()).<span class="ident">unwrap</span>();
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>reserialized</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>new</span>();
+        <span class='ident'>serialize</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>reserialized</span>, <span class='kw-2'>&amp;</span><span class='ident'>dom_from_text</span>.<span class='ident'>document</span>, <span class='ident'>Default</span>::<span class='ident'>default</span>()).<span class='ident'>unwrap</span>();
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">String</span>::<span class="ident">from_utf8</span>(<span class="ident">serialized</span>).<span class="ident">unwrap</span>(),
-                   <span class="ident">String</span>::<span class="ident">from_utf8</span>(<span class="ident">reserialized</span>).<span class="ident">unwrap</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>String</span>::<span class='ident'>from_utf8</span>(<span class='ident'>serialized</span>).<span class='ident'>unwrap</span>(),
+                   <span class='ident'>String</span>::<span class='ident'>from_utf8</span>(<span class='ident'>reserialized</span>).<span class='ident'>unwrap</span>());
     }
 
-    <span class="kw">fn</span> <span class="ident">assert_serialization</span>(<span class="ident">text</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>, <span class="ident">dom</span>: <span class="ident">RcDom</span>) {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">serialized</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
-        <span class="ident">serialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">serialized</span>, <span class="kw-2">&amp;</span><span class="ident">dom</span>.<span class="ident">document</span>, <span class="ident">Default</span>::<span class="ident">default</span>()).<span class="ident">unwrap</span>();
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">String</span>::<span class="ident">from_utf8</span>(<span class="ident">serialized</span>).<span class="ident">unwrap</span>(),
-                   <span class="ident">text</span>);
+    <span class='kw'>fn</span> <span class='ident'>assert_serialization</span>(<span class='ident'>text</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>, <span class='ident'>dom</span>: <span class='ident'>RcDom</span>) {
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>serialized</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>new</span>();
+        <span class='ident'>serialize</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>serialized</span>, <span class='kw-2'>&amp;</span><span class='ident'>dom</span>.<span class='ident'>document</span>, <span class='ident'>Default</span>::<span class='ident'>default</span>()).<span class='ident'>unwrap</span>();
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>String</span>::<span class='ident'>from_utf8</span>(<span class='ident'>serialized</span>).<span class='ident'>unwrap</span>(),
+                   <span class='ident'>text</span>);
     }
 }
 </pre>
