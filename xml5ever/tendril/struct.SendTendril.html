@@ -9,7 +9,6 @@
 
     <title>tendril::SendTendril - Rust</title>
 
-    <link rel="stylesheet" type="text/css" href="../normalize.css">
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
     
@@ -49,7 +48,7 @@
                        [<span class='inner'>&#x2212;</span>]
                    </a>
                </span><a class='srclink' href='../src/tendril/tendril.rs.html#1130-1134' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'>pub struct SendTendril&lt;F&gt; <span class='where fmt-newline'>where F: <a class='trait' href='../tendril/fmt/trait.Format.html' title='tendril::fmt::Format'>Format</a></span> { /* fields omitted */ }</pre><div class='docblock'><p>A simple wrapper to make <code>Tendril</code> <code>Send</code>.</p>
+<pre class='rust struct'>pub struct SendTendril&lt;F&gt; <span class='where'>where F: <a class='trait' href='../tendril/fmt/trait.Format.html' title='tendril::fmt::Format'>Format</a></span> { /* fields omitted */ }</pre><div class='docblock'><p>A simple wrapper to make <code>Tendril</code> <code>Send</code>.</p>
 
 <p>Although there is a certain subset of the operations on a <code>Tendril</code> that a <code>SendTendril</code> could
 reasonably implement, in order to clearly separate concerns this type is deliberately
@@ -58,8 +57,8 @@ behaving as an opaque object.</p>
 
 <p>A <code>SendTendril</code> may be produced by <code>Tendril.into_send()</code> or <code>SendTendril::from(tendril)</code>,
 and may be returned to a <code>Tendril</code> by <code>Tendril::from(self)</code>.</p>
-</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl&lt;F&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Send.html' title='core::marker::Send'>Send</a> for <a class='struct' href='../tendril/struct.SendTendril.html' title='tendril::SendTendril'>SendTendril</a>&lt;F&gt; <span class='where fmt-newline'>where F: <a class='trait' href='../tendril/fmt/trait.Format.html' title='tendril::fmt::Format'>Format</a></span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/tendril/tendril.rs.html#1136' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl&lt;F, A&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html' title='core::convert::From'>From</a>&lt;<a class='struct' href='../tendril/struct.Tendril.html' title='tendril::Tendril'>Tendril</a>&lt;F, A&gt;&gt; for <a class='struct' href='../tendril/struct.SendTendril.html' title='tendril::SendTendril'>SendTendril</a>&lt;F&gt; <span class='where fmt-newline'>where F: <a class='trait' href='../tendril/fmt/trait.Format.html' title='tendril::fmt::Format'>Format</a>, A: <a class='trait' href='../tendril/trait.Atomicity.html' title='tendril::Atomicity'>Atomicity</a></span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/tendril/tendril.rs.html#1138-1146' title='goto source code'>[src]</a></span></h3>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl&lt;F&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Send.html' title='core::marker::Send'>Send</a> for <a class='struct' href='../tendril/struct.SendTendril.html' title='tendril::SendTendril'>SendTendril</a>&lt;F&gt; <span class='where'>where F: <a class='trait' href='../tendril/fmt/trait.Format.html' title='tendril::fmt::Format'>Format</a></span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/tendril/tendril.rs.html#1136' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl&lt;F, A&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html' title='core::convert::From'>From</a>&lt;<a class='struct' href='../tendril/struct.Tendril.html' title='tendril::Tendril'>Tendril</a>&lt;F, A&gt;&gt; for <a class='struct' href='../tendril/struct.SendTendril.html' title='tendril::SendTendril'>SendTendril</a>&lt;F&gt; <span class='where'>where F: <a class='trait' href='../tendril/fmt/trait.Format.html' title='tendril::fmt::Format'>Format</a>, A: <a class='trait' href='../tendril/trait.Atomicity.html' title='tendril::Atomicity'>Atomicity</a></span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/tendril/tendril.rs.html#1138-1146' title='goto source code'>[src]</a></span></h3>
 <div class='impl-items'><h4 id='method.from' class='method'><span id='from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from' class='fnname'>from</a>(tendril: <a class='struct' href='../tendril/struct.Tendril.html' title='tendril::Tendril'>Tendril</a>&lt;F, A&gt;) -&gt; <a class='struct' href='../tendril/struct.SendTendril.html' title='tendril::SendTendril'>SendTendril</a>&lt;F&gt;</code></span></h4>
 <div class='docblock'><p>Performs the conversion.</p>
 </div></div></section>
