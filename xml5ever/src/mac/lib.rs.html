@@ -114,76 +114,76 @@
 <span id="69">69</span>
 <span id="70">70</span>
 <span id="71">71</span>
-</pre><pre class='rust '>
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>test</span>, <span class='ident'>deny</span>(<span class='ident'>warnings</span>))]</span>
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>deny</span>(<span class='ident'>missing_docs</span>)]</span>
+</pre><pre class="rust ">
+<span class="attribute">#<span class="op">!</span>[<span class="ident">cfg_attr</span>(<span class="ident">test</span>, <span class="ident">deny</span>(<span class="ident">warnings</span>))]</span>
+<span class="attribute">#<span class="op">!</span>[<span class="ident">deny</span>(<span class="ident">missing_docs</span>)]</span>
 
-<span class='doccomment'>//! # mac</span>
-<span class='doccomment'>//!</span>
-<span class='doccomment'>//! A collection of great and ubiqutitous macros.</span>
-<span class='doccomment'>//!</span>
+<span class="doccomment">//! # mac</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! A collection of great and ubiqutitous macros.</span>
+<span class="doccomment">//!</span>
 
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>test</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>mem</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>format</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>syntax_ext</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>matches</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>inspect</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>cfg</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">test</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">mem</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">format</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">syntax_ext</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">matches</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">inspect</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">cfg</span>;
 
-<span class='doccomment'>/// Unwraps an `Option` or returns from the function with the specified return</span>
-<span class='doccomment'>/// value.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// Can be used on `Result`s by first calling `.ok()` or `.err()` on them.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// # Examples</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// ```</span>
-<span class='doccomment'>/// # #[macro_use] extern crate mac;</span>
-<span class='doccomment'>/// fn take_pair&lt;I:Iterator&gt;(iter: &amp;mut I) -&gt; Option&lt;(&lt;I as Iterator&gt;::Item, &lt;I as Iterator&gt;::Item)&gt; {</span>
-<span class='doccomment'>///    let first = unwrap_or_return!(iter.next(), None);</span>
-<span class='doccomment'>///    Some((first, unwrap_or_return!(iter.next(), None)))</span>
-<span class='doccomment'>/// }</span>
-<span class='doccomment'>/// # fn main() { }</span>
-<span class='doccomment'>/// ```</span>
-<span class='attribute'>#[<span class='ident'>macro_export</span>]</span>
-<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>unwrap_or_return</span> {
-    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>r</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> (<span class='kw'>match</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span> { <span class='prelude-val'>Some</span>(<span class='ident'>e</span>) <span class='op'>=&gt;</span> <span class='ident'>e</span>, <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='kw'>return</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>r</span>, })
+<span class="doccomment">/// Unwraps an `Option` or returns from the function with the specified return</span>
+<span class="doccomment">/// value.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Can be used on `Result`s by first calling `.ok()` or `.err()` on them.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Examples</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// # #[macro_use] extern crate mac;</span>
+<span class="doccomment">/// fn take_pair&lt;I:Iterator&gt;(iter: &amp;mut I) -&gt; Option&lt;(&lt;I as Iterator&gt;::Item, &lt;I as Iterator&gt;::Item)&gt; {</span>
+<span class="doccomment">///    let first = unwrap_or_return!(iter.next(), None);</span>
+<span class="doccomment">///    Some((first, unwrap_or_return!(iter.next(), None)))</span>
+<span class="doccomment">/// }</span>
+<span class="doccomment">/// # fn main() { }</span>
+<span class="doccomment">/// ```</span>
+<span class="attribute">#[<span class="ident">macro_export</span>]</span>
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">unwrap_or_return</span> {
+    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">e</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">r</span>:<span class="ident">expr</span>) <span class="op">=&gt;</span> (<span class="kw">match</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">e</span> { <span class="prelude-val">Some</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> <span class="ident">e</span>, <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="kw">return</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">r</span>, })
 }
 
-<span class='doccomment'>/// Do-while loop.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// # Examples</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// ```</span>
-<span class='doccomment'>/// # #[macro_use] extern crate mac;</span>
-<span class='doccomment'>/// # fn main() {</span>
-<span class='doccomment'>/// let mut i = 0;</span>
-<span class='doccomment'>/// let mut n = 0;</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// do_while!({</span>
-<span class='doccomment'>///     n += i;</span>
-<span class='doccomment'>///     i += 1;</span>
-<span class='doccomment'>/// } while i &lt; 5);</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// assert_eq!(n, 10);</span>
-<span class='doccomment'>/// # }</span>
-<span class='doccomment'>/// ```</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// The loop always executes at least once.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// ```</span>
-<span class='doccomment'>/// # #[macro_use] extern crate mac;</span>
-<span class='doccomment'>/// # fn main() {</span>
-<span class='doccomment'>/// let mut ran = false;</span>
-<span class='doccomment'>/// do_while!({ ran = true } while false);</span>
-<span class='doccomment'>/// assert!(ran);</span>
-<span class='doccomment'>/// # }</span>
-<span class='doccomment'>/// ```</span>
-<span class='attribute'>#[<span class='ident'>macro_export</span>]</span>
-<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>do_while</span> {
-    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>body</span>:<span class='ident'>block</span> <span class='kw'>while</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>condition</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {
-        <span class='kw'>while</span> { <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>body</span>; <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>condition</span> } { }
+<span class="doccomment">/// Do-while loop.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Examples</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// # #[macro_use] extern crate mac;</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// let mut i = 0;</span>
+<span class="doccomment">/// let mut n = 0;</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// do_while!({</span>
+<span class="doccomment">///     n += i;</span>
+<span class="doccomment">///     i += 1;</span>
+<span class="doccomment">/// } while i &lt; 5);</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// assert_eq!(n, 10);</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// The loop always executes at least once.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// # #[macro_use] extern crate mac;</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// let mut ran = false;</span>
+<span class="doccomment">/// do_while!({ ran = true } while false);</span>
+<span class="doccomment">/// assert!(ran);</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="attribute">#[<span class="ident">macro_export</span>]</span>
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">do_while</span> {
+    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">body</span>:<span class="ident">block</span> <span class="kw">while</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">condition</span>:<span class="ident">expr</span>) <span class="op">=&gt;</span> {
+        <span class="kw">while</span> { <span class="macro-nonterminal">$</span><span class="macro-nonterminal">body</span>; <span class="macro-nonterminal">$</span><span class="macro-nonterminal">condition</span> } { }
     }
 }
 </pre>
