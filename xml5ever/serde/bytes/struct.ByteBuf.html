@@ -103,7 +103,7 @@ way.</p>
 }
 <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">x</span>, <span class="kw-2">&amp;</span>[<span class="number">5</span>, <span class="number">1</span>, <span class="number">2</span>]);</pre>
 </div><h4 id='method.split_first' class="method"><span id='split_first.v' class='invisible'><code>fn <a href='#method.split_first' class='fnname'>split_first</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a>&amp;T, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[T]</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a>&gt;</code><div class='since' title='Stable since Rust version 1.5.0'>1.5.0</div></span></h4>
-<div class='docblock'><p>Returns the first and all the rest of the elements of a slice, or <code>None</code> if it is empty.</p>
+<div class='docblock'><p>Returns the first and all the rest of the elements of a slice.</p>
 
 <h1 id='examples-2' class='section-header'><a href='#examples-2'>Examples</a></h1>
 <pre class="rust rust-example-rendered">
@@ -114,7 +114,7 @@ way.</p>
     <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">elements</span>, <span class="kw-2">&amp;</span>[<span class="number">1</span>, <span class="number">2</span>]);
 }</pre>
 </div><h4 id='method.split_first_mut' class="method"><span id='split_first_mut.v' class='invisible'><code>fn <a href='#method.split_first_mut' class='fnname'>split_first_mut</a>(&amp;mut self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a>&amp;mut T, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;mut [T]</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a>&gt;</code><div class='since' title='Stable since Rust version 1.5.0'>1.5.0</div></span></h4>
-<div class='docblock'><p>Returns the first and all the rest of the elements of a slice, or <code>None</code> if it is empty.</p>
+<div class='docblock'><p>Returns the first and all the rest of the elements of a slice.</p>
 
 <h1 id='examples-3' class='section-header'><a href='#examples-3'>Examples</a></h1>
 <pre class="rust rust-example-rendered">
@@ -127,7 +127,7 @@ way.</p>
 }
 <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">x</span>, <span class="kw-2">&amp;</span>[<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]);</pre>
 </div><h4 id='method.split_last' class="method"><span id='split_last.v' class='invisible'><code>fn <a href='#method.split_last' class='fnname'>split_last</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a>&amp;T, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[T]</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a>&gt;</code><div class='since' title='Stable since Rust version 1.5.0'>1.5.0</div></span></h4>
-<div class='docblock'><p>Returns the last and all the rest of the elements of a slice, or <code>None</code> if it is empty.</p>
+<div class='docblock'><p>Returns the last and all the rest of the elements of a slice.</p>
 
 <h1 id='examples-4' class='section-header'><a href='#examples-4'>Examples</a></h1>
 <pre class="rust rust-example-rendered">
@@ -138,7 +138,7 @@ way.</p>
     <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">elements</span>, <span class="kw-2">&amp;</span>[<span class="number">0</span>, <span class="number">1</span>]);
 }</pre>
 </div><h4 id='method.split_last_mut' class="method"><span id='split_last_mut.v' class='invisible'><code>fn <a href='#method.split_last_mut' class='fnname'>split_last_mut</a>(&amp;mut self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a>&amp;mut T, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;mut [T]</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a>&gt;</code><div class='since' title='Stable since Rust version 1.5.0'>1.5.0</div></span></h4>
-<div class='docblock'><p>Returns the last and all the rest of the elements of a slice, or <code>None</code> if it is empty.</p>
+<div class='docblock'><p>Returns the last and all the rest of the elements of a slice.</p>
 
 <h1 id='examples-5' class='section-header'><a href='#examples-5'>Examples</a></h1>
 <pre class="rust rust-example-rendered">
@@ -191,7 +191,7 @@ or <code>None</code> if out of bounds.</li>
 <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">None</span>, <span class="ident">v</span>.<span class="ident">get</span>(<span class="number">0</span>..<span class="number">4</span>));</pre>
 </div><h4 id='method.get_mut' class="method"><span id='get_mut.v' class='invisible'><code>fn <a href='#method.get_mut' class='fnname'>get_mut</a>&lt;I&gt;(&amp;mut self, index: I) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;mut I::<a class="trait" href="https://doc.rust-lang.org/nightly/core/slice/trait.SliceIndex.html" title="trait core::slice::SliceIndex">Output</a>&gt; <span class="where fmt-newline">where I: <a class="trait" href="https://doc.rust-lang.org/nightly/core/slice/trait.SliceIndex.html" title="trait core::slice::SliceIndex">SliceIndex</a>&lt;T&gt;</span></code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h4>
 <div class='docblock'><p>Returns a mutable reference to an element or subslice depending on the
-type of index (see <a href="#method.get"><code>get</code></a>) or <code>None</code> if the index is out of bounds.</p>
+type of index (see <a href="#method.get"><code>get()</code></a>) or <code>None</code> if the index is out of bounds.</p>
 
 <h1 id='examples-9' class='section-header'><a href='#examples-9'>Examples</a></h1>
 <pre class="rust rust-example-rendered">
@@ -231,8 +231,8 @@ bounds checking. So use it very carefully!</p>
 <p>The caller must ensure that the slice outlives the pointer this
 function returns, or else it will end up pointing to garbage.</p>
 
-<p>Modifying the container referenced by this slice may cause its buffer
-to be reallocated, which would also make any pointers to it invalid.</p>
+<p>Modifying the slice may cause its buffer to be reallocated, which
+would also make any pointers to it invalid.</p>
 
 <h1 id='examples-12' class='section-header'><a href='#examples-12'>Examples</a></h1>
 <pre class="rust rust-example-rendered">
@@ -250,8 +250,8 @@ to be reallocated, which would also make any pointers to it invalid.</p>
 <p>The caller must ensure that the slice outlives the pointer this
 function returns, or else it will end up pointing to garbage.</p>
 
-<p>Modifying the container referenced by this slice may cause its buffer
-to be reallocated, which would also make any pointers to it invalid.</p>
+<p>Modifying the slice may cause its buffer to be reallocated, which
+would also make any pointers to it invalid.</p>
 
 <h1 id='examples-13' class='section-header'><a href='#examples-13'>Examples</a></h1>
 <pre class="rust rust-example-rendered">
