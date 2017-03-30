@@ -56,7 +56,7 @@
 <h4 id='method.to_ascii_lowercase' class="method"><span id='to_ascii_lowercase.v' class='invisible'><code>fn <a href='#method.to_ascii_lowercase' class='fnname'>to_ascii_lowercase</a>(&amp;self) -&gt; Self</code></span></h4>
 <h4 id='method.eq_ignore_ascii_case' class="method"><span id='eq_ignore_ascii_case.v' class='invisible'><code>fn <a href='#method.eq_ignore_ascii_case' class='fnname'>eq_ignore_ascii_case</a>(&amp;self, other: &amp;Self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span></h4>
 <h4 id='method.eq_str_ignore_ascii_case' class="method"><span id='eq_str_ignore_ascii_case.v' class='invisible'><code>fn <a href='#method.eq_str_ignore_ascii_case' class='fnname'>eq_str_ignore_ascii_case</a>(&amp;self, other: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span></h4>
-</div><h2 id='deref-methods'>Methods from <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html" title="trait core::ops::Deref">Deref</a>&lt;Target = <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;</h2><div class='impl-items'><h4 id='method.len' class="method"><span id='len.v' class='invisible'><code>fn <a href='#method.len' class='fnname'>len</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a></code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h4>
+</div><h2 id='deref-methods'>Methods from <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html" title="trait core::ops::Deref">Deref</a>&lt;Target=<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;</h2><div class='impl-items'><h4 id='method.len' class="method"><span id='len.v' class='invisible'><code>fn <a href='#method.len' class='fnname'>len</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a></code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h4>
 <div class='docblock'><p>Returns the length of <code>self</code>.</p>
 
 <p>This length is in bytes, not <a href="primitive.char.html"><code>char</code></a>s or graphemes. In other words,
@@ -72,7 +72,7 @@ it may not be what a human considers the length of the string.</p>
 <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="string">&quot;ƒoo&quot;</span>.<span class="ident">len</span>(); <span class="comment">// fancy f!</span>
 <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">4</span>, <span class="ident">len</span>);</pre>
 </div><h4 id='method.is_empty' class="method"><span id='is_empty.v' class='invisible'><code>fn <a href='#method.is_empty' class='fnname'>is_empty</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h4>
-<div class='docblock'><p>Returns <code>true</code> if <code>self</code> has a length of zero bytes.</p>
+<div class='docblock'><p>Returns true if this slice has a length of zero bytes.</p>
 
 <h1 id='examples-1' class='section-header'><a href='#examples-1'>Examples</a></h1>
 <p>Basic usage:</p>
@@ -136,7 +136,7 @@ checks.</p>
 excluding <code>end</code>.</p>
 
 <p>To get a mutable string slice instead, see the
-<a href="#method.slice_mut_unchecked"><code>slice_mut_unchecked</code></a> method.</p>
+<a href="#method.slice_mut_unchecked"><code>slice_mut_unchecked()</code></a> method.</p>
 
 <h1 id='safety' class='section-header'><a href='#safety'>Safety</a></h1>
 <p>Callers of this function are responsible that three preconditions are
@@ -172,7 +172,7 @@ string. It must also be on the boundary of a UTF-8 code point.</p>
 <p>The two slices returned go from the start of the string slice to <code>mid</code>,
 and from <code>mid</code> to the end of the string slice.</p>
 
-<p>To get mutable string slices instead, see the <a href="#method.split_at_mut"><code>split_at_mut</code></a>
+<p>To get mutable string slices instead, see the <a href="#method.split_at_mut"><code>split_at_mut()</code></a>
 method.</p>
 
 <h1 id='panics' class='section-header'><a href='#panics'>Panics</a></h1>
@@ -485,7 +485,7 @@ allows a reverse search and forward/reverse search yields the same
 elements. This is true for, eg, <a href="primitive.char.html"><code>char</code></a> but not for <code>&amp;str</code>.</p>
 
 <p>If the pattern allows a reverse search but its results might differ
-from a forward search, the <a href="#method.rsplit"><code>rsplit</code></a> method can be used.</p>
+from a forward search, the <a href="#method.rsplit"><code>rsplit()</code></a> method can be used.</p>
 
 <h1 id='examples-17' class='section-header'><a href='#examples-17'>Examples</a></h1>
 <p>Simple patterns:</p>
@@ -561,7 +561,7 @@ when whitespace is used as the separator. This code is correct:</p>
 <pre class="rust rust-example-rendered">
 <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">d</span>, <span class="kw-2">&amp;</span>[<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>]);</pre>
 
-<p>Use <a href="#method.split_whitespace"><code>split_whitespace</code></a> for this behavior.</p>
+<p>Use <a href="#method.split_whitespace"><code>split_whitespace()</code></a> for this behavior.</p>
 </div><h4 id='method.rsplit' class="method"><span id='rsplit.v' class='invisible'><code>fn <a href='#method.rsplit' class='fnname'>rsplit</a>&lt;'a, P&gt;(&amp;'a self, pat: P) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/core/str/struct.RSplit.html" title="struct core::str::RSplit">RSplit</a>&lt;'a, P&gt; <span class="where fmt-newline">where P: <a class="trait" href="https://doc.rust-lang.org/nightly/core/str/pattern/trait.Pattern.html" title="trait core::str::pattern::Pattern">Pattern</a>&lt;'a&gt;, P::<a class="trait" href="https://doc.rust-lang.org/nightly/core/str/pattern/trait.Pattern.html" title="trait core::str::pattern::Pattern">Searcher</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/str/pattern/trait.ReverseSearcher.html" title="trait core::str::pattern::ReverseSearcher">ReverseSearcher</a>&lt;'a&gt;</span></code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h4>
 <div class='docblock'><p>An iterator over substrings of the given string slice, separated by
 characters matched by a pattern and yielded in reverse order.</p>
@@ -574,7 +574,7 @@ split.</p>
 search, and it will be a <a href="iter/trait.DoubleEndedIterator.html"><code>DoubleEndedIterator</code></a> if a forward/reverse
 search yields the same elements.</p>
 
-<p>For iterating from the front, the <a href="#method.split"><code>split</code></a> method can be used.</p>
+<p>For iterating from the front, the <a href="#method.split"><code>split()</code></a> method can be used.</p>
 
 <h1 id='examples-18' class='section-header'><a href='#examples-18'>Examples</a></h1>
 <p>Simple patterns:</p>
@@ -604,7 +604,7 @@ characters matched by a pattern.</p>
 <p>The pattern can be a <code>&amp;str</code>, <a href="primitive.char.html"><code>char</code></a>, or a closure that determines the
 split.</p>
 
-<p>Equivalent to <a href="#method.split"><code>split</code></a>, except that the trailing substring
+<p>Equivalent to <a href="#method.split"><code>split()</code></a>, except that the trailing substring
 is skipped if empty.</p>
 
 <p>This method can be used for string data that is <em>terminated</em>,
@@ -616,7 +616,7 @@ allows a reverse search and forward/reverse search yields the same
 elements. This is true for, eg, <a href="primitive.char.html"><code>char</code></a> but not for <code>&amp;str</code>.</p>
 
 <p>If the pattern allows a reverse search but its results might differ
-from a forward search, the <a href="#method.rsplit_terminator"><code>rsplit_terminator</code></a> method can be used.</p>
+from a forward search, the <a href="#method.rsplit_terminator"><code>rsplit_terminator()</code></a> method can be used.</p>
 
 <h1 id='examples-19' class='section-header'><a href='#examples-19'>Examples</a></h1>
 <p>Basic usage:</p>
@@ -636,7 +636,7 @@ determines the split.
 Additional libraries might provide more complex patterns like
 regular expressions.</p>
 
-<p>Equivalent to <a href="#method.split"><code>split</code></a>, except that the trailing substring is
+<p>Equivalent to <a href="#method.split"><code>split()</code></a>, except that the trailing substring is
 skipped if empty.</p>
 
 <p>This method can be used for string data that is <em>terminated</em>,
@@ -647,7 +647,7 @@ rather than <em>separated</em> by a pattern.</p>
 reverse search, and it will be double ended if a forward/reverse
 search yields the same elements.</p>
 
-<p>For iterating from the front, the <a href="#method.split_terminator"><code>split_terminator</code></a> method can be
+<p>For iterating from the front, the <a href="#method.split_terminator"><code>split_terminator()</code></a> method can be
 used.</p>
 
 <h1 id='examples-20' class='section-header'><a href='#examples-20'>Examples</a></h1>
@@ -671,7 +671,7 @@ split.</p>
 <p>The returned iterator will not be double ended, because it is
 not efficient to support.</p>
 
-<p>If the pattern allows a reverse search, the <a href="#method.rsplitn"><code>rsplitn</code></a> method can be
+<p>If the pattern allows a reverse search, the <a href="#method.rsplitn"><code>rsplitn()</code></a> method can be
 used.</p>
 
 <h1 id='examples-21' class='section-header'><a href='#examples-21'>Examples</a></h1>
@@ -710,7 +710,7 @@ determines the split.</p>
 <p>The returned iterator will not be double ended, because it is not
 efficient to support.</p>
 
-<p>For splitting from the front, the <a href="#method.splitn"><code>splitn</code></a> method can be used.</p>
+<p>For splitting from the front, the <a href="#method.splitn"><code>splitn()</code></a> method can be used.</p>
 
 <h1 id='examples-22' class='section-header'><a href='#examples-22'>Examples</a></h1>
 <p>Simple patterns:</p>
@@ -743,7 +743,7 @@ allows a reverse search and forward/reverse search yields the same
 elements. This is true for, eg, <a href="primitive.char.html"><code>char</code></a> but not for <code>&amp;str</code>.</p>
 
 <p>If the pattern allows a reverse search but its results might differ
-from a forward search, the <a href="#method.rmatches"><code>rmatches</code></a> method can be used.</p>
+from a forward search, the <a href="#method.rmatches"><code>rmatches()</code></a> method can be used.</p>
 
 <h1 id='examples-23' class='section-header'><a href='#examples-23'>Examples</a></h1>
 <p>Basic usage:</p>
@@ -766,7 +766,7 @@ a character matches.</p>
 search, and it will be a <a href="iter/trait.DoubleEndedIterator.html"><code>DoubleEndedIterator</code></a> if a forward/reverse
 search yields the same elements.</p>
 
-<p>For iterating from the front, the <a href="#method.matches"><code>matches</code></a> method can be used.</p>
+<p>For iterating from the front, the <a href="#method.matches"><code>matches()</code></a> method can be used.</p>
 
 <h1 id='examples-24' class='section-header'><a href='#examples-24'>Examples</a></h1>
 <p>Basic usage:</p>
@@ -793,7 +793,7 @@ allows a reverse search and forward/reverse search yields the same
 elements. This is true for, eg, <a href="primitive.char.html"><code>char</code></a> but not for <code>&amp;str</code>.</p>
 
 <p>If the pattern allows a reverse search but its results might differ
-from a forward search, the <a href="#method.rmatch_indices"><code>rmatch_indices</code></a> method can be used.</p>
+from a forward search, the <a href="#method.rmatch_indices"><code>rmatch_indices()</code></a> method can be used.</p>
 
 <h1 id='examples-25' class='section-header'><a href='#examples-25'>Examples</a></h1>
 <p>Basic usage:</p>
@@ -822,7 +822,7 @@ character matches.</p>
 search, and it will be a <a href="iter/trait.DoubleEndedIterator.html"><code>DoubleEndedIterator</code></a> if a forward/reverse
 search yields the same elements.</p>
 
-<p>For iterating from the front, the <a href="#method.match_indices"><code>match_indices</code></a> method can be used.</p>
+<p>For iterating from the front, the <a href="#method.match_indices"><code>match_indices()</code></a> method can be used.</p>
 
 <h1 id='examples-26' class='section-header'><a href='#examples-26'>Examples</a></h1>
 <p>Basic usage:</p>
