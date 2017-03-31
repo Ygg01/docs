@@ -72,35 +72,35 @@
 <span id="27">27</span>
 <span id="28">28</span>
 <span id="29">29</span>
-</pre><pre class="rust ">
-<span class="comment">// Copyright 2015 The xml5ever Project Developers. See the</span>
-<span class="comment">// COPYRIGHT file at the top-level directory of this distribution.</span>
-<span class="comment">//</span>
-<span class="comment">// Licensed under the Apache License, Version 2.0 &lt;LICENSE-APACHE or</span>
-<span class="comment">// http://www.apache.org/licenses/LICENSE-2.0&gt; or the MIT license</span>
-<span class="comment">// &lt;LICENSE-MIT or http://opensource.org/licenses/MIT&gt;, at your</span>
-<span class="comment">// option. This file may not be copied, modified, or distributed</span>
-<span class="comment">// except according to those terms.</span>
+</pre><pre class='rust '>
+<span class='comment'>// Copyright 2015 The xml5ever Project Developers. See the</span>
+<span class='comment'>// COPYRIGHT file at the top-level directory of this distribution.</span>
+<span class='comment'>//</span>
+<span class='comment'>// Licensed under the Apache License, Version 2.0 &lt;LICENSE-APACHE or</span>
+<span class='comment'>// http://www.apache.org/licenses/LICENSE-2.0&gt; or the MIT license</span>
+<span class='comment'>// &lt;LICENSE-MIT or http://opensource.org/licenses/MIT&gt;, at your</span>
+<span class='comment'>// option. This file may not be copied, modified, or distributed</span>
+<span class='comment'>// except according to those terms.</span>
 
-<span class="attribute">#[<span class="ident">macro_use</span>]</span> <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">smallcharset</span>;
+<span class='attribute'>#[<span class='ident'>macro_use</span>]</span> <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>smallcharset</span>;
 
 
-<span class="doccomment">/// Is the character an ASCII alphanumeric character?</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_ascii_alnum</span>(<span class="ident">c</span>: <span class="ident">char</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
-    <span class="macro">matches</span><span class="macro">!</span>(<span class="ident">c</span>, <span class="string">&#39;0&#39;</span>...<span class="string">&#39;9&#39;</span> <span class="op">|</span> <span class="string">&#39;a&#39;</span>...<span class="string">&#39;z&#39;</span> <span class="op">|</span> <span class="string">&#39;A&#39;</span>...<span class="string">&#39;Z&#39;</span>)
+<span class='doccomment'>/// Is the character an ASCII alphanumeric character?</span>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_ascii_alnum</span>(<span class='ident'>c</span>: <span class='ident'>char</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
+    <span class='macro'>matches</span><span class='macro'>!</span>(<span class='ident'>c</span>, <span class='string'>&#39;0&#39;</span>...<span class='string'>&#39;9&#39;</span> <span class='op'>|</span> <span class='string'>&#39;a&#39;</span>...<span class='string'>&#39;z&#39;</span> <span class='op'>|</span> <span class='string'>&#39;A&#39;</span>...<span class='string'>&#39;Z&#39;</span>)
 }
 
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">non_snake_case</span>)]</span>
-<span class="kw">mod</span> <span class="ident">test</span> {
-    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">is_ascii_alnum</span>};
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
+<span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
+<span class='kw'>mod</span> <span class='ident'>test</span> {
+    <span class='kw'>use</span> <span class='kw'>super</span>::{<span class='ident'>is_ascii_alnum</span>};
 
-    <span class="macro">test_eq</span><span class="macro">!</span>(<span class="ident">is_alnum_a</span>, <span class="ident">is_ascii_alnum</span>(<span class="string">&#39;a&#39;</span>), <span class="bool-val">true</span>);
-    <span class="macro">test_eq</span><span class="macro">!</span>(<span class="ident">is_alnum_A</span>, <span class="ident">is_ascii_alnum</span>(<span class="string">&#39;A&#39;</span>), <span class="bool-val">true</span>);
-    <span class="macro">test_eq</span><span class="macro">!</span>(<span class="ident">is_alnum_1</span>, <span class="ident">is_ascii_alnum</span>(<span class="string">&#39;1&#39;</span>), <span class="bool-val">true</span>);
-    <span class="macro">test_eq</span><span class="macro">!</span>(<span class="ident">is_not_alnum_symbol</span>, <span class="ident">is_ascii_alnum</span>(<span class="string">&#39;!&#39;</span>), <span class="bool-val">false</span>);
-    <span class="macro">test_eq</span><span class="macro">!</span>(<span class="ident">is_not_alnum_nonascii</span>, <span class="ident">is_ascii_alnum</span>(<span class="string">&#39;\u{a66e}&#39;</span>), <span class="bool-val">false</span>);
+    <span class='macro'>test_eq</span><span class='macro'>!</span>(<span class='ident'>is_alnum_a</span>, <span class='ident'>is_ascii_alnum</span>(<span class='string'>&#39;a&#39;</span>), <span class='bool-val'>true</span>);
+    <span class='macro'>test_eq</span><span class='macro'>!</span>(<span class='ident'>is_alnum_A</span>, <span class='ident'>is_ascii_alnum</span>(<span class='string'>&#39;A&#39;</span>), <span class='bool-val'>true</span>);
+    <span class='macro'>test_eq</span><span class='macro'>!</span>(<span class='ident'>is_alnum_1</span>, <span class='ident'>is_ascii_alnum</span>(<span class='string'>&#39;1&#39;</span>), <span class='bool-val'>true</span>);
+    <span class='macro'>test_eq</span><span class='macro'>!</span>(<span class='ident'>is_not_alnum_symbol</span>, <span class='ident'>is_ascii_alnum</span>(<span class='string'>&#39;!&#39;</span>), <span class='bool-val'>false</span>);
+    <span class='macro'>test_eq</span><span class='macro'>!</span>(<span class='ident'>is_not_alnum_nonascii</span>, <span class='ident'>is_ascii_alnum</span>(<span class='string'>&#39;\u{a66e}&#39;</span>), <span class='bool-val'>false</span>);
 }
 </pre>
 </section>

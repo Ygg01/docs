@@ -81,44 +81,44 @@
 <span id="36">36</span>
 <span id="37">37</span>
 <span id="38">38</span>
-</pre><pre class="rust ">
-<span class="comment">// Copyright 2014 The Servo Project Developers. See the COPYRIGHT</span>
-<span class="comment">// file at the top-level directory of this distribution.</span>
-<span class="comment">//</span>
-<span class="comment">// Licensed under the Apache License, Version 2.0 &lt;LICENSE-APACHE or</span>
-<span class="comment">// http://www.apache.org/licenses/LICENSE-2.0&gt; or the MIT license</span>
-<span class="comment">// &lt;LICENSE-MIT or http://opensource.org/licenses/MIT&gt;, at your</span>
-<span class="comment">// option. This file may not be copied, modified, or distributed</span>
-<span class="comment">// except according to those terms.</span>
+</pre><pre class='rust '>
+<span class='comment'>// Copyright 2014 The Servo Project Developers. See the COPYRIGHT</span>
+<span class='comment'>// file at the top-level directory of this distribution.</span>
+<span class='comment'>//</span>
+<span class='comment'>// Licensed under the Apache License, Version 2.0 &lt;LICENSE-APACHE or</span>
+<span class='comment'>// http://www.apache.org/licenses/LICENSE-2.0&gt; or the MIT license</span>
+<span class='comment'>// &lt;LICENSE-MIT or http://opensource.org/licenses/MIT&gt;, at your</span>
+<span class='comment'>// option. This file may not be copied, modified, or distributed</span>
+<span class='comment'>// except according to those terms.</span>
 
-<span class="attribute">#<span class="op">!</span>[<span class="ident">crate_name</span> <span class="op">=</span> <span class="string">&quot;string_cache&quot;</span>]</span>
-<span class="attribute">#<span class="op">!</span>[<span class="ident">crate_type</span> <span class="op">=</span> <span class="string">&quot;rlib&quot;</span>]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_name</span> <span class='op'>=</span> <span class='string'>&quot;string_cache&quot;</span>]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_type</span> <span class='op'>=</span> <span class='string'>&quot;rlib&quot;</span>]</span>
 
-<span class="attribute">#<span class="op">!</span>[<span class="ident">cfg_attr</span>(<span class="ident">test</span>, <span class="ident">deny</span>(<span class="ident">warnings</span>))]</span>
-<span class="attribute">#<span class="op">!</span>[<span class="ident">cfg_attr</span>(<span class="ident">all</span>(<span class="ident">test</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable&quot;</span>), <span class="ident">feature</span>(<span class="ident">test</span>))]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>test</span>, <span class='ident'>deny</span>(<span class='ident'>warnings</span>))]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>all</span>(<span class='ident'>test</span>, <span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;unstable&quot;</span>), <span class='ident'>feature</span>(<span class='ident'>test</span>))]</span>
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">test</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable&quot;</span>))]</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">test</span>;
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;log-events&quot;</span>)]</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">rustc_serialize</span>;
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;heapsize&quot;</span>)]</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">heapsize</span>;
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">rand</span>;
-<span class="attribute">#[<span class="ident">macro_use</span>]</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">lazy_static</span>;
-<span class="attribute">#[<span class="ident">macro_use</span>]</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">debug_unreachable</span>;
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">serde</span>;
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">phf_shared</span>;
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">string_cache_shared</span> <span class="kw">as</span> <span class="ident">shared</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>all</span>(<span class='ident'>test</span>, <span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;unstable&quot;</span>))]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>test</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;log-events&quot;</span>)]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>rustc_serialize</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;heapsize&quot;</span>)]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>heapsize</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>rand</span>;
+<span class='attribute'>#[<span class='ident'>macro_use</span>]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>lazy_static</span>;
+<span class='attribute'>#[<span class='ident'>macro_use</span>]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>debug_unreachable</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>serde</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>phf_shared</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>string_cache_shared</span> <span class='kw'>as</span> <span class='ident'>shared</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">atom</span>::{<span class="ident">Atom</span>, <span class="ident">StaticAtomSet</span>, <span class="ident">PhfStrSet</span>, <span class="ident">EmptyStaticAtomSet</span>, <span class="ident">DefaultAtom</span>};
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>atom</span>::{<span class='ident'>Atom</span>, <span class='ident'>StaticAtomSet</span>, <span class='ident'>PhfStrSet</span>, <span class='ident'>EmptyStaticAtomSet</span>, <span class='ident'>DefaultAtom</span>};
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;log-events&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">macro_use</span>]</span>
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">event</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;log-events&quot;</span>)]</span>
+<span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>event</span>;
 
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">atom</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>atom</span>;
 
-<span class="comment">// Make test_atom! macro work in this crate.</span>
-<span class="comment">// `$crate` would not be appropriate for other crates creating such macros</span>
-<span class="kw">mod</span> <span class="ident">string_cache</span> {
-    <span class="kw">pub</span> <span class="kw">use</span> {<span class="ident">Atom</span>, <span class="ident">StaticAtomSet</span>, <span class="ident">PhfStrSet</span>};
+<span class='comment'>// Make test_atom! macro work in this crate.</span>
+<span class='comment'>// `$crate` would not be appropriate for other crates creating such macros</span>
+<span class='kw'>mod</span> <span class='ident'>string_cache</span> {
+    <span class='kw'>pub</span> <span class='kw'>use</span> {<span class='ident'>Atom</span>, <span class='ident'>StaticAtomSet</span>, <span class='ident'>PhfStrSet</span>};
 }
 </pre>
 </section>
