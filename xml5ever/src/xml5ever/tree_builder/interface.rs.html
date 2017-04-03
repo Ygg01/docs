@@ -161,124 +161,124 @@
 <span id="116">116</span>
 <span id="117">117</span>
 <span id="118">118</span>
-</pre><pre class="rust ">
-<span class="comment">// Copyright 2014 The xml5ever Project Developers. See the</span>
-<span class="comment">// COPYRIGHT file at the top-level directory of this distribution.</span>
-<span class="comment">//</span>
-<span class="comment">// Licensed under the Apache License, Version 2.0 &lt;LICENSE-APACHE or</span>
-<span class="comment">// http://www.apache.org/licenses/LICENSE-2.0&gt; or the MIT license</span>
-<span class="comment">// &lt;LICENSE-MIT or http://opensource.org/licenses/MIT&gt;, at your</span>
-<span class="comment">// option. This file may not be copied, modified, or distributed</span>
-<span class="comment">// except according to those terms.</span>
+</pre><pre class='rust '>
+<span class='comment'>// Copyright 2014 The xml5ever Project Developers. See the</span>
+<span class='comment'>// COPYRIGHT file at the top-level directory of this distribution.</span>
+<span class='comment'>//</span>
+<span class='comment'>// Licensed under the Apache License, Version 2.0 &lt;LICENSE-APACHE or</span>
+<span class='comment'>// http://www.apache.org/licenses/LICENSE-2.0&gt; or the MIT license</span>
+<span class='comment'>// &lt;LICENSE-MIT or http://opensource.org/licenses/MIT&gt;, at your</span>
+<span class='comment'>// option. This file may not be copied, modified, or distributed</span>
+<span class='comment'>// except according to those terms.</span>
 
-<span class="doccomment">//! The interface for consumers of the tree builder (and thus the</span>
-<span class="doccomment">//! parser overall).</span>
+<span class='doccomment'>//! The interface for consumers of the tree builder (and thus the</span>
+<span class='doccomment'>//! parser overall).</span>
 
-<span class="kw">use</span> <span class="ident">tokenizer</span>::{<span class="ident">Attribute</span>, <span class="ident">QName</span>};
+<span class='kw'>use</span> <span class='ident'>tokenizer</span>::{<span class='ident'>Attribute</span>, <span class='ident'>QName</span>};
 
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">borrow</span>::<span class="ident">Cow</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>borrow</span>::<span class='ident'>Cow</span>;
 
-<span class="kw">use</span> <span class="ident">tendril</span>::<span class="ident">StrTendril</span>;
+<span class='kw'>use</span> <span class='ident'>tendril</span>::<span class='ident'>StrTendril</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">NodeOrText</span>::{<span class="ident">AppendNode</span>, <span class="ident">AppendText</span>};
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>NodeOrText</span>::{<span class='ident'>AppendNode</span>, <span class='ident'>AppendText</span>};
 
-<span class="doccomment">/// Something which can be inserted into the DOM.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Adjacent sibling text nodes are merged into a single node, so</span>
-<span class="doccomment">/// the sink may not want to allocate a `Handle` for each.</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">NodeOrText</span><span class="op">&lt;</span><span class="ident">Handle</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Appends next element like it is a node</span>
-    <span class="ident">AppendNode</span>(<span class="ident">Handle</span>),
+<span class='doccomment'>/// Something which can be inserted into the DOM.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// Adjacent sibling text nodes are merged into a single node, so</span>
+<span class='doccomment'>/// the sink may not want to allocate a `Handle` for each.</span>
+<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>NodeOrText</span><span class='op'>&lt;</span><span class='ident'>Handle</span><span class='op'>&gt;</span> {
+    <span class='doccomment'>/// Appends next element like it is a node</span>
+    <span class='ident'>AppendNode</span>(<span class='ident'>Handle</span>),
 
-    <span class="doccomment">/// Appends next element as if it was a text element</span>
-    <span class="ident">AppendText</span>(<span class="ident">StrTendril</span>),
+    <span class='doccomment'>/// Appends next element as if it was a text element</span>
+    <span class='ident'>AppendText</span>(<span class='ident'>StrTendril</span>),
 }
 
-<span class="doccomment">/// Whether to interrupt further parsing of the current input until</span>
-<span class="doccomment">/// the next explicit resumption of the tokenizer, or continue without</span>
-<span class="doccomment">/// any interruption.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Hash</span>, <span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">NextParserState</span> {
-    <span class="doccomment">/// Stop further parsing.</span>
-    <span class="ident">Suspend</span>,
-    <span class="doccomment">/// Continue without interruptions.</span>
-    <span class="ident">Continue</span>,
+<span class='doccomment'>/// Whether to interrupt further parsing of the current input until</span>
+<span class='doccomment'>/// the next explicit resumption of the tokenizer, or continue without</span>
+<span class='doccomment'>/// any interruption.</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>, <span class='ident'>Copy</span>, <span class='ident'>Clone</span>, <span class='ident'>Hash</span>, <span class='ident'>Debug</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>NextParserState</span> {
+    <span class='doccomment'>/// Stop further parsing.</span>
+    <span class='ident'>Suspend</span>,
+    <span class='doccomment'>/// Continue without interruptions.</span>
+    <span class='ident'>Continue</span>,
 }
 
-<span class="doccomment">/// Types which can process tree modifications from the tree builder.</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">TreeSink</span> {
-    <span class="doccomment">/// `Handle` is a reference to a DOM node.  The tree builder requires</span>
-    <span class="doccomment">/// that a `Handle` implements `Clone` to get another reference to</span>
-    <span class="doccomment">/// the same node.</span>
-    <span class="kw">type</span> <span class="ident">Handle</span>: <span class="ident">Clone</span>;
+<span class='doccomment'>/// Types which can process tree modifications from the tree builder.</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>TreeSink</span> {
+    <span class='doccomment'>/// `Handle` is a reference to a DOM node.  The tree builder requires</span>
+    <span class='doccomment'>/// that a `Handle` implements `Clone` to get another reference to</span>
+    <span class='doccomment'>/// the same node.</span>
+    <span class='kw'>type</span> <span class='ident'>Handle</span>: <span class='ident'>Clone</span>;
 
-    <span class="doccomment">/// The overall result of parsing.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// TODO:This should defualt to Self, but default associated types are not stable yet.</span>
-    <span class="doccomment">/// (https://github.com/rust-lang/rust/issues/29661)</span>
-    <span class="kw">type</span> <span class="ident">Output</span>;
+    <span class='doccomment'>/// The overall result of parsing.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// TODO:This should defualt to Self, but default associated types are not stable yet.</span>
+    <span class='doccomment'>/// (https://github.com/rust-lang/rust/issues/29661)</span>
+    <span class='kw'>type</span> <span class='ident'>Output</span>;
 
-    <span class="doccomment">/// Consume this sink and return the overall result of parsing.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// TODO:This should default to `fn finish(self) -&gt; Self::Output { self }`,</span>
-    <span class="doccomment">/// but default associated types are not stable yet.</span>
-    <span class="doccomment">/// (https://github.com/rust-lang/rust/issues/29661)</span>
-    <span class="kw">fn</span> <span class="ident">finish</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="self">Self</span>::<span class="ident">Output</span>;
+    <span class='doccomment'>/// Consume this sink and return the overall result of parsing.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// TODO:This should default to `fn finish(self) -&gt; Self::Output { self }`,</span>
+    <span class='doccomment'>/// but default associated types are not stable yet.</span>
+    <span class='doccomment'>/// (https://github.com/rust-lang/rust/issues/29661)</span>
+    <span class='kw'>fn</span> <span class='ident'>finish</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span>::<span class='ident'>Output</span>;
 
-    <span class="doccomment">/// Signal a parse error.</span>
-    <span class="kw">fn</span> <span class="ident">parse_error</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">msg</span>: <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">str</span><span class="op">&gt;</span>);
+    <span class='doccomment'>/// Signal a parse error.</span>
+    <span class='kw'>fn</span> <span class='ident'>parse_error</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>msg</span>: <span class='ident'>Cow</span><span class='op'>&lt;</span><span class='lifetime'>&#39;static</span>, <span class='ident'>str</span><span class='op'>&gt;</span>);
 
-    <span class="doccomment">/// Get a handle to the `Document` node.</span>
-    <span class="kw">fn</span> <span class="ident">get_document</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="self">Self</span>::<span class="ident">Handle</span>;
+    <span class='doccomment'>/// Get a handle to the `Document` node.</span>
+    <span class='kw'>fn</span> <span class='ident'>get_document</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span>::<span class='ident'>Handle</span>;
 
-    <span class="doccomment">/// What is the name of this element?</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Should never be called on a non-element node;</span>
-    <span class="doccomment">/// feel free to `panic!`.</span>
-    <span class="kw">fn</span> <span class="ident">elem_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">target</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Handle</span>) <span class="op">-&gt;</span> <span class="ident">QName</span>;
+    <span class='doccomment'>/// What is the name of this element?</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Should never be called on a non-element node;</span>
+    <span class='doccomment'>/// feel free to `panic!`.</span>
+    <span class='kw'>fn</span> <span class='ident'>elem_name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>target</span>: <span class='kw-2'>&amp;</span><span class='self'>Self</span>::<span class='ident'>Handle</span>) <span class='op'>-&gt;</span> <span class='ident'>QName</span>;
 
-    <span class="doccomment">/// Create an element.</span>
-    <span class="kw">fn</span> <span class="ident">create_element</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="ident">QName</span>, <span class="ident">attrs</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Attribute</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span>::<span class="ident">Handle</span>;
+    <span class='doccomment'>/// Create an element.</span>
+    <span class='kw'>fn</span> <span class='ident'>create_element</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>name</span>: <span class='ident'>QName</span>, <span class='ident'>attrs</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Attribute</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span>::<span class='ident'>Handle</span>;
 
-    <span class="doccomment">/// Create a comment node.</span>
-    <span class="kw">fn</span> <span class="ident">create_comment</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">text</span>: <span class="ident">StrTendril</span>) <span class="op">-&gt;</span> <span class="self">Self</span>::<span class="ident">Handle</span>;
+    <span class='doccomment'>/// Create a comment node.</span>
+    <span class='kw'>fn</span> <span class='ident'>create_comment</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>text</span>: <span class='ident'>StrTendril</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span>::<span class='ident'>Handle</span>;
 
-    <span class="doccomment">/// Create a Processing Instruction node.</span>
-    <span class="kw">fn</span> <span class="ident">create_pi</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">target</span>: <span class="ident">StrTendril</span>, <span class="ident">data</span>: <span class="ident">StrTendril</span>) <span class="op">-&gt;</span> <span class="self">Self</span>::<span class="ident">Handle</span>;
+    <span class='doccomment'>/// Create a Processing Instruction node.</span>
+    <span class='kw'>fn</span> <span class='ident'>create_pi</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>target</span>: <span class='ident'>StrTendril</span>, <span class='ident'>data</span>: <span class='ident'>StrTendril</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span>::<span class='ident'>Handle</span>;
 
-    <span class="doccomment">/// Append a node as the last child of the given node.  If this would</span>
-    <span class="doccomment">/// produce adjacent sibling text nodes, it should concatenate the text</span>
-    <span class="doccomment">/// instead.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The child node will not already have a parent.</span>
-    <span class="kw">fn</span> <span class="ident">append</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">parent</span>: <span class="self">Self</span>::<span class="ident">Handle</span>, <span class="ident">child</span>: <span class="ident">NodeOrText</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Handle</span><span class="op">&gt;</span>);
+    <span class='doccomment'>/// Append a node as the last child of the given node.  If this would</span>
+    <span class='doccomment'>/// produce adjacent sibling text nodes, it should concatenate the text</span>
+    <span class='doccomment'>/// instead.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// The child node will not already have a parent.</span>
+    <span class='kw'>fn</span> <span class='ident'>append</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>parent</span>: <span class='self'>Self</span>::<span class='ident'>Handle</span>, <span class='ident'>child</span>: <span class='ident'>NodeOrText</span><span class='op'>&lt;</span><span class='self'>Self</span>::<span class='ident'>Handle</span><span class='op'>&gt;</span>);
 
-    <span class="doccomment">/// Append a `DOCTYPE` element to the `Document` node.</span>
-    <span class="kw">fn</span> <span class="ident">append_doctype_to_document</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-                                  <span class="ident">name</span>: <span class="ident">StrTendril</span>,
-                                  <span class="ident">public_id</span>: <span class="ident">StrTendril</span>,
-                                  <span class="ident">system_id</span>: <span class="ident">StrTendril</span>);
+    <span class='doccomment'>/// Append a `DOCTYPE` element to the `Document` node.</span>
+    <span class='kw'>fn</span> <span class='ident'>append_doctype_to_document</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>,
+                                  <span class='ident'>name</span>: <span class='ident'>StrTendril</span>,
+                                  <span class='ident'>public_id</span>: <span class='ident'>StrTendril</span>,
+                                  <span class='ident'>system_id</span>: <span class='ident'>StrTendril</span>);
 
-    <span class="doccomment">/// Mark a HTML `&lt;script&gt;` as &quot;already started&quot;.</span>
-    <span class="kw">fn</span> <span class="ident">mark_script_already_started</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">_node</span>: <span class="self">Self</span>::<span class="ident">Handle</span>) {}
+    <span class='doccomment'>/// Mark a HTML `&lt;script&gt;` as &quot;already started&quot;.</span>
+    <span class='kw'>fn</span> <span class='ident'>mark_script_already_started</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_node</span>: <span class='self'>Self</span>::<span class='ident'>Handle</span>) {}
 
-    <span class="doccomment">/// Indicate that a `script` element is complete.</span>
-    <span class="kw">fn</span> <span class="ident">complete_script</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">_node</span>: <span class="self">Self</span>::<span class="ident">Handle</span>) <span class="op">-&gt;</span> <span class="ident">NextParserState</span> {
-        <span class="ident">NextParserState</span>::<span class="ident">Continue</span>
+    <span class='doccomment'>/// Indicate that a `script` element is complete.</span>
+    <span class='kw'>fn</span> <span class='ident'>complete_script</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_node</span>: <span class='self'>Self</span>::<span class='ident'>Handle</span>) <span class='op'>-&gt;</span> <span class='ident'>NextParserState</span> {
+        <span class='ident'>NextParserState</span>::<span class='ident'>Continue</span>
     }
 
-    <span class="doccomment">/// Indicate that a node was popped off the stack of open elements.</span>
-    <span class="kw">fn</span> <span class="ident">pop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">_node</span>: <span class="self">Self</span>::<span class="ident">Handle</span>) {}
+    <span class='doccomment'>/// Indicate that a node was popped off the stack of open elements.</span>
+    <span class='kw'>fn</span> <span class='ident'>pop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>_node</span>: <span class='self'>Self</span>::<span class='ident'>Handle</span>) {}
 }
 
-<span class="doccomment">/// Trace hooks for a garbage-collected DOM.</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Tracer</span> {
-    <span class="doccomment">/// Reference to a generic DOM node.</span>
-    <span class="kw">type</span> <span class="ident">Handle</span>;
+<span class='doccomment'>/// Trace hooks for a garbage-collected DOM.</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>Tracer</span> {
+    <span class='doccomment'>/// Reference to a generic DOM node.</span>
+    <span class='kw'>type</span> <span class='ident'>Handle</span>;
 
-    <span class="doccomment">/// Upon a call to `trace_handles`, the tree builder will call this method</span>
-    <span class="doccomment">/// for each handle in its internal state.</span>
-    <span class="kw">fn</span> <span class="ident">trace_handle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">node</span>: <span class="self">Self</span>::<span class="ident">Handle</span>);
+    <span class='doccomment'>/// Upon a call to `trace_handles`, the tree builder will call this method</span>
+    <span class='doccomment'>/// for each handle in its internal state.</span>
+    <span class='kw'>fn</span> <span class='ident'>trace_handle</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>node</span>: <span class='self'>Self</span>::<span class='ident'>Handle</span>);
 }
 </pre>
 </section>
