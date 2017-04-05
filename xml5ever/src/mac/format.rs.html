@@ -93,54 +93,54 @@
 <span id="48">48</span>
 <span id="49">49</span>
 <span id="50">50</span>
-</pre><pre class="rust ">
-<span class="doccomment">//! Macros for string formatting.</span>
+</pre><pre class='rust '>
+<span class='doccomment'>//! Macros for string formatting.</span>
 
-<span class="doccomment">/// Conditionally perform string formatting.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// If `$enabled` is true, then do the formatting and return a `Cow::Owned`.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Otherwise, just return the borrowed (often `&#39;static`) string</span>
-<span class="doccomment">/// `$borrowed`.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// When `$enabled` is false, this avoids the overhead of allocating</span>
-<span class="doccomment">/// and writing to a buffer, as well as any overhead or side effects</span>
-<span class="doccomment">/// of the format arguments.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # Example</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// You can use `format_if` to implement a detailed error logging facility</span>
-<span class="doccomment">/// that can be enabled at runtime.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ```</span>
-<span class="doccomment">/// # #[macro_use] extern crate mac;</span>
-<span class="doccomment">/// # use std::borrow::Cow::{Borrowed, Owned};</span>
-<span class="doccomment">/// # fn main() {</span>
-<span class="doccomment">/// let formatted = format_if!(true, &quot;Vague error&quot;, &quot;Error code {:?}&quot;, 3);</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// assert_eq!(&amp;formatted[..], &quot;Error code 3&quot;);</span>
-<span class="doccomment">/// if let Borrowed(_) = formatted {</span>
-<span class="doccomment">///     panic!(&quot;Wrong!&quot;)</span>
-<span class="doccomment">/// }</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// let not_formatted = format_if!(false, &quot;Vague error&quot;, &quot;Error code {:?}&quot;, {</span>
-<span class="doccomment">///     // Note that the argument is not evaluated.</span>
-<span class="doccomment">///     panic!(&quot;oops&quot;);</span>
-<span class="doccomment">/// });</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// assert_eq!(&amp;not_formatted[..], &quot;Vague error&quot;);</span>
-<span class="doccomment">/// if let Owned(_) = not_formatted {</span>
-<span class="doccomment">///     panic!(&quot;Wrong!&quot;)</span>
-<span class="doccomment">/// }</span>
-<span class="doccomment">/// # }</span>
-<span class="doccomment">/// ```</span>
-<span class="attribute">#[<span class="ident">macro_export</span>]</span>
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">format_if</span> {
-    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">enabled</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">borrowed</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">fmt</span>:<span class="ident">expr</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">args</span>:<span class="ident">expr</span>),<span class="kw-2">*</span>) <span class="op">=&gt;</span> {
-        <span class="kw">if</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">enabled</span> {
-            ::<span class="ident">std</span>::<span class="ident">borrow</span>::<span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fmt</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">args</span>),<span class="kw-2">*</span>)) <span class="kw">as</span> ::<span class="ident">std</span>::<span class="ident">borrow</span>::<span class="ident">Cow</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>
-        } <span class="kw">else</span> {
-            ::<span class="ident">std</span>::<span class="ident">borrow</span>::<span class="ident">Cow</span>::<span class="ident">Borrowed</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">borrowed</span>)
+<span class='doccomment'>/// Conditionally perform string formatting.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// If `$enabled` is true, then do the formatting and return a `Cow::Owned`.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// Otherwise, just return the borrowed (often `&#39;static`) string</span>
+<span class='doccomment'>/// `$borrowed`.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// When `$enabled` is false, this avoids the overhead of allocating</span>
+<span class='doccomment'>/// and writing to a buffer, as well as any overhead or side effects</span>
+<span class='doccomment'>/// of the format arguments.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// # Example</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// You can use `format_if` to implement a detailed error logging facility</span>
+<span class='doccomment'>/// that can be enabled at runtime.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// ```</span>
+<span class='doccomment'>/// # #[macro_use] extern crate mac;</span>
+<span class='doccomment'>/// # use std::borrow::Cow::{Borrowed, Owned};</span>
+<span class='doccomment'>/// # fn main() {</span>
+<span class='doccomment'>/// let formatted = format_if!(true, &quot;Vague error&quot;, &quot;Error code {:?}&quot;, 3);</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// assert_eq!(&amp;formatted[..], &quot;Error code 3&quot;);</span>
+<span class='doccomment'>/// if let Borrowed(_) = formatted {</span>
+<span class='doccomment'>///     panic!(&quot;Wrong!&quot;)</span>
+<span class='doccomment'>/// }</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// let not_formatted = format_if!(false, &quot;Vague error&quot;, &quot;Error code {:?}&quot;, {</span>
+<span class='doccomment'>///     // Note that the argument is not evaluated.</span>
+<span class='doccomment'>///     panic!(&quot;oops&quot;);</span>
+<span class='doccomment'>/// });</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// assert_eq!(&amp;not_formatted[..], &quot;Vague error&quot;);</span>
+<span class='doccomment'>/// if let Owned(_) = not_formatted {</span>
+<span class='doccomment'>///     panic!(&quot;Wrong!&quot;)</span>
+<span class='doccomment'>/// }</span>
+<span class='doccomment'>/// # }</span>
+<span class='doccomment'>/// ```</span>
+<span class='attribute'>#[<span class='ident'>macro_export</span>]</span>
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>format_if</span> {
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>enabled</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>borrowed</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>fmt</span>:<span class='ident'>expr</span>, $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>args</span>:<span class='ident'>expr</span>),<span class='kw-2'>*</span>) <span class='op'>=&gt;</span> {
+        <span class='kw'>if</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>enabled</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>borrow</span>::<span class='ident'>Cow</span>::<span class='ident'>Owned</span>(<span class='macro'>format</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>fmt</span>, $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>args</span>),<span class='kw-2'>*</span>)) <span class='kw'>as</span> ::<span class='ident'>std</span>::<span class='ident'>borrow</span>::<span class='ident'>Cow</span><span class='op'>&lt;</span><span class='ident'>str</span><span class='op'>&gt;</span>
+        } <span class='kw'>else</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>borrow</span>::<span class='ident'>Cow</span>::<span class='ident'>Borrowed</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>borrowed</span>)
         }
     }
 }
