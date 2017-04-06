@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -43,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1"> 1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1"> 1</span>
 <span id="2"> 2</span>
 <span id="3"> 3</span>
 <span id="4"> 4</span>
@@ -69,33 +69,33 @@
 <span id="24">24</span>
 <span id="25">25</span>
 <span id="26">26</span>
-</pre><pre class='rust '>
-<span class='comment'>// Copyright 2014 The html5ever Project Developers. See the</span>
-<span class='comment'>// COPYRIGHT file at the top-level directory of this distribution.</span>
-<span class='comment'>//</span>
-<span class='comment'>// Licensed under the Apache License, Version 2.0 &lt;LICENSE-APACHE or</span>
-<span class='comment'>// http://www.apache.org/licenses/LICENSE-2.0&gt; or the MIT license</span>
-<span class='comment'>// &lt;LICENSE-MIT or http://opensource.org/licenses/MIT&gt;, at your</span>
-<span class='comment'>// option. This file may not be copied, modified, or distributed</span>
-<span class='comment'>// except according to those terms.</span>
+</pre><pre class="rust ">
+<span class="comment">// Copyright 2014 The html5ever Project Developers. See the</span>
+<span class="comment">// COPYRIGHT file at the top-level directory of this distribution.</span>
+<span class="comment">//</span>
+<span class="comment">// Licensed under the Apache License, Version 2.0 &lt;LICENSE-APACHE or</span>
+<span class="comment">// http://www.apache.org/licenses/LICENSE-2.0&gt; or the MIT license</span>
+<span class="comment">// &lt;LICENSE-MIT or http://opensource.org/licenses/MIT&gt;, at your</span>
+<span class="comment">// option. This file may not be copied, modified, or distributed</span>
+<span class="comment">// except according to those terms.</span>
 
-<span class='kw'>use</span> <span class='ident'>phf</span>::<span class='ident'>Map</span>;
+<span class="kw">use</span> <span class="ident">phf</span>::<span class="ident">Map</span>;
 
-<span class='doccomment'>/// The spec replaces most characters in the ISO-2022 C1 control code range</span>
-<span class='doccomment'>/// (U+0080 through U+009F) with these characters, based on Windows 8-bit</span>
-<span class='doccomment'>/// codepages.</span>
-<span class='kw'>pub</span> <span class='kw'>static</span> <span class='ident'>C1_REPLACEMENTS</span>: [<span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>char</span><span class='op'>&gt;</span>; <span class='number'>32</span>] <span class='op'>=</span> [
-    <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{20ac}&#39;</span>), <span class='prelude-val'>None</span>,             <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{201a}&#39;</span>), <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{0192}&#39;</span>),
-    <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{201e}&#39;</span>), <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{2026}&#39;</span>), <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{2020}&#39;</span>), <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{2021}&#39;</span>),
-    <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{02c6}&#39;</span>), <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{2030}&#39;</span>), <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{0160}&#39;</span>), <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{2039}&#39;</span>),
-    <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{0152}&#39;</span>), <span class='prelude-val'>None</span>,             <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{017d}&#39;</span>), <span class='prelude-val'>None</span>,
-    <span class='prelude-val'>None</span>,             <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{2018}&#39;</span>), <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{2019}&#39;</span>), <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{201c}&#39;</span>),
-    <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{201d}&#39;</span>), <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{2022}&#39;</span>), <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{2013}&#39;</span>), <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{2014}&#39;</span>),
-    <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{02dc}&#39;</span>), <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{2122}&#39;</span>), <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{0161}&#39;</span>), <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{203a}&#39;</span>),
-    <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{0153}&#39;</span>), <span class='prelude-val'>None</span>,             <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{017e}&#39;</span>), <span class='prelude-val'>Some</span>(<span class='string'>&#39;\u{0178}&#39;</span>),
+<span class="doccomment">/// The spec replaces most characters in the ISO-2022 C1 control code range</span>
+<span class="doccomment">/// (U+0080 through U+009F) with these characters, based on Windows 8-bit</span>
+<span class="doccomment">/// codepages.</span>
+<span class="kw">pub</span> <span class="kw">static</span> <span class="ident">C1_REPLACEMENTS</span>: [<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">char</span><span class="op">&gt;</span>; <span class="number">32</span>] <span class="op">=</span> [
+    <span class="prelude-val">Some</span>(<span class="string">&#39;\u{20ac}&#39;</span>), <span class="prelude-val">None</span>,             <span class="prelude-val">Some</span>(<span class="string">&#39;\u{201a}&#39;</span>), <span class="prelude-val">Some</span>(<span class="string">&#39;\u{0192}&#39;</span>),
+    <span class="prelude-val">Some</span>(<span class="string">&#39;\u{201e}&#39;</span>), <span class="prelude-val">Some</span>(<span class="string">&#39;\u{2026}&#39;</span>), <span class="prelude-val">Some</span>(<span class="string">&#39;\u{2020}&#39;</span>), <span class="prelude-val">Some</span>(<span class="string">&#39;\u{2021}&#39;</span>),
+    <span class="prelude-val">Some</span>(<span class="string">&#39;\u{02c6}&#39;</span>), <span class="prelude-val">Some</span>(<span class="string">&#39;\u{2030}&#39;</span>), <span class="prelude-val">Some</span>(<span class="string">&#39;\u{0160}&#39;</span>), <span class="prelude-val">Some</span>(<span class="string">&#39;\u{2039}&#39;</span>),
+    <span class="prelude-val">Some</span>(<span class="string">&#39;\u{0152}&#39;</span>), <span class="prelude-val">None</span>,             <span class="prelude-val">Some</span>(<span class="string">&#39;\u{017d}&#39;</span>), <span class="prelude-val">None</span>,
+    <span class="prelude-val">None</span>,             <span class="prelude-val">Some</span>(<span class="string">&#39;\u{2018}&#39;</span>), <span class="prelude-val">Some</span>(<span class="string">&#39;\u{2019}&#39;</span>), <span class="prelude-val">Some</span>(<span class="string">&#39;\u{201c}&#39;</span>),
+    <span class="prelude-val">Some</span>(<span class="string">&#39;\u{201d}&#39;</span>), <span class="prelude-val">Some</span>(<span class="string">&#39;\u{2022}&#39;</span>), <span class="prelude-val">Some</span>(<span class="string">&#39;\u{2013}&#39;</span>), <span class="prelude-val">Some</span>(<span class="string">&#39;\u{2014}&#39;</span>),
+    <span class="prelude-val">Some</span>(<span class="string">&#39;\u{02dc}&#39;</span>), <span class="prelude-val">Some</span>(<span class="string">&#39;\u{2122}&#39;</span>), <span class="prelude-val">Some</span>(<span class="string">&#39;\u{0161}&#39;</span>), <span class="prelude-val">Some</span>(<span class="string">&#39;\u{203a}&#39;</span>),
+    <span class="prelude-val">Some</span>(<span class="string">&#39;\u{0153}&#39;</span>), <span class="prelude-val">None</span>,             <span class="prelude-val">Some</span>(<span class="string">&#39;\u{017e}&#39;</span>), <span class="prelude-val">Some</span>(<span class="string">&#39;\u{0178}&#39;</span>),
 ];
 
-<span class='macro'>include</span><span class='macro'>!</span>(<span class='macro'>concat</span><span class='macro'>!</span>(<span class='macro'>env</span><span class='macro'>!</span>(<span class='string'>&quot;OUT_DIR&quot;</span>), <span class='string'>&quot;/named_entities.rs&quot;</span>));
+<span class="macro">include</span><span class="macro">!</span>(<span class="macro">concat</span><span class="macro">!</span>(<span class="macro">env</span><span class="macro">!</span>(<span class="string">&quot;OUT_DIR&quot;</span>), <span class="string">&quot;/named_entities.rs&quot;</span>));
 </pre>
 </section>
     <section id='search' class="content hidden"></section>
