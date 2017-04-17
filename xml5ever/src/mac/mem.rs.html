@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc source">
+<body class="rustdoc">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -43,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content"><pre class="line-numbers"><span id="1"> 1</span>
+    <section id='main' class="content source"><pre class="line-numbers"><span id="1"> 1</span>
 <span id="2"> 2</span>
 <span id="3"> 3</span>
 <span id="4"> 4</span>
@@ -87,48 +87,48 @@
 <span id="42">42</span>
 <span id="43">43</span>
 <span id="44">44</span>
-</pre><pre class="rust ">
-<span class="doccomment">//! Macros for low-level memory manipulation.</span>
+</pre><pre class='rust '>
+<span class='doccomment'>//! Macros for low-level memory manipulation.</span>
 
-<span class="doccomment">/// Make a tuple of the addresses of some of a struct&#39;s fields.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// This is useful when you are transmuting between struct types</span>
-<span class="doccomment">/// and would like an additional dynamic check that the layouts</span>
-<span class="doccomment">/// match. It&#39;s difficult to make such an assertion statically</span>
-<span class="doccomment">/// in Rust at present.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # Example</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ```</span>
-<span class="doccomment">/// # #[macro_use] extern crate mac;</span>
-<span class="doccomment">/// use std::mem;</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # fn main() {</span>
-<span class="doccomment">/// struct Foo { x: i32, y: i32 }</span>
-<span class="doccomment">/// struct Bar { x: u32, y: u32 }</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// let foo = Foo { x: 3, y: 4 };</span>
-<span class="doccomment">/// let old_addrs = addrs_of!(foo =&gt; x, y);</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// let bar = unsafe {</span>
-<span class="doccomment">///     mem::transmute::&lt;&amp;Foo, &amp;Bar&gt;(&amp;foo)</span>
-<span class="doccomment">/// };</span>
-<span class="doccomment">/// let new_addrs = addrs_of!(bar =&gt; x, y);</span>
-<span class="doccomment">/// assert_eq!(old_addrs, new_addrs);</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// assert_eq!(bar.x, 3);</span>
-<span class="doccomment">/// assert_eq!(bar.y, 4);</span>
-<span class="doccomment">/// # }</span>
-<span class="doccomment">/// ```</span>
-<span class="attribute">#[<span class="ident">macro_export</span>]</span>
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">addrs_of</span> {
-    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">obj</span>:<span class="ident">expr</span> <span class="op">=&gt;</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">field</span>:<span class="ident">ident</span>),<span class="op">+</span>) <span class="op">=&gt;</span> {
-        ( <span class="comment">// make a tuple</span>
+<span class='doccomment'>/// Make a tuple of the addresses of some of a struct&#39;s fields.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// This is useful when you are transmuting between struct types</span>
+<span class='doccomment'>/// and would like an additional dynamic check that the layouts</span>
+<span class='doccomment'>/// match. It&#39;s difficult to make such an assertion statically</span>
+<span class='doccomment'>/// in Rust at present.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// # Example</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// ```</span>
+<span class='doccomment'>/// # #[macro_use] extern crate mac;</span>
+<span class='doccomment'>/// use std::mem;</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// # fn main() {</span>
+<span class='doccomment'>/// struct Foo { x: i32, y: i32 }</span>
+<span class='doccomment'>/// struct Bar { x: u32, y: u32 }</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// let foo = Foo { x: 3, y: 4 };</span>
+<span class='doccomment'>/// let old_addrs = addrs_of!(foo =&gt; x, y);</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// let bar = unsafe {</span>
+<span class='doccomment'>///     mem::transmute::&lt;&amp;Foo, &amp;Bar&gt;(&amp;foo)</span>
+<span class='doccomment'>/// };</span>
+<span class='doccomment'>/// let new_addrs = addrs_of!(bar =&gt; x, y);</span>
+<span class='doccomment'>/// assert_eq!(old_addrs, new_addrs);</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// assert_eq!(bar.x, 3);</span>
+<span class='doccomment'>/// assert_eq!(bar.y, 4);</span>
+<span class='doccomment'>/// # }</span>
+<span class='doccomment'>/// ```</span>
+<span class='attribute'>#[<span class='ident'>macro_export</span>]</span>
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>addrs_of</span> {
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>obj</span>:<span class='ident'>expr</span> <span class='op'>=&gt;</span> $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>field</span>:<span class='ident'>ident</span>),<span class='op'>+</span>) <span class='op'>=&gt;</span> {
+        ( <span class='comment'>// make a tuple</span>
             $(
-                <span class="kw">unsafe</span> {
-                    ::<span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">transmute</span>::<span class="op">&lt;</span>_, <span class="ident">usize</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">obj</span>.<span class="macro-nonterminal">$</span><span class="macro-nonterminal">field</span>)
+                <span class='kw'>unsafe</span> {
+                    ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>::<span class='op'>&lt;</span>_, <span class='ident'>usize</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>obj</span>.<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>field</span>)
                 }
-            ),<span class="op">+</span>
+            ),<span class='op'>+</span>
         )
     }
 }
