@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -43,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1"> 1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1"> 1</span>
 <span id="2"> 2</span>
 <span id="3"> 3</span>
 <span id="4"> 4</span>
@@ -66,29 +66,29 @@
 <span id="21">21</span>
 <span id="22">22</span>
 <span id="23">23</span>
-</pre><pre class='rust '>
-<span class='comment'>// Copyright 2015 The Servo Project Developers. See the COPYRIGHT</span>
-<span class='comment'>// file at the top-level directory of this distribution.</span>
-<span class='comment'>//</span>
-<span class='comment'>// Licensed under the Apache License, Version 2.0 &lt;LICENSE-APACHE or</span>
-<span class='comment'>// http://www.apache.org/licenses/LICENSE-2.0&gt; or the MIT license</span>
-<span class='comment'>// &lt;LICENSE-MIT or http://opensource.org/licenses/MIT&gt;, at your</span>
-<span class='comment'>// option. This file may not be copied, modified, or distributed</span>
-<span class='comment'>// except according to those terms.</span>
+</pre><pre class="rust ">
+<span class="comment">// Copyright 2015 The Servo Project Developers. See the COPYRIGHT</span>
+<span class="comment">// file at the top-level directory of this distribution.</span>
+<span class="comment">//</span>
+<span class="comment">// Licensed under the Apache License, Version 2.0 &lt;LICENSE-APACHE or</span>
+<span class="comment">// http://www.apache.org/licenses/LICENSE-2.0&gt; or the MIT license</span>
+<span class="comment">// &lt;LICENSE-MIT or http://opensource.org/licenses/MIT&gt;, at your</span>
+<span class="comment">// option. This file may not be copied, modified, or distributed</span>
+<span class="comment">// except according to those terms.</span>
 
-<span class='comment'>// FIXME(rust-lang/rust#18153): generate these from an enum</span>
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>DYNAMIC_TAG</span>: <span class='ident'>u8</span> <span class='op'>=</span> <span class='number'>0b_00</span>;
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>INLINE_TAG</span>: <span class='ident'>u8</span> <span class='op'>=</span> <span class='number'>0b_01</span>;  <span class='comment'>// len in upper nybble</span>
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>STATIC_TAG</span>: <span class='ident'>u8</span> <span class='op'>=</span> <span class='number'>0b_10</span>;
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>TAG_MASK</span>: <span class='ident'>u64</span> <span class='op'>=</span> <span class='number'>0b_11</span>;
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ENTRY_ALIGNMENT</span>: <span class='ident'>usize</span> <span class='op'>=</span> <span class='number'>4</span>;  <span class='comment'>// Multiples have TAG_MASK bits unset, available for tagging.</span>
+<span class="comment">// FIXME(rust-lang/rust#18153): generate these from an enum</span>
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">DYNAMIC_TAG</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="number">0b_00</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">INLINE_TAG</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="number">0b_01</span>;  <span class="comment">// len in upper nybble</span>
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">STATIC_TAG</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="number">0b_10</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">TAG_MASK</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="number">0b_11</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ENTRY_ALIGNMENT</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">4</span>;  <span class="comment">// Multiples have TAG_MASK bits unset, available for tagging.</span>
 
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>MAX_INLINE_LEN</span>: <span class='ident'>usize</span> <span class='op'>=</span> <span class='number'>7</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">MAX_INLINE_LEN</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">7</span>;
 
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>STATIC_SHIFT_BITS</span>: <span class='ident'>usize</span> <span class='op'>=</span> <span class='number'>32</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">STATIC_SHIFT_BITS</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">32</span>;
 
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>pack_static</span>(<span class='ident'>n</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='ident'>u64</span> {
-    (<span class='ident'>STATIC_TAG</span> <span class='kw'>as</span> <span class='ident'>u64</span>) <span class='op'>|</span> ((<span class='ident'>n</span> <span class='kw'>as</span> <span class='ident'>u64</span>) <span class='op'>&lt;&lt;</span> <span class='ident'>STATIC_SHIFT_BITS</span>)
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pack_static</span>(<span class="ident">n</span>: <span class="ident">u32</span>) <span class="op">-&gt;</span> <span class="ident">u64</span> {
+    (<span class="ident">STATIC_TAG</span> <span class="kw">as</span> <span class="ident">u64</span>) <span class="op">|</span> ((<span class="ident">n</span> <span class="kw">as</span> <span class="ident">u64</span>) <span class="op">&lt;&lt;</span> <span class="ident">STATIC_SHIFT_BITS</span>)
 }
 </pre>
 </section>
