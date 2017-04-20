@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         <a href='../time/index.html'><img src='https://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='logo' width='100'></a>
-        <p class='location'><a href='index.html'>time</a></p><script>window.sidebarCurrent = {name: 'Duration', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Struct Duration</p><div class="block items"><ul><li><a href="#methods">Methods</a></li><li><a href="#implementations">Trait Implementations</a></li></ul></div><p class='location'><a href='index.html'>time</a></p><script>window.sidebarCurrent = {name: 'Duration', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -78,7 +78,7 @@ or less than <code>i64::MIN</code> milliseconds.</p>
 <div class='docblock'><p>Makes a new <code>Duration</code> with given number of microseconds.</p>
 </div><h4 id='method.nanoseconds' class="method"><span id='nanoseconds.v' class='invisible'><code>fn <a href='#method.nanoseconds' class='fnname'>nanoseconds</a>(nanos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>) -&gt; <a class="struct" href="../time/struct.Duration.html" title="struct time::Duration">Duration</a></code></span></h4>
 <div class='docblock'><p>Makes a new <code>Duration</code> with given number of nanoseconds.</p>
-</div><h4 id='method.span' class="method"><span id='span.v' class='invisible'><code>fn <a href='#method.span' class='fnname'>span</a>&lt;F&gt;(f: F) -&gt; <a class="struct" href="../time/struct.Duration.html" title="struct time::Duration">Duration</a> <span class="where fmt-newline">where F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/trait.FnOnce.html" title="trait core::ops::FnOnce">FnOnce</a>()</span></code></span></h4>
+</div><h4 id='method.span' class="method"><span id='span.v' class='invisible'><code>fn <a href='#method.span' class='fnname'>span</a>&lt;F&gt;(f: F) -&gt; <a class="struct" href="../time/struct.Duration.html" title="struct time::Duration">Duration</a> <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/trait.FnOnce.html" title="trait core::ops::FnOnce">FnOnce</a>(),&nbsp;</span></code></span></h4>
 <div class='docblock'><p>Runs a closure, returning the duration of time it took to run the
 closure.</p>
 </div><h4 id='method.num_weeks' class="method"><span id='num_weeks.v' class='invisible'><code>fn <a href='#method.num_weeks' class='fnname'>num_weeks</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code></span></h4>
@@ -95,10 +95,10 @@ closure.</p>
 <div class='docblock'><p>Returns the total number of whole milliseconds in the duration,</p>
 </div><h4 id='method.num_microseconds' class="method"><span id='num_microseconds.v' class='invisible'><code>fn <a href='#method.num_microseconds' class='fnname'>num_microseconds</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>&gt;</code></span></h4>
 <div class='docblock'><p>Returns the total number of whole microseconds in the duration,
-or <code>None</code> on overflow (exceeding 2<sup>63</sup> microseconds in either direction).</p>
+or <code>None</code> on overflow (exceeding 2^63 microseconds in either direction).</p>
 </div><h4 id='method.num_nanoseconds' class="method"><span id='num_nanoseconds.v' class='invisible'><code>fn <a href='#method.num_nanoseconds' class='fnname'>num_nanoseconds</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>&gt;</code></span></h4>
 <div class='docblock'><p>Returns the total number of whole nanoseconds in the duration,
-or <code>None</code> on overflow (exceeding 2<sup>63</sup> nanoseconds in either direction).</p>
+or <code>None</code> on overflow (exceeding 2^63 nanoseconds in either direction).</p>
 </div><h4 id='method.checked_add' class="method"><span id='checked_add.v' class='invisible'><code>fn <a href='#method.checked_add' class='fnname'>checked_add</a>(&amp;self, rhs: &amp;<a class="struct" href="../time/struct.Duration.html" title="struct time::Duration">Duration</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../time/struct.Duration.html" title="struct time::Duration">Duration</a>&gt;</code></span></h4>
 <div class='docblock'><p>Add two durations, returning <code>None</code> if overflow occurred.</p>
 </div><h4 id='method.checked_sub' class="method"><span id='checked_sub.v' class='invisible'><code>fn <a href='#method.checked_sub' class='fnname'>checked_sub</a>(&amp;self, rhs: &amp;<a class="struct" href="../time/struct.Duration.html" title="struct time::Duration">Duration</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../time/struct.Duration.html" title="struct time::Duration">Duration</a>&gt;</code></span></h4>
@@ -113,12 +113,10 @@ or <code>None</code> on overflow (exceeding 2<sup>63</sup> nanoseconds in either
 <div class='docblock'><p>Returns <code>true</code> if the duration equals <code>Duration::zero()</code>.</p>
 </div><h4 id='method.from_std' class="method"><span id='from_std.v' class='invisible'><code>fn <a href='#method.from_std' class='fnname'>from_std</a>(duration: <a class="struct" href="https://doc.rust-lang.org/nightly/std/time/duration/struct.Duration.html" title="struct std::time::duration::Duration">StdDuration</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="../time/struct.Duration.html" title="struct time::Duration">Duration</a>, <a class="struct" href="../time/struct.OutOfRangeError.html" title="struct time::OutOfRangeError">OutOfRangeError</a>&gt;</code></span></h4>
 <div class='docblock'><p>Creates a <code>time::Duration</code> object from <code>std::time::Duration</code></p>
-
 <p>This function errors when original duration is larger than the maximum
 value supported for this type.</p>
 </div><h4 id='method.to_std' class="method"><span id='to_std.v' class='invisible'><code>fn <a href='#method.to_std' class='fnname'>to_std</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/time/duration/struct.Duration.html" title="struct std::time::duration::Duration">StdDuration</a>, <a class="struct" href="../time/struct.OutOfRangeError.html" title="struct time::OutOfRangeError">OutOfRangeError</a>&gt;</code></span></h4>
 <div class='docblock'><p>Creates a <code>std::time::Duration</code> object from <code>time::Duration</code></p>
-
 <p>This function errors when duration is less than zero. As standard
 library implementation is limited to non-negative values.</p>
 </div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="struct" href="../time/struct.Duration.html" title="struct time::Duration">Duration</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/time/duration.rs.html#44' title='goto source code'>[src]</a></span></h3>

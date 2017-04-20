@@ -4,6 +4,7 @@ implementors["libc"] = [];
 implementors["phf"] = [];
 implementors["serde"] = [];
 implementors["string_cache"] = [];
+implementors["tendril"] = [];
 implementors["xml5ever"] = [];
 
             if (window.register_implementors) {

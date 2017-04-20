@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>xml5ever</a></p><script>window.sidebarCurrent = {name: 'encoding', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+        <p class='location'>Module encoding</p><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class='location'><a href='../index.html'>xml5ever</a></p><script>window.sidebarCurrent = {name: 'encoding', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -57,6 +57,7 @@
                                   title='mod xml5ever::encoding::all'>all</a></td>
                            <td class='docblock-short'>
                                 <p>A list of all supported encodings. Useful for encodings fixed in the compile time.</p>
+
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -64,6 +65,7 @@
                                   title='mod xml5ever::encoding::codec'>codec</a></td>
                            <td class='docblock-short'>
                                 <p>Codec implementations.</p>
+
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -71,6 +73,7 @@
                                   title='mod xml5ever::encoding::label'>label</a></td>
                            <td class='docblock-short'>
                                 <p>An interface for retrieving an encoding (or a set of encodings) from a string/numeric label.</p>
+
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -78,6 +81,7 @@
                                   title='mod xml5ever::encoding::types'>types</a></td>
                            <td class='docblock-short'>
                                 <p>Interface to the character encoding.</p>
+
                            </td>
                        </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
@@ -86,6 +90,7 @@
                                   title='struct xml5ever::encoding::CodecError'>CodecError</a></td>
                            <td class='docblock-short'>
                                 <p>Error information from either encoder or decoder.</p>
+
                            </td>
                        </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
 <table>
@@ -94,6 +99,7 @@
                                   title='enum xml5ever::encoding::DecoderTrap'>DecoderTrap</a></td>
                            <td class='docblock-short'>
                                 <p>Trap, which handles decoder errors.</p>
+
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -109,6 +115,7 @@
                                   title='trait xml5ever::encoding::ByteWriter'>ByteWriter</a></td>
                            <td class='docblock-short'>
                                 <p>Byte writer used by encoders. In most cases this will be an owned vector of <code>u8</code>.</p>
+
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -116,6 +123,7 @@
                                   title='trait xml5ever::encoding::Encoding'>Encoding</a></td>
                            <td class='docblock-short'>
                                 <p>Character encoding.</p>
+
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -124,6 +132,7 @@
                            <td class='docblock-short'>
                                 <p>Decoder converting a byte sequence into a Unicode string.
 This is a lower level interface, and normally <code>Encoding::decode</code> should be used instead.</p>
+
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -132,6 +141,7 @@ This is a lower level interface, and normally <code>Encoding::decode</code> shou
                            <td class='docblock-short'>
                                 <p>Encoder converting a Unicode string into a byte sequence.
 This is a lower level interface, and normally <code>Encoding::encode</code> should be used instead.</p>
+
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -139,6 +149,7 @@ This is a lower level interface, and normally <code>Encoding::encode</code> shou
                                   title='trait xml5ever::encoding::StringWriter'>StringWriter</a></td>
                            <td class='docblock-short'>
                                 <p>String writer used by decoders. In most cases this will be an owned string.</p>
+
                            </td>
                        </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
 <table>
@@ -149,6 +160,7 @@ This is a lower level interface, and normally <code>Encoding::encode</code> shou
                                 <p>Determine the encoding by looking for a Byte Order Mark (BOM)
 and decoded a single string in memory.
 Return the result and the used encoding.</p>
+
                            </td>
                        </tr></table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
 <table>
@@ -157,6 +169,7 @@ Return the result and the used encoding.</p>
                                   title='type xml5ever::encoding::DecoderTrapFunc'>DecoderTrapFunc</a></td>
                            <td class='docblock-short'>
                                 <p>A type of the bare function in <code>DecoderTrap</code> values.</p>
+
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -164,6 +177,7 @@ Return the result and the used encoding.</p>
                                   title='type xml5ever::encoding::EncoderTrapFunc'>EncoderTrapFunc</a></td>
                            <td class='docblock-short'>
                                 <p>A type of the bare function in <code>EncoderTrap</code> values.</p>
+
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -172,6 +186,7 @@ Return the result and the used encoding.</p>
                            <td class='docblock-short'>
                                 <p>A trait object using dynamic dispatch which is a sendable reference to the encoding,
 for code where the encoding is not known at compile-time.</p>
+
                            </td>
                        </tr></table></section>
     <section id='search' class="content hidden"></section>

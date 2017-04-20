@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         <a href='../time/index.html'><img src='https://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='logo' width='100'></a>
-        <p class='location'><a href='index.html'>time</a></p><script>window.sidebarCurrent = {name: 'PreciseTime', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Struct PreciseTime</p><div class="block items"><ul><li><a href="#methods">Methods</a></li><li><a href="#implementations">Trait Implementations</a></li></ul></div><p class='location'><a href='index.html'>time</a></p><script>window.sidebarCurrent = {name: 'PreciseTime', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -50,11 +50,9 @@
                    </a>
                </span><a class='srclink' href='../src/time/lib.rs.html#194' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct PreciseTime(_);</pre><div class='docblock'><p>An opaque structure representing a moment in time.</p>
-
 <p>The only operation that can be performed on a <code>PreciseTime</code> is the
 calculation of the <code>Duration</code> of time that lies between them.</p>
-
-<h1 id='examples' class='section-header'><a href='#examples'>Examples</a></h1>
+<h1 id="examples" class="section-header"><a href="#examples">Examples</a></h1>
 <p>Repeatedly call a function for 1 second:</p>
 
 <pre class="rust rust-example-rendered">
@@ -71,11 +69,9 @@ calculation of the <code>Duration</code> of time that lies between them.</p>
 </div><h4 id='method.to' class="method"><span id='to.v' class='invisible'><code>fn <a href='#method.to' class='fnname'>to</a>(&amp;self, later: <a class="struct" href="../time/struct.PreciseTime.html" title="struct time::PreciseTime">PreciseTime</a>) -&gt; <a class="struct" href="../time/struct.Duration.html" title="struct time::Duration">Duration</a></code></span></h4>
 <div class='docblock'><p>Returns a <code>Duration</code> representing the span of time from the value of
 <code>self</code> to the value of <code>later</code>.</p>
-
-<h1 id='notes' class='section-header'><a href='#notes'>Notes</a></h1>
+<h1 id="notes" class="section-header"><a href="#notes">Notes</a></h1>
 <p>If <code>later</code> represents a time before <code>self</code>, the result of this method
 is unspecified.</p>
-
 <p>If <code>later</code> represents a time more than 293 years after <code>self</code>, the
 result of this method is unspecified.</p>
 </div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html" title="trait core::marker::Copy">Copy</a> for <a class="struct" href="../time/struct.PreciseTime.html" title="struct time::PreciseTime">PreciseTime</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/time/lib.rs.html#193' title='goto source code'>[src]</a></span></h3>

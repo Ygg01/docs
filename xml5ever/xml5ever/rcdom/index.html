@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>xml5ever</a></p><script>window.sidebarCurrent = {name: 'rcdom', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+        <p class='location'>Module rcdom</p><div class="block items"><ul><li><a href="#reexports">Reexports</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class='location'><a href='../index.html'>xml5ever</a></p><script>window.sidebarCurrent = {name: 'rcdom', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -51,23 +51,17 @@
                </span><a class='srclink' href='../../src/xml5ever/rcdom.rs.html#10-235' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>A simple reference-counted that serves as a default tree structure
 A simple reference-counted DOM.</p>
-
-<p>This is sufficient as a static parse tree, but don&#39;t build a
+<p>This is sufficient as a static parse tree, but don't build a
 web browser using it. :)</p>
 </div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
-<table><tr><td><code>pub use self::<a class="mod"
-                                           href="./NodeEnum/index.html">NodeEnum</a>::<a class="enum" href="../../xml5ever/rcdom/enum.NodeEnum.html" title="enum xml5ever::rcdom::NodeEnum">Document</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod"
-                                           href="./NodeEnum/index.html">NodeEnum</a>::<a class="enum" href="../../xml5ever/rcdom/enum.NodeEnum.html" title="enum xml5ever::rcdom::NodeEnum">Doctype</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod"
-                                           href="./NodeEnum/index.html">NodeEnum</a>::<a class="enum" href="../../xml5ever/rcdom/enum.NodeEnum.html" title="enum xml5ever::rcdom::NodeEnum">Text</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod"
-                                           href="./NodeEnum/index.html">NodeEnum</a>::<a class="enum" href="../../xml5ever/rcdom/enum.NodeEnum.html" title="enum xml5ever::rcdom::NodeEnum">Comment</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod"
-                                           href="./NodeEnum/index.html">NodeEnum</a>::<a class="enum" href="../../xml5ever/rcdom/enum.NodeEnum.html" title="enum xml5ever::rcdom::NodeEnum">Element</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod"
-                                           href="./NodeEnum/index.html">NodeEnum</a>::<a class="enum" href="../../xml5ever/rcdom/enum.NodeEnum.html" title="enum xml5ever::rcdom::NodeEnum">PI</a>;</code></td></tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table><tr><td><code>pub use self::<a class="mod" href="./NodeEnum/index.html">NodeEnum</a>::<a class="enum" href="../../xml5ever/rcdom/enum.NodeEnum.html" title="enum xml5ever::rcdom::NodeEnum">Document</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./NodeEnum/index.html">NodeEnum</a>::<a class="enum" href="../../xml5ever/rcdom/enum.NodeEnum.html" title="enum xml5ever::rcdom::NodeEnum">Doctype</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./NodeEnum/index.html">NodeEnum</a>::<a class="enum" href="../../xml5ever/rcdom/enum.NodeEnum.html" title="enum xml5ever::rcdom::NodeEnum">Text</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./NodeEnum/index.html">NodeEnum</a>::<a class="enum" href="../../xml5ever/rcdom/enum.NodeEnum.html" title="enum xml5ever::rcdom::NodeEnum">Comment</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./NodeEnum/index.html">NodeEnum</a>::<a class="enum" href="../../xml5ever/rcdom/enum.NodeEnum.html" title="enum xml5ever::rcdom::NodeEnum">Element</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./NodeEnum/index.html">NodeEnum</a>::<a class="enum" href="../../xml5ever/rcdom/enum.NodeEnum.html" title="enum xml5ever::rcdom::NodeEnum">PI</a>;</code></td></tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                        <tr class=' module-item'>
                            <td><a class="struct" href="struct.Handle.html"
                                   title='struct xml5ever::rcdom::Handle'>Handle</a></td>
                            <td class='docblock-short'>
                                 <p>Reference to a DOM node.</p>
+
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -75,6 +69,7 @@ web browser using it. :)</p>
                                   title='struct xml5ever::rcdom::Node'>Node</a></td>
                            <td class='docblock-short'>
                                 <p>A simple DOM node.</p>
+
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -82,6 +77,7 @@ web browser using it. :)</p>
                                   title='struct xml5ever::rcdom::RcDom'>RcDom</a></td>
                            <td class='docblock-short'>
                                 <p>The DOM itself; the result of parsing.</p>
+
                            </td>
                        </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
 <table>
@@ -90,6 +86,7 @@ web browser using it. :)</p>
                                   title='enum xml5ever::rcdom::NodeEnum'>NodeEnum</a></td>
                            <td class='docblock-short'>
                                 <p>The different kinds of nodes in the DOM.</p>
+
                            </td>
                        </tr></table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
 <table>
@@ -98,6 +95,7 @@ web browser using it. :)</p>
                                   title='type xml5ever::rcdom::WeakHandle'>WeakHandle</a></td>
                            <td class='docblock-short'>
                                 <p>Weak reference to a DOM node, used for parent pointers.</p>
+
                            </td>
                        </tr></table></section>
     <section id='search' class="content hidden"></section>

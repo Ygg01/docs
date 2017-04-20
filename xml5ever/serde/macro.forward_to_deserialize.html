@@ -55,7 +55,6 @@
 }</pre>
 <div class='docblock'><p>Helper macro when implementing the <code>Deserializer</code> part of a new data format
 for Serde.</p>
-
 <p>Some <code>Deserializer</code> implementations for self-describing formats do not care
 what hint the <code>Visitor</code> gives them, they just want to blindly call the
 <code>Visitor</code> method corresponding to the data they can tell is in the input.
@@ -69,7 +68,6 @@ methods.</p>
 {
     <span class="self">self</span>.<span class="ident">deserialize</span>(<span class="ident">visitor</span>)
 }</pre>
-
 <p>The <code>forward_to_deserialize!</code> macro implements these simple forwarding
 methods so that they forward directly to <code>Deserializer::deserialize</code>. You
 can choose which methods to forward.</p>

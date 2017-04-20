@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'></p><script>window.sidebarCurrent = {name: 'xml5ever', ty: 'mod', relpath: '../'};</script>
+        <p class='location'>Crate xml5ever</p><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class='location'></p><script>window.sidebarCurrent = {name: 'xml5ever', ty: 'mod', relpath: '../'};</script>
     </nav>
 
     <nav class="sub">
@@ -52,23 +52,18 @@
 <div class='docblock'><p>This crate provides a push based XML parser library that
 adheres to XML5 specification. In other words this library
 trades well-formedness for error recovery.</p>
-
 <p>The idea behind this, was to minimize number of errors from
-tools that generate XML (e.g. <code>&amp;#83</code> won&#39;t just return <code>&amp;#83</code>
+tools that generate XML (e.g. <code>&amp;#83</code> won't just return <code>&amp;#83</code>
 as text, but will parse it into <code>S</code> ).
 You can check out full specification <a href="https://ygg01.github.io/xml5_draft/">here</a>.</p>
-
 <p>What this library provides is a solid XML parser that can:</p>
-
 <ul>
 <li>Parse somewhat erroneous XML input</li>
 <li>Provide support for <a href="https://en.wikipedia.org/wiki/Numeric_character_reference">Numeric character references</a>.</li>
 <li>Provide partial <a href="http://www.w3.org/TR/xml-names11/">XML namespace</a> support.</li>
 <li>Provide full set of SVG/MathML entities</li>
 </ul>
-
-<p>What isn&#39;t in scope for this library:</p>
-
+<p>What isn't in scope for this library:</p>
 <ul>
 <li>Document Type Definition parsing - this is pretty hard to do right and nowadays, its used</li>
 </ul>
@@ -79,6 +74,7 @@ You can check out full specification <a href="https://ygg01.github.io/xml5_draft
                                   title='mod xml5ever::driver'>driver</a></td>
                            <td class='docblock-short'>
                                 <p>Entrance to XML5 ever ParseResult</p>
+
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -86,6 +82,7 @@ You can check out full specification <a href="https://ygg01.github.io/xml5_draft
                                   title='mod xml5ever::encoding'>encoding</a></td>
                            <td class='docblock-short'>
                                 <p>Re-export the rust-encoding crate.</p>
+
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -94,6 +91,7 @@ You can check out full specification <a href="https://ygg01.github.io/xml5_draft
                            <td class='docblock-short'>
                                 <p>A simple reference-counted that serves as a default tree structure
 A simple reference-counted DOM.</p>
+
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -101,6 +99,7 @@ A simple reference-counted DOM.</p>
                                   title='mod xml5ever::serialize'>serialize</a></td>
                            <td class='docblock-short'>
                                 <p>Serializer for XML5.</p>
+
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -108,6 +107,7 @@ A simple reference-counted DOM.</p>
                                   title='mod xml5ever::tendril'>tendril</a></td>
                            <td class='docblock-short'>
                                 <p>Re-export the tendril crate so that users don’t need to depend on it.</p>
+
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -115,6 +115,7 @@ A simple reference-counted DOM.</p>
                                   title='mod xml5ever::tokenizer'>tokenizer</a></td>
                            <td class='docblock-short'>
                                 <p>XML5 tokenizer - converts input into tokens</p>
+
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -122,6 +123,7 @@ A simple reference-counted DOM.</p>
                                   title='mod xml5ever::tree_builder'>tree_builder</a></td>
                            <td class='docblock-short'>
                                 <p>XML5 tree builder - converts tokens into a tree like structure</p>
+
                            </td>
                        </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
@@ -130,6 +132,7 @@ A simple reference-counted DOM.</p>
                                   title='struct xml5ever::QualName'>QualName</a></td>
                            <td class='docblock-short'>
                                 <p>A name with a namespace.</p>
+
                            </td>
                        </tr></table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
 <table>

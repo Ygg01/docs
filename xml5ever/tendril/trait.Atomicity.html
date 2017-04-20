@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='index.html'>tendril</a></p><script>window.sidebarCurrent = {name: 'Atomicity', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Trait Atomicity</p><div class="block items"><ul><li><a href="#implementors">Implementors</a></li></ul></div><p class='location'><a href='index.html'>tendril</a></p><script>window.sidebarCurrent = {name: 'Atomicity', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -50,16 +50,17 @@
                    </a>
                </span><a class='srclink' href='../src/tendril/tendril.rs.html#57-69' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub unsafe trait Atomicity: 'static { }</pre><div class='docblock'><p>The multithreadedness of a tendril.</p>
-
 <p>Exactly two types implement this trait:</p>
-
 <ul>
-<li><p><code>Atomic</code>: use this in your tendril and you will have a <code>Send + Sync</code> tendril which works
-across threads; this is akin to <code>Arc</code>.</p></li>
-<li><p><code>NonAtomic</code>: use this in your tendril and you will have a tendril which is neither
-<code>Send</code> nor <code>Sync</code> but should be a tad faster; this is akin to <code>Rc</code>.</p></li>
+<li>
+<p><code>Atomic</code>: use this in your tendril and you will have a <code>Send + Sync</code> tendril which works
+across threads; this is akin to <code>Arc</code>.</p>
+</li>
+<li>
+<p><code>NonAtomic</code>: use this in your tendril and you will have a tendril which is neither
+<code>Send</code> nor <code>Sync</code> but should be a tad faster; this is akin to <code>Rc</code>.</p>
+</li>
 </ul>
-
 <p>The layout of this trait is also mandated to be that of a <code>usize</code>,
 for it is used for reference counting.</p>
 </div>

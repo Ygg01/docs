@@ -50,12 +50,10 @@
                    </a>
                </span><a class='srclink' href='../src/log/lib.rs.html#711-713' title='goto source code'>[src]</a></span></h1>
 <pre class='rust fn'>pub fn shutdown_logger() -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;<a class="trait" href="../log/trait.Log.html" title="trait log::Log">Log</a>&gt;, <a class="struct" href="../log/struct.ShutdownLoggerError.html" title="struct log::ShutdownLoggerError">ShutdownLoggerError</a>&gt;</pre><div class='docblock'><p>Shuts down the global logger.</p>
-
 <p>This function may only be called once in the lifetime of a program, and may
 not be called before <code>set_logger</code>. Once the global logger has been shut
 down, it can no longer be re-initialized by <code>set_logger</code>. Any log events
 that occur after the call to <code>shutdown_logger</code> completes will be ignored.</p>
-
 <p>The logger that was originally created by the call to to <code>set_logger</code> is
 returned on success. At that point it is guaranteed that no other threads
 are concurrently accessing the logger object.</p>
