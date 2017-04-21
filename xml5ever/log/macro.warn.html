@@ -55,8 +55,10 @@
     ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg</span>:<span class="ident">tt</span>)<span class="kw-2">*</span>) <span class="op">=&gt;</span> { ... };
 }</pre>
 <div class='docblock'><p>Logs a message at the warn level.</p>
+
 <p>Logging at this level is disabled if any of the following features are
 present: <code>max_level_off</code> or <code>max_level_error</code>.</p>
+
 <p>When building in release mode (i.e., without the <code>debug_assertions</code> option),
 logging at this level is also disabled if any of the following features are
 present: <code>release_max_level_off</code> or <code>max_level_error</code>.</p>

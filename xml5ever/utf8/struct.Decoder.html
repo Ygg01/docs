@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'>Struct Decoder</p><div class="block items"><ul><li><a href="#methods">Methods</a></li></ul></div><p class='location'><a href='index.html'>utf8</a></p><script>window.sidebarCurrent = {name: 'Decoder', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'><a href='index.html'>utf8</a></p><script>window.sidebarCurrent = {name: 'Decoder', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -50,9 +50,11 @@
                    </a>
                </span><a class='srclink' href='../src/utf8/lib.rs.html#43-45' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Decoder { /* fields omitted */ }</pre><div class='docblock'><p>A low-level, zero-copy UTF-8 decoder with error handling.</p>
+
 <p>This decoder can process input one chunk at a time,
 returns <code>&amp;str</code> Unicode slices into the given <code>&amp;[u8]</code> bytes input,
 and stops at each error to let the caller deal with it however they choose.</p>
+
 <p>For example, <code>String::from_utf8_lossy</code> (but returning <code>String</code> instead of <code>Cow</code>)
 can be rewritten as:</p>
 
@@ -77,6 +79,7 @@ can be rewritten as:</p>
         }
     }
 }</pre>
+
 <p>See also <a href="struct.LossyDecoder.html"><code>LossyDecoder</code></a>.</p>
 </div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class="struct" href="../utf8/struct.Decoder.html" title="struct utf8::Decoder">Decoder</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/utf8/lib.rs.html#55-195' title='goto source code'>[src]</a></span></h3>
 <div class='impl-items'><h4 id='method.new' class="method"><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class="struct" href="../utf8/struct.Decoder.html" title="struct utf8::Decoder">Decoder</a></code></span></h4>
@@ -84,8 +87,9 @@ can be rewritten as:</p>
 </div><h4 id='method.has_incomplete_sequence' class="method"><span id='has_incomplete_sequence.v' class='invisible'><code>fn <a href='#method.has_incomplete_sequence' class='fnname'>has_incomplete_sequence</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span></h4>
 <div class='docblock'><p>Return whether the input of the last call to <code>.decode()</code> returned <code>Result::Incomplete</code>.
 If this is true and there is no more input, this is a decoding error.</p>
-</div><h4 id='method.decode' class="method"><span id='decode.v' class='invisible'><code>fn <a href='#method.decode' class='fnname'>decode</a>&lt;'a&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;mut self, <br>&nbsp;&nbsp;&nbsp;&nbsp;input_chunk: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;'a [</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a><br>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="struct" href="../utf8/struct.InlineString.html" title="struct utf8::InlineString">InlineString</a>, &amp;'a <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <a class="enum" href="../utf8/enum.Result.html" title="enum utf8::Result">Result</a>&lt;'a&gt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code></span></h4>
+</div><h4 id='method.decode' class="method"><span id='decode.v' class='invisible'><code>fn <a href='#method.decode' class='fnname'>decode</a>&lt;'a&gt;(&amp;mut self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; input_chunk: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;'a [</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="struct" href="../utf8/struct.InlineString.html" title="struct utf8::InlineString">InlineString</a>, &amp;'a <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <a class="enum" href="../utf8/enum.Result.html" title="enum utf8::Result">Result</a>&lt;'a&gt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code></span></h4>
 <div class='docblock'><p>Start decoding one chunk of input bytes. The return value is a tuple of:</p>
+
 <ul>
 <li>An inline buffer of up to 4 bytes that dereferences to <code>&amp;str</code>.
 When the length is non-zero

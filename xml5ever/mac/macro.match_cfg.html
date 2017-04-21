@@ -55,8 +55,10 @@
     ( $( (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">cfg</span>:<span class="ident">meta</span>) <span class="op">=&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">e</span>:<span class="ident">expr</span>, )<span class="op">*</span> ) <span class="op">=&gt;</span> { ... };
 }</pre>
 <div class='docblock'><p>Compile-time matching on config variables.</p>
+
 <p>Only the branch relevant on your machine will be type-checked!</p>
-<h1 id="example" class="section-header"><a href="#example">Example</a></h1>
+
+<h1 id='example' class='section-header'><a href='#example'>Example</a></h1>
 <pre class="rust rust-example-rendered">
 <span class="kw">let</span> <span class="ident">mascot</span> <span class="op">=</span> <span class="macro">match_cfg</span><span class="macro">!</span> {
     (<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>) <span class="op">=&gt;</span> <span class="string">&quot;penguin&quot;</span>,

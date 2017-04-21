@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'>Trait Error</p><div class="block items"><ul><li><a href="#required-methods">Required Methods</a></li><li><a href="#implementors">Implementors</a></li></ul></div><p class='location'><a href='../index.html'>serde</a>::<wbr><a href='index.html'>ser</a></p><script>window.sidebarCurrent = {name: 'Error', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'><a href='../index.html'>serde</a>::<wbr><a href='index.html'>ser</a></p><script>window.sidebarCurrent = {name: 'Error', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -58,7 +58,9 @@ belonging to the <code>Serializer</code> against which they are currently runnin
             <div class='methods'>
         <h3 id='tymethod.custom' class='method'><span id='custom.v' class='invisible'><code>fn <a href='#tymethod.custom' class='fnname'>custom</a>&lt;T:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html" title="trait core::fmt::Display">Display</a>&gt;(msg: T) -&gt; Self</code></span></h3><div class='docblock'><p>Raised when a <code>Serialize</code> implementation encounters a general error
 while serializing a type.</p>
+
 <p>The message should not be capitalized and should not end with a period.</p>
+
 <p>For example, a filesystem <code>Path</code> may refuse to serialize itself if it
 contains invalid UTF-8 data.</p>
 

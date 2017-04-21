@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         <a href='../log/index.html'><img src='https://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='logo' width='100'></a>
-        <p class='location'>Trait Log</p><div class="block items"><ul><li><a href="#required-methods">Required Methods</a></li><li><a href="#implementors">Implementors</a></li></ul></div><p class='location'><a href='index.html'>log</a></p><script>window.sidebarCurrent = {name: 'Log', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'><a href='index.html'>log</a></p><script>window.sidebarCurrent = {name: 'Log', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -58,10 +58,12 @@
             <div class='methods'>
         <h3 id='tymethod.enabled' class='method'><span id='enabled.v' class='invisible'><code>fn <a href='#tymethod.enabled' class='fnname'>enabled</a>(&amp;self, metadata: &amp;<a class="struct" href="../log/struct.LogMetadata.html" title="struct log::LogMetadata">LogMetadata</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span></h3><div class='docblock'><p>Determines if a log message with the specified metadata would be
 logged.</p>
+
 <p>This is used by the <code>log_enabled!</code> macro to allow callers to avoid
 expensive computation of log message arguments if the message would be
 discarded anyway.</p>
 </div><h3 id='tymethod.log' class='method'><span id='log.v' class='invisible'><code>fn <a href='#tymethod.log' class='fnname'>log</a>(&amp;self, record: &amp;<a class="struct" href="../log/struct.LogRecord.html" title="struct log::LogRecord">LogRecord</a>)</code></span></h3><div class='docblock'><p>Logs the <code>LogRecord</code>.</p>
+
 <p>Note that <code>enabled</code> is <em>not</em> necessarily called before this method.
 Implementations of <code>log</code> should perform all necessary filtering
 internally.</p>

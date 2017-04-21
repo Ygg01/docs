@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'>Struct QName</p><div class="block items"><ul><li><a href="#fields">Fields</a></li><li><a href="#methods">Methods</a></li><li><a href="#implementations">Trait Implementations</a></li></ul></div><p class='location'><a href='../index.html'>xml5ever</a>::<wbr><a href='index.html'>tokenizer</a></p><script>window.sidebarCurrent = {name: 'QName', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'><a href='../index.html'>xml5ever</a>::<wbr><a href='index.html'>tokenizer</a></p><script>window.sidebarCurrent = {name: 'QName', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -54,43 +54,46 @@
     pub local: <a class="type" href="../../xml5ever/tokenizer/type.LocalName.html" title="type xml5ever::tokenizer::LocalName">LocalName</a>,
     pub namespace_url: <a class="type" href="../../xml5ever/tokenizer/type.Namespace.html" title="type xml5ever::tokenizer::Namespace">Namespace</a>,
 }</pre><div class='docblock'><p>Fully qualified name. Used to depict names of tags and attributes.</p>
-<p>Used to differentiate between similar XML fragments. For example</p>
 
-<pre class="rust rust-example-rendered">
-   <span class="comment">// HTML</span>
-   <span class="op">&lt;</span><span class="ident">table</span><span class="op">&gt;</span>
-     <span class="op">&lt;</span><span class="ident">tr</span><span class="op">&gt;</span>
-       <span class="op">&lt;</span><span class="ident">td</span><span class="op">&gt;</span><span class="ident">Apples</span><span class="op">&lt;</span><span class="op">/</span><span class="ident">td</span><span class="op">&gt;</span>
-       <span class="op">&lt;</span><span class="ident">td</span><span class="op">&gt;</span><span class="ident">Bananas</span><span class="op">&lt;</span><span class="op">/</span><span class="ident">td</span><span class="op">&gt;</span>
-     <span class="op">&lt;</span><span class="op">/</span><span class="ident">tr</span><span class="op">&gt;</span>
-   <span class="op">&lt;</span><span class="op">/</span><span class="ident">table</span><span class="op">&gt;</span>
+<p>Used to differentiate between similar XML fragments. For example
+```ignore
+   // HTML
+   <table>
+     <tr>
+       <td>Apples</td>
+       <td>Bananas</td>
+     </tr>
+   </table></p>
 
-   <span class="comment">// Furniture XML</span>
-   <span class="op">&lt;</span><span class="ident">table</span><span class="op">&gt;</span>
-     <span class="op">&lt;</span><span class="ident">name</span><span class="op">&gt;</span><span class="ident">African</span> <span class="ident">Coffee</span> <span class="ident">Table</span><span class="op">&lt;</span><span class="op">/</span><span class="ident">name</span><span class="op">&gt;</span>
-     <span class="op">&lt;</span><span class="ident">width</span><span class="op">&gt;</span><span class="number">80</span><span class="op">&lt;</span><span class="op">/</span><span class="ident">width</span><span class="op">&gt;</span>
-     <span class="op">&lt;</span><span class="ident">length</span><span class="op">&gt;</span><span class="number">120</span><span class="op">&lt;</span><span class="op">/</span><span class="ident">length</span><span class="op">&gt;</span>
-   <span class="op">&lt;</span><span class="op">/</span><span class="ident">table</span><span class="op">&gt;</span></pre>
-<p>Without XML namespaces we can't use those two fragments in occur
+<p>// Furniture XML
+   <table>
+     <name>African Coffee Table</name>
+     <width>80</width>
+     <length>120</length>
+   </table>
+```
+Without XML namespaces we can&#39;t use those two fragments in occur
 XML at same time. however if we declare a namespace we could instead say:</p>
 
 <pre class="rust rust-example-rendered">
-   <span class="comment">// Furniture XML</span>
+<span class="comment">// Furniture XML</span>
    <span class="op">&lt;</span><span class="ident">furn</span>:<span class="ident">table</span><span class="op">&gt;</span>
      <span class="op">&lt;</span><span class="ident">furn</span>:<span class="ident">name</span><span class="op">&gt;</span><span class="ident">African</span> <span class="ident">Coffee</span> <span class="ident">Table</span><span class="op">&lt;</span><span class="op">/</span><span class="ident">furn</span>:<span class="ident">name</span><span class="op">&gt;</span>
      <span class="op">&lt;</span><span class="ident">furn</span>:<span class="ident">width</span><span class="op">&gt;</span><span class="number">80</span><span class="op">&lt;</span><span class="op">/</span><span class="ident">furn</span>:<span class="ident">width</span><span class="op">&gt;</span>
      <span class="op">&lt;</span><span class="ident">furn</span>:<span class="ident">length</span><span class="op">&gt;</span><span class="number">120</span><span class="op">&lt;</span><span class="op">/</span><span class="ident">furn</span>:<span class="ident">length</span><span class="op">&gt;</span>
    <span class="op">&lt;</span><span class="op">/</span><span class="ident">furn</span>:<span class="ident">table</span><span class="op">&gt;</span></pre>
+
 <p>and bind it to a different name.</p>
+
 <p>For this reason we parse names that contain a colon in the following way</p>
 
 <pre class="rust rust-example-rendered">
-   <span class="op">&lt;</span> <span class="ident">furn</span>:<span class="ident">table</span><span class="op">&gt;</span>
+<span class="op">&lt;</span> <span class="ident">furn</span>:<span class="ident">table</span><span class="op">&gt;</span>
        <span class="op">|</span>    <span class="op">|</span>
        <span class="op">|</span>    <span class="op">+</span><span class="op">-</span> <span class="ident">local</span> <span class="ident">name</span>
        <span class="op">|</span>
      <span class="ident">prefix</span> (<span class="ident">when</span> <span class="ident">resolved</span> <span class="ident">gives</span> <span class="ident">namespace_url</span>)</pre>
-</div><h2 id='fields' class='fields'>Fields</h2><span id='structfield.prefix' class="structfield">
+</div><h2 class='fields'>Fields</h2><span id='structfield.prefix' class="structfield">
                            <span id='prefix.v' class='invisible'>
                            <code>prefix: <a class="type" href="../../xml5ever/tokenizer/type.Prefix.html" title="type xml5ever::tokenizer::Prefix">Prefix</a></code>
                            </span></span><div class='docblock'><p>Prefix of fully qualified name, used for namespace lookup.</p>
