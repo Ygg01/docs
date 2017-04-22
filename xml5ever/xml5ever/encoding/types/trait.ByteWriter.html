@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc trait">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../../index.html'>xml5ever</a>::<wbr><a href='../index.html'>encoding</a>::<wbr><a href='index.html'>types</a></p><script>window.sidebarCurrent = {name: 'ByteWriter', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Trait ByteWriter</p><div class="block items"><ul><li><a href="#required-methods">Required Methods</a></li><li><a href="#provided-methods">Provided Methods</a></li><li><a href="#implementors">Implementors</a></li></ul></div><p class='location'><a href='../../index.html'>xml5ever</a>::<wbr><a href='../index.html'>encoding</a>::<wbr><a href='index.html'>types</a></p><script>window.sidebarCurrent = {name: 'ByteWriter', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -43,27 +43,27 @@
         </form>
     </nav>
 
-    <section id='main' class="content trait">
-<h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>xml5ever</a>::<wbr><a href='../index.html'>encoding</a>::<wbr><a href='index.html'>types</a>::<wbr><a class='trait' href=''>ByteWriter</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>xml5ever</a>::<wbr><a href='../index.html'>encoding</a>::<wbr><a href='index.html'>types</a>::<wbr><a class="trait" href=''>ByteWriter</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
                </span><a class='srclink' href='../../../src/encoding/types.rs.html#70-84' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait ByteWriter {
-    fn <a href='#tymethod.write_byte' class='fnname'>write_byte</a>(&amp;mut self, b: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>);
-    fn <a href='#tymethod.write_bytes' class='fnname'>write_bytes</a>(&amp;mut self, v: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>);
+    fn <a href='#tymethod.write_byte' class='fnname'>write_byte</a>(&amp;mut self, b: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>);
+    fn <a href='#tymethod.write_bytes' class='fnname'>write_bytes</a>(&amp;mut self, v: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>);
 
-    fn <a href='#method.writer_hint' class='fnname'>writer_hint</a>(&amp;mut self, _expectedlen: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) { ... }
+    fn <a href='#method.writer_hint' class='fnname'>writer_hint</a>(&amp;mut self, _expectedlen: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) { ... }
 }</pre><div class='docblock'><p>Byte writer used by encoders. In most cases this will be an owned vector of <code>u8</code>.</p>
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.write_byte' class='method'><span id='write_byte.v' class='invisible'><code>fn <a href='#tymethod.write_byte' class='fnname'>write_byte</a>(&amp;mut self, b: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>)</code></span></h3><div class='docblock'><p>Writes a single byte.</p>
-</div><h3 id='tymethod.write_bytes' class='method'><span id='write_bytes.v' class='invisible'><code>fn <a href='#tymethod.write_bytes' class='fnname'>write_bytes</a>(&amp;mut self, v: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>)</code></span></h3><div class='docblock'><p>Writes a number of bytes.</p>
+        <h3 id='tymethod.write_byte' class='method'><span id='write_byte.v' class='invisible'><code>fn <a href='#tymethod.write_byte' class='fnname'>write_byte</a>(&amp;mut self, b: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>)</code></span></h3><div class='docblock'><p>Writes a single byte.</p>
+</div><h3 id='tymethod.write_bytes' class='method'><span id='write_bytes.v' class='invisible'><code>fn <a href='#tymethod.write_bytes' class='fnname'>write_bytes</a>(&amp;mut self, v: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>)</code></span></h3><div class='docblock'><p>Writes a number of bytes.</p>
 </div></div>
             <h2 id='provided-methods'>Provided Methods</h2>
             <div class='methods'>
-        <h3 id='method.writer_hint' class='method'><span id='writer_hint.v' class='invisible'><code>fn <a href='#method.writer_hint' class='fnname'>writer_hint</a>(&amp;mut self, _expectedlen: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>)</code></span></h3><div class='docblock'><p>Hints an expected lower bound on the length (in bytes) of the output
+        <h3 id='method.writer_hint' class='method'><span id='writer_hint.v' class='invisible'><code>fn <a href='#method.writer_hint' class='fnname'>writer_hint</a>(&amp;mut self, _expectedlen: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>)</code></span></h3><div class='docblock'><p>Hints an expected lower bound on the length (in bytes) of the output
 until the next call to <code>writer_hint</code>,
 so that the writer can reserve the memory for writing.
 <code>RawEncoder</code>s are recommended but not required to call this method
@@ -72,8 +72,8 @@ By default this method does nothing.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl ByteWriter for <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;</code></li>
-<li><code>impl&lt;A&gt; ByteWriter for <a class='struct' href='../../../tendril/tendril/struct.Tendril.html' title='tendril::tendril::Tendril'>Tendril</a>&lt;<a class='struct' href='../../../tendril/fmt/struct.Bytes.html' title='tendril::fmt::Bytes'>Bytes</a>, A&gt; <span class='where fmt-newline'>where A: <a class='trait' href='../../../tendril/tendril/trait.Atomicity.html' title='tendril::tendril::Atomicity'>Atomicity</a></span></code></li>
+    <li><code>impl ByteWriter for <a class="struct" href="https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html" title="struct collections::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;</code></li>
+<li><code>impl&lt;A&gt; ByteWriter for <a class="struct" href="../../../tendril/tendril/struct.Tendril.html" title="struct tendril::tendril::Tendril">Tendril</a>&lt;<a class="struct" href="../../../tendril/fmt/struct.Bytes.html" title="struct tendril::fmt::Bytes">Bytes</a>, A&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;A: <a class="trait" href="../../../tendril/tendril/trait.Atomicity.html" title="trait tendril::tendril::Atomicity">Atomicity</a>,&nbsp;</span></code></li>
 </ul><script type="text/javascript" async
                          src="../../../implementors/encoding/types/trait.ByteWriter.js">
                  </script></section>

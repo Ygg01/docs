@@ -1,6 +1,6 @@
 (function() {var implementors = {};
 implementors["encoding"] = [];
-implementors['encoding'] = [];implementors["encoding"] = [];implementors["encoding"] = [];implementors["encoding"] = [];implementors["encoding"] = [];implementors["encoding"] = [];implementors["encoding"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["xml5ever"] = [];implementors["encoding"] = [];
+implementors["tendril"] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);
