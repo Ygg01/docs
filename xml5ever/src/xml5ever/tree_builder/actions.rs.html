@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -43,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1">  1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -284,245 +284,245 @@
 <span id="239">239</span>
 <span id="240">240</span>
 <span id="241">241</span>
-</pre><pre class='rust '>
-<span class='comment'>// Copyright 2015 The xml5ever Project Developers. See the</span>
-<span class='comment'>// COPYRIGHT file at the top-level directory of this distribution.</span>
-<span class='comment'>//</span>
-<span class='comment'>// Licensed under the Apache License, Version 2.0 &lt;LICENSE-APACHE or</span>
-<span class='comment'>// http://www.apache.org/licenses/LICENSE-2.0&gt; or the MIT license</span>
-<span class='comment'>// &lt;LICENSE-MIT or http://opensource.org/licenses/MIT&gt;, at your</span>
-<span class='comment'>// option. This file may not be copied, modified, or distributed</span>
-<span class='comment'>// except according to those terms.</span>
+</pre><pre class="rust ">
+<span class="comment">// Copyright 2015 The xml5ever Project Developers. See the</span>
+<span class="comment">// COPYRIGHT file at the top-level directory of this distribution.</span>
+<span class="comment">//</span>
+<span class="comment">// Licensed under the Apache License, Version 2.0 &lt;LICENSE-APACHE or</span>
+<span class="comment">// http://www.apache.org/licenses/LICENSE-2.0&gt; or the MIT license</span>
+<span class="comment">// &lt;LICENSE-MIT or http://opensource.org/licenses/MIT&gt;, at your</span>
+<span class="comment">// option. This file may not be copied, modified, or distributed</span>
+<span class="comment">// except according to those terms.</span>
 
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>borrow</span>::<span class='ident'>Cow</span>::<span class='ident'>Borrowed</span>;
-<span class='kw'>use</span> <span class='ident'>tendril</span>::{<span class='ident'>StrTendril</span>, <span class='ident'>Tendril</span>};
-<span class='kw'>use</span> <span class='ident'>tokenizer</span>::{<span class='ident'>Tag</span>, <span class='ident'>Pi</span>, <span class='ident'>QName</span>, <span class='ident'>Doctype</span>};
-<span class='kw'>use</span> <span class='ident'>tokenizer</span>::<span class='ident'>states</span>::<span class='ident'>Quiescent</span>;
-<span class='kw'>use</span> <span class='ident'>tree_builder</span>::<span class='ident'>interface</span>::{<span class='ident'>NextParserState</span>, <span class='ident'>NodeOrText</span>, <span class='ident'>TreeSink</span>, <span class='ident'>AppendNode</span>, <span class='ident'>AppendText</span>};
-<span class='kw'>use</span> <span class='ident'>tree_builder</span>::<span class='ident'>types</span>::{<span class='ident'>XmlProcessResult</span>, <span class='ident'>Done</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">borrow</span>::<span class="ident">Cow</span>::<span class="ident">Borrowed</span>;
+<span class="kw">use</span> <span class="ident">tendril</span>::{<span class="ident">StrTendril</span>, <span class="ident">Tendril</span>};
+<span class="kw">use</span> <span class="ident">tokenizer</span>::{<span class="ident">Tag</span>, <span class="ident">Pi</span>, <span class="ident">QName</span>, <span class="ident">Doctype</span>};
+<span class="kw">use</span> <span class="ident">tokenizer</span>::<span class="ident">states</span>::<span class="ident">Quiescent</span>;
+<span class="kw">use</span> <span class="ident">tree_builder</span>::<span class="ident">interface</span>::{<span class="ident">NextParserState</span>, <span class="ident">NodeOrText</span>, <span class="ident">TreeSink</span>, <span class="ident">AppendNode</span>, <span class="ident">AppendText</span>};
+<span class="kw">use</span> <span class="ident">tree_builder</span>::<span class="ident">types</span>::{<span class="ident">XmlProcessResult</span>, <span class="ident">Done</span>};
 
-<span class='doccomment'>/// Trait that encapsulates common XML tree actions.</span>
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>XmlTreeBuilderActions</span><span class='op'>&lt;</span><span class='ident'>Handle</span><span class='op'>&gt;</span> {
-    <span class='doccomment'>/// Returns current node of in the XmlTreeBuilder.</span>
-    <span class='kw'>fn</span> <span class='ident'>current_node</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Handle</span>;
+<span class="doccomment">/// Trait that encapsulates common XML tree actions.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">XmlTreeBuilderActions</span><span class="op">&lt;</span><span class="ident">Handle</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// Returns current node of in the XmlTreeBuilder.</span>
+    <span class="kw">fn</span> <span class="ident">current_node</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Handle</span>;
 
-    <span class='doccomment'>/// Inserts node or text to its appropriate place in the tree.</span>
-    <span class='kw'>fn</span> <span class='ident'>insert_appropriately</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>child</span>: <span class='ident'>NodeOrText</span><span class='op'>&lt;</span><span class='ident'>Handle</span><span class='op'>&gt;</span>);
+    <span class="doccomment">/// Inserts node or text to its appropriate place in the tree.</span>
+    <span class="kw">fn</span> <span class="ident">insert_appropriately</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">child</span>: <span class="ident">NodeOrText</span><span class="op">&lt;</span><span class="ident">Handle</span><span class="op">&gt;</span>);
 
-    <span class='doccomment'>/// Inserts tag into the tree and adds it to list of open elements.</span>
-    <span class='kw'>fn</span> <span class='ident'>insert_tag</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>tag</span>: <span class='ident'>Tag</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span>;
+    <span class="doccomment">/// Inserts tag into the tree and adds it to list of open elements.</span>
+    <span class="kw">fn</span> <span class="ident">insert_tag</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tag</span>: <span class="ident">Tag</span>) <span class="op">-&gt;</span> <span class="ident">XmlProcessResult</span>;
 
-    <span class='doccomment'>/// Appends current tag to the root of the document.</span>
-    <span class='kw'>fn</span> <span class='ident'>append_tag</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>tag</span>: <span class='ident'>Tag</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span>;
+    <span class="doccomment">/// Appends current tag to the root of the document.</span>
+    <span class="kw">fn</span> <span class="ident">append_tag</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tag</span>: <span class="ident">Tag</span>) <span class="op">-&gt;</span> <span class="ident">XmlProcessResult</span>;
 
-    <span class='doccomment'>/// Appends tag to the root of the document.</span>
-    <span class='kw'>fn</span> <span class='ident'>append_tag_to_doc</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>tag</span>: <span class='ident'>Tag</span>) <span class='op'>-&gt;</span> <span class='ident'>Handle</span>;
+    <span class="doccomment">/// Appends tag to the root of the document.</span>
+    <span class="kw">fn</span> <span class="ident">append_tag_to_doc</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tag</span>: <span class="ident">Tag</span>) <span class="op">-&gt;</span> <span class="ident">Handle</span>;
 
-    <span class='doccomment'>/// Adds element to list of open elements (this should only apply to Tag).</span>
-    <span class='kw'>fn</span> <span class='ident'>add_to_open_elems</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>el</span>: <span class='ident'>Handle</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span>;
+    <span class="doccomment">/// Adds element to list of open elements (this should only apply to Tag).</span>
+    <span class="kw">fn</span> <span class="ident">add_to_open_elems</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">el</span>: <span class="ident">Handle</span>) <span class="op">-&gt;</span> <span class="ident">XmlProcessResult</span>;
 
-    <span class='doccomment'>/// Appends comment to root of the document.</span>
-    <span class='kw'>fn</span> <span class='ident'>append_comment_to_doc</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>comment</span>: <span class='ident'>StrTendril</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span>;
+    <span class="doccomment">/// Appends comment to root of the document.</span>
+    <span class="kw">fn</span> <span class="ident">append_comment_to_doc</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">comment</span>: <span class="ident">StrTendril</span>) <span class="op">-&gt;</span> <span class="ident">XmlProcessResult</span>;
 
-    <span class='doccomment'>/// Appends comment to the current tag.</span>
-    <span class='kw'>fn</span> <span class='ident'>append_comment_to_tag</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>text</span>: <span class='ident'>StrTendril</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span>;
+    <span class="doccomment">/// Appends comment to the current tag.</span>
+    <span class="kw">fn</span> <span class="ident">append_comment_to_tag</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">text</span>: <span class="ident">StrTendril</span>) <span class="op">-&gt;</span> <span class="ident">XmlProcessResult</span>;
 
-    <span class='doccomment'>/// Appends Doctype to root of the document.</span>
-    <span class='kw'>fn</span> <span class='ident'>append_doctype_to_doc</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>doctype</span>: <span class='ident'>Doctype</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span>;
+    <span class="doccomment">/// Appends Doctype to root of the document.</span>
+    <span class="kw">fn</span> <span class="ident">append_doctype_to_doc</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">doctype</span>: <span class="ident">Doctype</span>) <span class="op">-&gt;</span> <span class="ident">XmlProcessResult</span>;
 
-    <span class='doccomment'>/// Appends Processing Instruction to the root of the document</span>
-    <span class='kw'>fn</span> <span class='ident'>append_pi_to_doc</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>pi</span>: <span class='ident'>Pi</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span>;
+    <span class="doccomment">/// Appends Processing Instruction to the root of the document</span>
+    <span class="kw">fn</span> <span class="ident">append_pi_to_doc</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">pi</span>: <span class="ident">Pi</span>) <span class="op">-&gt;</span> <span class="ident">XmlProcessResult</span>;
 
-    <span class='doccomment'>/// Appends Processing Instruction to the current tag.</span>
-    <span class='kw'>fn</span> <span class='ident'>append_pi_to_tag</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>pi</span>: <span class='ident'>Pi</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span>;
+    <span class="doccomment">/// Appends Processing Instruction to the current tag.</span>
+    <span class="kw">fn</span> <span class="ident">append_pi_to_tag</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">pi</span>: <span class="ident">Pi</span>) <span class="op">-&gt;</span> <span class="ident">XmlProcessResult</span>;
 
-    <span class='doccomment'>/// Appends text to appropriate element.</span>
-    <span class='kw'>fn</span> <span class='ident'>append_text</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>chars</span>: <span class='ident'>StrTendril</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span>;
+    <span class="doccomment">/// Appends text to appropriate element.</span>
+    <span class="kw">fn</span> <span class="ident">append_text</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">chars</span>: <span class="ident">StrTendril</span>) <span class="op">-&gt;</span> <span class="ident">XmlProcessResult</span>;
 
-    <span class='doccomment'>/// Checks if given tag is the list of open elements.</span>
-    <span class='kw'>fn</span> <span class='ident'>tag_in_open_elems</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>tag</span>: <span class='kw-2'>&amp;</span><span class='ident'>Tag</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>;
+    <span class="doccomment">/// Checks if given tag is the list of open elements.</span>
+    <span class="kw">fn</span> <span class="ident">tag_in_open_elems</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tag</span>: <span class="kw-2">&amp;</span><span class="ident">Tag</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>;
 
-    <span class='doccomment'>/// Pops elements from list of open elements, until predicate</span>
-    <span class='doccomment'>/// `pred` returns true</span>
-    <span class='kw'>fn</span> <span class='ident'>pop_until</span><span class='op'>&lt;</span><span class='ident'>TagSet</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>pred</span>: <span class='ident'>TagSet</span>) <span class='kw'>where</span> <span class='ident'>TagSet</span>: <span class='ident'>Fn</span>(<span class='ident'>QName</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>;
+    <span class="doccomment">/// Pops elements from list of open elements, until predicate</span>
+    <span class="doccomment">/// `pred` returns true</span>
+    <span class="kw">fn</span> <span class="ident">pop_until</span><span class="op">&lt;</span><span class="ident">TagSet</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">pred</span>: <span class="ident">TagSet</span>) <span class="kw">where</span> <span class="ident">TagSet</span>: <span class="ident">Fn</span>(<span class="ident">QName</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>;
 
-    <span class='doccomment'>/// Checks if current node is in given TagSet</span>
-    <span class='kw'>fn</span> <span class='ident'>current_node_in</span><span class='op'>&lt;</span><span class='ident'>TagSet</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>set</span>: <span class='ident'>TagSet</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> <span class='kw'>where</span> <span class='ident'>TagSet</span>: <span class='ident'>Fn</span>(<span class='ident'>QName</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>;
+    <span class="doccomment">/// Checks if current node is in given TagSet</span>
+    <span class="kw">fn</span> <span class="ident">current_node_in</span><span class="op">&lt;</span><span class="ident">TagSet</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">set</span>: <span class="ident">TagSet</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> <span class="kw">where</span> <span class="ident">TagSet</span>: <span class="ident">Fn</span>(<span class="ident">QName</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>;
 
-    <span class='doccomment'>/// Close given tag.</span>
-    <span class='kw'>fn</span> <span class='ident'>close_tag</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>tag</span>: <span class='ident'>Tag</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span>;
+    <span class="doccomment">/// Close given tag.</span>
+    <span class="kw">fn</span> <span class="ident">close_tag</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tag</span>: <span class="ident">Tag</span>) <span class="op">-&gt;</span> <span class="ident">XmlProcessResult</span>;
 
-    <span class='doccomment'>/// Returns whether or not there are any elements in list of</span>
-    <span class='doccomment'>/// open elements.</span>
-    <span class='kw'>fn</span> <span class='ident'>no_open_elems</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>;
+    <span class="doccomment">/// Returns whether or not there are any elements in list of</span>
+    <span class="doccomment">/// open elements.</span>
+    <span class="kw">fn</span> <span class="ident">no_open_elems</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>;
 
-    <span class='doccomment'>/// Removes last element from list of open elements and returns its value.</span>
-    <span class='kw'>fn</span> <span class='ident'>pop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Handle</span> ;
+    <span class="doccomment">/// Removes last element from list of open elements and returns its value.</span>
+    <span class="kw">fn</span> <span class="ident">pop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Handle</span> ;
 
-    <span class='doccomment'>/// Stops parsing of XML file.</span>
-    <span class='kw'>fn</span> <span class='ident'>stop_parsing</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span>;
+    <span class="doccomment">/// Stops parsing of XML file.</span>
+    <span class="kw">fn</span> <span class="ident">stop_parsing</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">XmlProcessResult</span>;
 
-    <span class='doccomment'>/// Indicated a `script` element is complete and can be prepared</span>
-    <span class='kw'>fn</span> <span class='ident'>complete_script</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>);
+    <span class="doccomment">/// Indicated a `script` element is complete and can be prepared</span>
+    <span class="kw">fn</span> <span class="ident">complete_script</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>);
 }
 
-<span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>Handle</span>, <span class='ident'>Sink</span><span class='op'>&gt;</span> <span class='ident'>XmlTreeBuilderActions</span><span class='op'>&lt;</span><span class='ident'>Handle</span><span class='op'>&gt;</span>
-    <span class='kw'>for</span> <span class='kw'>super</span>::<span class='ident'>XmlTreeBuilder</span><span class='op'>&lt;</span><span class='ident'>Handle</span>, <span class='ident'>Sink</span><span class='op'>&gt;</span>
-    <span class='kw'>where</span> <span class='ident'>Handle</span>: <span class='ident'>Clone</span>,
-          <span class='ident'>Sink</span>: <span class='ident'>TreeSink</span><span class='op'>&lt;</span><span class='ident'>Handle</span><span class='op'>=</span><span class='ident'>Handle</span><span class='op'>&gt;</span>,
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Handle</span>, <span class="ident">Sink</span><span class="op">&gt;</span> <span class="ident">XmlTreeBuilderActions</span><span class="op">&lt;</span><span class="ident">Handle</span><span class="op">&gt;</span>
+    <span class="kw">for</span> <span class="kw">super</span>::<span class="ident">XmlTreeBuilder</span><span class="op">&lt;</span><span class="ident">Handle</span>, <span class="ident">Sink</span><span class="op">&gt;</span>
+    <span class="kw">where</span> <span class="ident">Handle</span>: <span class="ident">Clone</span>,
+          <span class="ident">Sink</span>: <span class="ident">TreeSink</span><span class="op">&lt;</span><span class="ident">Handle</span><span class="op">=</span><span class="ident">Handle</span><span class="op">&gt;</span>,
 {
 
-    <span class='kw'>fn</span> <span class='ident'>current_node</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Handle</span> {
-        <span class='self'>self</span>.<span class='ident'>open_elems</span>.<span class='ident'>last</span>().<span class='ident'>expect</span>(<span class='string'>&quot;no current element&quot;</span>).<span class='ident'>clone</span>()
+    <span class="kw">fn</span> <span class="ident">current_node</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Handle</span> {
+        <span class="self">self</span>.<span class="ident">open_elems</span>.<span class="ident">last</span>().<span class="ident">expect</span>(<span class="string">&quot;no current element&quot;</span>).<span class="ident">clone</span>()
     }
 
-    <span class='kw'>fn</span> <span class='ident'>insert_appropriately</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>child</span>: <span class='ident'>NodeOrText</span><span class='op'>&lt;</span><span class='ident'>Handle</span><span class='op'>&gt;</span>){
-        <span class='kw'>let</span> <span class='ident'>target</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>current_node</span>();
-        <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>append</span>(<span class='ident'>target</span>, <span class='ident'>child</span>);
+    <span class="kw">fn</span> <span class="ident">insert_appropriately</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">child</span>: <span class="ident">NodeOrText</span><span class="op">&lt;</span><span class="ident">Handle</span><span class="op">&gt;</span>){
+        <span class="kw">let</span> <span class="ident">target</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">current_node</span>();
+        <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">append</span>(<span class="ident">target</span>, <span class="ident">child</span>);
     }
 
-    <span class='kw'>fn</span> <span class='ident'>insert_tag</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>tag</span>: <span class='ident'>Tag</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span> {
-        <span class='kw'>let</span> <span class='ident'>child</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>create_element</span>(<span class='ident'>tag</span>.<span class='ident'>name</span>, <span class='ident'>tag</span>.<span class='ident'>attrs</span>);
-        <span class='self'>self</span>.<span class='ident'>insert_appropriately</span>(<span class='ident'>AppendNode</span>(<span class='ident'>child</span>.<span class='ident'>clone</span>()));
-        <span class='self'>self</span>.<span class='ident'>add_to_open_elems</span>(<span class='ident'>child</span>)
+    <span class="kw">fn</span> <span class="ident">insert_tag</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tag</span>: <span class="ident">Tag</span>) <span class="op">-&gt;</span> <span class="ident">XmlProcessResult</span> {
+        <span class="kw">let</span> <span class="ident">child</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">create_element</span>(<span class="ident">tag</span>.<span class="ident">name</span>, <span class="ident">tag</span>.<span class="ident">attrs</span>);
+        <span class="self">self</span>.<span class="ident">insert_appropriately</span>(<span class="ident">AppendNode</span>(<span class="ident">child</span>.<span class="ident">clone</span>()));
+        <span class="self">self</span>.<span class="ident">add_to_open_elems</span>(<span class="ident">child</span>)
     }
 
-    <span class='kw'>fn</span> <span class='ident'>append_tag</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>tag</span>: <span class='ident'>Tag</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span> {
-        <span class='kw'>let</span> <span class='ident'>child</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>create_element</span>(<span class='ident'>tag</span>.<span class='ident'>name</span>, <span class='ident'>tag</span>.<span class='ident'>attrs</span>);
-        <span class='self'>self</span>.<span class='ident'>insert_appropriately</span>(<span class='ident'>AppendNode</span>(<span class='ident'>child</span>.<span class='ident'>clone</span>()));
-        <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>pop</span>(<span class='ident'>child</span>);
-        <span class='ident'>Done</span>
+    <span class="kw">fn</span> <span class="ident">append_tag</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tag</span>: <span class="ident">Tag</span>) <span class="op">-&gt;</span> <span class="ident">XmlProcessResult</span> {
+        <span class="kw">let</span> <span class="ident">child</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">create_element</span>(<span class="ident">tag</span>.<span class="ident">name</span>, <span class="ident">tag</span>.<span class="ident">attrs</span>);
+        <span class="self">self</span>.<span class="ident">insert_appropriately</span>(<span class="ident">AppendNode</span>(<span class="ident">child</span>.<span class="ident">clone</span>()));
+        <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">pop</span>(<span class="ident">child</span>);
+        <span class="ident">Done</span>
     }
 
-    <span class='kw'>fn</span> <span class='ident'>append_tag_to_doc</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>tag</span>: <span class='ident'>Tag</span>) <span class='op'>-&gt;</span> <span class='ident'>Handle</span> {
-        <span class='kw'>let</span> <span class='ident'>root</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>doc_handle</span>.<span class='ident'>clone</span>();
-        <span class='kw'>let</span> <span class='ident'>child</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>create_element</span>(<span class='ident'>tag</span>.<span class='ident'>name</span>, <span class='ident'>tag</span>.<span class='ident'>attrs</span>);
+    <span class="kw">fn</span> <span class="ident">append_tag_to_doc</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tag</span>: <span class="ident">Tag</span>) <span class="op">-&gt;</span> <span class="ident">Handle</span> {
+        <span class="kw">let</span> <span class="ident">root</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">doc_handle</span>.<span class="ident">clone</span>();
+        <span class="kw">let</span> <span class="ident">child</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">create_element</span>(<span class="ident">tag</span>.<span class="ident">name</span>, <span class="ident">tag</span>.<span class="ident">attrs</span>);
 
-        <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>append</span>(<span class='ident'>root</span>, <span class='ident'>AppendNode</span>(<span class='ident'>child</span>.<span class='ident'>clone</span>()));
-        <span class='ident'>child</span>
+        <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">append</span>(<span class="ident">root</span>, <span class="ident">AppendNode</span>(<span class="ident">child</span>.<span class="ident">clone</span>()));
+        <span class="ident">child</span>
     }
 
-    <span class='kw'>fn</span> <span class='ident'>add_to_open_elems</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>el</span>: <span class='ident'>Handle</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span> {
-        <span class='self'>self</span>.<span class='ident'>open_elems</span>.<span class='ident'>push</span>(<span class='ident'>el</span>);
+    <span class="kw">fn</span> <span class="ident">add_to_open_elems</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">el</span>: <span class="ident">Handle</span>) <span class="op">-&gt;</span> <span class="ident">XmlProcessResult</span> {
+        <span class="self">self</span>.<span class="ident">open_elems</span>.<span class="ident">push</span>(<span class="ident">el</span>);
 
-        <span class='ident'>Done</span>
+        <span class="ident">Done</span>
     }
 
-    <span class='kw'>fn</span> <span class='ident'>append_comment_to_doc</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>text</span>: <span class='ident'>StrTendril</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span> {
-        <span class='kw'>let</span> <span class='ident'>target</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>doc_handle</span>.<span class='ident'>clone</span>();
-        <span class='kw'>let</span> <span class='ident'>comment</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>create_comment</span>(<span class='ident'>text</span>);
-        <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>append</span>(<span class='ident'>target</span>, <span class='ident'>AppendNode</span>(<span class='ident'>comment</span>));
-        <span class='ident'>Done</span>
+    <span class="kw">fn</span> <span class="ident">append_comment_to_doc</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">text</span>: <span class="ident">StrTendril</span>) <span class="op">-&gt;</span> <span class="ident">XmlProcessResult</span> {
+        <span class="kw">let</span> <span class="ident">target</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">doc_handle</span>.<span class="ident">clone</span>();
+        <span class="kw">let</span> <span class="ident">comment</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">create_comment</span>(<span class="ident">text</span>);
+        <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">append</span>(<span class="ident">target</span>, <span class="ident">AppendNode</span>(<span class="ident">comment</span>));
+        <span class="ident">Done</span>
     }
 
-    <span class='kw'>fn</span> <span class='ident'>append_comment_to_tag</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>text</span>: <span class='ident'>StrTendril</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span> {
-        <span class='kw'>let</span> <span class='ident'>target</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>current_node</span>();
-        <span class='kw'>let</span> <span class='ident'>comment</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>create_comment</span>(<span class='ident'>text</span>);
-        <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>append</span>(<span class='ident'>target</span>, <span class='ident'>AppendNode</span>(<span class='ident'>comment</span>));
-        <span class='ident'>Done</span>
+    <span class="kw">fn</span> <span class="ident">append_comment_to_tag</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">text</span>: <span class="ident">StrTendril</span>) <span class="op">-&gt;</span> <span class="ident">XmlProcessResult</span> {
+        <span class="kw">let</span> <span class="ident">target</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">current_node</span>();
+        <span class="kw">let</span> <span class="ident">comment</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">create_comment</span>(<span class="ident">text</span>);
+        <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">append</span>(<span class="ident">target</span>, <span class="ident">AppendNode</span>(<span class="ident">comment</span>));
+        <span class="ident">Done</span>
     }
 
-    <span class='kw'>fn</span> <span class='ident'>append_doctype_to_doc</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>doctype</span>: <span class='ident'>Doctype</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span> {
-        <span class='kw'>fn</span> <span class='ident'>get_tendril</span>(<span class='ident'>opt</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>StrTendril</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>StrTendril</span> {
-            <span class='kw'>match</span> <span class='ident'>opt</span> {
-                <span class='prelude-val'>Some</span>(<span class='ident'>expr</span>) <span class='op'>=&gt;</span> <span class='ident'>expr</span>,
-                <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='ident'>Tendril</span>::<span class='ident'>new</span>(),
+    <span class="kw">fn</span> <span class="ident">append_doctype_to_doc</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">doctype</span>: <span class="ident">Doctype</span>) <span class="op">-&gt;</span> <span class="ident">XmlProcessResult</span> {
+        <span class="kw">fn</span> <span class="ident">get_tendril</span>(<span class="ident">opt</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">StrTendril</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">StrTendril</span> {
+            <span class="kw">match</span> <span class="ident">opt</span> {
+                <span class="prelude-val">Some</span>(<span class="ident">expr</span>) <span class="op">=&gt;</span> <span class="ident">expr</span>,
+                <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="ident">Tendril</span>::<span class="ident">new</span>(),
             }
         };
-        <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>append_doctype_to_document</span>(
-            <span class='ident'>get_tendril</span>(<span class='ident'>doctype</span>.<span class='ident'>name</span>),
-            <span class='ident'>get_tendril</span>(<span class='ident'>doctype</span>.<span class='ident'>public_id</span>),
-            <span class='ident'>get_tendril</span>(<span class='ident'>doctype</span>.<span class='ident'>system_id</span>),
+        <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">append_doctype_to_document</span>(
+            <span class="ident">get_tendril</span>(<span class="ident">doctype</span>.<span class="ident">name</span>),
+            <span class="ident">get_tendril</span>(<span class="ident">doctype</span>.<span class="ident">public_id</span>),
+            <span class="ident">get_tendril</span>(<span class="ident">doctype</span>.<span class="ident">system_id</span>),
         );
-        <span class='ident'>Done</span>
+        <span class="ident">Done</span>
     }
 
-    <span class='kw'>fn</span> <span class='ident'>append_pi_to_doc</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>pi</span>: <span class='ident'>Pi</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span> {
-        <span class='kw'>let</span> <span class='ident'>target</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>doc_handle</span>.<span class='ident'>clone</span>();
-        <span class='kw'>let</span> <span class='ident'>pi</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>create_pi</span>(<span class='ident'>pi</span>.<span class='ident'>target</span>, <span class='ident'>pi</span>.<span class='ident'>data</span>);
-        <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>append</span>(<span class='ident'>target</span>, <span class='ident'>AppendNode</span>(<span class='ident'>pi</span>));
-        <span class='ident'>Done</span>
+    <span class="kw">fn</span> <span class="ident">append_pi_to_doc</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">pi</span>: <span class="ident">Pi</span>) <span class="op">-&gt;</span> <span class="ident">XmlProcessResult</span> {
+        <span class="kw">let</span> <span class="ident">target</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">doc_handle</span>.<span class="ident">clone</span>();
+        <span class="kw">let</span> <span class="ident">pi</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">create_pi</span>(<span class="ident">pi</span>.<span class="ident">target</span>, <span class="ident">pi</span>.<span class="ident">data</span>);
+        <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">append</span>(<span class="ident">target</span>, <span class="ident">AppendNode</span>(<span class="ident">pi</span>));
+        <span class="ident">Done</span>
     }
 
-    <span class='kw'>fn</span> <span class='ident'>append_pi_to_tag</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>pi</span>: <span class='ident'>Pi</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span> {
-        <span class='kw'>let</span> <span class='ident'>target</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>current_node</span>();
-        <span class='kw'>let</span> <span class='ident'>pi</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>create_pi</span>(<span class='ident'>pi</span>.<span class='ident'>target</span>, <span class='ident'>pi</span>.<span class='ident'>data</span>);
-        <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>append</span>(<span class='ident'>target</span>, <span class='ident'>AppendNode</span>(<span class='ident'>pi</span>));
-        <span class='ident'>Done</span>
+    <span class="kw">fn</span> <span class="ident">append_pi_to_tag</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">pi</span>: <span class="ident">Pi</span>) <span class="op">-&gt;</span> <span class="ident">XmlProcessResult</span> {
+        <span class="kw">let</span> <span class="ident">target</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">current_node</span>();
+        <span class="kw">let</span> <span class="ident">pi</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">create_pi</span>(<span class="ident">pi</span>.<span class="ident">target</span>, <span class="ident">pi</span>.<span class="ident">data</span>);
+        <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">append</span>(<span class="ident">target</span>, <span class="ident">AppendNode</span>(<span class="ident">pi</span>));
+        <span class="ident">Done</span>
     }
 
 
-    <span class='kw'>fn</span> <span class='ident'>append_text</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>chars</span>: <span class='ident'>StrTendril</span>)
-        <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span> {
-        <span class='self'>self</span>.<span class='ident'>insert_appropriately</span>(<span class='ident'>AppendText</span>(<span class='ident'>chars</span>));
-        <span class='ident'>Done</span>
+    <span class="kw">fn</span> <span class="ident">append_text</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">chars</span>: <span class="ident">StrTendril</span>)
+        <span class="op">-&gt;</span> <span class="ident">XmlProcessResult</span> {
+        <span class="self">self</span>.<span class="ident">insert_appropriately</span>(<span class="ident">AppendText</span>(<span class="ident">chars</span>));
+        <span class="ident">Done</span>
     }
 
-    <span class='kw'>fn</span> <span class='ident'>tag_in_open_elems</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>tag</span>: <span class='kw-2'>&amp;</span><span class='ident'>Tag</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
-        <span class='self'>self</span>.<span class='ident'>open_elems</span>
-            .<span class='ident'>iter</span>()
-            .<span class='ident'>any</span>(<span class='op'>|</span><span class='ident'>a</span><span class='op'>|</span> <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>elem_name</span>(<span class='ident'>a</span>) <span class='op'>==</span> <span class='ident'>tag</span>.<span class='ident'>name</span>)
+    <span class="kw">fn</span> <span class="ident">tag_in_open_elems</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tag</span>: <span class="kw-2">&amp;</span><span class="ident">Tag</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+        <span class="self">self</span>.<span class="ident">open_elems</span>
+            .<span class="ident">iter</span>()
+            .<span class="ident">any</span>(<span class="op">|</span><span class="ident">a</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">elem_name</span>(<span class="ident">a</span>) <span class="op">==</span> <span class="ident">tag</span>.<span class="ident">name</span>)
     }
 
-    <span class='comment'>// Pop elements until an element from the set has been popped.  Returns the</span>
-    <span class='comment'>// number of elements popped.</span>
-    <span class='kw'>fn</span> <span class='ident'>pop_until</span><span class='op'>&lt;</span><span class='ident'>P</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>pred</span>: <span class='ident'>P</span>)
-        <span class='kw'>where</span> <span class='ident'>P</span>: <span class='ident'>Fn</span>(<span class='ident'>QName</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>
+    <span class="comment">// Pop elements until an element from the set has been popped.  Returns the</span>
+    <span class="comment">// number of elements popped.</span>
+    <span class="kw">fn</span> <span class="ident">pop_until</span><span class="op">&lt;</span><span class="ident">P</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">pred</span>: <span class="ident">P</span>)
+        <span class="kw">where</span> <span class="ident">P</span>: <span class="ident">Fn</span>(<span class="ident">QName</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
     {
-        <span class='kw'>loop</span> {
-            <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>current_node_in</span>(<span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> <span class='ident'>pred</span>(<span class='ident'>x</span>)) {
-                <span class='kw'>break</span>;
+        <span class="kw">loop</span> {
+            <span class="kw">if</span> <span class="self">self</span>.<span class="ident">current_node_in</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">pred</span>(<span class="ident">x</span>)) {
+                <span class="kw">break</span>;
             }
-            <span class='self'>self</span>.<span class='ident'>pop</span>();
+            <span class="self">self</span>.<span class="ident">pop</span>();
         }
     }
 
-    <span class='kw'>fn</span> <span class='ident'>current_node_in</span><span class='op'>&lt;</span><span class='ident'>TagSet</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>set</span>: <span class='ident'>TagSet</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>
-        <span class='kw'>where</span> <span class='ident'>TagSet</span>: <span class='ident'>Fn</span>(<span class='ident'>QName</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>
+    <span class="kw">fn</span> <span class="ident">current_node_in</span><span class="op">&lt;</span><span class="ident">TagSet</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">set</span>: <span class="ident">TagSet</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
+        <span class="kw">where</span> <span class="ident">TagSet</span>: <span class="ident">Fn</span>(<span class="ident">QName</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
     {
-        <span class='comment'>// FIXME: take namespace into consideration:</span>
-        <span class='ident'>set</span>(<span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>elem_name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>current_node</span>()))
+        <span class="comment">// FIXME: take namespace into consideration:</span>
+        <span class="ident">set</span>(<span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">elem_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">current_node</span>()))
     }
 
-    <span class='kw'>fn</span> <span class='ident'>close_tag</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>tag</span>: <span class='ident'>Tag</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span> {
-        <span class='macro'>debug</span><span class='macro'>!</span>(<span class='string'>&quot;Close tag: current_node.name {:?} \n Current tag {:?}&quot;</span>,
-                 <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>elem_name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>current_node</span>()), <span class='kw-2'>&amp;</span><span class='ident'>tag</span>.<span class='ident'>name</span>);
+    <span class="kw">fn</span> <span class="ident">close_tag</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tag</span>: <span class="ident">Tag</span>) <span class="op">-&gt;</span> <span class="ident">XmlProcessResult</span> {
+        <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Close tag: current_node.name {:?} \n Current tag {:?}&quot;</span>,
+                 <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">elem_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">current_node</span>()), <span class="kw-2">&amp;</span><span class="ident">tag</span>.<span class="ident">name</span>);
 
-        <span class='kw'>if</span> <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>elem_name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>current_node</span>()).<span class='ident'>local</span> <span class='op'>!=</span> <span class='kw-2'>&amp;</span><span class='ident'>tag</span>.<span class='ident'>name</span>.<span class='ident'>local</span> {
-            <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>parse_error</span>(<span class='ident'>Borrowed</span>(<span class='string'>&quot;Current node doesn&#39;t match tag&quot;</span>));
+        <span class="kw">if</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">elem_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">current_node</span>()).<span class="ident">local</span> <span class="op">!=</span> <span class="kw-2">&amp;</span><span class="ident">tag</span>.<span class="ident">name</span>.<span class="ident">local</span> {
+            <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">parse_error</span>(<span class="ident">Borrowed</span>(<span class="string">&quot;Current node doesn&#39;t match tag&quot;</span>));
         }
 
-        <span class='kw'>let</span> <span class='ident'>is_closed</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>tag_in_open_elems</span>(<span class='kw-2'>&amp;</span><span class='ident'>tag</span>);
+        <span class="kw">let</span> <span class="ident">is_closed</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">tag_in_open_elems</span>(<span class="kw-2">&amp;</span><span class="ident">tag</span>);
 
-        <span class='kw'>if</span> <span class='ident'>is_closed</span> {
-            <span class='self'>self</span>.<span class='ident'>pop_until</span>(<span class='op'>|</span><span class='ident'>p</span><span class='op'>|</span> <span class='ident'>p</span> <span class='op'>==</span> <span class='ident'>tag</span>.<span class='ident'>name</span>);
-            <span class='self'>self</span>.<span class='ident'>pop</span>();
+        <span class="kw">if</span> <span class="ident">is_closed</span> {
+            <span class="self">self</span>.<span class="ident">pop_until</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span> <span class="op">==</span> <span class="ident">tag</span>.<span class="ident">name</span>);
+            <span class="self">self</span>.<span class="ident">pop</span>();
         }
 
-        <span class='ident'>Done</span>
+        <span class="ident">Done</span>
     }
 
-    <span class='kw'>fn</span> <span class='ident'>no_open_elems</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
-        <span class='self'>self</span>.<span class='ident'>open_elems</span>.<span class='ident'>is_empty</span>()
+    <span class="kw">fn</span> <span class="ident">no_open_elems</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+        <span class="self">self</span>.<span class="ident">open_elems</span>.<span class="ident">is_empty</span>()
     }
 
-    <span class='kw'>fn</span> <span class='ident'>pop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Handle</span> {
-        <span class='self'>self</span>.<span class='ident'>namespace_stack</span>.<span class='ident'>pop</span>();
-        <span class='kw'>let</span> <span class='ident'>node</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>open_elems</span>.<span class='ident'>pop</span>().<span class='ident'>expect</span>(<span class='string'>&quot;no current element&quot;</span>);
-        <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>pop</span>(<span class='ident'>node</span>.<span class='ident'>clone</span>());
-        <span class='ident'>node</span>
+    <span class="kw">fn</span> <span class="ident">pop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Handle</span> {
+        <span class="self">self</span>.<span class="ident">namespace_stack</span>.<span class="ident">pop</span>();
+        <span class="kw">let</span> <span class="ident">node</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">open_elems</span>.<span class="ident">pop</span>().<span class="ident">expect</span>(<span class="string">&quot;no current element&quot;</span>);
+        <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">pop</span>(<span class="ident">node</span>.<span class="ident">clone</span>());
+        <span class="ident">node</span>
     }
 
-    <span class='kw'>fn</span> <span class='ident'>stop_parsing</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>XmlProcessResult</span> {
-        <span class='macro'>warn</span><span class='macro'>!</span>(<span class='string'>&quot;stop_parsing for XML5 not implemented, full speed ahead!&quot;</span>);
-        <span class='ident'>Done</span>
+    <span class="kw">fn</span> <span class="ident">stop_parsing</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">XmlProcessResult</span> {
+        <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;stop_parsing for XML5 not implemented, full speed ahead!&quot;</span>);
+        <span class="ident">Done</span>
     }
 
-    <span class='kw'>fn</span> <span class='ident'>complete_script</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>let</span> <span class='ident'>current</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>current_node</span>();
-        <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>sink</span>.<span class='ident'>complete_script</span>(<span class='ident'>current</span>) <span class='op'>==</span> <span class='ident'>NextParserState</span>::<span class='ident'>Suspend</span> {
-            <span class='self'>self</span>.<span class='ident'>next_tokenizer_state</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>Quiescent</span>);
+    <span class="kw">fn</span> <span class="ident">complete_script</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+        <span class="kw">let</span> <span class="ident">current</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">current_node</span>();
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">sink</span>.<span class="ident">complete_script</span>(<span class="ident">current</span>) <span class="op">==</span> <span class="ident">NextParserState</span>::<span class="ident">Suspend</span> {
+            <span class="self">self</span>.<span class="ident">next_tokenizer_state</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">Quiescent</span>);
         }
     }
 }
