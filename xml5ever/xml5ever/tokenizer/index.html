@@ -17,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc mod">
+<body class="rustdoc">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'>Module tokenizer</p><div class="block items"><ul><li><a href="#reexports">Reexports</a></li><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class='location'><a href='../index.html'>xml5ever</a></p><script>window.sidebarCurrent = {name: 'tokenizer', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+        <p class='location'><a href='../index.html'>xml5ever</a></p><script>window.sidebarCurrent = {name: 'tokenizer', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -43,34 +43,46 @@
         </form>
     </nav>
 
-    <section id='main' class="content">
-<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>xml5ever</a>::<wbr><a class="mod" href=''>tokenizer</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>xml5ever</a>::<wbr><a class='mod' href=''>tokenizer</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
                </span><a class='srclink' href='../../src/xml5ever/tokenizer/mod.rs.html#10-1290' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>XML5 tokenizer - converts input into tokens</p>
 </div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
-<table><tr><td><code>pub use self::<a class="mod" href="./interface/index.html">interface</a>::<a class="enum" href="../../xml5ever/tokenizer/enum.TagKind.html" title="enum xml5ever::tokenizer::TagKind">StartTag</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./interface/index.html">interface</a>::<a class="enum" href="../../xml5ever/tokenizer/enum.TagKind.html" title="enum xml5ever::tokenizer::TagKind">EndTag</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./interface/index.html">interface</a>::<a class="enum" href="../../xml5ever/tokenizer/enum.TagKind.html" title="enum xml5ever::tokenizer::TagKind">EmptyTag</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./interface/index.html">interface</a>::<a class="enum" href="../../xml5ever/tokenizer/enum.TagKind.html" title="enum xml5ever::tokenizer::TagKind">ShortTag</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./interface/index.html">interface</a>::<a class="enum" href="../../xml5ever/tokenizer/enum.Token.html" title="enum xml5ever::tokenizer::Token">DoctypeToken</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./interface/index.html">interface</a>::<a class="enum" href="../../xml5ever/tokenizer/enum.Token.html" title="enum xml5ever::tokenizer::Token">TagToken</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./interface/index.html">interface</a>::<a class="enum" href="../../xml5ever/tokenizer/enum.Token.html" title="enum xml5ever::tokenizer::Token">PIToken</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./interface/index.html">interface</a>::<a class="enum" href="../../xml5ever/tokenizer/enum.Token.html" title="enum xml5ever::tokenizer::Token">CommentToken</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./interface/index.html">interface</a>::<a class="enum" href="../../xml5ever/tokenizer/enum.Token.html" title="enum xml5ever::tokenizer::Token">CharacterTokens</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./interface/index.html">interface</a>::<a class="enum" href="../../xml5ever/tokenizer/enum.Token.html" title="enum xml5ever::tokenizer::Token">EOFToken</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./interface/index.html">interface</a>::<a class="enum" href="../../xml5ever/tokenizer/enum.Token.html" title="enum xml5ever::tokenizer::Token">NullCharacterToken</a>;</code></td></tr><tr><td><code>pub use self::<a class="mod" href="./interface/index.html">interface</a>::<a class="enum" href="../../xml5ever/tokenizer/enum.Token.html" title="enum xml5ever::tokenizer::Token">ParseError</a>;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table><tr><td><code>pub use self::<a class='mod'
+                                       href='./interface/index.html'>interface</a>::<a class='enum' href='../../xml5ever/tokenizer/enum.TagKind.html' title='xml5ever::tokenizer::TagKind'>StartTag</a>;</code></td></tr><tr><td><code>pub use self::<a class='mod'
+                                       href='./interface/index.html'>interface</a>::<a class='enum' href='../../xml5ever/tokenizer/enum.TagKind.html' title='xml5ever::tokenizer::TagKind'>EndTag</a>;</code></td></tr><tr><td><code>pub use self::<a class='mod'
+                                       href='./interface/index.html'>interface</a>::<a class='enum' href='../../xml5ever/tokenizer/enum.TagKind.html' title='xml5ever::tokenizer::TagKind'>EmptyTag</a>;</code></td></tr><tr><td><code>pub use self::<a class='mod'
+                                       href='./interface/index.html'>interface</a>::<a class='enum' href='../../xml5ever/tokenizer/enum.TagKind.html' title='xml5ever::tokenizer::TagKind'>ShortTag</a>;</code></td></tr><tr><td><code>pub use self::<a class='mod'
+                                       href='./interface/index.html'>interface</a>::<a class='enum' href='../../xml5ever/tokenizer/enum.Token.html' title='xml5ever::tokenizer::Token'>DoctypeToken</a>;</code></td></tr><tr><td><code>pub use self::<a class='mod'
+                                       href='./interface/index.html'>interface</a>::<a class='enum' href='../../xml5ever/tokenizer/enum.Token.html' title='xml5ever::tokenizer::Token'>TagToken</a>;</code></td></tr><tr><td><code>pub use self::<a class='mod'
+                                       href='./interface/index.html'>interface</a>::<a class='enum' href='../../xml5ever/tokenizer/enum.Token.html' title='xml5ever::tokenizer::Token'>PIToken</a>;</code></td></tr><tr><td><code>pub use self::<a class='mod'
+                                       href='./interface/index.html'>interface</a>::<a class='enum' href='../../xml5ever/tokenizer/enum.Token.html' title='xml5ever::tokenizer::Token'>CommentToken</a>;</code></td></tr><tr><td><code>pub use self::<a class='mod'
+                                       href='./interface/index.html'>interface</a>::<a class='enum' href='../../xml5ever/tokenizer/enum.Token.html' title='xml5ever::tokenizer::Token'>CharacterTokens</a>;</code></td></tr><tr><td><code>pub use self::<a class='mod'
+                                       href='./interface/index.html'>interface</a>::<a class='enum' href='../../xml5ever/tokenizer/enum.Token.html' title='xml5ever::tokenizer::Token'>EOFToken</a>;</code></td></tr><tr><td><code>pub use self::<a class='mod'
+                                       href='./interface/index.html'>interface</a>::<a class='enum' href='../../xml5ever/tokenizer/enum.Token.html' title='xml5ever::tokenizer::Token'>NullCharacterToken</a>;</code></td></tr><tr><td><code>pub use self::<a class='mod'
+                                       href='./interface/index.html'>interface</a>::<a class='enum' href='../../xml5ever/tokenizer/enum.Token.html' title='xml5ever::tokenizer::Token'>ParseError</a>;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
                        <tr class=' module-item'>
-                           <td><a class="mod" href="states/index.html"
-                                  title='mod xml5ever::tokenizer::states'>states</a></td>
+                           <td><a class='mod' href='states/index.html'
+                                  title='xml5ever::tokenizer::states'>states</a></td>
                            <td class='docblock-short'>
                                 <p>Tokenizer states.</p>
                            </td>
                        </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.Attribute.html"
-                                  title='struct xml5ever::tokenizer::Attribute'>Attribute</a></td>
+                           <td><a class='struct' href='struct.Attribute.html'
+                                  title='xml5ever::tokenizer::Attribute'>Attribute</a></td>
                            <td class='docblock-short'>
                                 <p>A tag attribute.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.Doctype.html"
-                                  title='struct xml5ever::tokenizer::Doctype'>Doctype</a></td>
+                           <td><a class='struct' href='struct.Doctype.html'
+                                  title='xml5ever::tokenizer::Doctype'>Doctype</a></td>
                            <td class='docblock-short'>
                                 <p>A <code>DOCTYPE</code> token.
 Doctype token in XML5 is rather limited for reasons, such as:
@@ -79,81 +91,81 @@ name, public identifier and system identifier</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.Pi.html"
-                                  title='struct xml5ever::tokenizer::Pi'>Pi</a></td>
+                           <td><a class='struct' href='struct.Pi.html'
+                                  title='xml5ever::tokenizer::Pi'>Pi</a></td>
                            <td class='docblock-short'>
                                 <p>A ProcessingInstruction token.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.QName.html"
-                                  title='struct xml5ever::tokenizer::QName'>QName</a></td>
+                           <td><a class='struct' href='struct.QName.html'
+                                  title='xml5ever::tokenizer::QName'>QName</a></td>
                            <td class='docblock-short'>
                                 <p>Fully qualified name. Used to depict names of tags and attributes.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.Tag.html"
-                                  title='struct xml5ever::tokenizer::Tag'>Tag</a></td>
+                           <td><a class='struct' href='struct.Tag.html'
+                                  title='xml5ever::tokenizer::Tag'>Tag</a></td>
                            <td class='docblock-short'>
                                 <p>XML 5 Tag Token</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.XmlTokenizer.html"
-                                  title='struct xml5ever::tokenizer::XmlTokenizer'>XmlTokenizer</a></td>
+                           <td><a class='struct' href='struct.XmlTokenizer.html'
+                                  title='xml5ever::tokenizer::XmlTokenizer'>XmlTokenizer</a></td>
                            <td class='docblock-short'>
                                 <p>The Xml tokenizer.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="struct" href="struct.XmlTokenizerOpts.html"
-                                  title='struct xml5ever::tokenizer::XmlTokenizerOpts'>XmlTokenizerOpts</a></td>
+                           <td><a class='struct' href='struct.XmlTokenizerOpts.html'
+                                  title='xml5ever::tokenizer::XmlTokenizerOpts'>XmlTokenizerOpts</a></td>
                            <td class='docblock-short'>
                                 <p>Copy of Tokenizer options, with an impl for <code>Default</code>.</p>
                            </td>
                        </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
 <table>
                        <tr class=' module-item'>
-                           <td><a class="enum" href="enum.TagKind.html"
-                                  title='enum xml5ever::tokenizer::TagKind'>TagKind</a></td>
+                           <td><a class='enum' href='enum.TagKind.html'
+                                  title='xml5ever::tokenizer::TagKind'>TagKind</a></td>
                            <td class='docblock-short'>
                                 <p>Tag kind denotes which kind of tag did we encounter.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="enum" href="enum.Token.html"
-                                  title='enum xml5ever::tokenizer::Token'>Token</a></td>
+                           <td><a class='enum' href='enum.Token.html'
+                                  title='xml5ever::tokenizer::Token'>Token</a></td>
                            <td class='docblock-short'>
                                 <p>Describes tokens encountered during parsing of input.</p>
                            </td>
                        </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
 <table>
                        <tr class=' module-item'>
-                           <td><a class="trait" href="trait.TokenSink.html"
-                                  title='trait xml5ever::tokenizer::TokenSink'>TokenSink</a></td>
+                           <td><a class='trait' href='trait.TokenSink.html'
+                                  title='xml5ever::tokenizer::TokenSink'>TokenSink</a></td>
                            <td class='docblock-short'>
                                 <p>Types which can receive tokens from the tokenizer.</p>
                            </td>
                        </tr></table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
 <table>
                        <tr class=' module-item'>
-                           <td><a class="type" href="type.LocalName.html"
-                                  title='type xml5ever::tokenizer::LocalName'>LocalName</a></td>
+                           <td><a class='type' href='type.LocalName.html'
+                                  title='xml5ever::tokenizer::LocalName'>LocalName</a></td>
                            <td class='docblock-short'>
                                 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="type" href="type.Namespace.html"
-                                  title='type xml5ever::tokenizer::Namespace'>Namespace</a></td>
+                           <td><a class='type' href='type.Namespace.html'
+                                  title='xml5ever::tokenizer::Namespace'>Namespace</a></td>
                            <td class='docblock-short'>
                                 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class="type" href="type.Prefix.html"
-                                  title='type xml5ever::tokenizer::Prefix'>Prefix</a></td>
+                           <td><a class='type' href='type.Prefix.html'
+                                  title='xml5ever::tokenizer::Prefix'>Prefix</a></td>
                            <td class='docblock-short'>
                                 
                            </td>
