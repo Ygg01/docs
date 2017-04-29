@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'>Enum EncoderTrap</p><div class="block items"><ul><li><a href="#variants">Variants</a></li><li><a href="#methods">Methods</a></li><li><a href="#implementations">Trait Implementations</a></li></ul></div><p class='location'><a href='../index.html'>encoding</a>::<wbr><a href='index.html'>types</a></p><script>window.sidebarCurrent = {name: 'EncoderTrap', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'><a href='../index.html'>encoding</a>::<wbr><a href='index.html'>types</a></p><script>window.sidebarCurrent = {name: 'EncoderTrap', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -55,7 +55,7 @@
     Ignore,
     NcrEscape,
     Call(<a class="type" href="../../encoding/types/type.EncoderTrapFunc.html" title="type encoding::types::EncoderTrapFunc">EncoderTrapFunc</a>),
-}</pre><h2 id='variants' class='variants'>Variants</h2>
+}</pre><h2 class='variants'>Variants</h2>
 <span id='variant.Strict' class='variant'><span id='Strict.v' class='invisible'><code>Strict</code></span></span><div class='docblock'><p>Immediately fails on errors.
 Corresponds to WHATWG &quot;fatal&quot; error algorithm.</p>
 </div><span id='variant.Replace' class='variant'><span id='Replace.v' class='invisible'><code>Replace</code></span></span><div class='docblock'><p>Replaces an error with <code>?</code> in given encoding.
@@ -69,7 +69,7 @@ Corresponds to WHATWG &quot;<form>&quot; error algorithms.</p>
 The function is given the current encoder, input and output writer,
 and should return true only when it is fine to keep going.</p>
 </div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class="enum" href="../../encoding/types/enum.EncoderTrap.html" title="enum encoding::types::EncoderTrap">EncoderTrap</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/encoding/types.rs.html#364-395' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.trap' class="method"><span id='trap.v' class='invisible'><code>fn <a href='#method.trap' class='fnname'>trap</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;encoder: &amp;mut <a class="trait" href="../../encoding/types/trait.RawEncoder.html" title="trait encoding::types::RawEncoder">RawEncoder</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;input: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;output: &amp;mut <a class="trait" href="../../encoding/types/trait.ByteWriter.html" title="trait encoding::types::ByteWriter">ByteWriter</a><br>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span></h4>
+<div class='impl-items'><h4 id='method.trap' class="method"><span id='trap.v' class='invisible'><code>fn <a href='#method.trap' class='fnname'>trap</a>(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; encoder: &amp;mut <a class="trait" href="../../encoding/types/trait.RawEncoder.html" title="trait encoding::types::RawEncoder">RawEncoder</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; input: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; output: &amp;mut <a class="trait" href="../../encoding/types/trait.ByteWriter.html" title="trait encoding::types::ByteWriter">ByteWriter</a>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span></h4>
 <div class='docblock'><p>Handles an encoder error. May write to the output writer.
 Returns true only when it is fine to keep going.</p>
 </div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html" title="trait core::marker::Copy">Copy</a> for <a class="enum" href="../../encoding/types/enum.EncoderTrap.html" title="enum encoding::types::EncoderTrap">EncoderTrap</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/encoding/types.rs.html#343' title='goto source code'>[src]</a></span></h3>
