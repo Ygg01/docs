@@ -253,6 +253,9 @@
 <span id="209">209</span>
 <span id="210">210</span>
 <span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2015 The xml5ever Project Developers. See the</span>
 <span class='comment'>// COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -457,6 +460,9 @@
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>TokenSink</span> {
     <span class='doccomment'>/// Process a token.</span>
     <span class='kw'>fn</span> <span class='ident'>process_token</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>token</span>: <span class='ident'>Token</span>);
+
+    <span class='doccomment'>/// Signal to the sink that parsing has ended.</span>
+    <span class='kw'>fn</span> <span class='ident'>end</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {}
 
     <span class='doccomment'>/// The tokenizer will call this after emitting any start tag.</span>
     <span class='doccomment'>/// This allows the tree builder to change the tokenizer&#39;s state.</span>
